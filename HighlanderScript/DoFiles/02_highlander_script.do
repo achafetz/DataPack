@@ -20,12 +20,13 @@
 	keep if (indicator=="HTC_TST" & ///
 		inlist(disaggregate, "Age/Sex/Result", ///
 			"Age/Sex Aggregated/Result", "Results", "Total Numerator")) | ///
-		(indicator=="CARE_NEW" & inlist(disaggregate, "Age/Sex", ///
-			"Age/Sex Aggregated", "Total Numerator")) | ///
-		(indicator=="TX_NEW" & inlist(disaggregate, "Age/Sex", ///
-			"Age/Sex Aggregated", "Total Numerator")) | ///
+		///(indicator=="CARE_NEW" & inlist(disaggregate, "Age/Sex", ///
+			///"Age/Sex Aggregated", "Total Numerator")) | ///
 		(indicator=="TX_CURR" & inlist(disaggregate,"Age/Sex", ///
+			"Age/Sex Aggregated", "Age/Sex, Aggregated", "Total Numerator")) | ///
+		(indicator=="TX_NEW" & inlist(disaggregate, "Age/Sex", ///
 			"Age/Sex Aggregated", "Total Numerator"))
+
 
 * merge in aggregated Highlander Script age groups & edit type
 	merge m:1 age using  "$output\temp_agegpcw.dta", nogen keep(match master)
@@ -44,10 +45,13 @@
 			typecommunity =="Y"
 		replace fcm_uid = "m_" + mechanismuid if typemilitary=="Y" 
 
-* collapse so one observation per site (removed fundingagency mechanismid)
+* collapse so one observation per site (removed fundingagency)
 	collapse (sum) fy*, by(operatingunit psnu psnuuid snuprioritization ///
-		fcm_uid indicatortype indicator hs_type) 
+		fcm_uid indicatortype indicator hs_type mechanismid) 
 
+*drop dedups (apply decision at after with merge)
+	drop if inlist(mechanismid, 0, 1)
+	
 * remove any sites with no data for all quarters 
 	drop fy2016_targets *apr
 		/*want to just look at quarterly data; apr should be recalculatedneed 
@@ -58,8 +62,6 @@
 	drop rowtot
 
 * reshape long so fiscal years are in rows
-	*create id for reshape
-		egen id = group(psnuuid fcm_uid indicatortype indicator hs_type)
 	*rename fiscal years to (1) have common stub and (2) retain their name in reshape 
 		ds fy*
 		foreach yr in `r(varlist)'{
@@ -67,17 +69,15 @@
 			}
 			*end
 	*reshape
-		reshape long y@, i(id) j(pd, string)	
-		drop id //needed for reshape
+		reshape long y@, i(psnuuid fcm_uid mechanismid indicatortype ///
+			indicator hs_type) j(pd, string)	
 
 *reshape wide, adding Highlander types as columns for doing analysis
-	*create id for reshape
-		egen id = group(psnuuid fcm_uid indicatortype indicator pd)
 	*remove space in name for reshape
 		replace hs_type = "TotNum" if hs_type=="Total Numerator"
 	* reshape
-		reshape wide y, i(id) j(hs_type, string)
-		drop id //needed for reshape
+		reshape wide y, i(psnuuid fcm_uid mechanismid indicatortype ///
+			indicator pd) j(hs_type, string)
 	* clean up names, removing y and making lower case
 		ds y*
 		foreach x in `r(varlist)'{
@@ -156,7 +156,6 @@
 			7 "Coarse (max, no num)" 8 "Result (no fine/coarse)" ///
 			9 "Total Num (no disaggs)"
 		lab val hsc hsc
-
 		replace hsc = 1 if (f_pct>=.95 & f_pct<=1)
 		replace hsc = 2 if (c_pct>=.95 & c_pct<=1) & hsc==.
 		replace hsc = 3 if (fc_pct>=.95 & fc_pct<=1) & hsc==.
@@ -188,6 +187,7 @@
 	save "temp_hsc_sa", replace
 
 *****************************************
+
 *reopen original site file 
 	use "$fvdata/ALL Site Dataset 20160915/southafrica", clear
 	
@@ -195,8 +195,8 @@
 	keep if (indicator=="HTC_TST" & ///
 		inlist(disaggregate, "Age/Sex/Result", ///
 			"Age/Sex Aggregated/Result", "Results", "Total Numerator")) | ///
-		(indicator=="CARE_NEW" & inlist(disaggregate, "Age/Sex", ///
-			"Age/Sex Aggregated", "Total Numerator")) | ///
+		///(indicator=="CARE_NEW" & inlist(disaggregate, "Age/Sex", ///
+			///"Age/Sex Aggregated", "Total Numerator")) | ///
 		(indicator=="TX_NEW" & inlist(disaggregate, "Age/Sex", ///
 			"Age/Sex Aggregated", "Total Numerator")) | ///
 		(indicator=="TX_CURR" & inlist(disaggregate,"Age/Sex", ///
@@ -241,24 +241,22 @@
 	save templongsa, replace
 	use templongsa, clear
 	
-		merge m:1 pd psnuuid fcm_uid indicator indicatortype ///
+		merge m:1 pd psnuuid fcm_uid indicator indicatortype mechanismid ///
 			using "temp_hsc_sa", nogen
 	
 	*fill missing
-	ds, not(type int long float)
-	foreach v in `r(varlist)'{
-		replace `v' = "na" if `v'==""
-		}
-		*end
+		ds, not(type int long float)
+		foreach v in `r(varlist)'{
+			replace `v' = "na" if `v'==""
+			}
+			*end
 
-	
 	*remove space in name for reshape
 		replace hs_type = "TotNum" if hs_type=="Total Numerator"
 
 	*reshape
 		egen id = group(pd psnuuid fcm_uid mechanismid indicator indicatortype ///
-			disaggregate age sex result otherdisaggregate)
-			
+			disaggregate age sex result otherdisaggregate)	
 		reshape wide y, i(id) j(hs_type, string)
 		drop id
 	* clean up names, removing y and making lower case
@@ -267,7 +265,8 @@
 			rename `x' `=lower("`=subinstr("`x'","y","",.)'")'
 			}
 			*end
-	
+		replace hsc = 99 if hsc==.
+			lab def hsc 99 "n/a", modify
 	*drop blank rows
 		egen rowtot = rowtotal (coarse finer results totnum)
 		drop if rowtot==0
@@ -277,5 +276,39 @@
 			replace hsval=finer if inlist(hsc, 1,4,6)
 			replace hsval=coarse if inlist(hsc, 2,5,7)
 			replace hsval=finer + coarse if hsc==3
-			replace hsval=result if hsc==8
+			replace hsval=results if hsc==8
 			replace hsval=totnum if hsc==9
+	
+	*drop 
+		drop coarse-totnum
+	*reshape
+		egen id = group(psnuuid fcm_uid mechanismid indicator indicatortype ///
+			disaggregate age sex result otherdisaggregate hsc)
+		reshape wide hsval, i(id) j(pd, string)
+		drop id
+	*remove hsval
+		ds hsval*
+		foreach x in `r(varlist)'{
+			rename `x' `=subinstr("`x'","hsval","",.)'
+			}
+			*end
+	
+	*drop blank rows
+		egen rowtot = rowtotal (fy*)
+		drop if rowtot==0
+		drop rowtot
+	*remove na
+		ds, not(type int long float)
+			foreach v in `r(varlist)'{
+				replace `v' = "" if `v'=="na"
+				}
+				*end
+	*reorder
+		drop fcm_uid 
+		order fy*, after(hsc)
+	*add 
+		egen fy2015apr = rowtotal(fy2015q2 fy2015q3 fy2015q4)
+		egen fy2015apr_tx = rowtotal(fy2015q2 fy2015q4) ///
+			if indicator=="TX_CURR" & fy2015q3!=.
+		replace fy2015apr = fy2015apr_tx if fy2015apr_tx!=.
+		drop fy2015apr
