@@ -3,17 +3,12 @@
 **   Aaron Chafetz
 **   Purpose: develop a model of the Highlander Script
 **   Date: October 19, 2016
-**   Updated: 10/21
+**   Updated: 10/22
 
 /* NOTES
 	- Data source: ICPI_Fact_View_Site_IM_20160915 [ICPI Data Store]
 */
 ********************************************************************************
-
-*set upper and lower bounds for completeness
-	*95-101%
-	global lb .95
-	global ub 1.01
 
 * open data
 	use  "$output/temp_orig_site_${ctry}", replace //run 02_highlander_import first

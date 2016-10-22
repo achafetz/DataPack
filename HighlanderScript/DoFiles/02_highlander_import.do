@@ -10,9 +10,6 @@
 */
 ********************************************************************************
 
-*datestamp for latest site file
-	global datestamp "20160915"
-
 * import all countries 	
 	foreach ou of global ctrylist{
 	
