@@ -48,7 +48,7 @@
 
 *reshape
 	egen id = group(pd psnuuid fcm_uid mechanismid indicator indicatortype ///
-		implementingmechanismname disaggregate age sex result ///
+		primepartner implementingmechanismname disaggregate age sex result ///
 		otherdisaggregate status)	
 	reshape wide y, i(id) j(hs_type, string)
 	drop id 
@@ -103,6 +103,13 @@
 	order fy*, after(hsc)
 
 *add apr figure
+	*some countries missing quarters (eg Caribbean)
+	foreach i of numlist 2/4{
+		capture confirm variable fy2015q`i'
+		if _rc qui: gen fy2015q`i'= .
+		}
+		*end
+		order fy2015q2 fy2015q3 fy2015q4, after(hsc)
 	egen fy2015apr = rowtotal(fy2015q2 fy2015q3 fy2015q4)
 	egen fy2015apr_tx = rowtotal(fy2015q2 fy2015q4) ///
 		if indicator=="TX_CURR" & fy2015q3!=.
