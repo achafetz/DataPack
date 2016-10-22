@@ -37,9 +37,9 @@
 		using "$output\temp_hs_choice_${ctry}", nogen
 
 *fill missing
-	ds, not(type int long float byte)
+	ds, has(type string)
 	foreach v in `r(varlist)'{
-		replace `v' = "na" if `v'=="" | `v'=="NULL"
+		qui: replace `v' = "na" if `v'=="" | `v'=="NULL"
 		}
 		*end
 
@@ -93,9 +93,9 @@
 	drop if rowtot==0
 	drop rowtot
 *remove na
-	ds, not(type int long float byte)
+	ds, has(type string)
 		foreach v in `r(varlist)'{
-			replace `v' = "" if `v'=="na"
+			qui: replace `v' = "" if `v'=="na"
 			}
 			*end
 *reorder

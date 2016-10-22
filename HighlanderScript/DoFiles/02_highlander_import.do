@@ -51,9 +51,10 @@
 			* military doesn't have a unique id so script uses mechanism uid
 		tostring type*, replace
 		gen fcm_uid = ""
-			replace fcm_uid = "f_" + facilityuid
+		gen fcm_uid = ""
+			replace fcm_uid = "f_" + facilityuid if facilityuid==""
 			replace fcm_uid = "c_" + communityuid if facilityuid=="" &  ///
-				typecommunity =="Y"
+				(typecommunity =="Y" | communityuid!="") & typemilitary!="Y"
 			replace fcm_uid = "m_" + mechanismuid if typemilitary=="Y" 
 		
 		qui: save  "$output/temp_orig_site_`ou'", replace

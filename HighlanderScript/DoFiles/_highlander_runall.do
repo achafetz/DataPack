@@ -14,9 +14,14 @@
 	* 01 create a crosswalk table for highlander age groups and categories
 		run DoFiles/01_highlander_agegroups
 	*define list of countries to run the highlander script on
-		global ctrylist angola asiaregional botswana burma burundi cambodia ///
+		/*global ctrylist angola asiaregional botswana burma burundi cambodia ///
 			cameroon caribbeanregion centralamerica centralasia civ ///
 			dominicanrepublic drc ethiopia ghana guyana haiti india indonesia ///
+			kenya lesotho malawi mozambique namibia nigeria png rwanda ///
+			southafrica southsudan swaziland tanzania uganda ukraine ////
+			vietnam zambia zimbabwe
+		*/
+		global ctrylist  ///
 			kenya lesotho malawi mozambique namibia nigeria png rwanda ///
 			southafrica southsudan swaziland tanzania uganda ukraine ////
 			vietnam zambia zimbabwe
@@ -27,9 +32,11 @@
 	foreach ou of global ctrylist{
 		global ctry `ou'
 	* 03 run Highlander Script on countries to make finer/coarse/... selection
+		di in yellow "`=upper("${ctry}")': running 03 choice"
 		run DoFiles/03_highlander_choice
 	* 04 apply selection to full dataset
-		run DoFiles/03_highlander_apply
+		di in yellow "`=upper("${ctry}")': running 04 apply"
+		run DoFiles/04_highlander_apply
 	}
 	*end
 
