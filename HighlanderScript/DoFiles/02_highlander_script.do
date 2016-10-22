@@ -3,30 +3,27 @@
 **   Aaron Chafetz
 **   Purpose: develop a model of the Highlander Script
 **   Date: October 19, 2016
-**   Updated: 10/20
+**   Updated: 10/21
 
 /* NOTES
 	- Data source: ICPI_Fact_View_Site_IM_20160915 [ICPI Data Store]
 */
 ********************************************************************************
 
-* import data
-	import delimited ///
-		"$fvdata/ALL Site Dataset 20160915/site_im_20160915_southafrica.txt", clear  
-	save "$fvdata/ALL Site Dataset 20160915/southafrica"
-	use "$fvdata/ALL Site Dataset 20160915/southafrica", clear
+*loop over all countries
+	*angola asiaregional botswana burma burundi cambodia
+	local ctrylist     ///
+		cameroon caribbeanregion centralamerica centralasia civ ///
+		dominicanrepublic drc ethiopia ghana guyana haiti india indonesia ///
+		kenya lesotho malawi mozambique namibia nigeria png rwanda ///
+		southafrica southsudan swaziland tanzania uganda ukraine ////
+		vietnam zambia zimbabwe
+	foreach ou of local ctrylist{
+		di "`=upper(`ou')'" in yellow
 	
-* keep only HTC_TST, CARE_NEW, TX_NEW, and TX_CURR
-	keep if (indicator=="HTC_TST" & ///
-		inlist(disaggregate, "Age/Sex/Result", ///
-			"Age/Sex Aggregated/Result", "Results", "Total Numerator")) | ///
-		///(indicator=="CARE_NEW" & inlist(disaggregate, "Age/Sex", ///
-			///"Age/Sex Aggregated", "Total Numerator")) | ///
-		(indicator=="TX_CURR" & inlist(disaggregate,"Age/Sex", ///
-			"Age/Sex Aggregated", "Age/Sex, Aggregated", "Total Numerator")) | ///
-		(indicator=="TX_NEW" & inlist(disaggregate, "Age/Sex", ///
-			"Age/Sex Aggregated", "Total Numerator"))
-
+* import data
+	use  "$output/temp_orig_site_`ou'", replace //run 02_highlander_convert first
+	* only HTC_TST, TX_NEW, and TX_CURR
 
 * merge in aggregated Highlander Script age groups & edit type
 	merge m:1 age using  "$output\temp_agegpcw.dta", nogen keep(match master)
@@ -39,6 +36,7 @@
 * create a unique id by type (facility, community, military)
 	* demarcated by f, c, and m at front
 	* military doesn't have a unique id so script uses mechanism uid
+	tostring type*, replace
 	gen fcm_uid = ""
 		replace fcm_uid = "f_" + facilityuid
 		replace fcm_uid = "c_" + communityuid if facilityuid=="" &  ///
@@ -75,6 +73,7 @@
 *reshape wide, adding Highlander types as columns for doing analysis
 	*remove space in name for reshape
 		replace hs_type = "TotNum" if hs_type=="Total Numerator"
+
 	* reshape
 		reshape wide y, i(psnuuid fcm_uid mechanismid indicatortype ///
 			indicator pd) j(hs_type, string)
@@ -168,39 +167,17 @@
 
 *keep only variables pertinent to site information for merge
 	drop coarse-totnum r_pct hs_num-c_prox hs_num_desc
-/*don't reshape		
-*reshape for merging back to original dataset
-	*create id for reshaping
-		egen id = group(indicator indicatortype fcm_uid psnuuid)
-	*rename hsc to tag onto fy
-		rename hsc _hsc
-	*reshape wide
-		reshape wide @_hsc, i(id) j(pd, string)
-		drop id  //needed for reshape
-*/
+
 *sort for merging
 	sort psnuuid fcm_uid indicator indicatortype 
 
 *save for merging
-	*tempfile temp_hsc
-	*save "`temp_hsc'"
-	save "temp_hsc_sa", replace
+	save "temp_hs_choice_`ou'", replace
 
-*****************************************
+*******************************************************************************
 
 *reopen original site file 
-	use "$fvdata/ALL Site Dataset 20160915/southafrica", clear
-	
-* keep only HTC_TST, CARE_NEW, TX_NEW, and TX_CURR
-	keep if (indicator=="HTC_TST" & ///
-		inlist(disaggregate, "Age/Sex/Result", ///
-			"Age/Sex Aggregated/Result", "Results", "Total Numerator")) | ///
-		///(indicator=="CARE_NEW" & inlist(disaggregate, "Age/Sex", ///
-			///"Age/Sex Aggregated", "Total Numerator")) | ///
-		(indicator=="TX_NEW" & inlist(disaggregate, "Age/Sex", ///
-			"Age/Sex Aggregated", "Total Numerator")) | ///
-		(indicator=="TX_CURR" & inlist(disaggregate,"Age/Sex", ///
-			"Age/Sex Aggregated", "Total Numerator"))
+	use "$output/temp_orig_site_`ou'", clear
 
 * merge in aggregated Highlander Script age groups & edit type
 	merge m:1 age using  "$output\temp_agegpcw.dta", nogen keep(match master)
@@ -213,6 +190,7 @@
 * create a unique id by type (facility, community, military)
 	* demarcated by f, c, and m at front
 	* military doesn't have a unique id so script uses mechanism uid
+	tostring type*, replace
 	gen fcm_uid = ""
 		replace fcm_uid = "f_" + facilityuid
 		replace fcm_uid = "c_" + communityuid if facilityuid=="" &  ///
@@ -228,7 +206,7 @@
 	*create id for reshape
 		gen id = _n
 	*rename fiscal years to (1) have common stub and (2) retain their name in reshape 
-		drop fy2015apr fy2016_target
+		drop fy2015apr
 		ds fy*
 		foreach yr in `r(varlist)'{
 			rename `yr' y`yr'
@@ -237,15 +215,15 @@
 	*reshape
 		reshape long y@, i(id) j(pd, string)	
 		drop id //needed for reshape	
-	
-	save templongsa, replace
-	use templongsa, clear
-	
+
+*******************************************************************************
+		
+	*merge 
 		merge m:1 pd psnuuid fcm_uid indicator indicatortype mechanismid ///
-			using "temp_hsc_sa", nogen
+			using "temp_hs_choice_`ou'", nogen
 	
 	*fill missing
-		ds, not(type int long float)
+		ds, not(type int long float byte)
 		foreach v in `r(varlist)'{
 			replace `v' = "na" if `v'==""
 			}
@@ -256,9 +234,10 @@
 
 	*reshape
 		egen id = group(pd psnuuid fcm_uid mechanismid indicator indicatortype ///
-			disaggregate age sex result otherdisaggregate)	
+			implementingmechanismname disaggregate age sex result ///
+			otherdisaggregate)	
 		reshape wide y, i(id) j(hs_type, string)
-		drop id
+		drop id 
 	* clean up names, removing y and making lower case
 		ds y*
 		foreach x in `r(varlist)'{
@@ -271,6 +250,7 @@
 		egen rowtot = rowtotal (coarse finer results totnum)
 		drop if rowtot==0
 		drop rowtot
+	
 	*highlander value
 		gen hsval =.
 			replace hsval=finer if inlist(hsc, 1,4,6)
@@ -298,17 +278,32 @@
 		drop if rowtot==0
 		drop rowtot
 	*remove na
-		ds, not(type int long float)
+		ds, not(type int long float byte)
 			foreach v in `r(varlist)'{
 				replace `v' = "" if `v'=="na"
 				}
 				*end
 	*reorder
-		drop fcm_uid 
+		drop fcm_uid status
 		order fy*, after(hsc)
-	*add 
+	
+	*add apr figure
 		egen fy2015apr = rowtotal(fy2015q2 fy2015q3 fy2015q4)
 		egen fy2015apr_tx = rowtotal(fy2015q2 fy2015q4) ///
 			if indicator=="TX_CURR" & fy2015q3!=.
 		replace fy2015apr = fy2015apr_tx if fy2015apr_tx!=.
-		drop fy2015apr
+		drop fy2015apr_tx
+		order fy2015apr, after(fy2015q4)
+	
+	*highlander flag
+		gen highlander = "Y"
+		order highlander, before(fy2015q2)
+	
+	*collapse to psnu level
+		collapse (sum) fy*, by(ïregion-implementingmechanismname indicator-highlander)
+		
+	*save
+		save "$output/hs_psnu_`ou'", replace
+		di "Save: `ou'" in yellow
+	}
+	*end
