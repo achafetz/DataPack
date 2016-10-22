@@ -99,7 +99,12 @@
 		replace hs_num = result if inlist(hs_num_desc, 2, 3)
 		lab var hs_num "Highlander Numerator"
 		
-* create Highlander indicators used for making selection	
+* create Highlander indicators used for making selection
+	foreach v in finer coarse results totnum{
+		capture confirm variable `v'
+		if _rc qui: gen `v'=.
+		}
+	order coarse finer results totnum , before(operatingunit)
 	gen f_pct = finer/hs_num
 	gen c_pct = coarse/hs_num
 	gen fc_pct= (finer + coarse)/hs_num

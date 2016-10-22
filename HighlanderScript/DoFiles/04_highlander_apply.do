@@ -77,7 +77,7 @@
 	drop coarse-totnum
 *reshape
 	egen id = group(psnuuid fcm_uid implementingmechanismname mechanismid ///
-		indicator indicatortype disaggregate age sex result ///
+		primepartner indicator indicatortype disaggregate age sex result ///
 		otherdisaggregate status hsc)
 	reshape wide hsval, i(id) j(pd, string)
 	drop id

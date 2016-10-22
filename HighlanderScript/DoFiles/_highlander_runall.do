@@ -10,33 +10,33 @@
 ** SETUP **
 	* 00 initialize folder structure
 		*cd "C:\Users\achafetz\Documents\GitHubICPI\HighlanderScript"
+		di in yellow "   00 initialize"
 		run DoFiles/00_highlander_initialize
 	* 01 create a crosswalk table for highlander age groups and categories
+		di in yellow "   01 generate crosswalk table"
 		run DoFiles/01_highlander_agegroups
-	*define list of countries to run the highlander script on
-		/*global ctrylist angola asiaregional botswana burma burundi cambodia ///
+	* define list of countries to run the highlander script on
+		global ctrylist angola asiaregional botswana burma burundi cambodia ///
 			cameroon caribbeanregion centralamerica centralasia civ ///
 			dominicanrepublic drc ethiopia ghana guyana haiti india indonesia ///
 			kenya lesotho malawi mozambique namibia nigeria png rwanda ///
 			southafrica southsudan swaziland tanzania uganda ukraine ////
 			vietnam zambia zimbabwe
-		*/
-		global ctrylist  ///
-			kenya lesotho malawi mozambique namibia nigeria png rwanda ///
-			southafrica southsudan swaziland tanzania uganda ukraine ////
-			vietnam zambia zimbabwe
 	* 02 import data and structure it for use
+		di in yellow "   03 import site data
 		run DoFiles/02_highlander_import
 		
 ** HIGHLANDER SCRIPT **
 	foreach ou of global ctrylist{
 		global ctry `ou'
 	* 03 run Highlander Script on countries to make finer/coarse/... selection
-		di in yellow "`=upper("${ctry}")': running 03 choice"
+		di in yellow "`=upper("${ctry}")':" _newline "   03 choice ...running "
 		run DoFiles/03_highlander_choice
 	* 04 apply selection to full dataset
-		di in yellow "`=upper("${ctry}")': running 04 apply"
+		di in yellow "   04 apply  ...running"
 		run DoFiles/04_highlander_apply
+		di in yellow "             ...saved"
+		
 	}
 	*end
 

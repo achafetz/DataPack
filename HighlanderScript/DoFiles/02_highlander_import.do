@@ -20,7 +20,7 @@
 	capture confirm file "$output/temp_orig_site_`ou'"
 	*if not file exists, import it
 	if _rc{
-		di in yellow "`ou': import site level data"
+		di in yellow "`=upper(`ou')': import site level data"
 		
 		*import
 		qui: import delimited ///
@@ -51,8 +51,7 @@
 			* military doesn't have a unique id so script uses mechanism uid
 		tostring type*, replace
 		gen fcm_uid = ""
-		gen fcm_uid = ""
-			replace fcm_uid = "f_" + facilityuid if facilityuid==""
+			replace fcm_uid = "f_" + facilityuid if facilityuid!=""
 			replace fcm_uid = "c_" + communityuid if facilityuid=="" &  ///
 				(typecommunity =="Y" | communityuid!="") & typemilitary!="Y"
 			replace fcm_uid = "m_" + mechanismuid if typemilitary=="Y" 
