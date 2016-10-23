@@ -11,16 +11,17 @@
 ********************************************************************************
 
 *append all ou files together for PSNU and site/IM level choices
-	cd "$output\"
 	foreach t in choice psnu{
-		fs "temp_hs_`t'*.dta"
-		append using `r(files)', force
-		save "$output\hs_`t'_ALL", replace
+		fs "$output/temp_hs_`t'_*.dta"
+		foreach f in `r(files)' {
+			qui: append using "$output/`f'", force
+		}
+		save "$output/hs_`t'_ALL", replace
 	}
 	*end
 	
 *append composite file to PSNU by IM Fact View dataset
-	use "$fvdata\ICPIFactView_SNUbyIM20160909", clear
-	append using "$output\hs_psnu_ALL"
+	use "$fvdata/ICPIFactView_SNUbyIM20160909", clear
+	qui: append using "$output/hs_psnu_ALL"
 	order hs_agegp hsc highlander, before(fy2015q2)
-	save "$fvdata\ICPIFactView_SNUbyIM_Highlander_20160909", replace
+	save "$fvdata/ICPIFactView_SNUbyIM_Highlander_20160909", replace

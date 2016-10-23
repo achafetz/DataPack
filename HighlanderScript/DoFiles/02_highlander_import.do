@@ -10,18 +10,16 @@
 */
 ********************************************************************************
 
-* import all countries 	
-	foreach ou of global ctrylist{
-	
+
 *check to see if site level dta file exists
-	capture confirm file "$output/temp_orig_site_`ou'.dta"
+	capture confirm file "$output/temp_orig_site_${ctry}.dta"
 	*if not file exists, import it
 	if _rc{
-		di in yellow "`=upper(`ou')': import site level data"
+		di in yellow "`=upper(${ctry})': import site level data"
 		
 		*import
 		qui: import delimited ///
-			"$fvdata/ALL Site Dataset ${datestamp}/site_im_${datestamp}_`ou'.txt", ///
+			"$fvdata/ALL Site Dataset ${datestamp}/site_im_${datestamp}_${ctry}.txt", ///
 			clear
 			
 		*keep only HTC_TST, TX_NEW, and TX_CURR
@@ -54,12 +52,11 @@
 				(typecommunity =="Y" | communityuid!="") & typemilitary!="Y"
 			replace fcm_uid = "m_" + mechanismuid if typemilitary=="Y" 
 		
-		qui: save  "$output/temp_orig_site_`ou'", replace
+		qui: save  "$output/temp_orig_site_${ctry}", replace
 		clear
 	}
 	else{
-		di in yellow"`ou': site level dta file exists"
-	}
+		di in yellow"${ctry}: site level dta file exists"
 	}
 	*end
 	

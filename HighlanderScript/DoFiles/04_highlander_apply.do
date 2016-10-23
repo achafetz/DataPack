@@ -125,4 +125,4 @@
 	collapse (sum) fy*, by(ïregion-implementingmechanismname indicator-highlander)
 	
 *save
-	save "$output/tem_hs_psnu_${ctry}", replace
+	save "$output/temp_hs_psnu_${ctry}", replace
