@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: import site level Fact View dataset for each OU
 **   Date: October 21, 2016
-**   Updated: 10/22
+**   Updated: 10/23
 
 /* NOTES
 	- Data source: ICPI_Fact_View_Site_IM_20160915 [ICPI Data Store]
@@ -14,7 +14,7 @@
 	foreach ou of global ctrylist{
 	
 *check to see if site level dta file exists
-	capture confirm file "$output/temp_orig_site_`ou'"
+	capture confirm file "$output/temp_orig_site_`ou'.dta"
 	*if not file exists, import it
 	if _rc{
 		di in yellow "`=upper(`ou')': import site level data"
@@ -36,18 +36,19 @@
 				"Age/Sex Aggregated", "Total Numerator"))
 		
 		* merge in aggregated Highlander Script age groups & edit type
-		merge m:1 age using  "$output\temp_agegpcw.dta", nogen keep(match master)
-		replace hs_type = "Finer" if inlist(indicator, "TX_CURR", "TX_NEW") & ///
+		qui: merge m:1 age using  "$output\temp_agegpcw.dta", nogen ///
+			keep(match master) noreport
+		qui: replace hs_type = "Finer" if inlist(indicator, "TX_CURR", "TX_NEW") & ///
 			inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") ///
 			& age=="<01"
-		replace hs_type = "Total Numerator" if disaggregate=="Total Numerator"
-		replace hs_type = "Results" if disaggregate== "Results" 
+		qui: replace hs_type = "Total Numerator" if disaggregate=="Total Numerator"
+		qui: replace hs_type = "Results" if disaggregate== "Results" 
 		
 		* create a unique id by type (facility, community, military)
 			* demarcated by f_, c_, and m_ at front
 			* military doesn't have a unique id so script uses mechanism uid
-		tostring type*, replace
-		gen fcm_uid = ""
+		qui: tostring type*, replace
+		qui: gen fcm_uid = ""
 			replace fcm_uid = "f_" + facilityuid if facilityuid!=""
 			replace fcm_uid = "c_" + communityuid if facilityuid=="" &  ///
 				(typecommunity =="Y" | communityuid!="") & typemilitary!="Y"

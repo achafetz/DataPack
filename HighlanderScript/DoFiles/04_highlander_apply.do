@@ -49,7 +49,7 @@
 *reshape
 	egen id = group(pd psnuuid fcm_uid mechanismid indicator indicatortype ///
 		primepartner implementingmechanismname disaggregate age sex result ///
-		otherdisaggregate status)	
+		otherdisaggregate status typecommunity)	
 	reshape wide y, i(id) j(hs_type, string)
 	drop id 
 * clean up names, removing y and making lower case
@@ -78,7 +78,7 @@
 *reshape
 	egen id = group(psnuuid fcm_uid implementingmechanismname mechanismid ///
 		primepartner indicator indicatortype disaggregate age sex result ///
-		otherdisaggregate status hsc)
+		otherdisaggregate status hsc typecommunity)
 	reshape wide hsval, i(id) j(pd, string)
 	drop id
 *remove hsval
@@ -125,4 +125,4 @@
 	collapse (sum) fy*, by(ïregion-implementingmechanismname indicator-highlander)
 	
 *save
-	save "$output/hs_psnu_${ctry}", replace
+	save "$output/tem_hs_psnu_${ctry}", replace
