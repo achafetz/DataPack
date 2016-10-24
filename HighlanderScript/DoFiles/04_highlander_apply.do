@@ -23,7 +23,7 @@
 	*create id for reshape
 		gen id = _n
 	*rename fiscal years to (1) have common stub and (2) retain their name in reshape 
-		drop fy2015apr fy2016_target
+		drop *apr //fy2016_target
 		ds fy*
 		foreach yr in `r(varlist)'{
 			rename `yr' y`yr'

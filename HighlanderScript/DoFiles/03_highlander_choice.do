@@ -23,7 +23,7 @@
 	drop if inlist(mechanismid, 0, 1)
 	
 * remove any sites with no data for all quarters 
-	drop fy2016_targets *apr
+	drop *apr //fy2016_targets
 		/*want to just look at quarterly data; apr should be recalculatedneed 
 			need to think about if targets should/shouldn't be determined by 
 			results selection*/
