@@ -3,10 +3,11 @@
 **   Aaron Chafetz
 **   Purpose: create a dataset
 **   Date: October 19, 2016
-**   Updated: 10/23
+**   Updated: 10/24
 
 /* NOTES
 	- Data source: ICPI_Fact_View_Site_IM_20160915 [ICPI Data Store]
+	- note: https://github.com/achafetz/ICPI/blob/master/HighlanderScript/Documents/Notes_05_appendctrys.md
 */
 ********************************************************************************
 
