@@ -24,5 +24,6 @@
 *append composite file to PSNU by IM Fact View dataset
 	use "$fvdata/ICPIFactView_SNUbyIM20160909", clear
 	qui: append using "$output/hs_psnu_ALL"
-	order hs_agegp hsc highlander, before(fy2015q2)
+	order hs_agegp hs_choice highlander, before(fy2015q2)
 	save "$fvdata/ICPIFactView_SNUbyIM_Highlander_20160909", replace
+
