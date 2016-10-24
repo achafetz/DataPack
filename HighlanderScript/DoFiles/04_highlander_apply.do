@@ -58,33 +58,33 @@
 		rename `x' `=lower("`=subinstr("`x'","y","",.)'")'
 		}
 		*end
-	replace hsc = 99 if hsc==.
-		lab def hsc 99 "n/a", modify
+	replace hs_choice = 99 if hs_choice==.
+		lab def hs_choice 99 "n/a", modify
 *drop blank rows
 	egen rowtot = rowtotal (coarse finer results totnum)
 	drop if rowtot==0
 	drop rowtot
 
 *highlander value
-	gen hsval =.
-		replace hsval=finer if inlist(hsc, 1,4,6)
-		replace hsval=coarse if inlist(hsc, 2,5,7)
-		replace hsval=finer + coarse if hsc==3
-		replace hsval=results if hsc==8
-		replace hsval=totnum if hsc==9
+	gen hs_val =.
+		replace hs_val=finer if inlist(hs_choice, 1,4,6)
+		replace hs_val=coarse if inlist(hs_choice, 2,5,7)
+		replace hs_val=finer + coarse if hs_choice==3
+		replace hs_val=results if hs_choice==8
+		replace hs_val=totnum if hs_choice==9
 
 *drop 
 	drop coarse-totnum
 *reshape
 	egen id = group(psnuuid fcm_uid implementingmechanismname mechanismid ///
 		primepartner indicator indicatortype disaggregate age sex result ///
-		otherdisaggregate status hsc typecommunity)
-	reshape wide hsval, i(id) j(pd, string)
+		otherdisaggregate status hs_choice typecommunity)
+	reshape wide hs_val, i(id) j(pd, string)
 	drop id
-*remove hsval
-	ds hsval*
+*remove hs_val
+	ds hs_val*
 	foreach x in `r(varlist)'{
-		rename `x' `=subinstr("`x'","hsval","",.)'
+		rename `x' `=subinstr("`x'","hs_val","",.)'
 		}
 		*end
 
@@ -100,7 +100,7 @@
 			*end
 *reorder
 	drop fcm_uid status
-	order fy*, after(hsc)
+	order fy*, after(hs_choice)
 
 *add apr figure
 	*some countries missing quarters (eg Caribbean)
@@ -109,7 +109,7 @@
 		if _rc qui: gen fy2015q`i'= .
 		}
 		*end
-		order fy2015q2 fy2015q3 fy2015q4, after(hsc)
+		order fy2015q2 fy2015q3 fy2015q4, after(hs_choice)
 	egen fy2015apr = rowtotal(fy2015q2 fy2015q3 fy2015q4)
 	egen fy2015apr_tx = rowtotal(fy2015q2 fy2015q4) ///
 		if indicator=="TX_CURR" & fy2015q3!=.

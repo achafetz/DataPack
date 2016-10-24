@@ -42,7 +42,7 @@
 			indicator hs_type) j(pd, string)	
 
 *reshape wide, adding Highlander types as columns for doing analysis
-	*remove space in name for reshape
+	*remove space in name for reshape (otherwise it gets dropped in reshape)
 		replace hs_type = "TotNum" if hs_type=="Total Numerator"
 
 	* reshape
@@ -124,23 +124,23 @@
 */
 *determine highlander script choice by above ordering
 	di "       Disagg is complete if: " $lb*100 "% <= numerator <= " $ub*100 "%"
-	gen hsc = .
-		lab var hsc "Highlander Disagg Choice"
-		lab def hsc 1 "Fine (complete)" 2 "Coarse (complete)" ///
+	gen hs_choice = .
+		lab var hs_choice "Highlander Disagg Choice"
+		lab def hs_choice 1 "Fine (complete)" 2 "Coarse (complete)" ///
 			3 "Fine + Coarse (complete)" 4 "Fine (incomplete)" ///
 			5 "Coarse (incomplete)" 6 "Fine (max, no num)" ///
 			7 "Coarse (max, no num)" 8 "Result (no fine/coarse)" ///
 			9 "Total Num (no disaggs)"
-		lab val hsc hsc
-		replace hsc = 1 if (f_pct>=$lb & f_pct<=$ub)
-		replace hsc = 2 if (c_pct>=$lb & c_pct<=$ub) & hsc==.
-		replace hsc = 3 if (fc_pct>=$lb & fc_pct<=$ub) & hsc==.
-		replace hsc = 4 if f_prox <= c_prox & !inlist(f_prox,0,.) & !inlist(finer,0,.) & hsc==.
-		replace hsc = 5 if (c_prox < f_prox) & !inlist(c_prox,0,.) & !inlist(coarse,0,.) & hsc==.
-		replace hsc = 6 if ((finer >= coarse) & !inlist(finer,0,.) | (!inlist(finer,0,.) & inlist(coarse,0,.))) & hsc==.
-		replace hsc = 7 if ((coarse > finer) & !inlist(coarse,0,.) | (!inlist(coarse,0,.) & inlist(finer,0,.))) & hsc==.
-		replace hsc = 8 if !inlist(result,0,.) & hsc==.
-		replace hsc = 9 if !inlist(totnum,0,.) & hsc==.
+		lab val hs_choice hs_choice
+		replace hs_choice = 1 if (f_pct>=$lb & f_pct<=$ub)
+		replace hs_choice = 2 if (c_pct>=$lb & c_pct<=$ub) & hs_choice==.
+		replace hs_choice = 3 if (fc_pct>=$lb & fc_pct<=$ub) & hs_choice==.
+		replace hs_choice = 4 if f_prox <= c_prox & !inlist(f_prox,0,.) & !inlist(finer,0,.) & hs_choice==.
+		replace hs_choice = 5 if (c_prox < f_prox) & !inlist(c_prox,0,.) & !inlist(coarse,0,.) & hs_choice==.
+		replace hs_choice = 6 if ((finer >= coarse) & !inlist(finer,0,.) | (!inlist(finer,0,.) & inlist(coarse,0,.))) & hs_choice==.
+		replace hs_choice = 7 if ((coarse > finer) & !inlist(coarse,0,.) | (!inlist(coarse,0,.) & inlist(finer,0,.))) & hs_choice==.
+		replace hs_choice = 8 if !inlist(result,0,.) & hs_choice==.
+		replace hs_choice = 9 if !inlist(totnum,0,.) & hs_choice==.
 
 *keep only variables pertinent to site information for merge
 	drop coarse-totnum r_pct hs_num-c_prox hs_num_desc

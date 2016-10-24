@@ -1,4 +1,4 @@
-**   EA Outlier Analysis
+**   Highlander Script
 **   COP FY16
 **   Aaron Chafetz
 **   Purpose: Initialize folder structure and global file paths
@@ -46,6 +46,7 @@
 *Set up global file paths located within project path
 	*these folders must exist in the parent folder
 	global projectpath `c(pwd)'
+	global do "$projectpath/DoFiles"
 	global data "$projectpath/RawData"
 	global output "$projectpath/StataOutput"
 	global graph "$projectpath/StataFigures"
