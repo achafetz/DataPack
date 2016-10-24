@@ -13,6 +13,7 @@
 
 *append all ou files together for PSNU and site/IM level choices
 	foreach t in choice psnu{
+		clear
 		fs "$output/temp_hs_`t'_*.dta"
 		foreach f in `r(files)' {
 			qui: append using "$output/`f'", force
@@ -26,4 +27,3 @@
 	qui: append using "$output/hs_psnu_ALL"
 	order hs_agegp hs_choice highlander, before(fy2015q2)
 	save "$fvdata/ICPIFactView_SNUbyIM_Highlander_20160909", replace
-
