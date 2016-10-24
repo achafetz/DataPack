@@ -7,6 +7,7 @@
 
 /* NOTES
 	- Data source: ICPI_Fact_View_Site_IM_20160915 [ICPI Data Store]
+	- See notes - https://github.com/achafetz/ICPI/blob/master/HighlanderScript/Documents/Notes_02_import.md
 */
 ********************************************************************************
 
@@ -45,7 +46,8 @@
 		* create a unique id by type (facility, community, military)
 			* demarcated by f_, c_, and m_ at front
 			* military doesn't have a unique id so script uses mechanism uid
-		qui: tostring type*, replace
+		qui: tostring type*, replace //in OUs with no data, . is recorded and 
+			* seen as numeric, so need to first string variables 
 		qui: gen fcm_uid = ""
 			replace fcm_uid = "f_" + facilityuid if facilityuid!=""
 			replace fcm_uid = "c_" + communityuid if facilityuid=="" &  ///
