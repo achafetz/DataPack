@@ -1,12 +1,13 @@
 **   Highlander Script
 **   COP FY16
 **   Aaron Chafetz
-**   Purpose: apply Highlander choice by Site/IM/Indicator/IndicatorType/Pediod
+**   Purpose: apply Highlander choice by Site/IM/Indicator/IndicatorType/Period
 **   Date: October 19, 2016
-**   Updated: 10/22
+**   Updated: 10/24
 
 /* NOTES
 	- Data source: ICPI_Fact_View_Site_IM_20160915 [ICPI Data Store]
+	- note: https://github.com/achafetz/ICPI/blob/master/HighlanderScript/Documents/Notes_04_apply.md
 */
 ********************************************************************************
 
@@ -32,11 +33,11 @@
 	reshape long y@, i(id) j(pd, string)	
 	drop id //needed for reshape	
 	
-*merge 
+*merge keeping only those that are a match
 	merge m:1 pd psnuuid fcm_uid indicator indicatortype mechanismid ///
-		using "$output\temp_hs_choice_${ctry}", nogen
+		using "$output\temp_hs_choice_${ctry}", nogen keep(match)
 
-*fill missing
+*fill missing (id will be missing if any one cell in the row is blank)
 	ds, has(type string)
 	foreach v in `r(varlist)'{
 		qui: replace `v' = "na" if `v'=="" | `v'=="NULL"
@@ -65,7 +66,7 @@
 	drop if rowtot==0
 	drop rowtot
 
-*highlander value
+*highlander value based on hs_choice
 	gen hs_val =.
 		replace hs_val=finer if inlist(hs_choice, 1,4,6)
 		replace hs_val=coarse if inlist(hs_choice, 2,5,7)
@@ -75,13 +76,14 @@
 
 *drop 
 	drop coarse-totnum
+	
 *reshape
 	egen id = group(psnuuid fcm_uid implementingmechanismname mechanismid ///
 		primepartner indicator indicatortype disaggregate age sex result ///
 		otherdisaggregate status hs_choice typecommunity)
 	reshape wide hs_val, i(id) j(pd, string)
 	drop id
-*remove hs_val
+*remove hs_val from variable names so back to fy2015q2, fy2015q3, etc
 	ds hs_val*
 	foreach x in `r(varlist)'{
 		rename `x' `=subinstr("`x'","hs_val","",.)'

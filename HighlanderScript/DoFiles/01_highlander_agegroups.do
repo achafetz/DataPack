@@ -3,10 +3,11 @@
 **   Aaron Chafetz
 **   Purpose: develop age groupings for the Highlander Script
 **   Date: October 19, 2016
-**   Updated: 10/22
+**   Updated: 10/24
 
 /* NOTES
 	- Looking across just HTC_TST, CARE_NEW, TX_NEW, and TX_CURR
+	- https://github.com/achafetz/ICPI/blob/master/HighlanderScript/Documents/Notes_01_import.md
 */
 ********************************************************************************
 

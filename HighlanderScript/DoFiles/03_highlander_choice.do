@@ -3,10 +3,11 @@
 **   Aaron Chafetz
 **   Purpose: develop a model of the Highlander Script
 **   Date: October 19, 2016
-**   Updated: 10/22
+**   Updated: 10/24
 
 /* NOTES
 	- Data source: ICPI_Fact_View_Site_IM_20160915 [ICPI Data Store]
+	- notes - https://github.com/achafetz/ICPI/blob/master/HighlanderScript/Documents/Notes_03_choice.md
 */
 ********************************************************************************
 
@@ -31,13 +32,13 @@
 	drop rowtot
 
 * reshape long so fiscal years are in rows
-	*rename fiscal years to (1) have common stub and (2) retain their name in reshape 
+	*rename fiscal years to (1) have common stub and (2) retain their name after the reshape 
 		ds fy*
 		foreach yr in `r(varlist)'{
 			rename `yr' y`yr'
 			}
 			*end
-	*reshape
+	*reshape, where i identifies the variables that make each obs unique and j is the new variabel
 		reshape long y@, i(psnuuid fcm_uid mechanismid indicatortype ///
 			indicator hs_type) j(pd, string)	
 
@@ -61,9 +62,9 @@
 	drop row*
 
 /*
-            Highlander numerator
+            Highlander denominaor
 	|--------|----------------------------------------|
-	| Option | Numerator                              |
+	| Option | Completeness Denominiator              |
 	|--------|----------------------------------------|
 	| 1      | Total Numerator used                   |
 	| 2      | Result used (HTC) - complete           |
@@ -72,27 +73,28 @@
 	| 5      | No Total Numerator                     |
 	|--------|----------------------------------------|
 */
-* deterime which numerator to use (upper and lower bounds are set at top
-	gen r_pct = results/totnum //determine completeness
-	gen hs_num_desc=.
-		lab var hs_num_desc "Type of Numerator for Highlander Script"
-		lab def hs_num_desc 1 "Total Numerator used" 2 "Result used (HTC)" ///
+* deterime which denominator to used to calc completeness 
+	*upper and lower bounds are set in _runall
+	gen r_pct = results/totnum //determine completeness of result
+	gen hs_denom_desc=.
+		lab var hs_denom_desc "Type of Numerator for Highlander Script"
+		lab def hs_denom_desc 1 "Total Numerator used" 2 "Result used (HTC)" ///
 			3 "Result used (HTC) - no total numerator" ///
 			4 "Total Numerator used (HTC)" 5 "No Total Numerator"
-		lab val hs_num_desc hs_num_desc
-		replace hs_num_desc = 1 if !inlist(totnum,0,.) & indicator!="HTC_TST" 
-		replace hs_num_desc = 2 if !inlist(result,0,.) & indicator=="HTC_TST" ///
+		lab val hs_denom_desc hs_denom_desc
+		replace hs_denom_desc = 1 if !inlist(totnum,0,.) & indicator!="HTC_TST" 
+		replace hs_denom_desc = 2 if !inlist(result,0,.) & indicator=="HTC_TST" ///
 			& (r_pct>=$lb & r_pct<=$ub)
-		replace hs_num_desc = 3 if inlist(totnum,0,.) & indicator=="HTC_TST"  ///
+		replace hs_denom_desc = 3 if inlist(totnum,0,.) & indicator=="HTC_TST"  ///
 			& !inlist(result,0,.)
-		replace hs_num_desc = 4 if !inlist(totnum,0,.) & indicator=="HTC_TST" ///
+		replace hs_denom_desc = 4 if !inlist(totnum,0,.) & indicator=="HTC_TST" ///
 			& (r_pct<$lb | r_pct>$ub)
-		replace hs_num_desc = 5 if inlist(totnum,0,.) & hs_num_desc==.
+		replace hs_denom_desc = 5 if inlist(totnum,0,.) & hs_denom_desc==.
 
-* create numerator based on description
-	gen hs_num = totnum if inlist(hs_num_desc, 1, 4)
-		replace hs_num = result if inlist(hs_num_desc, 2, 3)
-		lab var hs_num "Highlander Numerator"
+* create denominator based on description
+	gen hs_denom = totnum if inlist(hs_denom_desc, 1, 4)
+		replace hs_denom = result if inlist(hs_denom_desc, 2, 3)
+		lab var hs_denom "Highlander Denominator"
 		
 * create Highlander indicators used for making selection
 	foreach v in finer coarse results totnum{
@@ -100,9 +102,9 @@
 		if _rc qui: gen `v'=.
 		}
 	order coarse finer results totnum , before(operatingunit)
-	gen f_pct = finer/hs_num
-	gen c_pct = coarse/hs_num
-	gen fc_pct= (finer + coarse)/hs_num
+	gen f_pct = finer/hs_denom
+	gen c_pct = coarse/hs_denom
+	gen fc_pct= (finer + coarse)/hs_denom
 	gen f_prox = abs(1-f_pct)
 	gen c_prox = abs(1-c_pct)
 	
@@ -142,13 +144,15 @@
 		replace hs_choice = 8 if !inlist(result,0,.) & hs_choice==.
 		replace hs_choice = 9 if !inlist(totnum,0,.) & hs_choice==.
 
-*keep only variables pertinent to site information for merge
-	drop coarse-totnum r_pct hs_num-c_prox hs_num_desc
+* keep only variables pertinent to site information for merge
+	drop coarse-totnum r_pct hs_denom-c_prox hs_denom_desc
 
-*sort for merging
+* sort for merging
 	sort psnuuid fcm_uid indicator indicatortype 
+* reorder
+	order operatingunit psnu psnuuid snuprioritization mechanismid fcm_uid indicator indicatortype pd hs_choice
 
-*save for merging
+* save for merging
 	save "$output\temp_hs_choice_${ctry}", replace
 
 *******************************************************************************
