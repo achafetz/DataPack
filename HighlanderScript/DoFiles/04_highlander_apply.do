@@ -33,9 +33,9 @@
 	reshape long y@, i(id) j(pd, string)	
 	drop id //needed for reshape	
 	
-*merge keeping only those that are a match
+*merge keeping only those that are a match and in the master
 	merge m:1 pd psnuuid fcm_uid indicator indicatortype mechanismid ///
-		using "$output\temp_hs_choice_${ctry}", nogen keep(match)
+		using "$output\temp_hs_choice_${ctry}", nogen keep(match master)
 
 *fill missing (id will be missing if any one cell in the row is blank)
 	ds, has(type string)
@@ -112,14 +112,16 @@
 		}
 		*end
 		order fy2015q2 fy2015q3 fy2015q4, after(hs_choice)
+	*create apr variable
 	egen fy2015apr = rowtotal(fy2015q2 fy2015q3 fy2015q4)
+	*use only q2 and q4 for TX_CURR
 	egen fy2015apr_tx = rowtotal(fy2015q2 fy2015q4) ///
 		if indicator=="TX_CURR" & fy2015q3!=.
 	replace fy2015apr = fy2015apr_tx if fy2015apr_tx!=.
-	drop fy2015apr_tx
-	order fy2015apr, after(fy2015q4)
+		drop fy2015apr_tx
+		order fy2015apr, after(fy2015q4)
 
-*highlander flag
+*highlander flag (add to all to identify after merging)
 	gen highlander = "Y"
 	order highlander, before(fy2015q2)
 

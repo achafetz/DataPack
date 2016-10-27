@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: import site level Fact View dataset for each OU
 **   Date: October 21, 2016
-**   Updated: 10/23
+**   Updated: 10/26
 
 /* NOTES
 	- Data source: ICPI_Fact_View_Site_IM_20160915 [ICPI Data Store]
@@ -37,7 +37,7 @@
 		* merge in aggregated Highlander Script age groups & edit type
 		qui: merge m:1 age using  "$output\temp_agegpcw.dta", nogen ///
 			keep(match master) noreport
-		qui: replace hs_type = "Finer" if inlist(indicator, "TX_CURR", "TX_NEW") & ///
+		qui: replace hs_type = "Coarse" if inlist(indicator, "TX_CURR", "TX_NEW") & ///
 			inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") ///
 			& age=="<01"
 		qui: replace hs_type = "Total Numerator" if disaggregate=="Total Numerator"

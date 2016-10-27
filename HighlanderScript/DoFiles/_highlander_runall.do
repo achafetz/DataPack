@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: run through all do files
 **   Date: October 22, 2016
-**   Updated: 10/23
+**   Updated: 10/25
 
 /* NOTES
 
@@ -52,7 +52,7 @@
 	
 	* 00 initialize folder structure
 		di in yellow "   00 initialize"
-		run "$do/00_highlander_initialize"
+		run 00_highlander_initialize
 		
 	* 01 create a crosswalk table for highlander age groups and categories
 		di in yellow "   01 generate crosswalk table"
