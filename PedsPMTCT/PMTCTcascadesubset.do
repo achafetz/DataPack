@@ -3,7 +3,7 @@
 **   Aaron Chafetz			
 **   Purpose: generate data subset for use in PMTCT cascade			
 **   Date: August 22, 2016			
-**   Updated: 10/16/2016		
+**   Updated: 11/14/2016		
 			
 /* NOTES			
 	- Data source: ICPIFactView - PSNU by IM Level, Oct 10, 2010 [ICPI Data Store]		
@@ -51,15 +51,16 @@
 		"PMTCT_ARV", "PMTCT_FO") | ///		
 		(indicator=="TX_NEW" &  disaggregate=="Age/Sex" & age=="<01")		
 	rename ïregion region		
-	rename fy2015q2 fy2015sapr		
-	keep region operatingunit countryname  ///		
+	rename fy2015q2 fy2015sapr
+	
+	local varlist region operatingunit countryname  ///		
 		fundingagency primepartner mechanismid implementingmechanismname ///	
 		indicator disaggregate age otherdisaggregate numeratordenom ///	
-		fy2015sapr fy2015apr fy2016_targets fy2016q1 fy2016sapr fy2016q3	
-	order region operatingunit countryname  ///		
-		fundingagency primepartner mechanismid implementingmechanismname ///	
-		indicator disaggregate age otherdisaggregate numeratordenom ///	
-		fy2015sapr fy2015apr fy2016_targets fy2016q1 fy2016sapr fy2016q3	
+		fy2015sapr fy2015apr fy2016_targets fy2016q1 fy2016sapr fy2016q3 ///
+		fy2016apr
+	
+	keep `varlist'
+	order `varlist'	
 			
 *export			
 	export delimited using "$save\PMTCTdata", nolabel replace dataf		
