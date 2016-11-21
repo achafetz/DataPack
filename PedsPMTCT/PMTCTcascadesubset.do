@@ -3,11 +3,10 @@
 **   Aaron Chafetz			
 **   Purpose: generate data subset for use in PMTCT cascade			
 **   Date: August 22, 2016			
-**   Updated: 11/14/2016		
+**   Updated: 11/21/2016		
 			
 /* NOTES			
-	- Data source: ICPIFactView - PSNU by IM Level, Oct 10, 2010 [ICPI Data Store]		
-	- Report uses FY2016APR results since it sums up necessary values		
+	- Data source: ICPIFactView - PSNU by IM Level, Oct 10, 2010 [ICPI Data Store]			
 */			
 ********************************************************************************			
 			
@@ -15,7 +14,7 @@
 	global source "C:\Users\achafetz\Documents\ICPI\Data"
 	global save  "C:\Users\achafetz\Documents\ICPI\Peds\PMTCT Cascade"
 *set date of frozen instance - needs to be changed w/ updated data
-	local datestamp "20161010"
+	local datestamp "20161115"
 *import frozen instance for PMTCT Cascade Tool
 	capture confirm file "$source\ICPIFactView_SNUbyIM`datestamp'.dta"
 		if !_rc{
@@ -43,7 +42,7 @@
 			
 *replcae fy2016q3 w/ fy2016 cumulative			
 	replace fy2016q3 = fy2016cum 		
-	drop fy2016cum		
+	drop fy2016cum	
 			
 * delete extrainous vars/obs			
 	keep if inlist(indicator, "PMTCT_STAT", "PMTCT_ARV", "PMTCT_EID", ///		
@@ -53,7 +52,8 @@
 	rename ïregion region		
 	rename fy2015q2 fy2015sapr
 	
-	local varlist region operatingunit countryname  ///		
+	local varlist region operatingunit countryname  ///	
+		snu1 psnu snuprioritization ///
 		fundingagency primepartner mechanismid implementingmechanismname ///	
 		indicator disaggregate age otherdisaggregate numeratordenom ///	
 		fy2015sapr fy2015apr fy2016_targets fy2016q1 fy2016sapr fy2016q3 ///
