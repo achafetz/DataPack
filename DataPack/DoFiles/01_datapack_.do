@@ -75,8 +75,9 @@
 	save "$output/append_temp", replace
 	
 * generate
-	// output from Data Pack Data Needs Excel File
+	// output generated in Data Pack template
 	// updated 11/29
+	*** TARGETS NEED TO BE UPDATED TO FY17 ***
 	gen care_curr = fy2016apr if indicator=="CARE_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen care_curr_T = fy2016_target if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & numeratordenom=="N"
 	gen care_curr_f = fy2016apr if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & sex=="Female" & numeratordenom=="N"
@@ -193,13 +194,14 @@
 	gen vmmc_est = . //  spaceholder for users to update manually
 	gen vmmc_est_rng = . //  spaceholder for users to update manually
 
-* collapse to just PSNU
+* collapse up to PSNU level
 	collapse (sum) care_curr-vmmc_est_rng, by(operatingunit psnu psnuuid snuprioritization)
+
 * rename 
 	rename psnu snulist
 	
-*reorder
-	order psnuuid snulist
+*reorder columns
+	order operatingunit psnuuid snulist
 	order htc_tst_u15_yield, after(htc_tst_u15_pos)
 	order ovc_est, after(ovc_serv_T)
 	order pmtct_eid_yield, after(pmtct_eid_pos_12mo)
@@ -218,9 +220,15 @@
 	replace snuprioritization = "Sustained Com" if snuprioritization=="6 - Sustained: Commodities"
 	replace snuprioritization = "NOT DEFINED" if snuprioritization==""
 
-*sort
+*sort by PLHIV
 	gsort + operatingunit - plhiv + snulist
-	
+
+*replace zero values with missing
+	ds *, not(type string)
+	foreach v in `r(varlist)' {
+		replace `v' = . if `v'==0
+		}
+		*end
 ****************************
 * keep military?
 * Issue - SubNat at OU level
@@ -229,6 +237,10 @@
 *save 
 	save "$output/global_temp", replace
 
+*export global list to data pack template
+	export excel using "C:\Users\achafetz\Documents\DataPack\TemplateGeneration\COP17DataPackTemplate v2016.11.29.xlsm", ///
+		sheet("POPdata") sheetreplace firstrow(variables)
+/*
 *create OU specific files
 	qui:levelsof operatingunit, local(levels)
 	foreach ou of local levels {
@@ -240,3 +252,4 @@
 			nolabel replace dataf
 		restore
 		}
+*/
