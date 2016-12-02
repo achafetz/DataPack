@@ -8,7 +8,7 @@
 *** SETUP ***
 
 *define date for Fact View Files
-	global datestamp "20161115_v2"
+	global datestamp "20161115_Q4v1_3"
 	
 *set today's date for saving
 	global date: di %tdCCYYNNDD date(c(current_date), "DMY")
@@ -16,17 +16,18 @@
 *** IMPATT ***
 
 *import/open data
-	capture confirm file "$fvdata/ICPI_FactView_NAT_SUBNAT_${datestamp}.dta"
+	*replace ${datestamp} for current version until new FW uploaded
+	capture confirm file "$fvdata/ICPI_FactView_NAT_SUBNAT_20161202.dta"
 		if !_rc{
-			use "$fvdata/ICPI_FactView_NAT_SUBNAT_${datestamp}.dta", clear
+			use "$fvdata/ICPI_FactView_NAT_SUBNAT_20161202.dta", clear
 		}
 		else{
-			import delimited "$fvdata/ICPI_FactView_NAT_SUBNAT_${datestamp}.txt", clear
-			save "$fvdata/ICPI_FactView_NAT_SUBNAT_${datestamp}.dta", replace
+			import delimited "$fvdata/ICPI_FactView_NAT_SUBNAT_20161202.txt", clear
+			save "$fvdata/ICPI_FactView_NAT_SUBNAT_20161202.dta", replace
 		}
 		*end
 	
-
+/*
 *reshape to get values by fy
 	rename value fy //for reshape naming of years
 	local vars operatingunituid snu1 psnuuid indicator dataelementuid ///
@@ -44,11 +45,16 @@
 		replace fy`y'apr = . if strmatch(dataelementname , "*TARGET*") 
 		}
 		*end
+
 *clean 
 	foreach v of local vars {
 		replace `v' = "" if `v'=="n/a"
 		}
 	drop techarea dataelementuid dataelementname categoryoptioncombouid fy2015_targets
+*/
+*new
+	rename fy2015q4 fy2015apr
+	rename fy2016q4 fy2016apr
 *save
 	save "$output/impatt_temp", replace
 
@@ -60,13 +66,15 @@
 			use "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta", clear
 		}
 		else{
-			import delimited "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.txt", clear
+			*import delimited "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.txt", clear
 			save "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta", replace
+			import delimited "$fvdata/ICPI_FactView_PSNU_${datestamp}.txt", clear
+			save "$fvdata/ICPI_FactView_PSNU_${datestamp}.dta", replace
 		}
 		*end
 		
 *clean
-	gen fy2017_targets = 0 //delete after FY17 targets are added into FV dataset
+	*gen fy2017_targets = 0 //delete after FY17 targets are added into FV dataset
 	rename ïregion region
 
 *apend
@@ -218,7 +226,8 @@
 
 
 * aggregate up to PSNU level
-	drop mechanismid fy*
+	*drop mechanismid fy*
+	drop fy*
 	ds *, not(type string)
 	collapse (sum) `r(varlist)', by(operatingunit psnu psnuuid snuprioritization)
 
