@@ -255,7 +255,12 @@
 *save 
 	save "$output/global_temp", replace
 
-
+*delete older version of the output
+	fs "$dpexcel/Global*.xlsx"
+	foreach f in `r(files)'{
+		erase "$dpexcel/`f'"
+		}
+		*end
 *export global list to data pack template
 	export excel using "$dpexcel/Global_PSNU_${date}.xlsx", ///
 		firstrow(variables) sheet("Indicator Table") replace
