@@ -2,8 +2,8 @@
 **   COP FY17
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based Data Pack at SNU level
-**   Date: 
-**   Updated: 11/29/2016
+**   Date: November 10, 2016
+**   Updated: 12/1/2016
 
 *** SETUP ***
 
@@ -11,7 +11,7 @@
 	global datestamp "20161115_v2"
 	
 *set today's date for saving
-	global date = subinstr("`c(current_date)'", " ", "", .)
+	global date: di %tdCCYYNNDD date(c(current_date), "DMY")
 	
 *** IMPATT ***
 
@@ -76,7 +76,7 @@
 	
 * generate
 	// output generated in Data Pack template
-	// updated 11/29
+	// updated 12/1
 	*** TARGETS NEED TO BE UPDATED TO FY17 ***
 	gen care_curr = fy2016apr if indicator=="CARE_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen care_curr_T = fy2016_target if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & numeratordenom=="N"
@@ -99,6 +99,29 @@
 	gen htc_tst__pos_fy16_T = fy2016_target if indicator=="HTC_TST" & disaggregate=="Total Numerator" & resultstatus=="Positive" & numeratordenom=="N"
 	gen htc_tst_T = fy2016_target if indicator=="HTC_TST" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen htc_tst_pos_T = fy2016_target if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & resultstatus=="Positive" & numeratordenom=="N"
+	gen htc_tst_spd_ctclinic_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="HIV Care and Treatment Clinic" & numeratordenom=="N"
+	gen htc_tst_spd_home_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Home-based" & numeratordenom=="N"
+	gen htc_tst_spd_inpatient_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Inpatient" & numeratordenom=="N"
+	gen htc_tst_spd_mobile_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Mobile" & numeratordenom=="N"
+	gen htc_tst_spd_outpatient_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Outpatient Department" & numeratordenom=="N"
+	gen htc_tst_spd_sti_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Sexually Transmitted Infections" & numeratordenom=="N"
+	gen htc_tst_spd_tb_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Tuberculosis" & numeratordenom=="N"
+	gen htc_tst_spd_vtcalone_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Voluntary Counseling & Testing standalone" & numeratordenom=="N"
+	gen htc_tst_spd_vtccoloc_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Voluntary Counseling & Testing co-located" & numeratordenom=="N"
+	gen htc_tst_spd_vmmc_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Voluntary Medical Male Circumcision" & numeratordenom=="N"
+	gen htc_tst_spd_oth_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Other Service Delivery Point" & numeratordenom=="N"
+	gen htc_tst_spd_ctclinic_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="HIV Care and Treatment Clinic" & numeratordenom=="N"
+	gen htc_tst_spd_home_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Home-based" & numeratordenom=="N"
+	gen htc_tst_spd_inpatient_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Inpatient" & numeratordenom=="N"
+	gen htc_tst_spd_mobile_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Mobile" & numeratordenom=="N"
+	gen htc_tst_spd_outpatient_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Outpatient Department" & numeratordenom=="N"
+	gen htc_tst_spd_sti_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Sexually Transmitted Infections" & numeratordenom=="N"
+	gen htc_tst_spd_tb_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Tuberculosis" & numeratordenom=="N"
+	gen htc_tst_spd_vtcalone_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Voluntary Counseling & Testing standalone" & numeratordenom=="N"
+	gen htc_tst_spd_vtccoloc_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Voluntary Counseling & Testing co-located" & numeratordenom=="N"
+	gen htc_tst_spd_vmmc_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Voluntary Medical Male Circumcision" & numeratordenom=="N"
+	gen htc_tst_spd_oth_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Other Service Delivery Point" & numeratordenom=="N"
+	gen htc_tst_spd_tot_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & numeratordenom=="N"
 	gen ovc_acc = fy2016apr if indicator=="OVC_ACC" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen ovc_acc_T = fy2016_target if indicator=="OVC_ACC" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen ovc_serv = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Total Numerator" & numeratordenom=="N"
@@ -179,77 +202,51 @@
 	gen vmmc_circ_T = fy2016_target if indicator=="VMMC_CIRC" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen vmmc_circ_rng_T = fy2016_target if indicator=="VMMC_CIRC" & disaggregate=="Age" & inlist(age, "5-19", "20-24", "25-29") & numeratordenom=="N"
 	gen vmmc_circ_subnat = fy2016apr if indicator=="VMMC_CIRC_SUBNAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
-
-	gen htc_tst_u15_yield = . // calculated automatically in DP so user can update
-	gen pmtct_eid_yield = . // calculated automatically in DP so user can update
-	gen pmtct_stat_yield = . // calculated automatically in DP so user can update
-	gen tb_stat_yield = . // calculated automatically in DP so user can update
-	gen pre_art_yield = . // calculated automatically in DP so user can update
-	gen pre_art_u15_yield = . // calculated automatically in DP so user can update
-	gen tx_ret_yield = . // calculated automatically in DP so user can update
-	gen tx_ret_u15_yield = . // calculated automatically in DP so user can update
-
-	gen ovc_est = . //  spaceholder for users to update manually
 	gen vmmc_pop_rng = . //  spaceholder for users to update manually
 	gen vmmc_est = . //  spaceholder for users to update manually
 	gen vmmc_est_rng = . //  spaceholder for users to update manually
 
 * collapse up to PSNU level
-	collapse (sum) care_curr-vmmc_est_rng, by(operatingunit psnu psnuuid snuprioritization)
+	drop mechanismid fy*
+	ds *, not(type string)
+	collapse (sum) `r(varlist)', by(operatingunit psnu psnuuid snuprioritization)
 
 * rename 
 	rename psnu snulist
+	rename snuprioritization priority_snu
 	
 *reorder columns
 	order operatingunit psnuuid snulist
-	order htc_tst_u15_yield, after(htc_tst_u15_pos)
-	order ovc_est, after(ovc_serv_T)
-	order pmtct_eid_yield, after(pmtct_eid_pos_12mo)
-	order pmtct_stat_yield, after(pmtct_stat_pos)
-	order tb_stat_yield, after(tb_stat_pos)
-	order pre_art_yield pre_art_u15_yield, after(tx_curr_fy16_T)
-	order tx_ret_yield, after(tx_ret)
-	order tx_ret_u15_yield, after(tx_ret_u15)
-	order vmmc_pop_rng vmmc_est vmmc_est_rng, after(vmmc_circ_subnat)
 	
 * rename prioritizations (due to spacing and to match last year)
-	replace snuprioritization = "ScaleUp Sat" if snuprioritization=="1 - Scale-Up: Saturation"
-	replace snuprioritization = "ScaleUp Agg" if snuprioritization=="2 - Scale-Up: Aggressive"
-	replace snuprioritization = "Sustained" if snuprioritization=="4 - Sustained"
-	replace snuprioritization = "Ctrl Supported" if snuprioritization=="5 - Centrally Supported"
-	replace snuprioritization = "Sustained Com" if snuprioritization=="6 - Sustained: Commodities"
-	replace snuprioritization = "NOT DEFINED" if snuprioritization==""
+	replace priority_snu = "ScaleUp Sat" if priority_snu=="1 - Scale-Up: Saturation"
+	replace priority_snu = "ScaleUp Agg" if priority_snu=="2 - Scale-Up: Aggressive"
+	replace priority_snu = "Sustained" if priority_snu=="4 - Sustained"
+	replace priority_snu = "Ctrl Supported" if priority_snu=="5 - Centrally Supported"
+	replace priority_snu = "Sustained Com" if priority_snu=="6 - Sustained: Commodities"
+	replace priority_snu = "NOT DEFINED" if priority_snu==""
 
 *sort by PLHIV
 	gsort + operatingunit - plhiv + snulist
 
-*replace zero values with missing
+*replace zero values with missing & clear mil data, but keep as row placeholder for their entry
 	ds *, not(type string)
 	foreach v in `r(varlist)' {
 		replace `v' = . if `v'==0
+		replace `v' = . if strmatch(snulist, "*_Military*")
 		}
 		*end
+
 ****************************
-* keep military?
 * Issue - SubNat at OU level
+	drop if snulist==""
 ****************************
 
 *save 
 	save "$output/global_temp", replace
 
+
 *export global list to data pack template
-	export excel using "C:\Users\achafetz\Documents\DataPack\TemplateGeneration\COP17DataPackTemplate v2016.11.29.xlsm", ///
-		sheet("POPdata") sheetreplace firstrow(variables)
-/*
-*create OU specific files
-	qui:levelsof operatingunit, local(levels)
-	foreach ou of local levels {
-		preserve
-		qui:keep if operatingunit=="`ou'"
-		qui: order facilityuid facilityprioritization, before(indicator)
-		di in yellow "export dataset: `ou' "
-		qui: export delimited using "$dpexcel\`ou'_PSNU_${date}.txt", ///
-			nolabel replace dataf
-		restore
-		}
-*/
+	export excel using "$dpexcel/Global_PSNU_${date}.xlsx", ///
+		firstrow(variables) sheet("Indicator Table") replace
+
