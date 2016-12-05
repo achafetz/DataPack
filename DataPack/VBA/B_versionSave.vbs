@@ -1,8 +1,8 @@
 Sub SaveNewVersion()
 
 'ABOUT: This sub is used for saving a new version of the template. It will _
-change the date in (a) file name (eg ...v2015.12.22.xlsm) and (b) "POPrun" _
-tab (eg Updated: December 22, 2015). Run this sub via the "SAVE" button _
+change the date in (a) file name (eg ...v2016.12.22.xlsm) and (b) "POPrun" _
+tab (eg Updated: December 22, 2016). Run this sub via the "SAVE" button _
 on the POPref tab in the template.
 
     Dim templ_fldr As String
@@ -23,5 +23,8 @@ on the POPref tab in the template.
     Application.ScreenUpdating = True
     
 End Sub
+
+
+
 
 
