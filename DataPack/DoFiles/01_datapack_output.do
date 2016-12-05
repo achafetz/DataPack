@@ -26,7 +26,13 @@
 			save "$fvdata/ICPI_FactView_NAT_SUBNAT_20161202.dta", replace
 		}
 		*end
-	
+*clean
+	rename ïregion region	
+	ds fy*
+	foreach pd in `r(varlist)'{
+		replace `pd' = "." if `pd' == "NULL"
+		destring `pd', replace
+	}
 /*
 *reshape to get values by fy
 	rename value fy //for reshape naming of years
@@ -61,13 +67,15 @@
 *** PSNU by IM ***
 
 *import/open data
-	capture confirm file "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta"
+	*capture confirm file "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta"
+	capture confirm file "$fvdata/ICPI_FactView_PSNU_${datestamp}.dta"
 		if !_rc{
-			use "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta", clear
+			*use "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta", clear
+			use "$fvdata/ICPI_FactView_PSNU_${datestamp}.dta", clear
 		}
 		else{
 			*import delimited "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.txt", clear
-			save "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta", replace
+			*save "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta", replace
 			import delimited "$fvdata/ICPI_FactView_PSNU_${datestamp}.txt", clear
 			save "$fvdata/ICPI_FactView_PSNU_${datestamp}.dta", replace
 		}
@@ -85,13 +93,13 @@
 	
 * generate
 	// output generated in Data Pack template (POPsubset sheet)
-	// updated 12/2
+	// updated 12/5
 	gen care_curr = fy2016apr if indicator=="CARE_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen care_curr_T = fy2017_targets if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & numeratordenom=="N"
 	gen care_curr_f = fy2016apr if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & sex=="Female" & numeratordenom=="N"
 	gen care_curr_m = fy2016apr if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & sex=="Male" & numeratordenom=="N"
-	gen care_curr_u15 = fy2016apr if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & inlist(age, "<1", "1-4", "5-9","10-14") & numeratordenom=="N"
-	gen care_curr_u15_T = fy2017_targets if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & inlist(age, "<1", "1-4", "5-9","10-14") & numeratordenom=="N"
+	gen care_curr_u15 = fy2016apr if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & inlist(age, "<01", "01-04", "05-09","10-14") & numeratordenom=="N"
+	gen care_curr_u15_T = fy2017_targets if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & inlist(age, "<01", "01-04", "05-09","10-14") & numeratordenom=="N"
 	gen care_curr_o15_T = fy2017_targets if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & numeratordenom=="N"
 	gen care_curr_fy16_T = fy2017_targets if indicator=="CARE_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen care_new = fy2016apr if indicator=="CARE_NEW" & disaggregate=="Total Numerator" & numeratordenom=="N"
@@ -101,11 +109,11 @@
 	gen htc_tst_f_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & resultstatus=="Positive" & numeratordenom=="N"
 	gen htc_tst_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & resultstatus=="Positive" & numeratordenom=="N"
 	gen htc_tst_m_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & resultstatus=="Positive" & numeratordenom=="N"
-	gen htc_tst_u15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & inlist(age, "<1", "1-4", "5-9","10-14") & numeratordenom=="N"
+	gen htc_tst_u15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & inlist(age, "<01", "01-04", "05-09","10-14") & numeratordenom=="N"
 	gen htc_tst_u15_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & resultstatus=="Positive" & numeratordenom=="N"
 	gen htc_tst_u15_yield = 0
 	gen htc_tst_fy16_T = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	gen htc_tst__pos_fy16_T = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Total Numerator" & resultstatus=="Positive" & numeratordenom=="N"
+	gen htc_tst_pos_fy16_T = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Total Numerator" & resultstatus=="Positive" & numeratordenom=="N"
 	gen htc_tst_T = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen htc_tst_pos_T = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & resultstatus=="Positive" & numeratordenom=="N"
 	gen htc_tst_spd_ctclinic_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="HIV Care and Treatment Clinic" & numeratordenom=="N"
@@ -163,7 +171,7 @@
 	gen pmtct_stat_T = fy2017_targets if indicator=="PMTCT_STAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen pmtct_stat_pos = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New" & numeratordenom=="N"
 	gen pmtct_stat_yield = 0
-	gen pmtct_stat_knownpos = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New" & otherdisaggregate=="Known at Entry Positive" & numeratordenom=="N"
+	gen pmtct_stat_knownpos = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New" & resultstatus=="Positive" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"
 	gen pmtct_stat_known_T = fy2017_targets if indicator=="PMTCT_STAT" & disaggregate=="Known/New" & numeratordenom=="N"
 	gen pmtct_stat_subnat = fy2016apr if indicator=="PMTCT_STAT_SUBNAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen prevalence_num = fy2016apr if indicator=="PREVALENCE_NUM" & disaggregate=="NULL"
@@ -184,10 +192,10 @@
 	gen tx_curr_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen tx_curr_f = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Female" & numeratordenom=="N"
 	gen tx_curr_m = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Male" & numeratordenom=="N"
-	gen tx_curr_u1 = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & age=="<1" & numeratordenom=="N"
-	gen tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "<1", "1-4", "5-14") & numeratordenom=="N"
-	gen tx_curr_u15_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "<1", "1-4", "5-14") & numeratordenom=="N"
-	gen tx_curr_1to15_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "1-4", "5-14") & numeratordenom=="N"
+	gen tx_curr_u1 = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & age=="<01" & numeratordenom=="N"
+	gen tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "<01", "01-04", "05-14") & numeratordenom=="N"
+	gen tx_curr_u15_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "<01", "01-04", "05-14") & numeratordenom=="N"
+	gen tx_curr_1to15_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "01-04", "05-14") & numeratordenom=="N"
 	gen tx_curr_o15_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "15-19", "20+") & numeratordenom=="N"
 	gen tx_curr_fy16_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen pre_art_yield = 0
@@ -196,34 +204,32 @@
 	gen tx_curr_subnat = fy2016apr if indicator=="TX_CURR_SUBNAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen tx_new = fy2016apr if indicator=="TX_NEW" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen tx_new_T = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	gen tx_new_u1 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex" & age=="<1" & numeratordenom=="N"
-	gen tx_new_u1_T = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & age=="<1" & numeratordenom=="N"
+	gen tx_new_u1 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex" & age=="<01" & numeratordenom=="N"
+	gen tx_new_u1_T = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & age=="<01" & numeratordenom=="N"
 	gen tx_new_fy16_T = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	gen tx_new_u15 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex" & inlist(age, "<1", "1-4", "5-9","10-14") & numeratordenom=="N"
+	gen tx_new_u15 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex" & inlist(age, "<01", "01-04", "05-09","10-14") & numeratordenom=="N"
 	gen tx_ret_D = fy2016apr if indicator=="TX_RET" & disaggregate=="Total Denominator" & numeratordenom=="D"
 	gen tx_ret = fy2016apr if indicator=="TX_RET" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	gen tx_ret_u15_D = fy2016apr if indicator=="TX_RET" & disaggregate=="Age/Sex" & inlist(age, "<5", "5-14") & numeratordenom=="D"
+	gen tx_ret_u15_D = fy2016apr if indicator=="TX_RET" & disaggregate=="Age/Sex" & inlist(age, "<05", "05-14") & numeratordenom=="D"
 	gen tx_ret_yield = 0
-	gen tx_ret_u15 = fy2016apr if indicator=="TX_RET" & disaggregate=="Age/Sex" & inlist(age, "<5", "5-14") & numeratordenom=="N"
+	gen tx_ret_u15 = fy2016apr if indicator=="TX_RET" & disaggregate=="Age/Sex" & inlist(age, "<05", "05-14") & numeratordenom=="N"
 	gen tx_ret_u15_yield = 0
 	gen tx_undetect = fy2016apr if indicator=="TX_UNDETECT" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen tx_undetect_f = fy2016apr if indicator=="TX_UNDETECT" & disaggregate=="Age/Sex" & sex=="Female" & numeratordenom=="N"
 	gen tx_undetect_m = fy2016apr if indicator=="TX_UNDETECT" & disaggregate=="Age/Sex" & sex=="Male" & numeratordenom=="N"
-	gen tx_undetect_u15 = fy2016apr if indicator=="TX_UNDETECT" & disaggregate=="Age/Sex" & inlist(age, "<1", "1-4", "5-9","10-14") & numeratordenom=="N"
+	gen tx_undetect_u15 = fy2016apr if indicator=="TX_UNDETECT" & disaggregate=="Age/Sex" & inlist(age, "<01", "01-04", "05-09","10-14") & numeratordenom=="N"
 	gen tx_undetect_D = fy2016apr if indicator=="TX_UNDETECT" & disaggregate=="Total Denominator" & numeratordenom=="D"
 	gen tx_viral = fy2016apr if indicator=="TX_VIRAL" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen tx_viral_T = fy2017_targets if indicator=="TX_VIRAL" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen tx_viral_f = fy2016apr if indicator=="TX_VIRAL" & disaggregate=="Age/Sex" & sex=="Female" & numeratordenom=="N"
 	gen tx_viral_m = fy2016apr if indicator=="TX_VIRAL" & disaggregate=="Age/Sex" & sex=="Male" & numeratordenom=="N"
-	gen tx_viral_u15 = fy2016apr if indicator=="TX_VIRAL" & disaggregate=="Age/Sex" & inlist(age, "<1", "1-4", "5-9","10-14") & numeratordenom=="N"
+	gen tx_viral_u15 = fy2016apr if indicator=="TX_VIRAL" & disaggregate=="Age/Sex" & inlist(age, "<01", "01-04", "05-09","10-14") & numeratordenom=="N"
 	gen vmmc_circ_T = fy2017_targets if indicator=="VMMC_CIRC" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	gen vmmc_circ_rng_T = fy2017_targets if indicator=="VMMC_CIRC" & disaggregate=="Age" & inlist(age, "5-19", "20-24", "25-29") & numeratordenom=="N"
+	gen vmmc_circ_rng_T = fy2017_targets if indicator=="VMMC_CIRC" & disaggregate=="Age" & inlist(age, "05-19", "20-24", "25-29") & numeratordenom=="N"
 	gen vmmc_circ_subnat = fy2016apr if indicator=="VMMC_CIRC_SUBNAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen vmmc_pop_rng = 0
 	gen vmmc_est = 0
 	gen vmmc_est_rng = 0
-
-
 
 * aggregate up to PSNU level
 	*drop mechanismid fy*
