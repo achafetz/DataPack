@@ -93,7 +93,7 @@
 	
 * generate
 	// output generated in Data Pack template (POPsubset sheet)
-	// updated 12/5
+	// updated 12/6
 	gen care_curr = fy2016apr if indicator=="CARE_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen care_curr_T = fy2017_targets if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & numeratordenom=="N"
 	gen care_curr_f = fy2016apr if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & sex=="Female" & numeratordenom=="N"
@@ -116,33 +116,33 @@
 	gen htc_tst_pos_fy16_T = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Total Numerator" & resultstatus=="Positive" & numeratordenom=="N"
 	gen htc_tst_T = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen htc_tst_pos_T = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & resultstatus=="Positive" & numeratordenom=="N"
-	gen htc_tst_spd_antenatal_clinic_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Antenatal Clinic" & numeratordenom=="N"
-	gen htc_tst_spd_home_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Home-based" & numeratordenom=="N"
 	gen htc_tst_spd_inpatient_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Inpatient" & numeratordenom=="N"
+	gen htc_tst_spd_oth_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative"& inlist(otherdisaggregate, "HIV Care and Treatment Clinic", "Outpatient Department", "Other Service Delivery Point") & numeratordenom=="N"
+	gen htc_tst_spd_home_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Home-based" & numeratordenom=="N"
 	gen htc_tst_spd_mobile_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Mobile" & numeratordenom=="N"
-	gen htc_tst_spd_outpatient_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Outpatient Department" & numeratordenom=="N"
-	gen htc_tst_spd_tb_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Tuberculosis" & numeratordenom=="N"
-	gen htc_tst_spd_u5_clinic_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Under 5 Clinic" & numeratordenom=="N"
 	gen htc_tst_spd_vtcalone_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Voluntary Counseling & Testing standalone" & numeratordenom=="N"
 	gen htc_tst_spd_vtccoloc_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Voluntary Counseling & Testing co-located" & numeratordenom=="N"
-	gen htc_tst_spd_vmmc_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative" & otherdisaggregate=="Voluntary Medical Male Circumcision" & numeratordenom=="N"
-	gen htc_tst_spd_oth_neg = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Negative"& inlist(otherdisaggregate, "HIV Care and Treatment Clinic", "Labor & Delivery", "Maternal and Child Health Clinic", "Facility Outpatient Department", "Facility Other PITC") & numeratordenom=="N"
-	gen htc_tst_spd_antenatal_clinic_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Antenatal Clinic" & numeratordenom=="N"
-	gen htc_tst_spd_home_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Home-based" & numeratordenom=="N"
 	gen htc_tst_spd_inpatient_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Inpatient" & numeratordenom=="N"
+	gen htc_tst_spd_oth_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive"& inlist(otherdisaggregate, "HIV Care and Treatment Clinic", "Outpatient Department", "Other Service Delivery Point") & numeratordenom=="N"
+	gen htc_tst_spd_home_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Home-based" & numeratordenom=="N"
 	gen htc_tst_spd_mobile_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Mobile" & numeratordenom=="N"
-	gen htc_tst_spd_outpatient_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Outpatient Department" & numeratordenom=="N"
-	gen htc_tst_spd_tb_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Tuberculosis" & numeratordenom=="N"
 	gen htc_tst_spd_vtcalone_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Voluntary Counseling & Testing standalone" & numeratordenom=="N"
 	gen htc_tst_spd_vtccoloc_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Voluntary Counseling & Testing co-located" & numeratordenom=="N"
-	gen htc_tst_spd_vmmc_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive" & otherdisaggregate=="Voluntary Medical Male Circumcision" & numeratordenom=="N"
-	gen htc_tst_spd_oth_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint/Result" & resultstatus=="Positive"& inlist(otherdisaggregate, "HIV Care and Treatment Clinic", "Labor & Delivery", "Maternal and Child Health Clinic", "Facility Outpatient Department", "Facility Other PITC") & numeratordenom=="N"
 	gen htc_tst_spd_tot_pos = 0
+	gen kp_prev_fsw = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="FSW" & numeratordenom=="N"
+	gen kp_prev_fsw_T = fy2017_targets if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="FSW" & numeratordenom=="N"
+	gen kp_prev_msmtg = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="MSM/TG" & numeratordenom=="N"
+	gen kp_prev_msmtg_T = fy2017_targets if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="MSM/TG" & numeratordenom=="N"
+	gen kp_prev_pwid = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop"& inlist(otherdisaggregate, "Female PWID", "Male PWID") & numeratordenom=="N"
+	gen kp_prev_pwid_T = fy2017_targets if indicator=="KP_PREV" & disaggregate=="KeyPop"& inlist(otherdisaggregate, "Female PWID", "Male PWID") & numeratordenom=="N"
+	gen kp_mat = fy2016apr if indicator=="KP_MAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	gen kp_mat_T = fy2017_targets if indicator=="KP_MAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	gen pp_prev = fy2016apr if indicator=="PP_PREV" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	gen pp_prev_T = fy2017_targets if indicator=="PP_PREV" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen ovc_acc = fy2016apr if indicator=="OVC_ACC" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen ovc_acc_T = fy2017_targets if indicator=="OVC_ACC" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen ovc_serv = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen ovc_serv_T = fy2017_targets if indicator=="OVC_SERV" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	gen ovc_est = 0
 	gen plhiv_u15 = fy2016apr if indicator=="PLHIV" & disaggregate=="Age Aggregated/Sex" & age=="<15"
 	gen plhiv_o15 = fy2016apr if indicator=="PLHIV" & disaggregate=="Age Aggregated/Sex" & age=="15+"
 	gen plhiv_f = fy2016apr if indicator=="PLHIV" & disaggregate=="Age Aggregated/Sex" & sex=="Female"
@@ -226,9 +226,7 @@
 	gen vmmc_circ_T = fy2017_targets if indicator=="VMMC_CIRC" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen vmmc_circ_rng_T = fy2017_targets if indicator=="VMMC_CIRC" & disaggregate=="Age" & inlist(age, "05-19", "20-24", "25-29") & numeratordenom=="N"
 	gen vmmc_circ_subnat = fy2016apr if indicator=="VMMC_CIRC_SUBNAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	gen vmmc_pop_rng = 0
-	gen vmmc_est = 0
-	gen vmmc_est_rng = 0
+
 
 
 * aggregate up to PSNU level
@@ -251,7 +249,8 @@
 	replace priority_snu = "Ctrl Supported" if priority_snu=="5 - Centrally Supported"
 	replace priority_snu = "Sustained Com" if priority_snu=="6 - Sustained: Commodities"
 	replace priority_snu = "NOT DEFINED" if priority_snu==""
-
+	replace priority_snu = "Mil" if strmatch(snulist, "*_Military*")
+	
 *sort by PLHIV
 	gsort + operatingunit - plhiv + snulist
 
