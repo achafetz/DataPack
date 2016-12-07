@@ -48,6 +48,7 @@
 
 *create a space
 	gen pr_sp = .
+	gen pr_sp2 = .
 	foreach x in HTC_TST HTC_TST_POS PMTCT_STAT TX_CURR{
 		gen `x'_sp1  = .
 		gen `x'_sp2  = .
@@ -55,10 +56,10 @@
 		}
 		*end
 *reorder
-	order operatingunit psnuuid snuprioritization
+	order operatingunit psnuuid snuprioritization psnu pr_sp pr_sp2
 	
 *export global list to data pack template
 	export excel using "$dpexcel/Global_PSNU_${date}.xlsx", ///
-		sheet("Key Indicators") firstrow(variables) sheetreplace
+		sheet("Key Ind Trends") firstrow(variables) sheetreplace
 
 
