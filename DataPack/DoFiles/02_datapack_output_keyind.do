@@ -46,10 +46,8 @@
 *reshape
 	reshape wide fy*, i(operatingunit psnu psnuuid snuprioritization) j(indicator, string)
 
-*drop semi annual indicators
-	drop fy2015q3TX_CURR fy2016q1TX_CURR fy2016q3TX_CURR
-
 *create a space
+	gen pr_sp = .
 	foreach x in HTC_TST HTC_TST_POS PMTCT_STAT TX_CURR{
 		gen `x'_sp1  = .
 		gen `x'_sp2  = .
@@ -57,7 +55,7 @@
 		}
 		*end
 *reorder
-	order psnu, after(snuprioritization)
+	order operatingunit psnuuid snuprioritization
 	
 *export global list to data pack template
 	export excel using "$dpexcel/Global_PSNU_${date}.xlsx", ///
