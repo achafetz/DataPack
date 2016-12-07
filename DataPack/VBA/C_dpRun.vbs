@@ -265,7 +265,7 @@ Sub formatTable()
     'add data validation for prioritization
         Range(Cells(7, 4), Cells(LastRow, 4)).Select
         Selection.Validation.Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
-            xlBetween, Formula1:="ScaleUp Sat, ScaleUp Agg, Sustained, Ctrl Supported, Sustained Com, Other, NOT DEFINED"
+            xlBetween, Formula1:="ScaleUp Sat, ScaleUp Agg, Sustained, Ctrl Supported, Sustained Com, Other, NOT DEFINED, Mil"
     'add named ranges
         Range(Cells(4, 3), Cells(LastRow, LastColumn)).Select
         Application.DisplayAlerts = False
@@ -276,7 +276,7 @@ End Sub
 
 Sub yieldFormulas()
     'add in formulas for yields
-        INDnames = Array("pmtct_eid_yield", "pmtct_stat_yield", "tb_stat_yield", "tx_ret_yield", "tx_ret_u15_yield", "htc_tst_u15_yield", "pre_art_yield", "pre_art_u15_yield")
+        INDnames = Array("pmtct_eid_yield", "pmtct_stat_yield", "tb_stat_yield", "tx_ret_yield", "tx_ret_u15_yield", "htc_tst_u15_yield", "pre_art_yield", "pre_art_u15_yield", "htc_tst_spd_tot_pos")
         For Each IND In INDnames
             If IND = "pmtct_eid_yield" Then
                 NUM = "pmtct_eid_pos_12mo"
@@ -302,6 +302,9 @@ Sub yieldFormulas()
             ElseIf IND = "pre_art_u15_yield" Then
                 NUM = "tx_curr_u15"
                 DEN = "care_curr_u15"
+            ElseIf IND = "htc_tst_spd_tot_pos" Then
+                NUM = "htc_tst_spd_tot_pos"
+                DEN = "htc_tst_spd_tot_pos"
             Else
             End If
             colIND = WorksheetFunction.Match(IND, ActiveWorkbook.Sheets("Indicator Table").Range("4:4"), 0)
@@ -311,15 +314,21 @@ Sub yieldFormulas()
                 Cells(5, colIND).FormulaR1C1 = "=IFERROR((RC[" & rcNUM & "]+RC[" & rcNUM - 1 & "])/ (RC[" & rcDEN & "]+RC[" & rcDEN + 2 & "]),"""")"
             ElseIf IND = "pre_art_yield" Or IND = "pre_art_u15_yield" Then
                 Cells(5, colIND).FormulaR1C1 = "=IFERROR(IF(RC[" & rcDEN & "] - RC[" & rcNUM & "]<0,0,(RC[" & rcDEN & "] - RC[" & rcNUM & "])/ RC[" & rcDEN & "]),0)"
+            ElseIf IND = "htc_tst_spd_tot_pos" Then
+                rcNUM = 1 - Application.WorksheetFunction.CountIf(Range("4:4"), "htc_tst_spd*_pos")
+                Cells(5, colIND).FormulaR1C1 = "=SUM(RC[" & rcNUM & "]:RC[-1])"
             Else
                 Cells(5, colIND).FormulaR1C1 = "=IFERROR(RC[" & rcNUM & "]/ RC[" & rcDEN & "],"""")"
             End If
-            Cells(5, colIND).NumberFormat = "0.0%"
+            If IND <> "htc_tst_spd_tot_pos" Then Cells(5, colIND).NumberFormat = "0.0%"
             Cells(5, colIND).Copy
             Range(Cells(7, colIND), Cells(LastRow, colIND)).Select
             ActiveSheet.Paste
         Next IND
-        
+    
+    'add formula to count total positives in the indicator table
+
+          
 End Sub
 
 Sub setupSNUs()
@@ -346,13 +355,6 @@ Sub setupSNUs()
         Application.DisplayAlerts = True
         Columns("C:C").ColumnWidth = 20.75
         Range("A1").Select
-    'hard code priority levels and add drop down
-        'Range(Cells(7, 4), Cells(LastRow, 4)).Select
-        With Selection
-            '.Copy
-            '.PasteSpecial Paste:=xlPasteValues
-
-        End With
         
 End Sub
 Sub setupHTCDistro()
@@ -366,7 +368,7 @@ Sub setupHTCDistro()
         Columns("C:C").ColumnWidth = 20.75
     'add total for ART to HTC distro tab
         Sheets("HTC Data Entry").Activate
-        For i = 5 To 11
+        For i = 5 To 10
             If i = 7 Then i = i + 1
             Cells(5, i).FormulaR1C1 = "=SUBTOTAL(109, R[2]C:R[" & LastRow - 5 & "]C)"
         Next i
@@ -615,7 +617,7 @@ Sub updatePBAC()
         Sheets("PBAC Output").Activate
         For i = 11 To 26
         If Len(Trim(Cells(5, i).Value)) > 0 Then
-            For r = 5 To 9
+            For r = 5 To 11
                 celltxt = ActiveSheet.Cells(r, i).Formula
                 celltxt = Replace(celltxt, "20", LastRow)
                 Cells(r, i).Formula = celltxt
