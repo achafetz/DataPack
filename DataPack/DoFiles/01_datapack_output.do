@@ -88,8 +88,8 @@
 *clean
 	*gen fy2017_targets = 0 //delete after FY17 targets are added into FV dataset
 	rename ïregion region
-	drop fy16snuprioritization
-	rename fy17snuprioritization snuprioritization
+	drop fy17snuprioritization
+	rename fy16snuprioritization snuprioritization
 	
 *apend
 	append using "$output/impatt_temp", force
