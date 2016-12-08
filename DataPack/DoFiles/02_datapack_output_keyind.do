@@ -29,6 +29,11 @@
 		}
 		*end
 		
+********************************************************************************	
+*keep just pilot countries --> remove after piloting
+	keep if inlist(operatingunit, "Nigeria" "Mozambique", "Tanzania", "Zambia")
+********************************************************************************
+			
 *clean
 	*gen fy2017_targets = 0 //delete after FY17 targets are added into FV dataset
 	rename ïregion region

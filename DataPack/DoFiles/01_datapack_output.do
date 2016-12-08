@@ -91,13 +91,13 @@
 	drop fy16snuprioritization
 	rename fy17snuprioritization snuprioritization
 	
-********************************************************************************	
-*keep just pilot countries --> remove after piloting
-	keep if inlist(operatingunit, "Nigeria" "Mozambique", "Tanzania", "Zambia")
-********************************************************************************
-	
 *apend
 	append using "$output/impatt_temp", force
+
+********************************************************************************	
+*keep just pilot countries --> remove after piloting
+	keep if inlist(operatingunit, "Nigeria", "Mozambique", "Tanzania", "Zambia")
+********************************************************************************
 	
 *save
 	save "$output/append_temp", replace
@@ -276,13 +276,21 @@
 ********************************************************************************
 * REMOVE AFTER PILOTING
 *due to incomplete targets, set to 110 of result for FY16
-	ds *_T
-	foreach t in `r(varlist)'{
-		replace `t' = 1.1* `=regexr("`t'","_T","")' ///
-			if inlist(operatingunit, "Mozambique", "Tanzania", "Zambia")
-		}
-		*end
+	global tlist care_curr_o15_T care_curr_T care_curr_u15_T care_new_T htc_tst_pos_T htc_tst_T kp_mat kp_mat_T kp_prev_fsw_T kp_prev_msmtg_T kp_prev_pwid_T ovc_acc_T ovc_serv_T pmtct_arv_curr_T pmtct_eid_12mo_T pmtct_stat_D_T pmtct_stat_T pp_prev_T tb_art tb_art_T tb_screen_T tb_stat_D_T tb_stat_T tx_curr_1to15_T tx_curr_o15_T tx_curr_T tx_curr_u15_T tx_new_T tx_new_u1_T tx_viral_T 
+	foreach t in $tlist{
+	replace `t' = 1.1* `=regexr("`t'","_T","")' ///
+				if inlist(operatingunit, "Mozambique", "Tanzania", "Zambia")
+	}
+	*end
+	/*
+	no results
+	vmmc_circ_rng_T 
+	vmmc_circ_T
+	pmtct_stat_known_T
+	pmtct_arv_T
+	*/
 ********************************************************************************
+
 *save 
 	save "$output/global_temp", replace
 
