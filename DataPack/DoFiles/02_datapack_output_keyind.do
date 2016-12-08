@@ -8,7 +8,7 @@
 *** SETUP ***
 
 *define date for Fact View Files
-	global datestamp "20161115_Q4v1_3"
+	global datestamp "20161115_Q4v1_4"
 	
 *set today's date for saving
 	global date: di %tdCCYYNNDD date(c(current_date), "DMY")
@@ -28,16 +28,12 @@
 			save "$fvdata/ICPI_FactView_PSNU_${datestamp}.dta", replace
 		}
 		*end
-		
-********************************************************************************	
-*keep just pilot countries --> remove after piloting
-	keep if inlist(operatingunit, "Nigeria" "Mozambique", "Tanzania", "Zambia")
-********************************************************************************
-			
+				
 *clean
 	*gen fy2017_targets = 0 //delete after FY17 targets are added into FV dataset
 	rename ïregion region
-	
+	drop fy16snuprioritization
+	rename fy17snuprioritization snuprioritization
 *keep just key indicator
 	keep if (inlist(indicator, "HTC_TST", "PMTCT_STAT", "TX_CURR", "TX_NEW") ///
 		& disaggregate=="Total Numerator") | ///
