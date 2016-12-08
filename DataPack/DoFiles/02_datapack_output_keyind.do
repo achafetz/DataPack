@@ -32,8 +32,6 @@
 *clean
 	*gen fy2017_targets = 0 //delete after FY17 targets are added into FV dataset
 	rename ïregion region
-	*current issue with prioritizations from different tables not lining up, so removing entirely
-	replace snuprioritization =""
 	
 *keep just key indicator
 	keep if (inlist(indicator, "HTC_TST", "PMTCT_STAT", "TX_CURR", "TX_NEW") ///
