@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based Data Pack at SNU level
 **   Date: November 10, 2016
-**   Updated: 12/2/2016
+**   Updated: 12/8/2016
 
 *** SETUP ***
 
@@ -32,6 +32,8 @@
 *clean
 	*gen fy2017_targets = 0 //delete after FY17 targets are added into FV dataset
 	rename ïregion region
+	*current issue with prioritizations from different tables not lining up, so removing entirely
+	replace snuprioritization =""
 	
 *keep just key indicator
 	keep if (inlist(indicator, "HTC_TST", "PMTCT_STAT", "TX_CURR", "TX_NEW") ///
