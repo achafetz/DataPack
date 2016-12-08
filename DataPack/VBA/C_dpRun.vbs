@@ -22,6 +22,7 @@ form for choosing the OUs and Data Pack products
         Public intr_fldr As String
         Public templ_fldr As String
         Public compl_fldr As String
+        Public other_fldr As String
         Public OUpath As String
         Public OUcompl_fldr As String
         Public fname_int As String
@@ -67,12 +68,13 @@ form for choosing the OUs and Data Pack products
         Public LastColumnDREAMS As Integer
         Public snu
         Public totSNUs
-        
-        
+        Public spkGrp As SparklineGroup
+
+
 Sub loadform()
     'prompt for form to load to choose OUs to run
     frmRunSel.Show
-    
+
 End Sub
 
 
@@ -89,15 +91,19 @@ Sub PopulateDataPack()
         Set tmplWkbk = ActiveWorkbook
     ' whether to view or just store change forms
         view = Sheets("POPref").Range("D11")
-        
+
     'loop over opunit
     ou_i = 2 ' count used to lookup SNU level for each OU (row #)
-    
+
     For Each OpUnit In SelectedOpUnits
 
         'remove space and comma for file saving (ns = no space)
         OpUnit_ns = Replace(Replace(OpUnit, " ", ""), "'", "")
-        
+        'create OU specific folder
+        OUpath = compl_fldr & OpUnit_ns & VBA.format(Now, "yyyy.mm.dd")
+        If Len(Dir(OUpath, vbDirectory)) = 0 Then MkDir OUpath
+        OUcompl_fldr = OUpath & "\"
+
         'run through all subs
         Call Initialize
         Call getData
@@ -106,25 +112,26 @@ Sub PopulateDataPack()
         Call setupSNUs
         Call setupHTCDistro
         Call lookupsumFormulas
+        Call sparkTrends
         Call format
         Call showChanges
         Call filters
         Call dimDefault
         Call updatePBAC
         Call saveFile
-        
+
         'Zip output folder
         If tmplWkbk.Sheets("POPref").Range("D14").Value = "Yes" Then
             Call Zip_All_Files_in_Folder
         End If
-            
+
         ou_i = ou_i + 1 'row for OU in POPref
-        
+
     Next
-    
+
     'close global dataset
      dataWkbk.Close
-     
+
 End Sub
 
 
@@ -155,6 +162,7 @@ Sub fldrSetup()
             pulls_fldr = path & "DataPulls\"
             templ_fldr = path & "TemplateGeneration\"
             compl_fldr = path & "CompletedDataPacks\"
+            other_fldr = path & "OtherInfo\"
         'set directory initially to the pulls folder
             ChDir (path)
 End Sub
@@ -164,9 +172,9 @@ Sub Initialize()
         tmplWkbk.Sheets("POPref").Activate
     'create datapack file for OU (copy sheets over to new book)
         tmplWkbk.Activate
-        Sheets(Array("Home", "Entry Table", "Summary & Targets", "Indicator Table", "HTC Data Entry", "PBAC Output", "Change Form")).Copy
+        Sheets(Array("Home", "Entry Table", "Summary & Targets", "Indicator Table", "HTC Data Entry", "Key Ind Trends", "PBAC Output", "Change Form")).Copy
         Set dpWkbk = ActiveWorkbook
-        ActiveWorkbook.Theme.ThemeColorScheme.Load ("C:\Program Files (x86)\Microsoft Office\Document Themes 14\Theme Colors\Adjacency.xml")
+        ActiveWorkbook.Theme.ThemeColorScheme.Load (other_fldr & "Adjacency.xml")
     'hard code update date into home tab & insert OU name
        Sheets("Home").Range("N1").Select
        Range("N1").Copy
@@ -177,12 +185,13 @@ Sub Initialize()
         Workbooks.OpenText Filename:=pulls_fldr & "Global_PSNU_*.xlsx"
         Sheets("Indicator Table").Activate
        Set dataWkbk = ActiveWorkbook
-       
+
 End Sub
 
 Sub getData()
     'make sure file with data is activate
         dataWkbk.Activate
+        Sheets("Indicator Table").Activate
     ' find the last column
         LastColumn = Range("A1").CurrentRegion.Columns.Count
     'copy variable names
@@ -220,9 +229,29 @@ Sub getData()
         Sheets("Indicator Table").Activate
         Range("B7").Select
         Selection.PasteSpecial Paste:=xlPasteValues
+
+    'get quarterly data for trends tab
+        dataWkbk.Activate
+        Sheets("Key Ind Trends").Activate
+    'find the last column
+        LastColumn = Range("A1").CurrentRegion.Columns.Count
+    'find first and last row of OU
+        FirstRow = Range("A:A").Find(what:=OpUnit, after:=Range("A1")).Row
+        LastRow = Range("A:A").Find(what:=OpUnit, after:=Range("A1"), searchdirection:=xlPrevious).Row
+    'select OU data from global file to copy to data pack
+        Range(Cells(FirstRow, 4), Cells(LastRow, LastColumn)).Select
+    'copy the data and paste in the data pack
+        Selection.Copy
+        dpWkbk.Activate
+        Sheets("Key Ind Trends").Activate
+        Range("C7").Select
+        Selection.PasteSpecial Paste:=xlPasteValues
+        Selection.NumberFormat = "#,##0"
 End Sub
 
 Sub formatTable()
+    'indicator table
+         Sheets("Indicator Table").Activate
     'find last row and column
         LastColumn = Range("C4").CurrentRegion.Columns.Count
         LastRow = uniqueTot + 6
@@ -271,7 +300,7 @@ Sub formatTable()
         Application.DisplayAlerts = False
         Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
         Application.DisplayAlerts = True
-    
+
 End Sub
 
 Sub yieldFormulas()
@@ -325,10 +354,10 @@ Sub yieldFormulas()
             Range(Cells(7, colIND), Cells(LastRow, colIND)).Select
             ActiveSheet.Paste
         Next IND
-    
+
     'add formula to count total positives in the indicator table
 
-          
+
 End Sub
 
 Sub setupSNUs()
@@ -355,7 +384,7 @@ Sub setupSNUs()
         Application.DisplayAlerts = True
         Columns("C:C").ColumnWidth = 20.75
         Range("A1").Select
-        
+
 End Sub
 Sub setupHTCDistro()
     'add SNU list to HTC distro tab
@@ -372,7 +401,7 @@ Sub setupHTCDistro()
             If i = 7 Then i = i + 1
             Cells(5, i).FormulaR1C1 = "=SUBTOTAL(109, R[2]C:R[" & LastRow - 5 & "]C)"
         Next i
-        
+
     'add in extra named ranges
         Sheets("HTC Data Entry").Activate
         Set indRng = Sheets("HTC Data Entry").Range(Cells(5, 5), Cells(LastRow, 5))
@@ -389,16 +418,15 @@ Sub lookupsumFormulas()
         shtNames = Array("HTC Data Entry", "Summary & Targets")
         For Each sht In shtNames
             Sheets(sht).Select
-            LastSumColumn = Sheets(sht).Range("A2").CurrentRegion.Columns.Count
-            Range(Cells(7, 4), Cells(7, LastSumColumn)).Select
+            LastColumn = Sheets(sht).Range("A2").CurrentRegion.Columns.Count
+            Range(Cells(7, 4), Cells(7, LastColumn)).Select
             Selection.Copy
-            For i = 8 To LastRow
-                Range(Cells(i, 4), Cells(i, LastSumColumn)).Select
-                ActiveSheet.Paste
-            Next i
+            Range(Cells(8, 4), Cells(LastRow, LastColumn)).Select
+            Selection.PasteSpecial Paste:=xlPasteFormulasAndNumberFormats
+            Application.CutCopyMode = False
         Next sht
     'add formula to totals
-        shtNames = Array("HTC Data Entry", "Summary & Targets")
+        shtNames = Array("HTC Data Entry", "Summary & Targets", "Key Ind Trends")
         LastRowRC = LastRow - 5
         For Each sht In shtNames
             Sheets(sht).Select
@@ -407,7 +435,7 @@ Sub lookupsumFormulas()
             Else
                 colStart = 4
             End If
-            For i = colStart To LastSumColumn
+            For i = colStart To LastColumn
                 If ActiveSheet.Cells(4, i).Value <> "" Then
                     Cells(5, i).Select
                     Selection.FormulaR1C1 = "=SUBTOTAL(109, R[1]C:R[" & LastRowRC & "]C)"
@@ -419,14 +447,51 @@ Sub lookupsumFormulas()
                    Cells(5, i).Select
                    ActiveSheet.Paste
                 End If
-                   
+
             Next i
         Next sht
 End Sub
 
+Sub sparkTrends()
+    'tends sheet
+        Sheets("Key Ind Trends").Activate
+    'add named range for snulist
+        Range(Cells(4, 3), Cells(LastRow, 3)).Select
+        Application.DisplayAlerts = False
+        Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
+        Application.DisplayAlerts = True
+    'delete subtotal for prioritization SNUs
+        LastColumn = ActiveSheet.Range("A2").CurrentRegion.Columns.Count
+        For i = 4 To LastColumn
+            Cells(5, i).ClearContents
+            i = i + 7
+        Next i
+    'add in formula to lookup prioritization
+        Range(Cells(7, 4), Cells(LastRow, 4)).Select
+        Selection.FormulaR1C1 = "=IFERROR(INDEX(priority_snu,MATCH(snu_qtr,snulist,0)),"""")"
+     'add sparklines
+         Set spkGrp = Range("L7").SparklineGroups.Add(Type:=xlSparkLine, SourceData:="F7:K7")
+         With spkGrp.SeriesColor
+             .ThemeColor = 9
+             '.TintAndShade = -0.249977111117893
+         End With
+         With spkGrp.Points.Markers
+             .Visible = True
+             .Color.ThemeColor = 9
+             '.TintAndShade = -0.249977111117893
+         End With
+         Range("L7").Copy
+
+        For i = 12 To 44
+             Range(Cells(7, i), Cells(LastRow, i)).Select
+             ActiveSheet.Paste
+             i = i + 7
+         Next i
+
+End Sub
 Sub format()
     'format
-      shtNames = Array("Indicator Table", "Entry Table", "HTC Data Entry", "Summary & Targets")
+      shtNames = Array("Indicator Table", "Entry Table", "HTC Data Entry", "Summary & Targets", "Key Ind Trends")
         For Each sht In shtNames
         Sheets(sht).Select
         LastColumn = Sheets(sht).Range("A2").CurrentRegion.Columns.Count
@@ -445,7 +510,7 @@ Sub format()
         'format - banded rows
             With Range(Cells(7, 3), Cells(LastRow, LastColumn))
                 .Activate
-                .FormatConditions.Add xlExpression, Formula1:="=AND($C5<>"""",C$4<>"""",MOD(ROW(),2)=0)"
+                .FormatConditions.Add xlExpression, Formula1:="=AND($C7<>"""",C$4<>"""",MOD(ROW(),2)=0)"
                 With .FormatConditions(1).Interior
                     .Pattern = xlSolid
                     .PatternColorIndex = xlAutomatic
@@ -556,7 +621,7 @@ End Sub
 
 Sub filters()
     'add filter rows
-        shtNames = Array("Entry Table", "Summary & Targets", "HTC Data Entry")
+        shtNames = Array("Entry Table", "Summary & Targets", "HTC Data Entry", "Key Ind Trends")
         For Each sht In shtNames
             Sheets(sht).Select
             IndicatorCount = Range("A2").CurrentRegion.Columns.Count
@@ -571,7 +636,7 @@ Sub filters()
                 Range(Cells(6, 3), Cells(LastRow, IndicatorCount)).Select
                 Selection.AutoFilter
                 Range("C6").NumberFormat = ";;;"
-                Range("B1").Select
+                Range("D1").Select
         Next sht
 End Sub
 
@@ -631,7 +696,7 @@ Sub saveFile()
     'save
         Sheets("Home").Activate
         Range("X1").Select
-        fname_dp = compl_fldr & OpUnit_ns & "COP17DataPack" & "v" & VBA.format(Now, "yyyy.mm.dd") & ".xlsx"
+        fname_dp = OUcompl_fldr & OpUnit_ns & "COP17DataPack" & "v" & VBA.format(Now, "yyyy.mm.dd") & ".xlsx"
         Application.DisplayAlerts = False
         ActiveWorkbook.SaveAs fname_dp
     'keep data pack open?
@@ -661,12 +726,12 @@ data pack and its supplementary files"
         If Right(DefPath, 1) <> "\" Then
             DefPath = DefPath & "\"
         End If
-    
+
         FolderName = OUcompl_fldr
-    
+
         strDate = VBA.format(Now, "yyyy.mm.dd")
         FileNameZip = DefPath & OpUnit_ns & strDate & ".zip"
-        If military = "Yes" Then FileNameZip = DefPath & OpUnit_ns & "Mil" & strDate & ".zip"
+
     'Create empty Zip File
         NewZip (FileNameZip)
 
@@ -682,7 +747,7 @@ data pack and its supplementary files"
         Loop
         On Error GoTo 0
 
-        
+
 End Sub
 
 Sub NewZip(sPath)
@@ -707,4 +772,3 @@ Function Split97(sStr As Variant, sdelim As String) As Variant
     Split97 = Evaluate("{""" & _
     Application.Substitute(sStr, sdelim, """,""") & """}")
 End Function
-
