@@ -34,8 +34,11 @@
 		replace `pd' = "." if `pd' == "NULL"
 		destring `pd', replace
 	}
-	*End
+	*end
 	
+*rename variables to match
+	rename fy2015q4 fy2015apr
+	rename fy2016q4 fy2016apr	
 	
 /*
 *reshape to get values by fy
@@ -62,9 +65,8 @@
 		}
 	drop techarea dataelementuid dataelementname categoryoptioncombouid fy2015_targets
 */
-*new
-	rename fy2015q4 fy2015apr
-	rename fy2016q4 fy2016apr
+
+
 *save
 	save "$output/impatt_temp", replace
 
@@ -88,12 +90,14 @@
 *clean
 	*gen fy2017_targets = 0 //delete after FY17 targets are added into FV dataset
 	rename ïregion region
-	drop fy17snuprioritization
-	rename fy16snuprioritization snuprioritization
 	
 *apend
 	append using "$output/impatt_temp", force
 
+*adjust prioritizations
+	rename fy17snuprioritization snuprioritization
+	drop fy16snuprioritization
+	
 ********************************************************************************	
 *keep just pilot countries --> remove after piloting
 	keep if inlist(operatingunit, "Nigeria", "Mozambique", "Tanzania", "Zambia")
@@ -272,7 +276,8 @@
 		replace `v' = . if strmatch(snulist, "*_Military*")
 		}
 		*end
-		
+*remove if no psnu
+	drop if psnu==""
 ********************************************************************************
 * REMOVE AFTER PILOTING
 *due to incomplete targets, set to 110 of result for FY16
