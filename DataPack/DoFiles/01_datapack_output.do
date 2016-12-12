@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based Data Pack at SNU level
 **   Date: November 10, 2016
-**   Updated: 12/8/2016
+**   Updated: 12/11/2016
 
 *** SETUP ***
 
@@ -276,8 +276,8 @@
 		replace `v' = . if strmatch(snulist, "*_Military*")
 		}
 		*end
-*remove if no psnu
-	drop if psnu==""
+*if no psnu
+	replace psnu = "[no associated SNU]" if psnu==""
 ********************************************************************************
 * REMOVE AFTER PILOTING
 *due to incomplete targets, set to 110 of result for FY16
