@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: mehcanism list
 **   Date: December 10, 2016
-**   Updated: 12/11/16
+**   Updated: 12/15/16
 
 *** SETUP ***
 
@@ -15,12 +15,23 @@
 
 *import/open data
 	use "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta", clear
-	
+
+*update all partner and mech to offical names (based on FACTS Info)
+	capture confirm file "$output/officialnames.dta"
+	if _rc{
+		perserve
+		run 06_datapack_officalnames
+		restore
+		}
+		*end
+	merge m:1 mechanismid using "$output/officialnames.dta", ///
+		update replace nogen keep(1 3 4 5) //keep all but non match from using
+
 *keep
 	gen n = 1
 	collapse n, by(operatingunit fundingagency mechanismid implementingmechanismname)
 	drop n
-	drop if mechanismid<2 //drop dedups
+	drop if mechanismid<2 //drop dedups 00000 and 00001
 	sort operatingunit mechanismid
 *export
 	export excel using "$dpexcel/Global_PSNU_${date}.xlsx", ///

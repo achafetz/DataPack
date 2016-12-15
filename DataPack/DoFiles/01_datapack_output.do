@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based Data Pack at SNU level
 **   Date: November 10, 2016
-**   Updated: 12/11/2016
+**   Updated: 12/12/2016
 
 *** SETUP ***
 
@@ -108,7 +108,7 @@
 	
 * generate
 	// output generated in Data Pack template (POPsubset sheet)
-	// updated 12/8
+	// updated 12/12
 	gen care_curr = fy2016apr if indicator=="CARE_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen care_curr_T = fy2017_targets if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & numeratordenom=="N"
 	gen care_curr_f = fy2016apr if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & sex=="Female" & numeratordenom=="N"
@@ -164,8 +164,6 @@
 	gen pop_num = fy2016apr if indicator=="POP_NUM" & disaggregate=="Total Numerator"
 	gen pop_num_f = fy2016apr if indicator=="POP_NUM" & disaggregate=="Age Aggregated/Sex" & sex=="Female"
 	gen pop_num_m = fy2016apr if indicator=="POP_NUM" & disaggregate=="Age Aggregated/Sex" & sex=="Male"
-	gen pp_prev = fy2016apr if indicator=="PP_PREV" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	gen pp_prev_T = fy2017_targets if indicator=="PP_PREV" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen pmtct_arv_T = fy2017_targets if indicator=="PMTCT_ARV" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen pmtct_arv_already = fy2016apr if indicator=="PMTCT_ARV" & disaggregate=="MaternalRegimenType" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"
 	gen pmtct_arv_curr = fy2016apr if indicator=="PMTCT_ARV" & disaggregate=="MaternalRegimenType"& inlist(otherdisaggregate, "Life-long ART New", "Triple-drug ARV") & numeratordenom=="N"
@@ -188,6 +186,8 @@
 	gen pmtct_stat_knownpos = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New" & resultstatus=="Positive" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"
 	gen pmtct_stat_known_T = fy2017_targets if indicator=="PMTCT_STAT" & disaggregate=="Known/New" & numeratordenom=="N"
 	gen pmtct_stat_subnat = fy2016apr if indicator=="PMTCT_STAT_SUBNAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	gen pp_prev = fy2016apr if indicator=="PP_PREV" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	gen pp_prev_T = fy2017_targets if indicator=="PP_PREV" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen prevalence_num = fy2016apr if indicator=="PREVALENCE_NUM" & disaggregate=="NULL"
 	gen tb_art_D = fy2016apr if indicator=="TB_ART" & disaggregate=="Total Denominator" & numeratordenom=="D"
 	gen tb_art = fy2016apr if indicator=="TB_ART" & disaggregate=="Total Numerator" & numeratordenom=="N"
@@ -212,6 +212,8 @@
 	gen tx_curr_1to15_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "01-04", "05-14") & numeratordenom=="N"
 	gen tx_curr_o15_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "15-19", "20+") & numeratordenom=="N"
 	gen tx_curr_fy16_T = fy2016_targets if indicator=="TX_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	gen tx_curr_1to15_fy16_T = fy2016_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "01-04", "05-14") & numeratordenom=="N"
+	gen tx_curr_o15_fy16_T = fy2016_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "15-19", "20+") & numeratordenom=="N"
 	gen pre_art_yield = 0
 	gen pre_art_u15_yield = 0
 	gen tx_curr_subnat_u15 = fy2016apr if indicator=="TX_CURR_SUBNAT" & disaggregate=="Age/Sex" & age=="<15" & numeratordenom=="N"
@@ -281,7 +283,12 @@
 ********************************************************************************
 * REMOVE AFTER PILOTING
 *due to incomplete targets, set to 110 of result for FY16
-	global tlist care_curr_o15_T care_curr_T care_curr_u15_T care_new_T htc_tst_pos_T htc_tst_T kp_mat kp_mat_T kp_prev_fsw_T kp_prev_msmtg_T kp_prev_pwid_T ovc_acc_T ovc_serv_T pmtct_arv_curr_T pmtct_eid_12mo_T pmtct_stat_D_T pmtct_stat_T pp_prev_T tb_art tb_art_T tb_screen_T tb_stat_D_T tb_stat_T tx_curr_1to15_T tx_curr_o15_T tx_curr_T tx_curr_u15_T tx_new_T tx_new_u1_T tx_viral_T 
+	global tlist care_curr_o15_T care_curr_T care_curr_u15_T care_new_T ///
+		htc_tst_pos_T htc_tst_T kp_mat kp_mat_T kp_prev_fsw_T kp_prev_msmtg_T ///
+		kp_prev_pwid_T ovc_acc_T ovc_serv_T pmtct_arv_curr_T pmtct_eid_12mo_T ///
+		pmtct_stat_D_T pmtct_stat_T pp_prev_T tb_art tb_art_T tb_screen_T ///
+		tb_stat_D_T tb_stat_T tx_curr_T ///
+		tx_curr_u15_T tx_new_T tx_new_u1_T tx_viral_T 
 	foreach t in $tlist{
 	replace `t' = 1.1* `=regexr("`t'","_T","")' ///
 				if inlist(operatingunit, "Mozambique", "Tanzania", "Zambia")
