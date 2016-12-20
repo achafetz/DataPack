@@ -15,6 +15,7 @@ form for choosing the OUs and Data Pack products
         Public dataWkbk As Workbook
         Public dpWkbk As Workbook
         Public yldWkbk As Workbook
+        Public dstWkbk As Workbook
         Public ou_i As Integer
         Public path As String
         Public file As String
@@ -69,6 +70,7 @@ form for choosing the OUs and Data Pack products
         Public snu
         Public totSNUs
         Public spkGrp As SparklineGroup
+        Public FirstColumn As Integer
 
 
 Sub loadform()
@@ -81,6 +83,7 @@ End Sub
 Sub PopulateDataPack()
     'turn off screen updating
         Application.ScreenUpdating = False
+        Debug.Print Application.ScreenUpdating
     'establish OUs on ref sheet
         Sheets("POPref").Activate
         rng = Sheets("POPref").Range("D5").Value + 1
@@ -113,12 +116,24 @@ Sub PopulateDataPack()
         Call setupHTCDistro
         Call lookupsumFormulas
         Call sparkTrends
+        shtNames = Array("Indicator Table", "Entry Table", "HTC Data Entry", _
+            "Summary & Targets", "IM Targeting Output", "Key Ind Trends")
         Call format
+        Call formatHeaders
         Call showChanges
+        shtNames = Array("Entry Table", "Summary & Targets", "HTC Data Entry", _
+            "IM Targeting Output", "Key Ind Trends")
         Call filters
         Call dimDefault
-        Call updatePBAC
+        Call updateOutput
         Call saveFile
+        Call imTargeting
+
+        'keep data pack open?
+        If view = "No" Then
+            dstWkbk.Close
+            dpWkbk.Close
+        End If
 
         'Zip output folder
         If tmplWkbk.Sheets("POPref").Range("D14").Value = "Yes" Then
@@ -172,7 +187,7 @@ Sub Initialize()
         tmplWkbk.Sheets("POPref").Activate
     'create datapack file for OU (copy sheets over to new book)
         tmplWkbk.Activate
-        Sheets(Array("Home", "Entry Table", "Summary & Targets", "Indicator Table", "HTC Data Entry", "Key Ind Trends", "PBAC Output", "Change Form")).Copy
+        Sheets(Array("Home", "Entry Table", "Summary & Targets", "Indicator Table", "HTC Data Entry", "Key Ind Trends", "PBAC Output", "IM Targeting Output", "Change Form")).Copy
         Set dpWkbk = ActiveWorkbook
         ActiveWorkbook.Theme.ThemeColorScheme.Load (other_fldr & "Adjacency.xml")
     'hard code update date into home tab & insert OU name
@@ -214,8 +229,8 @@ Sub getData()
         Application.CutCopyMode = False
     'find first and last row of OU
         dataWkbk.Activate
-        FirstRow = Range("A:A").Find(what:=OpUnit, after:=Range("A1")).Row
-        LastRow = Range("A:A").Find(what:=OpUnit, after:=Range("A1"), searchdirection:=xlPrevious).Row
+        FirstRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1")).Row
+        LastRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1"), searchdirection:=xlPrevious).Row
     'how many SNUs?
         uniqueTot = LastRow - FirstRow + 1
         dpWkbk.Names.Add Name:="snu_unique", RefersToR1C1:=uniqueTot
@@ -236,8 +251,8 @@ Sub getData()
     'find the last column
         LastColumn = Range("A1").CurrentRegion.Columns.Count
     'find first and last row of OU
-        FirstRow = Range("A:A").Find(what:=OpUnit, after:=Range("A1")).Row
-        LastRow = Range("A:A").Find(what:=OpUnit, after:=Range("A1"), searchdirection:=xlPrevious).Row
+        FirstRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1")).Row
+        LastRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1"), searchdirection:=xlPrevious).Row
     'select OU data from global file to copy to data pack
         Range(Cells(FirstRow, 4), Cells(LastRow, LastColumn)).Select
     'copy the data and paste in the data pack
@@ -294,7 +309,7 @@ Sub formatTable()
     'add data validation for prioritization
         Range(Cells(7, 4), Cells(LastRow, 4)).Select
         Selection.Validation.Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
-            xlBetween, Formula1:="ScaleUp Sat, ScaleUp Agg, Sustained, Ctrl Supported, Sustained Com, Other, NOT DEFINED, Mil"
+            xlBetween, Formula1:="ScaleUp Sat, ScaleUp Agg, Sustained, Ctrl Supported, Sustained Com, Attained, NOT DEFINED, Mil"
     'add named ranges
         Range(Cells(4, 3), Cells(LastRow, LastColumn)).Select
         Application.DisplayAlerts = False
@@ -361,17 +376,20 @@ Sub yieldFormulas()
 End Sub
 
 Sub setupSNUs()
-    'add SNU list to summary and targets tab
-        Sheets("Summary & Targets").Activate
-        Range(Cells(5, 3), Cells(LastRow, 3)).FormulaR1C1 = "='Indicator Table'!RC"
-        Range(Cells(4, 3), Cells(LastRow, 3)).Select
-        Application.DisplayAlerts = False
-        Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
-        Application.DisplayAlerts = False
-        Columns("C:C").ColumnWidth = 20.75
+    'add SNU list to summary and targets and IM targeting tab
+        shtNames = Array("Summary & Targets", "IM Targeting Output")
+        For Each sht In shtNames
+            Sheets(sht).Activate
+            Range(Cells(5, 3), Cells(LastRow, 3)).FormulaR1C1 = "='Indicator Table'!RC"
+            Range(Cells(4, 3), Cells(LastRow, 3)).Select
+            Application.DisplayAlerts = False
+            Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
+            Application.DisplayAlerts = False
+            Columns("C:C").ColumnWidth = 20.75
+        Next sht
     'add SNU list, copy default values, and add named range to Entry Table tab
         Sheets("Entry Table").Activate
-        EntryIndicatorCount = Range("A4").CurrentRegion.Columns.Count
+        EntryIndicatorCount = Range("A2").CurrentRegion.Columns.Count
         Range(Cells(6, 3), Cells(LastRow, 3)).FormulaR1C1 = "='Indicator Table'!RC"
         Range(Cells(7, 4), Cells(7, EntryIndicatorCount)).Select
         Selection.Copy
@@ -379,11 +397,10 @@ Sub setupSNUs()
         ActiveSheet.Paste
         Range(Cells(4, 3), Cells(LastRow, EntryIndicatorCount)).Select
         Application.DisplayAlerts = False
-        Range(Cells(4, 3), Cells(LastRow, EntryIndicatorCount)).Select
         Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
-        Application.DisplayAlerts = True
+        Application.DisplayAlerts = False
         Columns("C:C").ColumnWidth = 20.75
-        Range("A1").Select
+        Range(Cells(4, 3), Cells(LastRow, EntryIndicatorCount)).Select
 
 End Sub
 Sub setupHTCDistro()
@@ -397,8 +414,8 @@ Sub setupHTCDistro()
         Columns("C:C").ColumnWidth = 20.75
     'add total for ART to HTC distro tab
         Sheets("HTC Data Entry").Activate
-        For i = 5 To 10
-            If i = 7 Then i = i + 1
+        For i = 5 To 12
+            If i = 9 Then i = i + 1
             Cells(5, i).FormulaR1C1 = "=SUBTOTAL(109, R[2]C:R[" & LastRow - 5 & "]C)"
         Next i
 
@@ -407,15 +424,18 @@ Sub setupHTCDistro()
         Set indRng = Sheets("HTC Data Entry").Range(Cells(5, 5), Cells(LastRow, 5))
         ActiveWorkbook.Names.Add Name:="T_htc_need", RefersTo:=indRng
         Sheets("Summary & Targets").Activate
-        indColNum = WorksheetFunction.Match("New on Treatment (other sources: VMMC, TB/HIV, KP, Gen Pop, etc.)", ActiveWorkbook.Sheets("Summary & Targets").Range("4:4"), 0)
+        indColNum = WorksheetFunction.Match("New on Treatment from other modalities", ActiveWorkbook.Sheets("Summary & Targets").Range("4:4"), 0)
         Set indRng = Sheets("Summary & Targets").Range(Cells(5, indColNum), Cells(LastRow, indColNum))
-        ActiveWorkbook.Names.Add Name:="T_oth_treat", RefersTo:=indRng
+        ActiveWorkbook.Names.Add Name:="T_pos_ident", RefersTo:=indRng
+        indColNum = WorksheetFunction.Match("FY18 Target TX_NEW <15", ActiveWorkbook.Sheets("Summary & Targets").Range("4:4"), 0)
+        Set indRng = Sheets("Summary & Targets").Range(Cells(5, indColNum), Cells(LastRow, indColNum))
+        ActiveWorkbook.Names.Add Name:="T_ped_treat", RefersTo:=indRng
 End Sub
 
 Sub lookupsumFormulas()
     Dim colStart As Integer
     'copy lookup formulas to all SNUs
-        shtNames = Array("HTC Data Entry", "Summary & Targets")
+        shtNames = Array("HTC Data Entry", "Summary & Targets", "IM Targeting Output")
         For Each sht In shtNames
             Sheets(sht).Select
             LastColumn = Sheets(sht).Range("A2").CurrentRegion.Columns.Count
@@ -426,10 +446,11 @@ Sub lookupsumFormulas()
             Application.CutCopyMode = False
         Next sht
     'add formula to totals
-        shtNames = Array("HTC Data Entry", "Summary & Targets", "Key Ind Trends")
+        shtNames = Array("HTC Data Entry", "Summary & Targets", "IM Targeting Output", "Key Ind Trends")
         LastRowRC = LastRow - 5
         For Each sht In shtNames
             Sheets(sht).Select
+            LastColumn = Sheets(sht).Range("A2").CurrentRegion.Columns.Count
             If sht = "Summary & Targets" Then
                 colStart = 6
             Else
@@ -483,6 +504,8 @@ Sub sparkTrends()
          Range("L7").Copy
 
         For i = 12 To 44
+             Cells(5, i).Select
+             ActiveSheet.Paste
              Range(Cells(7, i), Cells(LastRow, i)).Select
              ActiveSheet.Paste
              i = i + 7
@@ -491,9 +514,11 @@ Sub sparkTrends()
 End Sub
 Sub format()
     'format
-      shtNames = Array("Indicator Table", "Entry Table", "HTC Data Entry", "Summary & Targets", "Key Ind Trends")
         For Each sht In shtNames
         Sheets(sht).Select
+        If sht = "IM Distribution" Or sht = "IM PBAC Targets" Then
+            LastRow = Range("C1").CurrentRegion.Rows.Count
+            End If
         LastColumn = Sheets(sht).Range("A2").CurrentRegion.Columns.Count
         'format - color Navigation pane (column A)
             Range(Cells(5, 1), Cells(LastRow, 1)).Select
@@ -521,7 +546,10 @@ Sub format()
             End With
             Range("A1").Select
         Next sht
-    'format - color headers
+End Sub
+
+Sub formatHeaders()
+    'format - color headers on indicator table
         Sheets("Indicator Table").Select
         IndicatorCount = Range("A4").CurrentRegion.Columns.Count 'find last column
         Range(Cells(3, 4), Cells(3, IndicatorCount)).Select
@@ -548,7 +576,7 @@ Sub showChanges()
         shtNames = Array("HTC Data Entry", "Entry Table", "Indicator Table")
         For Each sht In shtNames
             Sheets(sht).Select
-            Sheets(sht).Copy after:=Sheets(sht)
+            Sheets(sht).Copy After:=Sheets(sht)
             If sht = "HTC Data Entry" Then Sheets(sht & " (2)").Name = "dupHTCdistTable"
             If sht = "Entry Table" Then Sheets(sht & " (2)").Name = "dupEntryTable"
             If sht = "Indicator Table" Then Sheets(sht & " (2)").Name = "dupTable"
@@ -562,55 +590,17 @@ Sub showChanges()
             Sheets(sht).Select
             Range("C5").Select
             If sht = "HTC Data Entry" Then
-                Range(Cells(5, 13), Cells(LastRow, LastColumn)).Select
+                Range(Cells(5, 19), Cells(LastRow, LastColumn)).Select
             Else
                 Range(Cells(5, 4), Cells(LastRow, LastColumn)).Select
             End If
             If sht <> "Entry Table" Then
                 With Selection
                     .Activate
-                    If sht = "HTC Data Entry" Then .FormatConditions.Add xlExpression, Formula1:="=M5<>dupHTCdistTable!M5"
+                    If sht = "HTC Data Entry" Then .FormatConditions.Add xlExpression, Formula1:="=S5<>dupHTCdistTable!S5"
                     If sht = "Indicator Table" Then .FormatConditions.Add xlExpression, Formula1:="=D5<>dupTable!D5"
                     .FormatConditions(2).Interior.ThemeColor = xlThemeColorAccent3
                     .FormatConditions(2).priority = 1
-                End With
-            End If
-            Range("C3").Select
-            If sht = "HTC Data Entry" Then
-                'highlight where distribution <>100%
-                Range(Cells(5, 12), Cells(LastRow, 12)).Select
-                With Selection
-                    .Activate
-                    .FormatConditions.Add xlExpression, Formula1:="=L5<>1"
-                    .FormatConditions(2).Font.Color = -16777024
-                    .FormatConditions(2).Font.TintAndShade = 0
-                    .FormatConditions(2).priority = 1
-                End With
-                'hide zero values
-                Range(Cells(7, 12), Cells(LastRow, LastColumn)).Select
-                With Selection
-                    .Activate
-                    .FormatConditions.Add xlExpression, Formula1:="=AND(L7=0,MOD(ROW(),2)=1)"
-                    .FormatConditions(4).NumberFormat = ";;;"
-                    .FormatConditions(4).priority = 1
-                    .FormatConditions.Add xlExpression, Formula1:="=AND(L7=0,MOD(ROW(),2)=0)"
-                    With .FormatConditions(5).Interior
-                        .Pattern = xlSolid
-                        .PatternColorIndex = xlAutomatic
-                        .ThemeColor = xlThemeColorAccent4
-                        .TintAndShade = 0.799981688894314
-                        .PatternTintAndShade = 0
-                    End With
-                    .FormatConditions(5).NumberFormat = ";;;"
-                    .FormatConditions(5).priority = 1
-                    'add blank line between sections for HTC Data Entry
-                    .FormatConditions.Add xlExpression, Formula1:="=L$4=0"
-                    With .FormatConditions(6).Interior
-                        .Pattern = xlNone
-                        .TintAndShade = 0
-                        .PatternTintAndShade = 0
-                    End With
-                    .FormatConditions(6).priority = 1
                 End With
             End If
             Range("C3").Select
@@ -621,7 +611,6 @@ End Sub
 
 Sub filters()
     'add filter rows
-        shtNames = Array("Entry Table", "Summary & Targets", "HTC Data Entry", "Key Ind Trends")
         For Each sht In shtNames
             Sheets(sht).Select
             IndicatorCount = Range("A2").CurrentRegion.Columns.Count
@@ -675,12 +664,13 @@ Sub dimDefault()
         Range("B1").Select
 End Sub
 
-Sub updatePBAC()
+Sub updateOutput()
 'update formula with last row in PBAC output (formulas with cell references
     Dim r As Integer
     'loop over columns, check for formula, then loop over rows
         Sheets("PBAC Output").Activate
-        For i = 11 To 26
+        LastColumn = Range("A2").CurrentRegion.Columns.Count
+        For i = 11 To LastColumn
         If Len(Trim(Cells(5, i).Value)) > 0 Then
             For r = 5 To 11
                 celltxt = ActiveSheet.Cells(r, i).Formula
@@ -689,6 +679,22 @@ Sub updatePBAC()
             Next r
         End If
         Next i
+
+'update IM targeting output
+    'loop over columns, check for formula, then loop over rows
+     Sheets("IM Targeting Output").Activate
+     LastColumn = Range("A2").CurrentRegion.Columns.Count
+        For i = 5 To LastColumn
+        If Len(Trim(Cells(7, i).Value)) > 0 Then
+            celltxt = ActiveSheet.Cells(7, i).Formula
+            celltxt = Replace(celltxt, "20", LastRow)
+            Cells(7, i).Formula = celltxt
+        End If
+        Next i
+    Range(Cells(7, 4), Cells(7, LastColumn)).Copy
+    Range(Cells(8, 4), Cells(LastRow, LastColumn)).Select
+    ActiveSheet.Paste
+    Application.CutCopyMode = False
 
 End Sub
 
@@ -699,15 +705,136 @@ Sub saveFile()
         fname_dp = OUcompl_fldr & OpUnit_ns & "COP17DataPack" & "v" & VBA.format(Now, "yyyy.mm.dd") & ".xlsx"
         Application.DisplayAlerts = False
         ActiveWorkbook.SaveAs fname_dp
-    'keep data pack open?
-        If view = "Yes" Then
-            dpWkbk.Activate
-        Else
-            ActiveWorkbook.Close
-        End If
+
         Application.DisplayAlerts = True
 End Sub
 
+Sub imTargeting()
+
+    'copy IM output from datapack
+        dpWkbk.Activate
+        Sheets(Array("Home", "IM Targeting Output")).Copy
+
+    'save and then name active sheet
+        fname_dp = OUcompl_fldr & OpUnit_ns & "COP17IMTargeting" & "v" & VBA.format(Now, "yyyy.mm.dd") & ".xlsx"
+        Application.DisplayAlerts = False
+        ActiveWorkbook.SaveAs fname_dp
+        Application.DisplayAlerts = True
+        Set dstWkbk = ActiveWorkbook
+    'change theme
+        ActiveWorkbook.Theme.ThemeColorScheme.Load (other_fldr & "Adjacency.xml")
+    'change name on home tab
+        Sheets("Home").Activate
+        Range("P1").Value = "IM TARGETING APPENDIX"
+    'hard copy data from workbook
+        Sheets("IM Targeting Output").Activate
+        LastColumn = Range("B1").CurrentRegion.Columns.Count
+        LastRow = Range("C1").CurrentRegion.Rows.Count
+        Range(Cells(7, 3), Cells(LastRow, LastColumn)).Select
+        Selection.Copy
+        Selection.PasteSpecial Paste:=xlPasteValues
+        Application.CutCopyMode = False
+    'remove named ranges from data pack
+        Dim nr As Name
+        On Error Resume Next
+        For Each nr In ActiveWorkbook.Names
+            nr.Delete
+        Next
+        On Error GoTo 0
+    'setup named range for im targeting tab
+        Sheets("IM Targeting Output").Activate
+        Range(Cells(4, 3), Cells(LastRow, LastColumn)).Select
+        Application.DisplayAlerts = False
+        Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
+        Application.DisplayAlerts = True
+
+    'copy tabs from template workbook
+        Application.DisplayAlerts = False
+        tmplWkbk.Sheets(Array("IM Distribution", "IM PBAC Targets")).Copy After:=dstWkbk.Sheets(2)
+        Application.DisplayAlerts = True
+    'loop over each sheet, adding in data from global_psnu
+        shtNames = Array("IM Distribution", "IM PBAC Targets")
+        For Each sht In shtNames
+                Sheets(sht).Activate
+            'find OU coordinates in IM list
+                dataWkbk.Sheets(sht).Activate
+                FirstRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1")).Row
+                LastRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1"), searchdirection:=xlPrevious).Row
+                LastColumn = Range("A1").CurrentRegion.Columns.Count
+                If sht = "IM Distribution" Then
+                    FirstColumn = 3
+                Else
+                    FirstColumn = 2
+                End If
+            'select OU data from global file to copy to data pack
+                Range(Cells(FirstRow, FirstColumn), Cells(LastRow, LastColumn)).Select
+                Selection.Copy
+            'copy the data and paste in the data pack
+                dstWkbk.Activate
+                Sheets(sht).Activate
+                Range("C7").Select
+                Selection.PasteSpecial Paste:=xlPasteValues
+                Application.CutCopyMode = False
+        Next sht
+
+    'setup/format IM distro tab
+        Sheets("IM Distribution").Activate
+        LastRow = Range("C1").CurrentRegion.Rows.Count
+        Range(Cells(5, 6), Cells(LastRow, 23)).Select
+        'format to hide zeros
+        Selection.NumberFormat = "0%;-0%;;"
+        LastColumn = Range("B2").CurrentRegion.Columns.Count 'TOFIX
+        Range(Cells(5, 24), Cells(LastRow, LastColumn)).Select
+        Selection.NumberFormat = "#,##0;-#,##0;;"
+        'named range
+        Range(Cells(4, 3), Cells(LastRow, LastColumn)).Select
+        Application.DisplayAlerts = False
+        Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
+        Application.DisplayAlerts = True
+        'copy formulas down for target allocation
+        Range(Cells(7, 24), Cells(7, LastColumn)).Select
+        Selection.Copy
+        Range(Cells(8, 24), Cells(LastRow, LastColumn)).Select
+        Selection.PasteSpecial Paste:=xlPasteFormulasAndNumberFormats
+        Application.CutCopyMode = False
+        'add total
+        Range(Cells(5, 6), Cells(5, LastColumn)).Select
+        Selection.Formula = "=SUBTOTAL(109, E6:E" & LastRow & ")"
+
+
+    'setup/format targeting tab
+        Sheets("IM PBAC Targets").Activate
+        LastRow = Range("C1").CurrentRegion.Columns.Count
+        LastColumn = Range("B1").CurrentRegion.Columns.Count
+        'add named range
+        Set indRng = Sheets("IM PBAC Targets").Range(Cells(5, 4), Cells(LastRow, 4))
+        ActiveWorkbook.Names.Add Name:="P_mechid", RefersTo:=indRng
+        Set indRng = Sheets("IM PBAC Targets").Range(Cells(4, 6), Cells(4, LastColumn))
+        ActiveWorkbook.Names.Add Name:="P_indtype", RefersTo:=indRng
+        'copy formula from first row down
+        Range(Cells(7, 6), Cells(7, LastColumn)).Select
+        Selection.NumberFormat = "#,##0;-#,##0;;"
+        Selection.Copy
+        Range(Cells(8, 6), Cells(LastRow, LastColumn)).Select
+        Selection.PasteSpecial Paste:=xlPasteFormulasAndNumberFormats
+        Application.CutCopyMode = False
+        'add total
+        Range(Cells(5, 6), Cells(5, LastColumn)).Select
+        Selection.Formula = "=SUBTOTAL(109, E6:E" & LastRow & ")"
+
+    'format
+      shtNames = Array("IM Distribution", "IM PBAC Targets")
+      Call format
+      Call filters
+
+    'save
+        Sheets("Home").Activate
+        Range("X1").Select
+        fname_dp = OUcompl_fldr & OpUnit_ns & "COP17IMTargeting" & "v" & VBA.format(Now, "yyyy.mm.dd") & ".xlsx"
+        Application.DisplayAlerts = False
+        ActiveWorkbook.SaveAs fname_dp
+
+End Sub
 
 ''''''''''''''''''''
 ''   Zip Folder   ''

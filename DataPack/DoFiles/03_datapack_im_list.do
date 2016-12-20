@@ -3,13 +3,13 @@
 **   Aaron Chafetz
 **   Purpose: mehcanism list
 **   Date: December 10, 2016
-**   Updated: 12/15/16
+**   Updated: 12/19/16
 
 *** SETUP ***
 
 *define date for Fact View Files
 	global datestamp "20161115_v2"
-	
+
 *set today's date for saving
 	global date: di %tdCCYYNNDD date(c(current_date), "DMY")
 
@@ -19,8 +19,8 @@
 *update all partner and mech to offical names (based on FACTS Info)
 	capture confirm file "$output/officialnames.dta"
 	if _rc{
-		perserve
-		run 06_datapack_officalnames
+		preserve
+		run "$dofiles/05_datapack_officialnames"
 		restore
 		}
 		*end
@@ -35,5 +35,4 @@
 	sort operatingunit mechanismid
 *export
 	export excel using "$dpexcel/Global_PSNU_${date}.xlsx", ///
-		sheet("IM List") firstrow(variables) sheetreplace
-
+		sheet("IM PBAC Targets") firstrow(variables) sheetreplace

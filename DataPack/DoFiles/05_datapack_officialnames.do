@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based IM targeting Data Pack appendix
 **   Date: December 10, 2016
-**   Updated: 
+**   Updated: 12/19/16
 
 
 * Note - originally from the Partner Progress report - https://github.com/achafetz/PartnerProgress/blob/master/06_partnerreport_officalnames.do
@@ -32,7 +32,7 @@
 	rename mechanismidentifier mechanismid
 	rename mechanismname implementingmechanismname
 	rename primepartner primepartner
-	
+	destring mechanismid, replace
 	
 *save 
 	save "$output\officialnames.dta", replace

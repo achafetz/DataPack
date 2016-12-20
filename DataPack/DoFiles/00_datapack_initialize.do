@@ -51,6 +51,7 @@
 	global output "$projectpath/StataOutput"
 	global excel "$projectpath/ExcelOutput"
 	global dpexcel "C:/Users/achafetz/Documents/DataPack/DataPulls"
+	global dofiles "$projectpath/DoFiles"
 	disp as error "If initial setup, move data to RawData folder."
 
 ********************************************************************************
