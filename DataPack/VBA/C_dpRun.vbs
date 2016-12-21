@@ -126,12 +126,11 @@ Sub PopulateDataPack()
         Call filters
         Call dimDefault
         Call updateOutput
-        Call saveFile
         Call imTargeting
-
+        Call saveFile
         'keep data pack open?
         If view = "No" Then
-            dstWkbk.Close
+            'dstWkbk.Close
             dpWkbk.Close
         End If
 
@@ -187,7 +186,7 @@ Sub Initialize()
         tmplWkbk.Sheets("POPref").Activate
     'create datapack file for OU (copy sheets over to new book)
         tmplWkbk.Activate
-        Sheets(Array("Home", "Entry Table", "Summary & Targets", "Indicator Table", "HTC Data Entry", "Key Ind Trends", "PBAC Output", "IM Targeting Output", "Change Form")).Copy
+        Sheets(Array("Home", "Entry Table", "Summary & Targets", "Indicator Table", "HTC Data Entry", "Key Ind Trends", "IM Targeting Output", "IM Distribution", "IM PBAC Targets", "Change Form")).Copy
         Set dpWkbk = ActiveWorkbook
         ActiveWorkbook.Theme.ThemeColorScheme.Load (other_fldr & "Adjacency.xml")
     'hard code update date into home tab & insert OU name
@@ -420,16 +419,19 @@ Sub setupHTCDistro()
         Next i
 
     'add in extra named ranges
-        Sheets("HTC Data Entry").Activate
-        Set indRng = Sheets("HTC Data Entry").Range(Cells(5, 5), Cells(LastRow, 5))
-        ActiveWorkbook.Names.Add Name:="T_htc_need", RefersTo:=indRng
-        Sheets("Summary & Targets").Activate
-        indColNum = WorksheetFunction.Match("New on Treatment from other modalities", ActiveWorkbook.Sheets("Summary & Targets").Range("4:4"), 0)
-        Set indRng = Sheets("Summary & Targets").Range(Cells(5, indColNum), Cells(LastRow, indColNum))
-        ActiveWorkbook.Names.Add Name:="T_pos_ident", RefersTo:=indRng
-        indColNum = WorksheetFunction.Match("FY18 Target TX_NEW <15", ActiveWorkbook.Sheets("Summary & Targets").Range("4:4"), 0)
-        Set indRng = Sheets("Summary & Targets").Range(Cells(5, indColNum), Cells(LastRow, indColNum))
-        ActiveWorkbook.Names.Add Name:="T_ped_treat", RefersTo:=indRng
+        INDnames = Array("T_htc_peds_need", "T_htc_adlt_need", "T_htc_need", "T_pos_ident", "T_ped_treat")
+        For Each IND In INDnames
+            If IND = "T_pos_ident" Or IND = "T_ped_treat" Then
+                sht = "Summary & Targets"
+            Else
+                sht = "HTC Data Entry"
+            End If
+            Sheets(sht).Activate
+            indColNum = WorksheetFunction.Match(IND, ActiveWorkbook.Sheets(sht).Range("2:2"), 0)
+            Set indRng = Sheets(sht).Range(Cells(5, indColNum), Cells(LastRow, indColNum))
+            ActiveWorkbook.Names.Add Name:=IND, RefersTo:=indRng
+        Next IND
+
 End Sub
 
 Sub lookupsumFormulas()
@@ -533,7 +535,12 @@ Sub format()
             Range(Cells(6, 3), Cells(LastRow, 3)).Select
             Selection.IndentLevel = 1
         'format - banded rows
-            With Range(Cells(7, 3), Cells(LastRow, LastColumn))
+            If sht = "IM PBAC Targets" Then
+                FirstRow = 15
+            Else
+                FirstRow = 7
+            End If
+            With Range(Cells(FirstRow, 3), Cells(LastRow, LastColumn))
                 .Activate
                 .FormatConditions.Add xlExpression, Formula1:="=AND($C7<>"""",C$4<>"""",MOD(ROW(),2)=0)"
                 With .FormatConditions(1).Interior
@@ -665,21 +672,6 @@ Sub dimDefault()
 End Sub
 
 Sub updateOutput()
-'update formula with last row in PBAC output (formulas with cell references
-    Dim r As Integer
-    'loop over columns, check for formula, then loop over rows
-        Sheets("PBAC Output").Activate
-        LastColumn = Range("A2").CurrentRegion.Columns.Count
-        For i = 11 To LastColumn
-        If Len(Trim(Cells(5, i).Value)) > 0 Then
-            For r = 5 To 11
-                celltxt = ActiveSheet.Cells(r, i).Formula
-                celltxt = Replace(celltxt, "20", LastRow)
-                Cells(r, i).Formula = celltxt
-            Next r
-        End If
-        Next i
-
 'update IM targeting output
     'loop over columns, check for formula, then loop over rows
      Sheets("IM Targeting Output").Activate
@@ -695,6 +687,7 @@ Sub updateOutput()
     Range(Cells(8, 4), Cells(LastRow, LastColumn)).Select
     ActiveSheet.Paste
     Application.CutCopyMode = False
+    Range("D1").Select
 
 End Sub
 
@@ -711,47 +704,14 @@ End Sub
 
 Sub imTargeting()
 
-    'copy IM output from datapack
-        dpWkbk.Activate
-        Sheets(Array("Home", "IM Targeting Output")).Copy
-
-    'save and then name active sheet
-        fname_dp = OUcompl_fldr & OpUnit_ns & "COP17IMTargeting" & "v" & VBA.format(Now, "yyyy.mm.dd") & ".xlsx"
-        Application.DisplayAlerts = False
-        ActiveWorkbook.SaveAs fname_dp
-        Application.DisplayAlerts = True
-        Set dstWkbk = ActiveWorkbook
-    'change theme
-        ActiveWorkbook.Theme.ThemeColorScheme.Load (other_fldr & "Adjacency.xml")
-    'change name on home tab
-        Sheets("Home").Activate
-        Range("P1").Value = "IM TARGETING APPENDIX"
-    'hard copy data from workbook
-        Sheets("IM Targeting Output").Activate
-        LastColumn = Range("B1").CurrentRegion.Columns.Count
-        LastRow = Range("C1").CurrentRegion.Rows.Count
-        Range(Cells(7, 3), Cells(LastRow, LastColumn)).Select
-        Selection.Copy
-        Selection.PasteSpecial Paste:=xlPasteValues
-        Application.CutCopyMode = False
-    'remove named ranges from data pack
-        Dim nr As Name
-        On Error Resume Next
-        For Each nr In ActiveWorkbook.Names
-            nr.Delete
-        Next
-        On Error GoTo 0
     'setup named range for im targeting tab
         Sheets("IM Targeting Output").Activate
         Range(Cells(4, 3), Cells(LastRow, LastColumn)).Select
         Application.DisplayAlerts = False
         Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
         Application.DisplayAlerts = True
+        Range("D1").Select
 
-    'copy tabs from template workbook
-        Application.DisplayAlerts = False
-        tmplWkbk.Sheets(Array("IM Distribution", "IM PBAC Targets")).Copy After:=dstWkbk.Sheets(2)
-        Application.DisplayAlerts = True
     'loop over each sheet, adding in data from global_psnu
         shtNames = Array("IM Distribution", "IM PBAC Targets")
         For Each sht In shtNames
@@ -770,9 +730,13 @@ Sub imTargeting()
                 Range(Cells(FirstRow, FirstColumn), Cells(LastRow, LastColumn)).Select
                 Selection.Copy
             'copy the data and paste in the data pack
-                dstWkbk.Activate
+                dpWkbk.Activate
                 Sheets(sht).Activate
-                Range("C7").Select
+                If sht = "IM Distribution" Then
+                    Range("C7").Select
+                Else
+                    Range("C15").Select
+                End If
                 Selection.PasteSpecial Paste:=xlPasteValues
                 Application.CutCopyMode = False
         Next sht
@@ -780,12 +744,15 @@ Sub imTargeting()
     'setup/format IM distro tab
         Sheets("IM Distribution").Activate
         LastRow = Range("C1").CurrentRegion.Rows.Count
-        Range(Cells(5, 6), Cells(LastRow, 23)).Select
+        Range(Cells(5, 7), Cells(LastRow, 23)).Select
         'format to hide zeros
         Selection.NumberFormat = "0%;-0%;;"
         LastColumn = Range("B2").CurrentRegion.Columns.Count 'TOFIX
-        Range(Cells(5, 24), Cells(LastRow, LastColumn)).Select
+        Range(Cells(5, 25), Cells(LastRow, LastColumn)).Select
         Selection.NumberFormat = "#,##0;-#,##0;;"
+        'add in formula to lookup prioritization
+        Range(Cells(7, 4), Cells(LastRow, 4)).Select
+        Selection.FormulaR1C1 = "=IFERROR(INDEX(priority_snu,MATCH(Dsnulist,snulist,0)),""NOT DEFINED"")"
         'named range
         Range(Cells(4, 3), Cells(LastRow, LastColumn)).Select
         Application.DisplayAlerts = False
@@ -798,41 +765,35 @@ Sub imTargeting()
         Selection.PasteSpecial Paste:=xlPasteFormulasAndNumberFormats
         Application.CutCopyMode = False
         'add total
-        Range(Cells(5, 6), Cells(5, LastColumn)).Select
+        Range(Cells(5, 7), Cells(5, LastColumn)).Select
         Selection.Formula = "=SUBTOTAL(109, E6:E" & LastRow & ")"
 
 
-    'setup/format targeting tab
+    'setup/format PBAC targeting tab
         Sheets("IM PBAC Targets").Activate
-        LastRow = Range("C1").CurrentRegion.Columns.Count
-        LastColumn = Range("B1").CurrentRegion.Columns.Count
+        LastRow = Range("C1").CurrentRegion.Rows.Count
+        LastColumn = Range("B2").CurrentRegion.Columns.Count
         'add named range
         Set indRng = Sheets("IM PBAC Targets").Range(Cells(5, 4), Cells(LastRow, 4))
-        ActiveWorkbook.Names.Add Name:="P_mechid", RefersTo:=indRng
+        ActiveWorkbook.Names.Add Name:="P_mech", RefersTo:=indRng
         Set indRng = Sheets("IM PBAC Targets").Range(Cells(4, 6), Cells(4, LastColumn))
         ActiveWorkbook.Names.Add Name:="P_indtype", RefersTo:=indRng
-        'copy formula from first row down
-        Range(Cells(7, 6), Cells(7, LastColumn)).Select
+        'copy formula from first IM row down
+        Range(Cells(15, 6), Cells(15, LastColumn)).Select
         Selection.NumberFormat = "#,##0;-#,##0;;"
         Selection.Copy
-        Range(Cells(8, 6), Cells(LastRow, LastColumn)).Select
+        Range(Cells(15, 6), Cells(LastRow, LastColumn)).Select
         Selection.PasteSpecial Paste:=xlPasteFormulasAndNumberFormats
         Application.CutCopyMode = False
         'add total
         Range(Cells(5, 6), Cells(5, LastColumn)).Select
-        Selection.Formula = "=SUBTOTAL(109, E6:E" & LastRow & ")"
+        Selection.Formula = "=SUBTOTAL(109, F14:F" & LastRow & ")"
+        Selection.NumberFormat = "#,##0;-#,##0;;"
 
     'format
       shtNames = Array("IM Distribution", "IM PBAC Targets")
       Call format
       Call filters
-
-    'save
-        Sheets("Home").Activate
-        Range("X1").Select
-        fname_dp = OUcompl_fldr & OpUnit_ns & "COP17IMTargeting" & "v" & VBA.format(Now, "yyyy.mm.dd") & ".xlsx"
-        Application.DisplayAlerts = False
-        ActiveWorkbook.SaveAs fname_dp
 
 End Sub
 
