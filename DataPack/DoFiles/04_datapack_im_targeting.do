@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based IM targeting Data Pack appendix
 **   Date: December 10, 2016
-**   Updated: 12/16
+**   Updated: 12/20
 
 *** SETUP ***
 
@@ -114,7 +114,8 @@
 		if _rc gen `v' = .
 		}
 		*end
-	order operatingunit psnuuid psnu mechanismid indicatortype `varlist'
+	gen placeholder = .
+	order operatingunit psnuuid psnu placeholder mechanismid indicatortype `varlist'
 	sort operatingunit psnu mechanismid indicatortype
 
 *export

@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based Data Pack at SNU level
 **   Date: November 10, 2016
-**   Updated: 12/12/2016
+**   Updated: 12/20/2016
 
 *** SETUP ***
 
@@ -125,7 +125,7 @@
 	gen htc_tst_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & resultstatus=="Positive" & numeratordenom=="N"
 	gen htc_tst_m_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & resultstatus=="Positive" & numeratordenom=="N"
 	gen htc_tst_u15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & inlist(age, "<01", "01-04", "05-09","10-14") & numeratordenom=="N"
-	gen htc_tst_u15_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & resultstatus=="Positive" & numeratordenom=="N"
+	gen htc_tst_u15_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & inlist(age, "<01", "01-04", "05-09","10-14") & resultstatus=="Positive" & numeratordenom=="N"
 	gen htc_tst_u15_yield = 0
 	gen htc_tst_fy16_T = fy2016_targets if indicator=="HTC_TST" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen htc_tst_pos_fy16_T = fy2016_targets if indicator=="HTC_TST" & disaggregate=="Total Numerator" & resultstatus=="Positive" & numeratordenom=="N"
