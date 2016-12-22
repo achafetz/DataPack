@@ -11,7 +11,7 @@ Indicator Table
 
 Summary & targets
 - [ ] VMMC logic
-
+- [ ] update ovc named range years
 General
 - [ ] validate data pulls
 - [ ] clustering SNUs

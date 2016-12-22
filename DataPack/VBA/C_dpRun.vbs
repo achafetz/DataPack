@@ -282,10 +282,10 @@ Sub formatTable()
             .NumberFormat = "#,##0"
         End With
     'format prevention (eg 10.2) and delete total
-        colIND = WorksheetFunction.Match("prevalence_num", dpWkbk.Sheets("Indicator Table").Range("4:4"), 0)
-        Cells(5, colIND).Value = ""
-        Range(Cells(5, colIND), Cells(LastRow, colIND)).Select
-        Selection.NumberFormat = "#,##0.0"
+        'colIND = WorksheetFunction.Match("prevalence_num", dpWkbk.Sheets("Indicator Table").Range("4:4"), 0)
+        'Cells(5, colIND).Value = ""
+        'Range(Cells(5, colIND), Cells(LastRow, colIND)).Select
+        'Selection.NumberFormat = "#,##0.0"
     'add filter row
         Range(Cells(6, 2), Cells(6, LastColumn)).Select
         Range(Cells(6, 3), Cells(6, LastColumn)).Select
@@ -319,11 +319,11 @@ End Sub
 
 Sub yieldFormulas()
     'add in formulas for yields
-        INDnames = Array("pmtct_eid_yield", "pmtct_stat_yield", "tb_stat_yield", "tx_ret_yield", "tx_ret_u15_yield", "htc_tst_u15_yield", "pre_art_yield", "pre_art_u15_yield", "htc_tst_spd_tot_pos")
+        INDnames = Array("pmtct_eid_yield", "pmtct_stat_yield", "tb_stat_yield", "tx_ret_yield", "tx_ret_u15_yield", "htc_tst_u15_yield", "htc_tst_spd_tot_pos")
         For Each IND In INDnames
             If IND = "pmtct_eid_yield" Then
                 NUM = "pmtct_eid_pos_12mo"
-                DEN = "pmtct_eid_12mo"
+                DEN = "pmtct_eid"
             ElseIf IND = "pmtct_stat_yield" Then
                 NUM = "pmtct_stat_pos"
                 DEN = "pmtct_stat_D"
@@ -339,12 +339,6 @@ Sub yieldFormulas()
             ElseIf IND = "htc_tst_u15_yield" Then
                 NUM = "htc_tst_u15_pos"
                 DEN = "htc_tst_u15"
-            ElseIf IND = "pre_art_yield" Then
-                NUM = "tx_curr"
-                DEN = "care_curr"
-            ElseIf IND = "pre_art_u15_yield" Then
-                NUM = "tx_curr_u15"
-                DEN = "care_curr_u15"
             ElseIf IND = "htc_tst_spd_tot_pos" Then
                 NUM = "htc_tst_spd_tot_pos"
                 DEN = "htc_tst_spd_tot_pos"
@@ -766,7 +760,7 @@ Sub imTargeting()
         Application.CutCopyMode = False
         'add total
         Range(Cells(5, 7), Cells(5, LastColumn)).Select
-        Selection.Formula = "=SUBTOTAL(109, E6:E" & LastRow & ")"
+        Selection.Formula = "=SUBTOTAL(109, G6:G" & LastRow & ")"
 
 
     'setup/format PBAC targeting tab
