@@ -4,7 +4,7 @@
 **   Purpose: Initialize folder structure and global file paths
 **   Adapted from Tim Essam, USAID
 **   Date: November 29, 2016
-**   Updated: 
+**   Updated: 12/22/16
 
 ** SET DIRECTORIES **
 
@@ -47,12 +47,17 @@
 	*these folders must exist in the parent folder
 	global projectpath `c(pwd)'
 	global data "$projectpath/RawData"
-	global fvdata "C:/Users/achafetz/Documents/ICPI/Data"
 	global output "$projectpath/StataOutput"
 	global excel "$projectpath/ExcelOutput"
-	global dpexcel "C:/Users/achafetz/Documents/DataPack/DataPulls"
 	global dofiles "$projectpath/DoFiles"
+	*these folders paths are in a seperate file location due to data size and usage
+	*you can change these directories to point to $data & $excel and $output, respectively
+	global fvdata "C:/Users/achafetz/Documents/ICPI/Data"
+	global dpexcel "C:/Users/achafetz/Documents/DataPack/DataPulls"
+
 	disp as error "If initial setup, move data to RawData folder."
+	
+	
 
 ********************************************************************************
 ********************************************************************************

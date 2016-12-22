@@ -16,7 +16,6 @@
 *** IMPATT ***
 
 *import/open data
-	*replace ${datestamp} for current version until new FW uploaded
 	capture confirm file "$fvdata/ICPI_FactView_NAT_SUBNAT_${datestamp}.dta"
 		if !_rc{
 			use "$fvdata/ICPI_FactView_NAT_SUBNAT_${datestamp}.dta", clear
@@ -36,62 +35,32 @@
 	}
 	*end
 	
-*rename variables to match
+*rename variables to match PSNU dataset
 	rename fy2015q4 fy2015apr
 	rename fy2016q4 fy2016apr	
 	
-/*
-*reshape to get values by fy
-	rename value fy //for reshape naming of years
-	local vars operatingunituid snu1 psnuuid indicator dataelementuid ///
-		numeratordenom indicatortype disaggregate categoryoptioncombouid
-	foreach v of local vars {
-		replace `v' = "n/a" if `v'==""
-		}
-	egen id = group(`vars')
-	reshape wide fy@, i(id) j(ïfiscalyear)
-	drop id
-	foreach y in 2015 2016 {
-		rename fy`y' fy`y'apr
-		gen fy`y'_targets = fy`y'apr if strmatch(dataelementname , "*TARGET*")
-		replace fy`y'_targets =. if fy`y'_targets==0
-		replace fy`y'apr = . if strmatch(dataelementname , "*TARGET*") 
-		}
-		*end
-
-*clean 
-	foreach v of local vars {
-		replace `v' = "" if `v'=="n/a"
-		}
-	drop techarea dataelementuid dataelementname categoryoptioncombouid fy2015_targets
-*/
-
-
 *save
 	save "$output/impatt_temp", replace
 
-*** PSNU by IM ***
+
+
+*** PSNU ***
 
 *import/open data
-	*capture confirm file "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta"
 	capture confirm file "$fvdata/ICPI_FactView_PSNU_${datestamp}.dta"
 		if !_rc{
-			*use "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta", clear
 			use "$fvdata/ICPI_FactView_PSNU_${datestamp}.dta", clear
 		}
 		else{
-			*import delimited "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.txt", clear
-			*save "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta", replace
 			import delimited "$fvdata/ICPI_FactView_PSNU_${datestamp}.txt", clear
 			save "$fvdata/ICPI_FactView_PSNU_${datestamp}.dta", replace
 		}
 		*end
 		
 *clean
-	*gen fy2017_targets = 0 //delete after FY17 targets are added into FV dataset
 	rename ïregion region
 	
-*apend
+*append
 	append using "$output/impatt_temp", force
 
 *adjust prioritizations
@@ -108,7 +77,7 @@
 	
 * generate
 	// output generated in Data Pack template (POPsubset sheet)
-	// updated 12/12
+	// updated 12/21
 	gen care_curr = fy2016apr if indicator=="CARE_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen care_curr_T = fy2017_targets if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & numeratordenom=="N"
 	gen care_curr_f = fy2016apr if indicator=="CARE_CURR" & disaggregate=="Age/Sex" & sex=="Female" & numeratordenom=="N"
@@ -244,10 +213,7 @@
 	gen vmmc_circ_rng_T = fy2017_targets if indicator=="VMMC_CIRC" & disaggregate=="Age" & inlist(age, "05-19", "20-24", "25-29") & numeratordenom=="N"
 	gen vmmc_circ_subnat = fy2016apr if indicator=="VMMC_CIRC_SUBNAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
 
-
-
 * aggregate up to PSNU level
-	*drop mechanismid fy*
 	drop fy*
 	ds *, not(type string)
 	collapse (sum) `r(varlist)', by(operatingunit psnu psnuuid snuprioritization)
@@ -280,6 +246,7 @@
 		*end
 *if no psnu
 	replace psnu = "[no associated SNU]" if psnu==""
+	
 ********************************************************************************
 * REMOVE AFTER PILOTING
 *due to incomplete targets, set to 110 of result for FY16
@@ -294,13 +261,6 @@
 				if inlist(operatingunit, "Mozambique", "Tanzania", "Zambia")
 	}
 	*end
-	/*
-	no results
-	vmmc_circ_rng_T 
-	vmmc_circ_T
-	pmtct_stat_known_T
-	pmtct_arv_T
-	*/
 ********************************************************************************
 
 *save 

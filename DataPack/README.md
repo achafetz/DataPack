@@ -9,6 +9,9 @@ Indicator Table
 - [ ] revisist order
 - [ ] change FY16 targets to FY16 expected
 
+Summary & targets
+- [ ] VMMC logic
+
 General
 - [ ] validate data pulls
 - [ ] clustering SNUs
