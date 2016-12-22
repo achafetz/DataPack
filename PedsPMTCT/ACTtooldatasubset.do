@@ -5,7 +5,7 @@
 	Purpose: Collapse full frozen data set to just observations needed for the 
 		ACT Tool used in country POARTS
 	Date: May 24, 2016
-	Updated: 11/21/2016
+	Updated: 12/22/2016
 	Aaron Chafetz
 	USAID/ICPI 
 	
@@ -15,7 +15,7 @@
 	global source "C:\Users\achafetz\Documents\ICPI\Data"
 	global save  "C:\Users\achafetz\Documents\ICPI\Peds"
 *set date of frozen instance - needs to be changed w/ updated data
-	local datestamp "20161115"
+	local datestamp "20161115_v2"
 *import frozen instance for ACT Monitoring Tool
 	capture confirm file "$source\ICPIFactView_SNUbyIM`datestamp'.dta"
 		if !_rc{
@@ -24,7 +24,7 @@
 		}
 		else{
 			di "Import Dataset"
-			import delimited "$source\ICPI_Fact_View_PSNU_IM_`datestamp'.txt", clear
+			import delimited "$source\ICPI_FactView_PSNU_IM_`datestamp'.txt", clear
 			save "$source\ICPIFactView_SNUbyIM`datestamp'.dta", replace
 		}
 	*end
