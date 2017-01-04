@@ -35,9 +35,10 @@
 	gen pr_sp = .
 	gen pr_sp2 = .
 	foreach x in HTC_TST HTC_TST_POS PMTCT_ARV TB_ART TX_CURR TX_NEW {
-		gen `x'_sp1  = .
-		gen `x'_sp2  = .
-		order `x'_sp1 `x'_sp2, after(fy2017_targets`x')
+		gen `x'_sp1 = .
+		gen `x'_sp2 = .
+		gen `x'_sp3 = .
+		order `x'_sp1 `x'_sp2 `x'_sp3, after(fy2017_targets`x')
 		}
 		*end
 *reorder

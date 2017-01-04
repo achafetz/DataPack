@@ -12,7 +12,6 @@ form for choosing the OUs and Data Pack products
         Public DefPath As String
         Public DEN As String
         Public dpWkbk As Workbook
-        Public dstWkbk As Workbook
         Public FileNameZip As String
         Public FirstColumn As Integer
         Public FirstRow As Integer
@@ -103,11 +102,6 @@ Sub PopulateDataPack()
         Call updateOutput
         Call imTargeting
         Call saveFile
-        'keep data pack open?
-        If view = "No" Then
-            'dstWkbk.Close
-            dpWkbk.Close
-        End If
 
         'Zip output folder
         If tmplWkbk.Sheets("POPref").Range("D14").Value = "Yes" Then
@@ -162,15 +156,15 @@ Sub Initialize()
         Set dpWkbk = ActiveWorkbook
         ActiveWorkbook.Theme.ThemeColorScheme.Load (other_fldr & "Adjacency.xml")
     'hard code update date into home tab & insert OU name
-       Sheets("Home").Range("N1").Select
-       Range("N1").Copy
-       Selection.PasteSpecial Paste:=xlPasteValues
-       Range("O1").Value = OpUnit
-       Range("AA1").Select
+        Sheets("Home").Range("N1").Select
+        Range("N1").Copy
+        Selection.PasteSpecial Paste:=xlPasteValues
+        Range("O1").Value = OpUnit
+        Range("AA1").Select
     'Open data file file
         Workbooks.OpenText Filename:=pulls_fldr & "Global_PSNU_*.xlsx"
         Sheets("Indicator Table").Activate
-       Set dataWkbk = ActiveWorkbook
+        Set dataWkbk = ActiveWorkbook
 
 End Sub
 
@@ -189,7 +183,7 @@ Sub getData()
         Range("B4").Select
         Selection.PasteSpecial Paste:=xlPasteValues
     'copy formula to look up variable title
-        Range("E3").Copy
+        Range("F3").Copy
         Range(Cells(3, 6), Cells(3, LastColumn)).Select
         ActiveSheet.Paste
         Application.CutCopyMode = False
@@ -298,7 +292,7 @@ Sub yieldFormulas()
                 DEN = "pmtct_eid"
             ElseIf IND = "pmtct_stat_yield" Then
                 NUM = "pmtct_stat_pos"
-                DEN = "pmtct_stat_D"
+                DEN = "pmtct_stat"
             ElseIf IND = "tb_stat_yield" Then
                 NUM = "tb_stat_pos"
                 DEN = "tb_stat"
@@ -320,7 +314,7 @@ Sub yieldFormulas()
             rcNUM = WorksheetFunction.Match(NUM, ActiveWorkbook.Sheets("Indicator Table").Range("4:4"), 0) - colIND
             rcDEN = WorksheetFunction.Match(DEN, ActiveWorkbook.Sheets("Indicator Table").Range("4:4"), 0) - colIND
             If IND = "pmtct_eid_yield" Then
-                Cells(5, colIND).FormulaR1C1 = "=IFERROR((RC[" & rcNUM & "]+RC[" & rcNUM - 1 & "])/ (RC[" & rcDEN & "]+RC[" & rcDEN + 2 & "]),"""")"
+                Cells(5, colIND).FormulaR1C1 = "=IFERROR((RC[" & rcNUM & "]+RC[" & rcNUM - 1 & "])/ RC[" & rcDEN & "],"""")"
             ElseIf IND = "pre_art_yield" Or IND = "pre_art_u15_yield" Then
                 Cells(5, colIND).FormulaR1C1 = "=IFERROR(IF(RC[" & rcDEN & "] - RC[" & rcNUM & "]<0,0,(RC[" & rcDEN & "] - RC[" & rcNUM & "])/ RC[" & rcDEN & "]),0)"
             ElseIf IND = "htc_tst_spd_tot_pos" Then
@@ -385,7 +379,7 @@ Sub setupHTCDistro()
         Next i
 
     'add in extra named ranges
-        INDnames = Array("T_htc_peds_need", "T_htc_adlt_need", "T_htc_need", "T_pos_ident", "T_ped_treat")
+        INDnames = Array("T_htc_peds_need", "T_htc_adlt_need", "T_htc_need", "T_pos_ident", "T_ped_treat", "T_htc_pos")
         For Each IND In INDnames
             If IND = "T_pos_ident" Or IND = "T_ped_treat" Then
                 sht = "Summary & Targets"
@@ -452,13 +446,26 @@ Sub sparkTrends()
         LastColumn = ActiveSheet.Range("A2").CurrentRegion.Columns.Count
         For i = 4 To LastColumn
             Cells(5, i).ClearContents
-            i = i + 7
-        Next i
+            i = i + 5
+        Next
     'add in formula to lookup prioritization
         Range(Cells(7, 4), Cells(LastRow, 4)).Select
-        Selection.FormulaR1C1 = "=IFERROR(INDEX(priority_snu,MATCH(snu_qtr,snulist,0)),"""")"
-     'add sparklines
-         Set spkGrp = Range("L7").SparklineGroups.Add(Type:=xlSparkLine, SourceData:="F7:K7")
+        Selection.FormulaR1C1 = "=IFERROR(INDEX(priority_snu,MATCH(snu_trend,snulist,0)),"""")"
+    'add lookup formula for 2018 target
+        For i = 9 To LastColumn
+            IND = Cells(2, i).Value
+            Range(Cells(7, i), Cells(LastRow, i)).Select
+            If IND = "T_htc_need" Or IND = "T_htc_pos" Then
+                Selection.Formula = "=IFERROR(INDEX(" & IND & ",MATCH(snu_trend,snu_htc,0)),"""")"
+            Else
+                colIND = WorksheetFunction.Match(IND, ActiveWorkbook.Sheets("Summary & Targets").Range("4:4"), 0)
+                Selection.FormulaR1C1 = "=IFERROR(INDEX('Summary & Targets'!R5C" & colIND & ":R" & LastRow & "C" & colIND & ",MATCH(snu_trend,snu,0)),"""")"
+            End If
+            i = i + 5
+        Next i
+
+    'add sparklines
+         Set spkGrp = Range("J7").SparklineGroups.Add(Type:=xlSparkLine, SourceData:="F7:I7")
          With spkGrp.SeriesColor
              .ThemeColor = 9
              '.TintAndShade = -0.249977111117893
@@ -468,14 +475,14 @@ Sub sparkTrends()
              .Color.ThemeColor = 9
              '.TintAndShade = -0.249977111117893
          End With
-         Range("L7").Copy
+         Range("J7").Copy
 
-        For i = 12 To 44
+        For i = 10 To LastColumn
              Cells(5, i).Select
              ActiveSheet.Paste
              Range(Cells(7, i), Cells(LastRow, i)).Select
              ActiveSheet.Paste
-             i = i + 7
+             i = i + 5
          Next i
 
 End Sub
@@ -663,6 +670,11 @@ Sub saveFile()
         fname_dp = OUcompl_fldr & OpUnit_ns & "COP17DataPack" & "v" & VBA.format(Now, "yyyy.mm.dd") & ".xlsx"
         Application.DisplayAlerts = False
         ActiveWorkbook.SaveAs fname_dp
+
+    'keep data pack open?
+        If view = "No" Then
+            dpWkbk.Close
+        End If
 
         Application.DisplayAlerts = True
 End Sub

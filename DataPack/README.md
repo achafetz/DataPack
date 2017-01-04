@@ -28,7 +28,7 @@ Summary & targets
 - [x] VMMC & TB/HIV logic --> see Jamie's email (re: f/u on the two questions)
 
 Trends
-- [ ] Adjust from quarterly to annual to identify target trajectory?
+- [x] Adjust from quarterly to annual to identify target trajectory?
 
 
 ## Items to consider changing based on pilot inputs
