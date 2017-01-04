@@ -5,31 +5,30 @@ General
 - [x] validate data pulls (check (1) [subset data inputs](https://github.com/achafetz/ICPI/blob/master/DataPack/Documents/DP_Indicators.md) and (2)
 SNU against final DATIM/Panorama)
 - [ ] validate IM and site level data against DATIM/Panorama
-- [ ] clustering SNUs --> ask OUs for cluster list?
+- [x] clustering SNUs --> ask OUs for cluster list?
 - [ ] hyperlink all cogs and buttons
 - [ ] surround each sub group with a border
-- [ ] Regional OUs - adjust PNSU to [Country]/[PSNU]
 - [ ] how to clear/gray out Mil row?
 - [x] clean VBA script (removing unused public variables)
-- [ ] age/sex disaggs --> highlander script???
+- [x] age/sex disaggs --> highlander script???
 - [ ] FAQs for clustering, adjusting IM distribution, adding in SNU1 (for regional programs, SNU1 = country)
 
 Data Entry
-- [ ] Issue around FY18 Art coverage rate? [Noah - formula you provided matches what's in DP]
+- [x] Issue around FY18 Art coverage rate? [Noah - formula you provided matches what's in DP]
 
 HTC Data Entry
 - [ ] check peds inclusions in EA
-- [ ] include certain SDP for peds only (pediatric clinics and malnutrition)? [Jamie]
+- [x] include certain SDP for peds only (pediatric clinics and malnutrition)? [Jamie]
 - [ ] add other SDPs for countries to use? [Jamie]
 
 Indicator Table
-- [ ] change FY16 targets names to FY16 expected(?)
-- [x] pmtct_eid_yield calculation --> would recommend just pmtct_eid_pos_12mo divided by pmtct_eid [Jamie]
-- [ ] Jamie - For PLHIV there is no label for year, does this need to be labelled, or when country teams update their PLHIV numbers does it just overwrite the old ones? Somehow that is what I think happens in the IMPATT dataset
+- [x] Jamie - For PLHIV there is no label for year, does this need to be labelled, or when country teams update their PLHIV numbers does it just overwrite the old ones? Somehow that is what I think happens in the IMPATT dataset
 
 Summary & targets
-- [ ] VMMC & TB/HIV logic --> see Jamie's email (re: f/u on the two questions)
-- [x] update ovc named range years
+- [x] VMMC & TB/HIV logic --> see Jamie's email (re: f/u on the two questions)
+
+Trends
+- [ ] Adjust from quarterly to annual to identify target trajectory?
 
 
 ## Items to consider changing based on pilot inputs

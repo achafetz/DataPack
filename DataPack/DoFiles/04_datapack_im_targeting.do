@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based IM targeting Data Pack appendix
 **   Date: December 10, 2016
-**   Updated: 12/20
+**   Updated: 1/4/17
 
 *** SETUP ***
 
@@ -73,8 +73,10 @@
 		gen tx_curr_u1_fy18 = fy2016apr if indicator=="PMTCD_EID" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	*TX_CURR 1-14
 		gen tx_curr_1to14 = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "01-04", "05-14") & numeratordenom=="N"
+		replace tx_curr_1to14 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex", "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "01-04", "05-14", "01-14") & numeratordenom=="N" & inlist(operatingunit, "Haiti", "Mozambique", "Nigeria", "South Africa", "Tanzania", "Uganda", "Ukraine", "Vietnam")
 	*TX_CURR 15+
 		gen tx_curr_o15 = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "15-19", "20+") & numeratordenom=="N"
+		replace tx_curr_o15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex", "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "15-19", "20+", "15+") & numeratordenom=="N" & inlist(operatingunit, "Haiti", "Mozambique", "Nigeria", "South Africa", "Tanzania", "Uganda", "Ukraine", "Vietnam")
 	*VMMC_CIRC
 		gen vmmc_circ = fy2016apr if indicator=="VMMC_CIRC" & disaggregate=="Total Numerator" & numeratordenom=="N"
 

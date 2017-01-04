@@ -96,17 +96,16 @@
 	*end
 	
 * create a unique id by type (facility, community, military)
-			* demarcated by f_, c_, and m_ at front
-			* military doesn't have a unique id so script uses mechanism uid
+	* demarcated by f_, c_, and m_ at front
+	* military doesn't have a unique id so script uses mechanism uid
 		qui: tostring type*, replace //in OUs with no data, . is recorded and 
-			* seen as numeric, so need to first string variables 
+	* seen as numeric, so need to first string variables 
 		qui: gen fcm_uid = ""
 			replace fcm_uid = "f_" + facilityuid if facilityuid!=""
 			replace fcm_uid = "c_" + communityuid if facilityuid=="" &  ///
 				(typecommunity =="Y" | communityuid!="") & typemilitary!="Y"
 			replace fcm_uid = "m_" + mechanismuid if typemilitary=="Y" 
-		
-		
+			
 *collapse
 	collapse (sum) val_*, by(operatingunit psnu psnuuid fcm_uid indicatortype mechanismid)
 *destring mechanism
