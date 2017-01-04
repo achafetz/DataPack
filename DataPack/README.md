@@ -2,8 +2,9 @@
 ### TO DO
 
 General
-- [ ] validate data pulls (check (1) [subset data inputs](https://github.com/achafetz/ICPI/blob/master/DataPack/Documents/DP_Indicators.md) and (2)
+- [x] validate data pulls (check (1) [subset data inputs](https://github.com/achafetz/ICPI/blob/master/DataPack/Documents/DP_Indicators.md) and (2)
 SNU against final DATIM/Panorama)
+- [ ] validate IM and site level data against DATIM/Panorama
 - [ ] clustering SNUs --> ask OUs for cluster list?
 - [ ] hyperlink all cogs and buttons
 - [ ] surround each sub group with a border
