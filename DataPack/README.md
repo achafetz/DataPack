@@ -2,14 +2,16 @@
 ### TO DO
 
 General
-- [ ] validate data pulls (check (1) [subset data inputs](https://github.com/achafetz/ICPI/blob/master/DataPack/Documents/DP_Indicators.md) and (2) SNU against final DATIM/Panorama)
+- [ ] validate data pulls (check (1) [subset data inputs](https://github.com/achafetz/ICPI/blob/master/DataPack/Documents/DP_Indicators.md) and (2)
+SNU against final DATIM/Panorama)
 - [ ] clustering SNUs --> ask OUs for cluster list?
-- [x] remove unused variables
 - [ ] hyperlink all cogs and buttons
 - [ ] surround each sub group with a border
 - [ ] Regional OUs - adjust PNSU to [Country]/[PSNU]
 - [ ] how to clear/gray out Mil row?
-- [ ] clean VBA script (removing unused public variables)
+- [x] clean VBA script (removing unused public variables)
+- [ ] age/sex disaggs --> highlander script???
+- [ ] FAQs for clustering, adjusting IM distribution
 
 Data Entry
 - [ ] Issue around FY18 Art coverage rate? [Noah - formula you provided matches what's in DP]
@@ -21,6 +23,8 @@ HTC Data Entry
 
 Indicator Table
 - [ ] change FY16 targets names to FY16 expected(?)
+- [ ]  pmtct_eid_yield calculation --> would recommend just pmtct_eid_pos_12mo divided by pmtct_eid [Jamie]
+- [ ] Jamie - For PLHIV there is no label for year, does this need to be labelled, or when country teams update their PLHIV numbers does it just overwrite the old ones? Somehow that is what I think happens in the IMPATT dataset
 
 Summary & targets
 - [ ] VMMC & TB/HIV logic --> see Jamie's email (re: f/u on the two questions)

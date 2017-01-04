@@ -5,72 +5,50 @@ the POPrun tab of the template. The RUN button initiates the generation _
 form for choosing the OUs and Data Pack products
 
 'variables
-        Public rng As Integer
-        Public SelectedOpUnits
+        Public celltxt As String
+        Public colIND As Integer
+        Public compl_fldr As String
+        Public dataWkbk As Workbook
+        Public DefPath As String
+        Public DEN As String
+        Public dpWkbk As Workbook
+        Public dstWkbk As Workbook
+        Public FileNameZip As String
+        Public FirstColumn As Integer
+        Public FirstRow As Integer
+        Public fname_dp As String
+        Public FolderName As String
+        Public i As Integer
+        Public IND
+        Public indColNum As Integer
+        Public IndicatorCount As Integer
+        Public INDnames
+        Public indRng As Range
+        Public LastColumn As Integer
+        Public LastRow As Integer
+        Public LastRowRC As Integer
+        Public NUM As String
+        Public oApp As Object
         Public OpUnit As Object
         Public OpUnit_ns As String
-        Public version As String
-        Public view As String
-        Public tmplWkbk As Workbook
-        Public dataWkbk As Workbook
-        Public dpWkbk As Workbook
-        Public yldWkbk As Workbook
-        Public dstWkbk As Workbook
-        Public ou_i As Integer
-        Public path As String
-        Public file As String
-        Public pulls_fldr As String
-        Public intr_fldr As String
-        Public templ_fldr As String
-        Public compl_fldr As String
         Public other_fldr As String
-        Public OUpath As String
         Public OUcompl_fldr As String
-        Public fname_int As String
-        Public fname_dp As String
-        Public tbl As ListObject
-        Public pvtField As String
-        Public pvtField_uid As String
-        Public pvtField_ou
-        Public LastColumn As Integer
-        Public snuLevel As Integer
-        Public siteLevel As Integer
-        Public snu_unique As Integer
-        Public uniqueRng
-        Public uniqueTot As Integer
-        Public IndicatorCount
-        Public celltxt As String
-        Public ctgry As String
-        Public LastRow As Integer
-        Public FirstRow As Integer
-        Public EntryIndicatorCount As Integer
-        Public i As Integer
-        Public sFound As String
+        Public OUpath As String
+        Public path As String
+        Public pulls_fldr As String
+        Public rcDEN As Integer
+        Public rcNUM As Integer
+        Public rng As Integer
+        Public SelectedOpUnits
         Public sht As Variant
         Public shtNames As Variant
-        Public LastSumColumn As Integer
-        Public LastRowRC As Integer
-        Public indColNum As Integer
-        Public indRng As Range
-        Public NUM As String
-        Public DEN As String
-        Public rcNUM As Integer
-        Public rcDEN As Integer
-        Public colIND As Integer
-        Public IND
-        Public INDnames
-        Public priority
-        Public prtype As String
-        Public prtycolNum As Integer
-        Public tb_val
-        Public fname_csd As String
-        Public outputFile As String
-        Public selectedSNUs
-        Public LastColumnDREAMS As Integer
-        Public snu
-        Public totSNUs
+        Public snu_unique As Integer
         Public spkGrp As SparklineGroup
-        Public FirstColumn As Integer
+        Public strDate As String
+        Public tmplWkbk As Workbook
+        Public uniqueTot As Integer
+        Public view As String
+
 
 
 Sub loadform()
@@ -94,9 +72,6 @@ Sub PopulateDataPack()
         Set tmplWkbk = ActiveWorkbook
     ' whether to view or just store change forms
         view = Sheets("POPref").Range("D11")
-
-    'loop over opunit
-    ou_i = 2 ' count used to lookup SNU level for each OU (row #)
 
     For Each OpUnit In SelectedOpUnits
 
@@ -139,8 +114,6 @@ Sub PopulateDataPack()
             Call Zip_All_Files_in_Folder
         End If
 
-        ou_i = ou_i + 1 'row for OU in POPref
-
     Next
 
     'close global dataset
@@ -174,7 +147,6 @@ Sub fldrSetup()
             End If
         ' set folder directory
             pulls_fldr = path & "DataPulls\"
-            templ_fldr = path & "TemplateGeneration\"
             compl_fldr = path & "CompletedDataPacks\"
             other_fldr = path & "OtherInfo\"
         'set directory initially to the pulls folder
@@ -382,18 +354,18 @@ Sub setupSNUs()
         Next sht
     'add SNU list, copy default values, and add named range to Entry Table tab
         Sheets("Entry Table").Activate
-        EntryIndicatorCount = Range("A2").CurrentRegion.Columns.Count
+        LastColumn = Range("A2").CurrentRegion.Columns.Count
         Range(Cells(6, 3), Cells(LastRow, 3)).FormulaR1C1 = "='Indicator Table'!RC"
-        Range(Cells(7, 4), Cells(7, EntryIndicatorCount)).Select
+        Range(Cells(7, 4), Cells(7, LastColumn)).Select
         Selection.Copy
-        Range(Cells(7, 4), Cells(LastRow, EntryIndicatorCount)).Select
+        Range(Cells(7, 4), Cells(LastRow, LastColumn)).Select
         ActiveSheet.Paste
-        Range(Cells(4, 3), Cells(LastRow, EntryIndicatorCount)).Select
+        Range(Cells(4, 3), Cells(LastRow, LastColumn)).Select
         Application.DisplayAlerts = False
         Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
         Application.DisplayAlerts = False
         Columns("C:C").ColumnWidth = 20.75
-        Range(Cells(4, 3), Cells(LastRow, EntryIndicatorCount)).Select
+        Range(Cells(4, 3), Cells(LastRow, LastColumn)).Select
 
 End Sub
 Sub setupHTCDistro()
@@ -429,7 +401,6 @@ Sub setupHTCDistro()
 End Sub
 
 Sub lookupsumFormulas()
-    Dim colStart As Integer
     'copy lookup formulas to all SNUs
         shtNames = Array("HTC Data Entry", "Summary & Targets", "IM Targeting Output")
         For Each sht In shtNames
@@ -448,11 +419,11 @@ Sub lookupsumFormulas()
             Sheets(sht).Select
             LastColumn = Sheets(sht).Range("A2").CurrentRegion.Columns.Count
             If sht = "Summary & Targets" Then
-                colStart = 6
+                FirstColumn = 6
             Else
-                colStart = 4
+                FirstColumn = 4
             End If
-            For i = colStart To LastColumn
+            For i = FirstColumn To LastColumn
                 If ActiveSheet.Cells(4, i).Value <> "" Then
                     Cells(5, i).Select
                     Selection.FormulaR1C1 = "=SUBTOTAL(109, R[1]C:R[" & LastRowRC & "]C)"
