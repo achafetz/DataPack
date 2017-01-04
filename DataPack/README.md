@@ -12,7 +12,7 @@ SNU against final DATIM/Panorama)
 - [ ] how to clear/gray out Mil row?
 - [x] clean VBA script (removing unused public variables)
 - [ ] age/sex disaggs --> highlander script???
-- [ ] FAQs for clustering, adjusting IM distribution
+- [ ] FAQs for clustering, adjusting IM distribution, adding in SNU1 (for regional programs, SNU1 = country)
 
 Data Entry
 - [ ] Issue around FY18 Art coverage rate? [Noah - formula you provided matches what's in DP]
@@ -24,7 +24,7 @@ HTC Data Entry
 
 Indicator Table
 - [ ] change FY16 targets names to FY16 expected(?)
-- [ ]  pmtct_eid_yield calculation --> would recommend just pmtct_eid_pos_12mo divided by pmtct_eid [Jamie]
+- [x] pmtct_eid_yield calculation --> would recommend just pmtct_eid_pos_12mo divided by pmtct_eid [Jamie]
 - [ ] Jamie - For PLHIV there is no label for year, does this need to be labelled, or when country teams update their PLHIV numbers does it just overwrite the old ones? Somehow that is what I think happens in the IMPATT dataset
 
 Summary & targets
@@ -39,7 +39,7 @@ HTC Data Entry
 Indicator Table
 - [ ] reorder variables for consistency [Moz]
 - [ ] FY16 PMTCT_STAT % Pos - PMTCT_STAT_POS/PMTCT_STAT [Denom] --> PMTCT_STAT_POS/PMTCT_STAT [Num] [Nigeria]
-- [ ] Add PSNU1 level [Zambia]
+- [x] Add PSNU1 level [Zambia]
 
 Summary & targets
 - [x] PP_PREV range used instead of KP_MAT [Moz]
