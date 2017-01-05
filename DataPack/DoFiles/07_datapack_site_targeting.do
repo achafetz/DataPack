@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based IM targeting Data Pack appendix
 **   Date: January 3, 2017
-**   Updated:
+**   Updated: 1/5/17
 
 
 *set date of frozen instance - needs to be changed w/ updated data
@@ -49,6 +49,7 @@
 	replace psnu = "[no associated SNU]" if psnu==""
 
 * gen vars for distro tabs (see 01_datapack_outputs)
+* gen vars for distro tabs (see 01_datapack_outputs)
 	*HTC_TST
 		gen htc_tst = fy2016apr if indicator=="HTC_TST" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	*HTC_TST [CBTC]
@@ -67,18 +68,18 @@
 		gen kp_prev_pwid = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop"& inlist(otherdisaggregate, "Female PWID", "Male PWID") & numeratordenom=="N"
 	*OVC_SERV
 		gen ovc_serv = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	*PMTCD_ARV
-		gen pmtct_arv = fy2016apr if indicator=="PMTCD_ARV" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	*PMTCD_EID
-		gen pmtct_eid = fy2016apr if indicator=="PMTCD_EID" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	*PMTCD_STAT
-		gen pmtct_stat = fy2016apr if indicator=="PMTCD_STAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	*PMTCD_STAD_POS
-		gen pmtct_stat_pos = fy2016apr if indicator=="PMTCD_STAT" & disaggregate=="Known/New" & numeratordenom=="N"
+	*PMTCT_ARV
+		gen pmtct_arv = fy2016apr if indicator=="PMTCT_ARV" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	*PMTCT_EID
+		gen pmtct_eid = fy2016apr if indicator=="PMTCT_EID" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	*PMTCT_STAT
+		gen pmtct_stat = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	*PMTCDT_STAT_POS
+		gen pmtct_stat_pos = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New" & numeratordenom=="N"
 	*PP_PREV
 		gen pp_prev = fy2016apr if indicator=="PP_PREV" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	*TX_CURR <1 [=EID]
-		gen tx_curr_u1_fy18 = fy2016apr if indicator=="PMTCD_EID" & disaggregate=="Total Numerator" & numeratordenom=="N"
+		gen tx_curr_u1_fy18 = fy2016apr if indicator=="PMTCT_EID" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	*TX_CURR 1-14
 		gen tx_curr_1to14 = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "01-04", "05-14") & numeratordenom=="N"
 	*TX_CURR 15+
@@ -86,6 +87,20 @@
 	*VMMC_CIRC
 		gen vmmc_circ = fy2016apr if indicator=="VMMC_CIRC" & disaggregate=="Total Numerator" & numeratordenom=="N"
 
+		
+	*fix TX_CURR disaggs
+	/*J. Houston
+	- TX_CURR: fine disags for all countries except (coarse) Mozambique and Vietnam, (fine + coarse)  Uganda and South Africa */
+	foreach v in tx_curr_1to14{
+		replace `v' = . if inlist(operatingunit, "Mozambique", "South Africa", ///
+			"Uganda", "Vietnam")
+		}
+		*end
+	replace tx_curr_1to14 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex", "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "01-04", "05-14", "01-14") & numeratordenom=="N" & inlist(operatingunit, "Uganda", "South Africa")
+	replace tx_curr_1to14 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & age=="01-14" & numeratordenom=="N" & inlist(operatingunit, "Mozambique", "Vietnam")
+	replace tx_curr_o15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex", "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "15-19", "20+", "15+") & numeratordenom=="N" & inlist(operatingunit, "Uganda", "South Africa")
+	replace tx_curr_o15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "15+") & numeratordenom=="N" & inlist(operatingunit, "Mozambique", "Vietnam")
+	
 * aggregate up to PSNU level
 	drop fy*
 	tostring mechanismid, replace
