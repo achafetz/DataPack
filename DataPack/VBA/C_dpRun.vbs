@@ -90,13 +90,13 @@ Sub PopulateDataPack()
         Call setupHTCDistro
         Call lookupsumFormulas
         Call sparkTrends
-        shtNames = Array("Indicator Table", "Entry Table", "HTC Data Entry", _
-            "Summary & Targets", "IM Targeting Output", "Key Ind Trends")
+        shtNames = Array("DATIM Indicator Table", "Assumption Input", "HTC Target Calculation", _
+            "Target Calculation", "SNU Targets for EA", "Key Ind Trends")
         Call format
         Call formatHeaders
         Call showChanges
-        shtNames = Array("Entry Table", "Summary & Targets", "HTC Data Entry", _
-            "IM Targeting Output", "Key Ind Trends")
+        shtNames = Array("Assumption Input", "Target Calculation", "HTC Target Calculation", _
+            "SNU Targets for EA", "Key Ind Trends")
         Call filters
         Call dimDefault
         Call updateOutput
@@ -152,7 +152,7 @@ Sub Initialize()
         tmplWkbk.Sheets("POPref").Activate
     'create datapack file for OU (copy sheets over to new book)
         tmplWkbk.Activate
-        Sheets(Array("Home", "Entry Table", "Summary & Targets", "Indicator Table", "HTC Data Entry", "Key Ind Trends", "IM Targeting Output", "IM Distribution", "IM PBAC Targets", "Change Form")).Copy
+        Sheets(Array("Home", "Assumption Input", "Target Calculation", "DATIM Indicator Table", "HTC Target Calculation", "Key Ind Trends", "SNU Targets for EA", "Allocation by IM", "PBAC IM Targets", "Change Form")).Copy
         Set dpWkbk = ActiveWorkbook
         ActiveWorkbook.Theme.ThemeColorScheme.Load (other_fldr & "Adjacency.xml")
     'hard code update date into home tab & insert OU name
@@ -163,7 +163,7 @@ Sub Initialize()
         Range("AA1").Select
     'Open data file file
         Workbooks.OpenText Filename:=pulls_fldr & "Global_PSNU_*.xlsx"
-        Sheets("Indicator Table").Activate
+        Sheets("DATIM Indicator Table").Activate
         Set dataWkbk = ActiveWorkbook
 
 End Sub
@@ -171,7 +171,7 @@ End Sub
 Sub getData()
     'make sure file with data is activate
         dataWkbk.Activate
-        Sheets("Indicator Table").Activate
+        Sheets("DATIM Indicator Table").Activate
     ' find the last column
         LastColumn = Range("A1").CurrentRegion.Columns.Count
     'copy variable names
@@ -179,7 +179,7 @@ Sub getData()
     'copy the data and paste in the data pack
         Selection.Copy
         dpWkbk.Activate
-        Sheets("Indicator Table").Activate
+        Sheets("DATIM Indicator Table").Activate
         Range("B4").Select
         Selection.PasteSpecial Paste:=xlPasteValues
     'copy formula to look up variable title
@@ -206,7 +206,7 @@ Sub getData()
     'copy the data and paste in the data pack
         Selection.Copy
         dpWkbk.Activate
-        Sheets("Indicator Table").Activate
+        Sheets("DATIM Indicator Table").Activate
         Range("B7").Select
         Selection.PasteSpecial Paste:=xlPasteValues
 
@@ -230,8 +230,8 @@ Sub getData()
 End Sub
 
 Sub formatTable()
-    'indicator table
-         Sheets("Indicator Table").Activate
+    'DATIM Indicator Table
+         Sheets("DATIM Indicator Table").Activate
     'find last row and column
         LastColumn = Range("C4").CurrentRegion.Columns.Count
         LastRow = uniqueTot + 6
@@ -248,7 +248,7 @@ Sub formatTable()
             .NumberFormat = "#,##0"
         End With
     'format prevention (eg 10.2) and delete total
-        'colIND = WorksheetFunction.Match("prevalence_num", dpWkbk.Sheets("Indicator Table").Range("4:4"), 0)
+        'colIND = WorksheetFunction.Match("prevalence_num", dpWkbk.Sheets("DATIM Indicator Table").Range("4:4"), 0)
         'Cells(5, colIND).Value = ""
         'Range(Cells(5, colIND), Cells(LastRow, colIND)).Select
         'Selection.NumberFormat = "#,##0.0"
@@ -272,7 +272,7 @@ Sub formatTable()
     'wrap headers in table
         Range(Cells(3, 4), Cells(3, LastRow)).WrapText = True
     'add data validation for prioritization
-        Range(Cells(7, 4), Cells(LastRow, 4)).Select
+        Range(Cells(7, 5), Cells(LastRow, 5)).Select
         Selection.Validation.Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
             xlBetween, Formula1:="ScaleUp Sat, ScaleUp Agg, Sustained, Ctrl Supported, Sustained Com, Attained, NOT DEFINED, Mil"
     'add named ranges
@@ -310,9 +310,9 @@ Sub yieldFormulas()
                 DEN = "htc_tst_spd_tot_pos"
             Else
             End If
-            colIND = WorksheetFunction.Match(IND, ActiveWorkbook.Sheets("Indicator Table").Range("4:4"), 0)
-            rcNUM = WorksheetFunction.Match(NUM, ActiveWorkbook.Sheets("Indicator Table").Range("4:4"), 0) - colIND
-            rcDEN = WorksheetFunction.Match(DEN, ActiveWorkbook.Sheets("Indicator Table").Range("4:4"), 0) - colIND
+            colIND = WorksheetFunction.Match(IND, ActiveWorkbook.Sheets("DATIM Indicator Table").Range("4:4"), 0)
+            rcNUM = WorksheetFunction.Match(NUM, ActiveWorkbook.Sheets("DATIM Indicator Table").Range("4:4"), 0) - colIND
+            rcDEN = WorksheetFunction.Match(DEN, ActiveWorkbook.Sheets("DATIM Indicator Table").Range("4:4"), 0) - colIND
             If IND = "pmtct_eid_yield" Then
                 Cells(5, colIND).FormulaR1C1 = "=IFERROR((RC[" & rcNUM & "]+RC[" & rcNUM - 1 & "])/ RC[" & rcDEN & "],"""")"
             ElseIf IND = "pre_art_yield" Or IND = "pre_art_u15_yield" Then
@@ -329,27 +329,27 @@ Sub yieldFormulas()
             ActiveSheet.Paste
         Next IND
 
-    'add formula to count total positives in the indicator table
+    'add formula to count total positives in the DATIM Indicator Table
 
 
 End Sub
 
 Sub setupSNUs()
     'add SNU list to summary and targets and IM targeting tab
-        shtNames = Array("Summary & Targets", "IM Targeting Output")
+        shtNames = Array("Target Calculation", "SNU Targets for EA")
         For Each sht In shtNames
             Sheets(sht).Activate
-            Range(Cells(5, 3), Cells(LastRow, 3)).FormulaR1C1 = "='Indicator Table'!RC"
+            Range(Cells(5, 3), Cells(LastRow, 3)).FormulaR1C1 = "='DATIM Indicator Table'!RC"
             Range(Cells(4, 3), Cells(LastRow, 3)).Select
             Application.DisplayAlerts = False
             Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
             Application.DisplayAlerts = False
             Columns("C:C").ColumnWidth = 20.75
         Next sht
-    'add SNU list, copy default values, and add named range to Entry Table tab
-        Sheets("Entry Table").Activate
+    'add SNU list, copy default values, and add named range to Assumption Input tab
+        Sheets("Assumption Input").Activate
         LastColumn = Range("A2").CurrentRegion.Columns.Count
-        Range(Cells(6, 3), Cells(LastRow, 3)).FormulaR1C1 = "='Indicator Table'!RC"
+        Range(Cells(6, 3), Cells(LastRow, 3)).FormulaR1C1 = "='DATIM Indicator Table'!RC"
         Range(Cells(7, 4), Cells(7, LastColumn)).Select
         Selection.Copy
         Range(Cells(7, 4), Cells(LastRow, LastColumn)).Select
@@ -364,15 +364,15 @@ Sub setupSNUs()
 End Sub
 Sub setupHTCDistro()
     'add SNU list to HTC distro tab
-        Sheets("HTC Data Entry").Activate
-        Range(Cells(5, 3), Cells(LastRow, 3)).FormulaR1C1 = "='Indicator Table'!RC"
+        Sheets("HTC Target Calculation").Activate
+        Range(Cells(5, 3), Cells(LastRow, 3)).FormulaR1C1 = "='DATIM Indicator Table'!RC"
         Range(Cells(4, 3), Cells(LastRow, 3)).Select
         Application.DisplayAlerts = False
         Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
         Application.DisplayAlerts = False
         Columns("C:C").ColumnWidth = 20.75
     'add total for ART to HTC distro tab
-        Sheets("HTC Data Entry").Activate
+        Sheets("HTC Target Calculation").Activate
         For i = 5 To 12
             If i = 9 Then i = i + 1
             Cells(5, i).FormulaR1C1 = "=SUBTOTAL(109, R[2]C:R[" & LastRow - 5 & "]C)"
@@ -382,9 +382,9 @@ Sub setupHTCDistro()
         INDnames = Array("T_htc_peds_need", "T_htc_adlt_need", "T_htc_need", "T_pos_ident", "T_ped_treat", "T_htc_pos")
         For Each IND In INDnames
             If IND = "T_pos_ident" Or IND = "T_ped_treat" Then
-                sht = "Summary & Targets"
+                sht = "Target Calculation"
             Else
-                sht = "HTC Data Entry"
+                sht = "HTC Target Calculation"
             End If
             Sheets(sht).Activate
             indColNum = WorksheetFunction.Match(IND, ActiveWorkbook.Sheets(sht).Range("2:2"), 0)
@@ -396,7 +396,7 @@ End Sub
 
 Sub lookupsumFormulas()
     'copy lookup formulas to all SNUs
-        shtNames = Array("HTC Data Entry", "Summary & Targets", "IM Targeting Output")
+        shtNames = Array("HTC Target Calculation", "Target Calculation", "SNU Targets for EA")
         For Each sht In shtNames
             Sheets(sht).Select
             LastColumn = Sheets(sht).Range("A2").CurrentRegion.Columns.Count
@@ -407,13 +407,13 @@ Sub lookupsumFormulas()
             Application.CutCopyMode = False
         Next sht
     'add formula to totals
-        shtNames = Array("HTC Data Entry", "Summary & Targets", "IM Targeting Output", "Key Ind Trends")
+        shtNames = Array("HTC Target Calculation", "Target Calculation", "SNU Targets for EA", "Key Ind Trends")
         LastRowRC = LastRow - 5
         For Each sht In shtNames
             Sheets(sht).Select
             LastColumn = Sheets(sht).Range("A2").CurrentRegion.Columns.Count
-            If sht = "Summary & Targets" Then
-                FirstColumn = 6
+            If sht = "Target Calculation" Then
+                FirstColumn = 7
             Else
                 FirstColumn = 4
             End If
@@ -458,8 +458,8 @@ Sub sparkTrends()
             If IND = "T_htc_need" Or IND = "T_htc_pos" Then
                 Selection.Formula = "=IFERROR(INDEX(" & IND & ",MATCH(snu_trend,snu_htc,0)),"""")"
             Else
-                colIND = WorksheetFunction.Match(IND, ActiveWorkbook.Sheets("Summary & Targets").Range("4:4"), 0)
-                Selection.FormulaR1C1 = "=IFERROR(INDEX('Summary & Targets'!R5C" & colIND & ":R" & LastRow & "C" & colIND & ",MATCH(snu_trend,snu,0)),"""")"
+                colIND = WorksheetFunction.Match(IND, ActiveWorkbook.Sheets("Target Calculation").Range("4:4"), 0)
+                Selection.FormulaR1C1 = "=IFERROR(INDEX('Target Calculation'!R5C" & colIND & ":R" & LastRow & "C" & colIND & ",MATCH(snu_trend,snu,0)),"""")"
             End If
             i = i + 5
         Next i
@@ -490,7 +490,7 @@ Sub format()
     'format
         For Each sht In shtNames
         Sheets(sht).Select
-        If sht = "IM Distribution" Or sht = "IM PBAC Targets" Then
+        If sht = "Allocation by IM" Or sht = "PBAC IM Targets" Then
             LastRow = Range("C1").CurrentRegion.Rows.Count
             End If
         LastColumn = Sheets(sht).Range("A2").CurrentRegion.Columns.Count
@@ -507,7 +507,7 @@ Sub format()
             Range(Cells(6, 3), Cells(LastRow, 3)).Select
             Selection.IndentLevel = 1
         'format - banded rows
-            If sht = "IM PBAC Targets" Then
+            If sht = "PBAC IM Targets" Then
                 FirstRow = 15
             Else
                 FirstRow = 7
@@ -528,8 +528,8 @@ Sub format()
 End Sub
 
 Sub formatHeaders()
-    'format - color headers on indicator table
-        Sheets("Indicator Table").Select
+    'format - color headers on DATIM Indicator Table
+        Sheets("DATIM Indicator Table").Select
         IndicatorCount = Range("A4").CurrentRegion.Columns.Count 'find last column
         Range(Cells(3, 4), Cells(3, IndicatorCount)).Select
         With Selection.Interior
@@ -552,32 +552,32 @@ End Sub
 
 Sub showChanges()
     'add conditional formatting to identify changes in table
-        shtNames = Array("HTC Data Entry", "Entry Table", "Indicator Table")
+        shtNames = Array("HTC Target Calculation", "Assumption Input", "DATIM Indicator Table")
         For Each sht In shtNames
             Sheets(sht).Select
             Sheets(sht).Copy After:=Sheets(sht)
-            If sht = "HTC Data Entry" Then Sheets(sht & " (2)").Name = "dupHTCdistTable"
-            If sht = "Entry Table" Then Sheets(sht & " (2)").Name = "dupEntryTable"
-            If sht = "Indicator Table" Then Sheets(sht & " (2)").Name = "dupTable"
+            If sht = "HTC Target Calculation" Then Sheets(sht & " (2)").Name = "dupHTCdistTable"
+            If sht = "Assumption Input" Then Sheets(sht & " (2)").Name = "dupEntryTable"
+            If sht = "DATIM Indicator Table" Then Sheets(sht & " (2)").Name = "dupTable"
             LastColumn = Sheets(sht).Range("A2").CurrentRegion.Columns.Count
             Range(Cells(3, 4), Cells(LastRow, LastColumn)).Select
-            If sht <> "HTC Data Entry" Then
+            If sht <> "HTC Target Calculation" Then
                 Selection.Copy
                 Selection.PasteSpecial Paste:=xlPasteValues
             End If
             Range("A1").Select
             Sheets(sht).Select
             Range("C5").Select
-            If sht = "HTC Data Entry" Then
+            If sht = "HTC Target Calculation" Then
                 Range(Cells(5, 19), Cells(LastRow, LastColumn)).Select
             Else
                 Range(Cells(5, 4), Cells(LastRow, LastColumn)).Select
             End If
-            If sht <> "Entry Table" Then
+            If sht <> "Assumption Input" Then
                 With Selection
                     .Activate
-                    If sht = "HTC Data Entry" Then .FormatConditions.Add xlExpression, Formula1:="=S5<>dupHTCdistTable!S5"
-                    If sht = "Indicator Table" Then .FormatConditions.Add xlExpression, Formula1:="=D5<>dupTable!D5"
+                    If sht = "HTC Target Calculation" Then .FormatConditions.Add xlExpression, Formula1:="=S5<>dupHTCdistTable!S5"
+                    If sht = "DATIM Indicator Table" Then .FormatConditions.Add xlExpression, Formula1:="=D5<>dupTable!D5"
                     .FormatConditions(2).Interior.ThemeColor = xlThemeColorAccent3
                     .FormatConditions(2).priority = 1
                 End With
@@ -611,7 +611,7 @@ End Sub
 Sub dimDefault()
 
     'conditional formatting - hide if manual entry values equal default
-        Sheets("Entry Table").Select
+        Sheets("Assumption Input").Select
         IndicatorCount = Range("A2").CurrentRegion.Columns.Count
         Range(Cells(7, 6), Cells(LastRow, IndicatorCount)).Select
         With Selection
@@ -644,9 +644,9 @@ Sub dimDefault()
 End Sub
 
 Sub updateOutput()
-'update IM targeting output
+'update SNU Targets for EA
     'loop over columns, check for formula, then loop over rows
-     Sheets("IM Targeting Output").Activate
+     Sheets("SNU Targets for EA").Activate
      LastColumn = Range("A2").CurrentRegion.Columns.Count
         For i = 5 To LastColumn
         If Len(Trim(Cells(7, i).Value)) > 0 Then
@@ -682,7 +682,7 @@ End Sub
 Sub imTargeting()
 
     'setup named range for im targeting tab
-        Sheets("IM Targeting Output").Activate
+        Sheets("SNU Targets for EA").Activate
         Range(Cells(4, 3), Cells(LastRow, LastColumn)).Select
         Application.DisplayAlerts = False
         Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
@@ -690,7 +690,7 @@ Sub imTargeting()
         Range("D1").Select
 
     'loop over each sheet, adding in data from global_psnu
-        shtNames = Array("IM Distribution", "IM PBAC Targets")
+        shtNames = Array("Allocation by IM", "PBAC IM Targets")
         For Each sht In shtNames
                 Sheets(sht).Activate
             'find OU coordinates in IM list
@@ -698,7 +698,7 @@ Sub imTargeting()
                 FirstRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1")).Row
                 LastRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1"), searchdirection:=xlPrevious).Row
                 LastColumn = Range("A1").CurrentRegion.Columns.Count
-                If sht = "IM Distribution" Then
+                If sht = "Allocation by IM" Then
                     FirstColumn = 3
                 Else
                     FirstColumn = 2
@@ -709,7 +709,7 @@ Sub imTargeting()
             'copy the data and paste in the data pack
                 dpWkbk.Activate
                 Sheets(sht).Activate
-                If sht = "IM Distribution" Then
+                If sht = "Allocation by IM" Then
                     Range("C7").Select
                 Else
                     Range("C15").Select
@@ -719,7 +719,7 @@ Sub imTargeting()
         Next sht
 
     'setup/format IM distro tab
-        Sheets("IM Distribution").Activate
+        Sheets("Allocation by IM").Activate
         LastRow = Range("C1").CurrentRegion.Rows.Count
         Range(Cells(5, 7), Cells(LastRow, 23)).Select
         'format to hide zeros
@@ -747,13 +747,13 @@ Sub imTargeting()
 
 
     'setup/format PBAC targeting tab
-        Sheets("IM PBAC Targets").Activate
+        Sheets("PBAC IM Targets").Activate
         LastRow = Range("C1").CurrentRegion.Rows.Count
         LastColumn = Range("B2").CurrentRegion.Columns.Count
         'add named range
-        Set indRng = Sheets("IM PBAC Targets").Range(Cells(5, 4), Cells(LastRow, 4))
+        Set indRng = Sheets("PBAC IM Targets").Range(Cells(5, 4), Cells(LastRow, 4))
         ActiveWorkbook.Names.Add Name:="P_mech", RefersTo:=indRng
-        Set indRng = Sheets("IM PBAC Targets").Range(Cells(4, 6), Cells(4, LastColumn))
+        Set indRng = Sheets("PBAC IM Targets").Range(Cells(4, 6), Cells(4, LastColumn))
         ActiveWorkbook.Names.Add Name:="P_indtype", RefersTo:=indRng
         'copy formula from first IM row down
         Range(Cells(15, 6), Cells(15, LastColumn)).Select
@@ -768,7 +768,7 @@ Sub imTargeting()
         Selection.NumberFormat = "#,##0;-#,##0;;"
 
     'format
-      shtNames = Array("IM Distribution", "IM PBAC Targets")
+      shtNames = Array("Allocation by IM", "PBAC IM Targets")
       Call format
       Call filters
 

@@ -216,6 +216,9 @@
 *if no psnu
 	replace psnu = "[no associated SNU]" if psnu==""
 	
+*drop blank PSNU rows
+	drop if snulist=="" & snu1!="Andaman and Nicobar Islands"
+
 *save 
 	save "$output/global_temp", replace
 
