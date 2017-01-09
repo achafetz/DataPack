@@ -3,12 +3,12 @@
 **   Aaron Chafetz
 **   Purpose: mehcanism list
 **   Date: December 10, 2016
-**   Updated: 12/19/16
+**   Updated: 1/9/16
 
 *** SETUP ***
 
 *define date for Fact View Files
-	global datestamp "20161115_v2"
+	global datestamp "20161230_v2_2"
 
 *set today's date for saving
 	global date: di %tdCCYYNNDD date(c(current_date), "DMY")

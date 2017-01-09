@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based Data Pack at SNU level
 **   Date: November 10, 2016
-**   Updated: 1/3/2017
+**   Updated: 1/9/2017
 
 *** SETUP ***
 	

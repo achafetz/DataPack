@@ -5,8 +5,10 @@
 **   Date: January 9, 2017
 **   Updated:
 
-/*
+/*	
 List of PSNUs that have the same name but different UIDs
+Duplicate list produced from following do file
+	https://github.com/achafetz/ICPI/blob/master/Other/dupSNUs.do
 N. Barlett identified whether to combine/delete each
 
 | operatingunit                    | psnu                | psnuuid     | action              |
@@ -40,14 +42,14 @@ N. Barlett identified whether to combine/delete each
 */
 
 *Combine 
-	replace psnuuid "Oz0qJ8kNbKx" if psnuuid=="gxf4z0agDsk"
-	replace psnuuid "gxf4z0agDsk" if psnuuid=="dASd72VnJPh"
-	replace psnuuid "dASd72VnJPh" if psnuuid=="dOQ8r7iwZvS"
-	replace psnuuid "dOQ8r7iwZvS" if psnuuid=="EzsXkY9WARj"
-	replace psnuuid "EzsXkY9WARj" if psnuuid=="URj9zYi533e"
-	replace psnuuid "URj9zYi533e" if psnuuid=="KN2TmcAVqzi"
-	replace psnuuid "KN2TmcAVqzi" if psnuuid=="bDoKaxNx2Xb"
-	replace psnuuid "bDoKaxNx2Xb" if psnuuid=="HHDEeZbVEaw"
+    replace psnuuid = "Oz0qJ8kNbKx" if psnuuid=="gxf4z0agDsk"
+	replace psnuuid = "gxf4z0agDsk" if psnuuid=="dASd72VnJPh"
+	replace psnuuid = "dASd72VnJPh" if psnuuid=="dOQ8r7iwZvS"
+	replace psnuuid = "dOQ8r7iwZvS" if psnuuid=="EzsXkY9WARj"
+	replace psnuuid = "EzsXkY9WARj" if psnuuid=="URj9zYi533e"
+	replace psnuuid = "URj9zYi533e" if psnuuid=="KN2TmcAVqzi"
+	replace psnuuid = "KN2TmcAVqzi" if psnuuid=="bDoKaxNx2Xb"
+	replace psnuuid = "bDoKaxNx2Xb" if psnuuid=="HHDEeZbVEaw"
 	
 *Remove duplicates/blanks
 	drop if psnuuid == "HhCbsjlKoWA"

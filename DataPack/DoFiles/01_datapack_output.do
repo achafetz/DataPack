@@ -3,12 +3,12 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based Data Pack at SNU level
 **   Date: November 10, 2016
-**   Updated: 1/5/17
+**   Updated: 1/9/17
 
 *** SETUP ***
 
 *define date for Fact View Files
-	global datestamp "20161115_Q4v1_4"
+	global datestamp "20161230_v2_2"
 	
 *set today's date for saving
 	global date: di %tdCCYYNNDD date(c(current_date), "DMY")
@@ -22,6 +22,7 @@
 		}
 		else{
 			import delimited "$fvdata/ICPI_FactView_NAT_SUBNAT_${datestamp}.txt", clear
+			run "$dofiles/06_datapack_dup_snus"
 			save "$fvdata/ICPI_FactView_NAT_SUBNAT_${datestamp}.dta", replace
 		}
 		*end
@@ -53,6 +54,7 @@
 		}
 		else{
 			import delimited "$fvdata/ICPI_FactView_PSNU_${datestamp}.txt", clear
+			run "$dofiles/06_datapack_dup_snus"
 			save "$fvdata/ICPI_FactView_PSNU_${datestamp}.dta", replace
 		}
 		*end
