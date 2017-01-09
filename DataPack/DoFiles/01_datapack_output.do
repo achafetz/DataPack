@@ -28,13 +28,6 @@
 		*end
 *clean
 	rename ïregion region	
-	ds fy*
-	*remove NULLS so data can be destringed
-	foreach pd in `r(varlist)'{
-		replace `pd' = "." if `pd' == "NULL"
-		destring `pd', replace
-	}
-	*end
 	
 *rename variables to match PSNU dataset
 	rename fy2015q4 fy2015apr
@@ -68,11 +61,6 @@
 *adjust prioritizations
 	rename fy17snuprioritization snuprioritization
 	drop fy16snuprioritization
-	
-********************************************************************************	
-*keep just pilot countries --> remove after piloting
-	keep if inlist(operatingunit, "Nigeria", "Mozambique", "Tanzania", "Zambia")
-********************************************************************************
 	
 *save
 	save "$output/append_temp", replace
@@ -228,21 +216,6 @@
 *if no psnu
 	replace psnu = "[no associated SNU]" if psnu==""
 	
-********************************************************************************
-* REMOVE AFTER PILOTING
-*due to incomplete targets, set to 110 of result for FY16
-	global tlist kp_mat kp_mat_T kp_prev_fsw_T kp_prev_msmtg_T ///
-		kp_prev_pwid_T ovc_serv_T pmtct_arv_curr_T pmtct_eid_12mo_T ///
-		pmtct_stat_D_T pmtct_stat_T pp_prev_T tb_art tb_art_T ///
-		tb_stat_D_T tb_stat_T tx_curr_T ///
-		tx_curr_u15_T tx_new_u1_T 
-	foreach t in $tlist{
-	replace `t' = 1.1* `=regexr("`t'","_T","")' ///
-				if inlist(operatingunit, "Mozambique", "Tanzania", "Zambia")
-	}
-	*end
-********************************************************************************
-
 *save 
 	save "$output/global_temp", replace
 
@@ -254,5 +227,5 @@
 		*end
 *export global list to data pack template
 	export excel using "$dpexcel/Global_PSNU_${date}.xlsx", ///
-		firstrow(variables) sheet("Indicator Table") sheetreplace
+		firstrow(variables) sheet("DATIM Indicator Table") sheetreplace
 

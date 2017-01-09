@@ -134,4 +134,4 @@
 
 *export
 	export excel using "$dpexcel/Global_PSNU_${date}.xlsx", ///
-		sheet("IM Distribution") firstrow(variables) sheetreplace
+		sheet("Allocation by IM") firstrow(variables) sheetreplace

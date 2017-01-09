@@ -1,10 +1,11 @@
 **   Data Pack
 **   COP FY17
 **   Aaron Chafetz
-**   Purpose: remove/combine duplicate SNUs with different UIDs
+**   Purpose: remove/combine duplicate SNUs with different UIDs & cluster SNUs
 **   Date: January 9, 2017
 **   Updated:
 
+** COMBINE/DELETE SNUS **
 /*	
 List of PSNUs that have the same name but different UIDs
 Duplicate list produced from following do file
@@ -57,3 +58,33 @@ N. Barlett identified whether to combine/delete each
 	drop if psnuuid == "dzjXm8e1cNs"
 	drop if psnuuid == "kxsmKGMZ5QF"
 	drop if psnuuid == "mVuyipSx9aU"
+	
+	
+** Cluster SNUs **
+
+/*Botswana (J. Rofenbender, 1/9/17)
+	| operatingunit | psnu                        | fy17snuprioritization    | psnuuid     | cluster |
+	|---------------|-----------------------------|--------------------------|-------------|---------|
+	| Botswana      | Greater Gabarone Cluster    | 2 - Scale-Up: Aggressive | VB7am4futjm | 1       |
+	| Botswana      | Gaborone District           | 2 - Scale-Up: Aggressive | VB7am4futjm |         |
+	| Botswana      | Kgatleng District           | 2 - Scale-Up: Aggressive | yNcvm7JYBfi |         |
+	| Botswana      | Kweneng East District       | 2 - Scale-Up: Aggressive | Uz8LWtC0vYF |         |
+	| Botswana      | South East District         | 2 - Scale-Up: Aggressive | YksWHI1yLuv |         |
+	| Botswana      | Greater Francistown Cluster | 4 - Sustained            | h1CepDrLWib | 1       |
+	| Botswana      | Francistown District        | 4 - Sustained            | h1CepDrLWib |         |
+	| Botswana      | North East District         | 4 - Sustained            | psnuuid     |         |
+	| Botswana      | Tutume District             | 4 - Sustained            | gchw5PMi4N2 |         |
+	*/
+	*Greater Gabarone Cluster
+		replace psnuuid = "VB7am4futjm" if inlist(psnuuid, "yNcvm7JYBfi", "Uz8LWtC0vYF", "YksWHI1yLuv")
+		replace psnu = "Greater Cabrone Cluster" if psnuuid=="VB7am4futjm"
+		replace fy17snuprioritization = "2 - Scale-Up: Aggressive" if psnuuid=="VB7am4futjm"
+		replace snu1 = "[Clustered]" if psnuuid=="VB7am4futjm"	
+	*Greater Francistown Cluster
+		replace psnuuid = "h1CepDrLWib" if inlist(psnuuid, "nszh0FzynAQ", "gchw5PMi4N2")
+		replace psnu = "Greater Francistown Cluster" if psnuuid=="h1CepDrLWib"
+		replace fy17snuprioritization = "4 - Sustained" if psnuuid=="h1CepDrLWib"
+		replace snu1 = "[Clustered]" if psnuuid=="h1CepDrLWib"
+
+
+

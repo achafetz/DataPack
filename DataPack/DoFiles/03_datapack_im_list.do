@@ -14,7 +14,16 @@
 	global date: di %tdCCYYNNDD date(c(current_date), "DMY")
 
 *import/open data
-	use "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta", clear
+	capture confirm file "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta"
+		if !_rc{
+			use "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta", clear
+		}
+		else{
+			import delimited "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.txt", clear
+			run "$dofiles/06_datapack_dup_snus"
+			save "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta", replace
+		}
+		*end
 
 *update all partner and mech to offical names (based on FACTS Info)
 	capture confirm file "$output/officialnames.dta"
@@ -35,4 +44,4 @@
 	sort operatingunit mechanismid
 *export
 	export excel using "$dpexcel/Global_PSNU_${date}.xlsx", ///
-		sheet("IM PBAC Targets") firstrow(variables) sheetreplace
+		sheet("PBAC IM Targets") firstrow(variables) sheetreplace
