@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based Data Pack at SNU level
 **   Date: November 10, 2016
-**   Updated: 1/9/17
+**   Updated: 1/10/17
 
 *** SETUP ***
 
@@ -67,7 +67,7 @@
  
 * generate
 	// output generated in Data Pack template (POPsubset sheet)
-	// updated 1/4
+	// updated 1/10
 	gen htc_tst = fy2016apr if indicator=="HTC_TST" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen htc_tst_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="Results" & resultstatus=="Positive" & numeratordenom=="N"
 	gen htc_tst_u15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & inlist(age, "<01", "01-04", "05-09","10-14") & numeratordenom=="N"
@@ -136,9 +136,9 @@
 	gen tx_curr = fy2016apr if indicator=="TX_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen tx_curr_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "<01", "01-04", "05-14") & numeratordenom=="N"
-	gen tx_curr_u15_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "<01", "01-04", "05-14") & numeratordenom=="N"
-	gen tx_curr_1to15_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "01-04", "05-14") & numeratordenom=="N"
-	gen tx_curr_o15_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "15-19", "20+") & numeratordenom=="N"
+	gen tx_curr_u15_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Aggregated Age/Sex" & age=="<15" & numeratordenom=="N"
+	gen tx_curr_1to15_T = 0
+	gen tx_curr_o15_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Aggregated Age/Sex" & age=="15+" & numeratordenom=="N"
 	gen tx_curr_subnat_u15 = fy2016apr if indicator=="TX_CURR_SUBNAT" & disaggregate=="Age/Sex" & age=="<15" & numeratordenom=="N"
 	gen tx_curr_subnat = fy2016apr if indicator=="TX_CURR_SUBNAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen tx_new_u1 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex" & age=="<01" & numeratordenom=="N"
@@ -153,35 +153,26 @@
 	gen vmmc_circ_rng_T = fy2017_targets if indicator=="VMMC_CIRC" & disaggregate=="Age" & inlist(age, "05-19", "20-24", "25-29") & numeratordenom=="N"
 	gen vmmc_circ_subnat = fy2016apr if indicator=="VMMC_CIRC_SUBNAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
 
+
 *agg disags "fixes" (Fine --> Coarse or Fine + Coarse) above for select OUs
 	/*J. Houston
 	- HTC_TST: fine disags for most countries; fine + coarse for Haiti, Mozambique, Nigeria, South Africa, Tanzania, Uganda, Ukraine, and (coarse) Vietnam
 	- TX_CURR: fine disags for all countries except (coarse) Mozambique and Vietnam, (fine + coarse)  Uganda and South Africa */
 	*replace HTC data
-	foreach v in htc_tst_u15 htc_tst_u15_pos{
-		replace `v' = . if inlist(operatingunit, "Haiti", "Mozambique", ///
-			"Nigeria", "South Africa", "Tanzania", "Uganda", "Ukraine", "Vietnam")
-		}
-		*end
-	replace htc_tst_u15 = fy2016apr if indicator=="HTC_TST" & inlist(disaggregate, "Age/Sex/Result", "Age/Sex Aggregated/Result") & inlist(age, "<01", "01-04", "05-09","10-14", "<15") & numeratordenom=="N" & inlist(operatingunit, "Haiti", "Mozambique", "Nigeria", "South Africa", "Tanzania", "Uganda", "Ukraine")
-	replace htc_tst_u15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex Aggregated/Result" & age=="<15" & numeratordenom=="N" & operatingunit=="Vietnam"
-	replace htc_tst_u15_pos = fy2016apr if indicator=="HTC_TST" & inlist(disaggregate, "Age/Sex/Result", "Age/Sex Aggregated/Result") & inlist(age, "<01", "01-04", "05-09","10-14", "<15") & resultstatus=="Positive" & numeratordenom=="N" & inlist(operatingunit, "Haiti", "Mozambique", "Nigeria", "South Africa", "Tanzania", "Uganda", "Ukraine")
-	replace htc_tst_u15_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex Aggregated/Result" & age=="<15" & resultstatus=="Positive" & numeratordenom=="N" & operatingunit=="Vietnam"
+		foreach v in htc_tst_u15 htc_tst_u15_pos{
+			replace `v' = . if inlist(operatingunit, "Haiti", "Mozambique", ///
+				"Nigeria", "South Africa", "Tanzania", "Uganda", "Ukraine", "Vietnam")
+			}
+			*end
+		replace htc_tst_u15 = fy2016apr if indicator=="HTC_TST" & inlist(disaggregate, "Age/Sex/Result", "Age/Sex Aggregated/Result") & inlist(age, "<01", "01-04", "05-09","10-14", "<15") & numeratordenom=="N" & inlist(operatingunit, "Haiti", "Mozambique", "Nigeria", "South Africa", "Tanzania", "Uganda", "Ukraine")
+		replace htc_tst_u15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex Aggregated/Result" & age=="<15" & numeratordenom=="N" & operatingunit=="Vietnam"
+		replace htc_tst_u15_pos = fy2016apr if indicator=="HTC_TST" & inlist(disaggregate, "Age/Sex/Result", "Age/Sex Aggregated/Result") & inlist(age, "<01", "01-04", "05-09","10-14", "<15") & resultstatus=="Positive" & numeratordenom=="N" & inlist(operatingunit, "Haiti", "Mozambique", "Nigeria", "South Africa", "Tanzania", "Uganda", "Ukraine")
+		replace htc_tst_u15_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex Aggregated/Result" & age=="<15" & resultstatus=="Positive" & numeratordenom=="N" & operatingunit=="Vietnam"
 	*replace TX_CURR data
-	foreach v in 	tx_curr_u15 tx_curr_u15_T tx_curr_1to15_T tx_curr_o15_T {
-		replace `v' = . if inlist(operatingunit, "Mozambique", "South Africa", ///
-			"Uganda", "Vietnam")
-		}
-		*end
-	replace tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex", "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "<01", "01-04", "05-14", "01-14") & numeratordenom=="N" & inlist(operatingunit, "Uganda", "South Africa")
-	replace tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "<01", "01-14") & numeratordenom=="N" & inlist(operatingunit, "Mozambique", "Vietnam")
-	replace tx_curr_u15_T = fy2017_targets if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex", "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "<01", "01-04", "05-14", "01-14") & numeratordenom=="N" & inlist(operatingunit, "Uganda", "South Africa")
-	replace tx_curr_u15_T = fy2017_targets if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "<01", "01-14") & numeratordenom=="N" & inlist(operatingunit, "Mozambique", "Vietnam")
-	replace tx_curr_1to15_T = fy2017_targets if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex", "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "01-04", "05-14", "01-14") & numeratordenom=="N" & inlist(operatingunit, "Uganda", "South Africa")
-	replace tx_curr_1to15_T = fy2017_targets if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & age=="01-14" & numeratordenom=="N" & inlist(operatingunit, "Mozambique", "Vietnam")
-	replace tx_curr_o15_T = fy2017_targets if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex", "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "15-19", "20+", "15+") & numeratordenom=="N" & inlist(operatingunit, "Uganda", "South Africa")
-	replace tx_curr_o15_T = fy2017_targets if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "15+") & numeratordenom=="N" & inlist(operatingunit, "Mozambique", "Vietnam")
-		
+		replace tx_curr_u15 = . if inlist(operatingunit, "Mozambique", "South Africa", "Uganda", "Vietnam")
+		replace tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex", "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "<01", "01-04", "05-14", "01-14") & numeratordenom=="N" & inlist(operatingunit, "Uganda", "South Africa")
+		replace tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "<01", "01-14") & numeratordenom=="N" & inlist(operatingunit, "Mozambique", "Vietnam")
+
 * aggregate up to PSNU level
 	drop fy*
 	ds *, not(type string)
