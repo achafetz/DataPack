@@ -239,12 +239,11 @@ Sub formatTable()
         Range(Cells(5, 5), Cells(LastRow, LastColumn)).Select
         Selection.NumberFormat = "#,##0"
     'add total to table
-        Range(Cells(5, 2), Cells(5, LastColumn)).Select
         Range("C5").Select
         ActiveCell.Value = "Total"
-        Range(Cells(5, 5), Cells(5, LastColumn)).Select
+        Range(Cells(5, 6), Cells(5, LastColumn)).Select
         With Selection
-            .Formula = "=SUBTOTAL(109, E6:E" & LastRow & ")"
+            .Formula = "=SUBTOTAL(109, F6:F" & LastRow & ")"
             .NumberFormat = "#,##0"
         End With
     'format prevention (eg 10.2) and delete total
@@ -285,7 +284,8 @@ End Sub
 
 Sub yieldFormulas()
     'add in formulas for yields
-        INDnames = Array("pmtct_eid_yield", "pmtct_stat_yield", "tb_stat_yield", "tx_ret_yield", "tx_ret_u15_yield", "htc_tst_u15_yield", "htc_tst_spd_tot_pos")
+        INDnames = Array("pmtct_eid_yield", "pmtct_stat_yield", "tb_stat_yield", "tx_ret_yield", "tx_ret_u15_yield", _
+            "htc_tst_u15_yield", "htc_tst_spd_tot_pos", "tx_curr_1to15_T")
         For Each IND In INDnames
             If IND = "pmtct_eid_yield" Then
                 NUM = "pmtct_eid_pos_12mo"
@@ -308,6 +308,9 @@ Sub yieldFormulas()
             ElseIf IND = "htc_tst_spd_tot_pos" Then
                 NUM = "htc_tst_spd_tot_pos"
                 DEN = "htc_tst_spd_tot_pos"
+            ElseIf IND = "tx_curr_1to15_T" Then
+                NUM = "pmtct_eid_T"
+                DEN = "tx_curr_u15_T"
             Else
             End If
             colIND = WorksheetFunction.Match(IND, ActiveWorkbook.Sheets("DATIM Indicator Table").Range("4:4"), 0)
@@ -320,17 +323,19 @@ Sub yieldFormulas()
             ElseIf IND = "htc_tst_spd_tot_pos" Then
                 rcNUM = 1 - Application.WorksheetFunction.CountIf(Range("4:4"), "htc_tst_spd*_pos")
                 Cells(5, colIND).FormulaR1C1 = "=SUM(RC[" & rcNUM & "]:RC[-1])"
+            ElseIf IND = "tx_curr_1to15_T" Then
+                Cells(5, colIND).FormulaR1C1 = "=IF(RC[" & rcDEN & "] - RC[" & rcNUM & "]<0,0,RC[" & rcDEN & "] - RC[" & rcNUM & "])"
             Else
                 Cells(5, colIND).FormulaR1C1 = "=IFERROR(RC[" & rcNUM & "]/ RC[" & rcDEN & "],"""")"
             End If
-            If IND <> "htc_tst_spd_tot_pos" Then Cells(5, colIND).NumberFormat = "0.0%"
+            If IND = "htc_tst_spd_tot_pos" Or IND = "tx_curr_1to15_T" Then
+            Else
+                Cells(5, colIND).NumberFormat = "0.0%"
+            End If
             Cells(5, colIND).Copy
             Range(Cells(7, colIND), Cells(LastRow, colIND)).Select
             ActiveSheet.Paste
         Next IND
-
-    'add formula to count total positives in the DATIM Indicator Table
-
 
 End Sub
 
@@ -399,11 +404,15 @@ Sub lookupsumFormulas()
         shtNames = Array("HTC Target Calculation", "Target Calculation", "SNU Targets for EA")
         For Each sht In shtNames
             Sheets(sht).Select
-            LastColumn = Sheets(sht).Range("A2").CurrentRegion.Columns.Count
+            LastColumn = Sheets(sht).Range("C2").CurrentRegion.Columns.Count
             Range(Cells(7, 4), Cells(7, LastColumn)).Select
+            If sht = "SNU Targets for EA" Then
+                Selection.Replace what:="$21", Replacement:="$" & LastRow
+            End If
             Selection.Copy
             Range(Cells(8, 4), Cells(LastRow, LastColumn)).Select
             Selection.PasteSpecial Paste:=xlPasteFormulasAndNumberFormats
+            Selection.Font.Name = "Calibri Light"
             Application.CutCopyMode = False
         Next sht
     'add formula to totals
@@ -413,7 +422,7 @@ Sub lookupsumFormulas()
             Sheets(sht).Select
             LastColumn = Sheets(sht).Range("A2").CurrentRegion.Columns.Count
             If sht = "Target Calculation" Then
-                FirstColumn = 7
+                FirstColumn = 6
             Else
                 FirstColumn = 4
             End If
@@ -556,9 +565,9 @@ Sub showChanges()
         For Each sht In shtNames
             Sheets(sht).Select
             Sheets(sht).Copy After:=Sheets(sht)
-            If sht = "HTC Target Calculation" Then Sheets(sht & " (2)").Name = "dupHTCdistTable"
-            If sht = "Assumption Input" Then Sheets(sht & " (2)").Name = "dupEntryTable"
-            If sht = "DATIM Indicator Table" Then Sheets(sht & " (2)").Name = "dupTable"
+            If sht = "HTC Target Calculation" Then Sheets(sht & " (2)").Name = "dupHTCTargetCalc"
+            If sht = "Assumption Input" Then Sheets(sht & " (2)").Name = "dupAssumptionInput"
+            If sht = "DATIM Indicator Table" Then Sheets(sht & " (2)").Name = "dupIndicatorTable"
             LastColumn = Sheets(sht).Range("A2").CurrentRegion.Columns.Count
             Range(Cells(3, 4), Cells(LastRow, LastColumn)).Select
             If sht <> "HTC Target Calculation" Then
@@ -576,8 +585,8 @@ Sub showChanges()
             If sht <> "Assumption Input" Then
                 With Selection
                     .Activate
-                    If sht = "HTC Target Calculation" Then .FormatConditions.Add xlExpression, Formula1:="=S5<>dupHTCdistTable!S5"
-                    If sht = "DATIM Indicator Table" Then .FormatConditions.Add xlExpression, Formula1:="=D5<>dupTable!D5"
+                    If sht = "HTC Target Calculation" Then .FormatConditions.Add xlExpression, Formula1:="=S5<>dupHTCTargetCalc!S5"
+                    If sht = "DATIM Indicator Table" Then .FormatConditions.Add xlExpression, Formula1:="=D5<>dupIndicatorTable!D5"
                     .FormatConditions(2).Interior.ThemeColor = xlThemeColorAccent3
                     .FormatConditions(2).priority = 1
                 End With
@@ -768,10 +777,27 @@ Sub imTargeting()
         Selection.NumberFormat = "#,##0;-#,##0;;"
 
     'format
-      shtNames = Array("Allocation by IM", "PBAC IM Targets")
-      Call format
-      Call filters
-
+        shtNames = Array("Allocation by IM", "PBAC IM Targets")
+        Call format
+        Call filters
+    'show changes
+        Sheets("Allocation by IM").Select
+        Sheets("Allocation by IM").Copy After:=Sheets("Allocation by IM")
+        Sheets("Allocation by IM (2)").Name = "dupAllocationIM"
+        LastRow = Range("C1").CurrentRegion.Rows.Count
+        Range("A1").Select
+        Sheets("Allocation by IM").Select
+        Range("G5").Select
+        Range(Cells(5, 7), Cells(LastRow, 24)).Select
+        With Selection
+            .Activate
+            .FormatConditions.Add xlExpression, Formula1:="=G5<>dupAllocationIM!G5"
+            .FormatConditions(2).Interior.ThemeColor = xlThemeColorAccent3
+            .FormatConditions(2).priority = 1
+        End With
+        Range("C3").Select
+    'hide duplicates
+        Sheets("dupAllocationIM").Visible = False
 End Sub
 
 ''''''''''''''''''''

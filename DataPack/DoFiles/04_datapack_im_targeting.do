@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based IM targeting Data Pack appendix
 **   Date: December 10, 2016
-**   Updated: 1/9/17
+**   Updated: 1/10/17
 
 *** SETUP ***
 
@@ -82,11 +82,8 @@
 	*fix TX_CURR disaggs
 	/*J. Houston
 	- TX_CURR: fine disags for all countries except (coarse) Mozambique and Vietnam, (fine + coarse)  Uganda and South Africa */
-	foreach v in tx_curr_1to14{
-		replace `v' = . if inlist(operatingunit, "Mozambique", "South Africa", ///
-			"Uganda", "Vietnam")
-		}
-		*end
+	replace tx_curr_1to14 = . if inlist(operatingunit, "Mozambique", ///
+		"South Africa", "Uganda", "Vietnam")
 	replace tx_curr_1to14 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex", "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "01-04", "05-14", "01-14") & numeratordenom=="N" & inlist(operatingunit, "Uganda", "South Africa")
 	replace tx_curr_1to14 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & age=="01-14" & numeratordenom=="N" & inlist(operatingunit, "Mozambique", "Vietnam")
 	replace tx_curr_o15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex", "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "15-19", "20+", "15+") & numeratordenom=="N" & inlist(operatingunit, "Uganda", "South Africa")

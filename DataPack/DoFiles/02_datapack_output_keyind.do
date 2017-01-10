@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based Data Pack at SNU level
 **   Date: November 10, 2016
-**   Updated: 1/9/2017
+**   Updated: 1/10/2017
 
 *** SETUP ***
 	
@@ -16,10 +16,18 @@
 *keep just key indicator
 	keep if (inlist(indicator, "PLHIV", "HTC_TST", "PMTCT_ARV", "TB_ART", "TX_CURR", ///
 		"TX_NEW", "VMMC_CIRC") & disaggregate=="Total Numerator") | ///
-		(indicator=="HTC_TST" & disaggregate=="Results" & resultstatus=="Positive")
+		(indicator=="HTC_TST" & inlist(disaggregate, "Results", ///
+		"Age/Sex Aggregated/Result") & resultstatus=="Positive") | ///
+		(indicator=="PMTCT_ART" & disaggregate=="MaternalRegimenType2017")
 *rename HTC_POS
 	replace indicator = "HTC_TST_POS" if indicator=="HTC_TST" & ///
-		disaggregate=="Results" & resultstatus=="Positive"
+		inlist(disaggregate, "Results","Age/Sex Aggregated/Result") ///
+		& resultstatus=="Positive"
+*fix MER 1.0 -> 2.0 errors for FY17 targets
+	replace fy2017_targets=. if ///
+		(indicator == "HTC_TST_POS" & disaggregate=="Results") | ///
+		(indicator == "PMTCT_ARV")
+	replace indicator="PMTCT_ARV" if indicator=="PMTCT_ART"
 *add APR PLHIV value to Q4
 	replace fy2016q4 = fy2016apr if indicator=="PLHIV"
 *aggregate to psnu

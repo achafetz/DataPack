@@ -3,7 +3,7 @@
 
 General
 - [ ] validate IM and site level data against DATIM/Panorama
-- [ ] hyperlink all cogs and buttons
+- [x] hyperlink all cogs and buttons
 - [ ] surround each sub group with a border
 - [ ] how to clear/gray out Mil row?
 - [ ] FAQs for clustering, adjusting IM distribution, adding in SNU1 (for regional programs, SNU1 = country)
