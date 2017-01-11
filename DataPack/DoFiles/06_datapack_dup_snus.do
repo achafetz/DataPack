@@ -2,7 +2,7 @@
 **   COP FY17
 **   Aaron Chafetz
 **   Purpose: remove/combine duplicate SNUs with different UIDs & cluster SNUs
-**   Date: January 9, 2017
+**   Date: January 11, 2017
 **   Updated:
 
 ** COMBINE/DELETE SNUS **
@@ -59,7 +59,9 @@ N. Barlett identified whether to combine/delete each
 	drop if psnuuid == "kxsmKGMZ5QF"
 	drop if psnuuid == "mVuyipSx9aU"
 	
-	
+*add Country Name to Regional Programs
+	replace psnu = snu1 + "/" + psnu if inlist(operatingunit, "Asia Regional Program", "Caribbean Region", "Central America Region", "Central Asia Region")
+		
 ** Cluster SNUs **
 
 /*Botswana (J. Rofenbender, 1/9/17)

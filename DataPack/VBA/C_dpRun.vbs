@@ -101,6 +101,9 @@ Sub PopulateDataPack()
         Call dimDefault
         Call updateOutput
         Call imTargeting
+        shtNames = Array("Allocation by IM", "PBAC IM Targets")
+        Call format
+        Call filters
         Call saveFile
 
         'Zip output folder
@@ -776,10 +779,6 @@ Sub imTargeting()
         Selection.Formula = "=SUBTOTAL(109, F14:F" & LastRow & ")"
         Selection.NumberFormat = "#,##0;-#,##0;;"
 
-    'format
-        shtNames = Array("Allocation by IM", "PBAC IM Targets")
-        Call format
-        Call filters
     'show changes
         Sheets("Allocation by IM").Select
         Sheets("Allocation by IM").Copy After:=Sheets("Allocation by IM")
