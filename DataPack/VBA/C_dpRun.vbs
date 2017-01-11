@@ -594,7 +594,7 @@ Sub showChanges()
             Range("C3").Select
         Next sht
     'hide duplicates
-        Sheets(Array("dupTable", "dupEntryTable", "dupHTCdistTable")).Visible = False
+        Sheets(Array("dupIndicatorTable", "dupAssumptionInput", "dupHTCTargetCalc")).Visible = False
 End Sub
 
 Sub filters()
@@ -625,7 +625,7 @@ Sub dimDefault()
         Range(Cells(7, 6), Cells(LastRow, IndicatorCount)).Select
         With Selection
             .Activate
-            .FormatConditions.Add xlExpression, Formula1:="=OR(F7=F$5,AND(F$5="""",F7=dupEntryTable!F7))"
+            .FormatConditions.Add xlExpression, Formula1:="=OR(F7=F$5,AND(F$5="""",F7=dupAssumptionInput!F7))"
             .FormatConditions(2).Font.ThemeColor = xlThemeColorDark1
             .FormatConditions(2).Font.TintAndShade = -0.499984740745262
             .FormatConditions(2).Interior.Pattern = xlNone
@@ -635,7 +635,7 @@ Sub dimDefault()
         End With
         With Range(Cells(7, 6), Cells(LastRow, IndicatorCount))
             .Activate
-            .FormatConditions.Add xlExpression, Formula1:="=OR(AND(F7=F$5,MOD(ROW(),2)=0),AND(F$5="""",F7=dupEntryTable!F7,MOD(ROW(),2)=0))"
+            .FormatConditions.Add xlExpression, Formula1:="=OR(AND(F7=F$5,MOD(ROW(),2)=0),AND(F$5="""",F7=dupAssumptionInput!F7,MOD(ROW(),2)=0))"
             With .FormatConditions(3).Font
                 .ThemeColor = xlThemeColorDark1
                 .TintAndShade = -0.499984740745262
