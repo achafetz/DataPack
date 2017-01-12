@@ -99,7 +99,7 @@ Sub PopulateDataPack()
             "SNU Targets for EA", "Key Ind Trends")
         Call filters
         Call dimDefault
-        Call updateOutput
+        'Call updateOutput
         Call imTargeting
         shtNames = Array("Allocation by IM", "PBAC IM Targets")
         Call format
@@ -386,7 +386,7 @@ Sub setupHTCDistro()
         Next i
 
     'add in extra named ranges
-        INDnames = Array("T_htc_peds_need", "T_htc_adlt_need", "T_htc_need", "T_pos_ident", "T_ped_treat", "T_htc_pos")
+        INDnames = Array("T_htc_peds_need", "T_htc_adlt_need", "T_htc_need", "T_pos_ident", "T_ped_treat", "T_htc_pos", "T_tx_curr_exp", "T_tx_curr_u15_exp")
         For Each IND In INDnames
             If IND = "T_pos_ident" Or IND = "T_ped_treat" Then
                 sht = "Target Calculation"

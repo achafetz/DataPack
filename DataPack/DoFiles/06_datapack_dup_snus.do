@@ -2,7 +2,7 @@
 **   COP FY17
 **   Aaron Chafetz
 **   Purpose: remove/combine duplicate SNUs with different UIDs & cluster SNUs
-**   Date: January 11, 2017
+**   Date: January 12, 2017
 **   Updated:
 
 ** COMBINE/DELETE SNUS **
@@ -88,5 +88,16 @@ N. Barlett identified whether to combine/delete each
 		replace fy17snuprioritization = "4 - Sustained" if psnuuid=="h1CepDrLWib"
 		replace snu1 = "[Clustered]" if psnuuid=="h1CepDrLWib"
 
-
-
+/*Hait (M. Melchior 1/12/17)
+	| operatingunit | psnu                           | fy17snuprioritization    | psnuuid     | cluster |
+	|---------------|--------------------------------|--------------------------|-------------|---------|
+	| Haiti         | Greater Port-au-Prince Cluster | 1 - Scale-Up: Saturation | C4PnwquCK8U | 1       |
+	| Haiti         | Port-au-Prince                 | 1 - Scale-Up: Saturation | C4PnwquCK8U |         |
+	| Haiti         | Croix-Desbouquets              | 1 - Scale-Up: Saturation | X1q3hSFTVw4 |         |
+	| Haiti         | LÃ©ogÃ¢ne                      | 1 - Scale-Up: Saturation | nbvAsGLaXdk |         |
+	*/
+	*Greater Port-au-Prince Cluster
+		replace psnuuid = "C4PnwquCK8U" if inlist(psnuuid, "X1q3hSFTVw4", "nbvAsGLaXdk")
+		replace psnu = "Greater Cabrone Cluster" if psnuuid=="C4PnwquCK8U"
+		replace fy17snuprioritization = "1 - Scale-Up: Saturation" if psnuuid=="C4PnwquCK8U"
+		replace snu1 = "[Clustered]" if psnuuid=="C4PnwquCK8U"

@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based Data Pack at SNU level
 **   Date: November 10, 2016
-**   Updated: 1/10/17
+**   Updated: 1/12/17
 
 *** SETUP ***
 
@@ -22,11 +22,11 @@
 		}
 		else{
 			import delimited "$fvdata/ICPI_FactView_NAT_SUBNAT_${datestamp}.txt", clear
-			run "$dofiles/06_datapack_dup_snus"
 			save "$fvdata/ICPI_FactView_NAT_SUBNAT_${datestamp}.dta", replace
 		}
 		*end
 *clean
+	run "$dofiles/06_datapack_dup_snus"
 	rename ïregion region	
 	
 *rename variables to match PSNU dataset
@@ -35,7 +35,6 @@
 	
 *save
 	save "$output/impatt_temp", replace
-
 
 
 *** PSNU ***
@@ -47,12 +46,12 @@
 		}
 		else{
 			import delimited "$fvdata/ICPI_FactView_PSNU_${datestamp}.txt", clear
-			run "$dofiles/06_datapack_dup_snus"
 			save "$fvdata/ICPI_FactView_PSNU_${datestamp}.dta", replace
 		}
 		*end
 		
 *clean
+	run "$dofiles/06_datapack_dup_snus"
 	rename ïregion region
 	
 *append
@@ -191,6 +190,8 @@
 	replace priority_snu = "Sustained" if priority_snu=="4 - Sustained"
 	replace priority_snu = "Ctrl Supported" if priority_snu=="5 - Centrally Supported"
 	replace priority_snu = "Sustained Com" if priority_snu=="6 - Sustained: Commodities"
+	replace priority_snu = "Attained" if priority_snu=="7 - Attained"
+	replace priority_snu = "Not Supported" if priority_snu=="8 - Not PEPFAR Supported"
 	replace priority_snu = "NOT DEFINED" if priority_snu==""
 	replace priority_snu = "Mil" if strmatch(snulist, "*_Military*")
 	

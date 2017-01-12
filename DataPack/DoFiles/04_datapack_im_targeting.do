@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based IM targeting Data Pack appendix
 **   Date: December 10, 2016
-**   Updated: 1/10/17
+**   Updated: 1/12/17
 
 *** SETUP ***
 
@@ -20,13 +20,13 @@
 		}
 		else{
 			import delimited "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.txt", clear
-			run "$dofiles/06_datapack_dup_snus"
 			save "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta", replace
 		}
 		*end
 
 
 *clean
+	run "$dofiles/06_datapack_dup_snus"
 	rename ïregion region
 	replace psnu = "[no associated SNU]" if psnu==""
 

@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based IM targeting Data Pack appendix
 **   Date: January 3, 2017
-**   Updated: 1/5/17
+**   Updated: 1/12/17
 
 
 *set date of frozen instance - needs to be changed w/ updated data
@@ -45,6 +45,7 @@
 	import delimited "$fvdata/All Site Dataset 20161115_Q4v1_2/ICPI_FactView_Site_By_IM_Nigeria_20161115_Q4v1_2.txt", clear
 
 *clean
+	run "$dofiles/06_datapack_dup_snus"
 	rename ïregion region
 	replace psnu = "[no associated SNU]" if psnu==""
 
