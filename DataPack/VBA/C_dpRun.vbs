@@ -103,6 +103,7 @@ Sub PopulateDataPack()
         Call imTargeting
         shtNames = Array("Allocation by IM", "PBAC IM Targets")
         Call format
+        Call imshowChanges
         Call filters
         Call saveFile
 
@@ -319,9 +320,7 @@ Sub yieldFormulas()
             colIND = WorksheetFunction.Match(IND, ActiveWorkbook.Sheets("DATIM Indicator Table").Range("4:4"), 0)
             rcNUM = WorksheetFunction.Match(NUM, ActiveWorkbook.Sheets("DATIM Indicator Table").Range("4:4"), 0) - colIND
             rcDEN = WorksheetFunction.Match(DEN, ActiveWorkbook.Sheets("DATIM Indicator Table").Range("4:4"), 0) - colIND
-            If IND = "pmtct_eid_yield" Then
-                Cells(5, colIND).FormulaR1C1 = "=IFERROR((RC[" & rcNUM & "]+RC[" & rcNUM - 1 & "])/ RC[" & rcDEN & "],"""")"
-            ElseIf IND = "pre_art_yield" Or IND = "pre_art_u15_yield" Then
+            If IND = "pre_art_yield" Or IND = "pre_art_u15_yield" Then
                 Cells(5, colIND).FormulaR1C1 = "=IFERROR(IF(RC[" & rcDEN & "] - RC[" & rcNUM & "]<0,0,(RC[" & rcDEN & "] - RC[" & rcNUM & "])/ RC[" & rcDEN & "]),0)"
             ElseIf IND = "htc_tst_spd_tot_pos" Then
                 rcNUM = 1 - Application.WorksheetFunction.CountIf(Range("4:4"), "htc_tst_spd*_pos")
@@ -778,7 +777,9 @@ Sub imTargeting()
         Range(Cells(5, 6), Cells(5, LastColumn)).Select
         Selection.Formula = "=SUBTOTAL(109, F14:F" & LastRow & ")"
         Selection.NumberFormat = "#,##0;-#,##0;;"
+End Sub
 
+Sub imshowChanges()
     'show changes
         Sheets("Allocation by IM").Select
         Sheets("Allocation by IM").Copy After:=Sheets("Allocation by IM")
