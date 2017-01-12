@@ -98,6 +98,6 @@ N. Barlett identified whether to combine/delete each
 	*/
 	*Greater Port-au-Prince Cluster
 		replace psnuuid = "C4PnwquCK8U" if inlist(psnuuid, "X1q3hSFTVw4", "nbvAsGLaXdk")
-		replace psnu = "Greater Cabrone Cluster" if psnuuid=="C4PnwquCK8U"
+		replace psnu = "Greater Port-au-Prince Cluster" if psnuuid=="C4PnwquCK8U"
 		replace fy17snuprioritization = "1 - Scale-Up: Saturation" if psnuuid=="C4PnwquCK8U"
 		replace snu1 = "[Clustered]" if psnuuid=="C4PnwquCK8U"
