@@ -20,11 +20,11 @@
 		}
 		else{
 			import delimited "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.txt", clear
-			run "$dofiles/06_datapack_dup_snus"
 			save "$fvdata/ICPI_FactView_PSNU_IM_${datestamp}.dta", replace
 		}
 		*end
-
+*clean
+	run "$dofiles/06_datapack_dup_snus"
 *update all partner and mech to offical names (based on FACTS Info)
 	capture confirm file "$output/officialnames.dta"
 	if _rc{
