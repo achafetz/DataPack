@@ -289,7 +289,7 @@ End Sub
 Sub yieldFormulas()
     'add in formulas for yields
         INDnames = Array("pmtct_eid_yield", "pmtct_stat_yield", "tb_stat_yield", "tx_ret_yield", "tx_ret_u15_yield", _
-            "htc_tst_u15_yield", "htc_tst_spd_tot_pos", "tx_curr_1to15_T")
+            "htc_tst_u15_yield", "htc_tst_spd_tot_pos")
         For Each IND In INDnames
             If IND = "pmtct_eid_yield" Then
                 NUM = "pmtct_eid_pos_12mo"
@@ -312,9 +312,6 @@ Sub yieldFormulas()
             ElseIf IND = "htc_tst_spd_tot_pos" Then
                 NUM = "htc_tst_spd_tot_pos"
                 DEN = "htc_tst_spd_tot_pos"
-            ElseIf IND = "tx_curr_1to15_T" Then
-                NUM = "pmtct_eid_T"
-                DEN = "tx_curr_u15_T"
             Else
             End If
             colIND = WorksheetFunction.Match(IND, ActiveWorkbook.Sheets("DATIM Indicator Table").Range("4:4"), 0)
@@ -325,15 +322,10 @@ Sub yieldFormulas()
             ElseIf IND = "htc_tst_spd_tot_pos" Then
                 rcNUM = 1 - Application.WorksheetFunction.CountIf(Range("4:4"), "htc_tst_spd*_pos")
                 Cells(5, colIND).FormulaR1C1 = "=SUM(RC[" & rcNUM & "]:RC[-1])"
-            ElseIf IND = "tx_curr_1to15_T" Then
-                Cells(5, colIND).FormulaR1C1 = "=IF(RC[" & rcDEN & "] - RC[" & rcNUM & "]<0,0,RC[" & rcDEN & "] - RC[" & rcNUM & "])"
             Else
                 Cells(5, colIND).FormulaR1C1 = "=IFERROR(RC[" & rcNUM & "]/ RC[" & rcDEN & "],"""")"
             End If
-            If IND = "htc_tst_spd_tot_pos" Or IND = "tx_curr_1to15_T" Then
-            Else
-                Cells(5, colIND).NumberFormat = "0.0%"
-            End If
+            If IND <> "htc_tst_spd_tot_pos" Then Cells(5, colIND).NumberFormat = "0.0%"
             Cells(5, colIND).Copy
             Range(Cells(7, colIND), Cells(LastRow, colIND)).Select
             ActiveSheet.Paste
@@ -388,7 +380,7 @@ Sub setupHTCDistro()
     'add in extra named ranges
         INDnames = Array("T_htc_peds_need", "T_htc_adlt_need", "T_htc_need", "T_pos_ident", "T_ped_treat", "T_htc_pos", "T_tx_curr_exp", "T_tx_curr_u15_exp")
         For Each IND In INDnames
-            If IND = "T_pos_ident" Or IND = "T_ped_treat" Then
+            If IND = "T_pos_ident" Or IND = "T_ped_treat" Or IND = "T_tx_curr_exp" Or IND = "T_tx_curr_u15_exp" Then
                 sht = "Target Calculation"
             Else
                 sht = "HTC Target Calculation"

@@ -66,7 +66,7 @@
  
 * generate
 	// output generated in Data Pack template (POPsubset sheet)
-	// updated 1/10
+	// updated 1/12
 	gen htc_tst = fy2016apr if indicator=="HTC_TST" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen htc_tst_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="Results" & resultstatus=="Positive" & numeratordenom=="N"
 	gen htc_tst_u15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & inlist(age, "<01", "01-04", "05-09","10-14") & numeratordenom=="N"
@@ -136,7 +136,6 @@
 	gen tx_curr_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "<01", "01-04", "05-14") & numeratordenom=="N"
 	gen tx_curr_u15_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Aggregated Age/Sex" & age=="<15" & numeratordenom=="N"
-	gen tx_curr_1to15_T = 0
 	gen tx_curr_o15_T = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Aggregated Age/Sex" & age=="15+" & numeratordenom=="N"
 	gen tx_curr_subnat_u15 = fy2016apr if indicator=="TX_CURR_SUBNAT" & disaggregate=="Age/Sex" & age=="<15" & numeratordenom=="N"
 	gen tx_curr_subnat = fy2016apr if indicator=="TX_CURR_SUBNAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
@@ -151,6 +150,7 @@
 	gen vmmc_circ_T = fy2017_targets if indicator=="VMMC_CIRC" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen vmmc_circ_rng_T = fy2017_targets if indicator=="VMMC_CIRC" & disaggregate=="Age" & inlist(age, "05-19", "20-24", "25-29") & numeratordenom=="N"
 	gen vmmc_circ_subnat = fy2016apr if indicator=="VMMC_CIRC_SUBNAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
+
 
 
 *agg disags "fixes" (Fine --> Coarse or Fine + Coarse) above for select OUs
