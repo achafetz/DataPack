@@ -3,32 +3,36 @@
 **   Aaron Chafetz			
 **   Purpose: generate data subset for use in PMTCT cascade			
 **   Date: August 22, 2016			
-**   Updated: 11/21/2016		
+**   Updated: 1/13/2017		
 			
 /* NOTES			
-	- Data source: ICPIFactView - PSNU by IM Level, Oct 10, 2010 [ICPI Data Store]			
+	- Data source: ICPIFactView - PSNU by IM Level [ICPI Data Store]			
 */			
 ********************************************************************************			
 			
 *set directories
 	global source "C:\Users\achafetz\Documents\ICPI\Data"
 	global save  "C:\Users\achafetz\Documents\ICPI\Peds\PMTCT Cascade"
+	
 *set date of frozen instance - needs to be changed w/ updated data
-	local datestamp "20161115"
+	global datestamp "20161230_v2_2"
+	
 *import frozen instance for PMTCT Cascade Tool
-	capture confirm file "$source\ICPIFactView_SNUbyIM`datestamp'.dta"
+	capture confirm file "$source\ICPI_FactView_PSNU_IM_${datestamp}.dta"
 		if !_rc{
 			di "Use Existing Dataset"
-			use "$source\ICPIFactView_SNUbyIM`datestamp'.dta", clear
+			use "$source\ICPI_FactView_PSNU_IM_${datestamp}.dta", clear
 		}
 		else{
 			di "Import Dataset"
-			import delimited "$source\ICPI_Fact_View_PSNU_IM_`datestamp'.txt", clear
-			save "$source\ICPIFactView_SNUbyIM`datestamp'.dta", replace
+			import delimited "$source\ICPI_Fact_View_PSNU_IM_${datestamp}.txt", clear
+			save "$source\ICPI_FactView_PSNU_IM_${datestamp}.dta", replace
 		}
 	*end
-					
-*create SAPR variable to sum up necessary variables			
+
+*drop unused prioritization
+	drop fy17snuprioritization
+*create SAPR variable to sum up necessary variables
 	egen fy2016sapr = rowtotal(fy2016q1 fy2016q2)		
 		replace fy2016sapr = fy2016q2 if inlist(indicator, "TX_CURR", ///	
 			"OVC_SERV", "PMTCT_ARV", "KP_PREV", "PP_PREV", "CARE_CURR")
@@ -53,7 +57,7 @@
 	rename fy2015q2 fy2015sapr
 	
 	local varlist region operatingunit countryname  ///	
-		snu1 psnu snuprioritization ///
+		snu1 psnu fy16snuprioritization ///
 		fundingagency primepartner mechanismid implementingmechanismname ///	
 		indicator disaggregate age otherdisaggregate numeratordenom ///	
 		fy2015sapr fy2015apr fy2016_targets fy2016q1 fy2016sapr fy2016q3 ///
