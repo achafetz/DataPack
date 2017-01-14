@@ -2,7 +2,7 @@
 ### TO DO
 
 General
-- [ ] validate IM and site level data against DATIM/Panorama
+- [x] validate IM and site level data against DATIM/Panorama
 - [x] hyperlink all cogs and buttons
 - [ ] surround each sub group with a border
 - [ ] how to clear/gray out Mil row?
