@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based IM targeting Data Pack appendix
 **   Date: December 10, 2016
-**   Updated: 1/12/17
+**   Updated: 1/13/17
 
 *** SETUP ***
 
@@ -40,6 +40,22 @@
 		*end
 	merge m:1 mechanismid using "$output/officialnames.dta", ///
 		update replace nogen keep(1 3 4 5) //keep all but non match from using
+
+*generate a dup im for all OUs
+	preserve
+	*collapse to unique list of psnus
+		replace mechanismid = 0
+		collapse mechanismid, fast by(operatingunit psnuuid psnu)
+
+	*create a dsd and ta dedup mech for every snu
+		expand 2, gen(new)
+		gen indicatortype =""
+			replace indicatortype="DSD" if new==1
+			replace indicatortype="TA" if new==0
+		drop new
+	*save
+		save "$output/temp_snu_dups", replace
+	restore
 
 * gen vars for distro tabs (see 01_datapack_outputs)
 	*HTC_TST
@@ -88,6 +104,11 @@
 	replace tx_curr_1to14 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & age=="01-14" & numeratordenom=="N" & inlist(operatingunit, "Mozambique", "Vietnam")
 	replace tx_curr_o15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex", "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "15-19", "20+", "15+") & numeratordenom=="N" & inlist(operatingunit, "Uganda", "South Africa")
 	replace tx_curr_o15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "15+") & numeratordenom=="N" & inlist(operatingunit, "Mozambique", "Vietnam")
+
+* keep just one dedup mechanism
+	replace mechanismid = 0 if mechanismid==1
+* append dup ims
+	append using "$output/temp_snu_dups"
 	
 * aggregate up to PSNU level
 	drop fy*
