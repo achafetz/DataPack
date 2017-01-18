@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based Data Pack at SNU level
 **   Date: November 10, 2016
-**   Updated: 1/13/17
+**   Updated: 1/17/17
 
 *** SETUP ***
 
@@ -25,9 +25,24 @@
 			save "$fvdata/ICPI_FactView_NAT_SUBNAT_${datestamp}.dta", replace
 		}
 		*end
+	
+******************
+*RESOLVE PLHIV ERROR WITH Q4V2.2 - REMOVE AFTER RESOLVED
+drop if indicator=="PLHIV"
+preserve
+	import delimited "$fvdata/PLHIV_20170113.txt", clear
+	gen fy2016q4 = fy2017
+		replace fy2016q4 = fy2016 if fy2016q4==.
+	drop fy2016 fy2017
+	tempfile tempplhiv
+	save "`tempplhiv'"
+restore
+append using "`tempplhiv'", force
+*******************
+
 *clean
 	run "$dofiles/06_datapack_dup_snus"
-	rename ïregion region	
+	rename ïregion region
 	
 *rename variables to match PSNU dataset
 	rename fy2015q4 fy2015apr
@@ -66,7 +81,7 @@
  
 * generate
 	// output generated in Data Pack template (POPsubset sheet)
-	// updated 1/13
+	// updated 1/17
 	gen htc_tst = fy2016apr if indicator=="HTC_TST" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen htc_tst_pos = fy2016apr if indicator=="HTC_TST" & disaggregate=="Results" & resultstatus=="Positive" & numeratordenom=="N"
 	gen htc_tst_u15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & inlist(age, "<01", "01-04", "05-09","10-14") & numeratordenom=="N"
@@ -152,9 +167,6 @@
 	gen vmmc_circ_T = fy2017_targets if indicator=="VMMC_CIRC" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen vmmc_circ_rng_T = fy2017_targets if indicator=="VMMC_CIRC" & disaggregate=="Age" & inlist(age, "05-19", "20-24", "25-29") & numeratordenom=="N"
 	gen vmmc_circ_subnat = fy2016apr if indicator=="VMMC_CIRC_SUBNAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
-
-
-
 
 *agg disags "fixes" (Fine --> Coarse or Fine + Coarse) above for select OUs
 	/*J. Houston

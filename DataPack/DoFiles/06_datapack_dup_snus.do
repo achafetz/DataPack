@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: remove/combine duplicate SNUs with different UIDs & cluster SNUs
 **   Date: January 12, 2017
-**   Updated:
+**   Updated: 1/17/17
 
 ** COMBINE/DELETE SNUS **
 /*	
@@ -53,51 +53,30 @@ N. Barlett identified whether to combine/delete each
 	replace psnuuid = "bDoKaxNx2Xb" if psnuuid=="HHDEeZbVEaw"
 	
 *Remove duplicates/blanks
-	drop if psnuuid == "HhCbsjlKoWA"
-	drop if psnuuid == "IxeWi5YG9lE"
-	drop if psnuuid == "dzjXm8e1cNs"
-	drop if psnuuid == "kxsmKGMZ5QF"
-	drop if psnuuid == "mVuyipSx9aU"
+	drop if inlist(psnuuid, "HhCbsjlKoWA", "IxeWi5YG9lE", "dzjXm8e1cNs", "kxsmKGMZ5QF", "mVuyipSx9aU")
 	
 *add Country Name to Regional Programs
 	replace psnu = snu1 + "/" + psnu if inlist(operatingunit, "Asia Regional Program", "Caribbean Region", "Central America Region", "Central Asia Region")
-		
+
+** Remove SNUs **
+* S.Ally (1/17/17) - no Sustained - Commodities districts
+	drop if inlist(psnuuid, "O1kvkveo6Kt", "hbnRmYRVabV", "N7L1LQMsQKd", "nlS6OMUb6s3")
+
 ** Cluster SNUs **
+* clusters submitted by SI advisors - https://github.com/achafetz/ICPI/tree/master/DataPack/RawData
 
-/*Botswana (J. Rofenbender, 1/9/17)
-	| operatingunit | psnu                        | fy17snuprioritization    | psnuuid     | cluster |
-	|---------------|-----------------------------|--------------------------|-------------|---------|
-	| Botswana      | Greater Gabarone Cluster    | 2 - Scale-Up: Aggressive | VB7am4futjm | 1       |
-	| Botswana      | Gaborone District           | 2 - Scale-Up: Aggressive | VB7am4futjm |         |
-	| Botswana      | Kgatleng District           | 2 - Scale-Up: Aggressive | yNcvm7JYBfi |         |
-	| Botswana      | Kweneng East District       | 2 - Scale-Up: Aggressive | Uz8LWtC0vYF |         |
-	| Botswana      | South East District         | 2 - Scale-Up: Aggressive | YksWHI1yLuv |         |
-	| Botswana      | Greater Francistown Cluster | 4 - Sustained            | h1CepDrLWib | 1       |
-	| Botswana      | Francistown District        | 4 - Sustained            | h1CepDrLWib |         |
-	| Botswana      | North East District         | 4 - Sustained            | psnuuid     |         |
-	| Botswana      | Tutume District             | 4 - Sustained            | gchw5PMi4N2 |         |
-	*/
-	*Greater Gabarone Cluster
-		replace psnuuid = "VB7am4futjm" if inlist(psnuuid, "yNcvm7JYBfi", "Uz8LWtC0vYF", "YksWHI1yLuv")
-		replace psnu = "Greater Cabrone Cluster" if psnuuid=="VB7am4futjm"
-		replace fy17snuprioritization = "2 - Scale-Up: Aggressive" if psnuuid=="VB7am4futjm"
-		replace snu1 = "[Clustered]" if psnuuid=="VB7am4futjm"	
-	*Greater Francistown Cluster
-		replace psnuuid = "h1CepDrLWib" if inlist(psnuuid, "nszh0FzynAQ", "gchw5PMi4N2")
-		replace psnu = "Greater Francistown Cluster" if psnuuid=="h1CepDrLWib"
-		replace fy17snuprioritization = "4 - Sustained" if psnuuid=="h1CepDrLWib"
-		replace snu1 = "[Clustered]" if psnuuid=="h1CepDrLWib"
+* import cluster dataset
+	preserve
+		import delimited "$data/COP17Clusters.csv", clear
+		tempfile tempcluster
+		save "`tempcluster'"
+	restore
+* merge clusters onto factview
+	merge m:1 psnuuid using "`tempcluster'", nogen 
 
-/*Hait (M. Melchior 1/12/17)
-	| operatingunit | psnu                           | fy17snuprioritization    | psnuuid     | cluster |
-	|---------------|--------------------------------|--------------------------|-------------|---------|
-	| Haiti         | Greater Port-au-Prince Cluster | 1 - Scale-Up: Saturation | C4PnwquCK8U | 1       |
-	| Haiti         | Port-au-Prince                 | 1 - Scale-Up: Saturation | C4PnwquCK8U |         |
-	| Haiti         | Croix-Desbouquets              | 1 - Scale-Up: Saturation | X1q3hSFTVw4 |         |
-	| Haiti         | LÃ©ogÃ¢ne                      | 1 - Scale-Up: Saturation | nbvAsGLaXdk |         |
-	*/
-	*Greater Port-au-Prince Cluster
-		replace psnuuid = "C4PnwquCK8U" if inlist(psnuuid, "X1q3hSFTVw4", "nbvAsGLaXdk")
-		replace psnu = "Greater Port-au-Prince Cluster" if psnuuid=="C4PnwquCK8U"
-		replace fy17snuprioritization = "1 - Scale-Up: Saturation" if psnuuid=="C4PnwquCK8U"
-		replace snu1 = "[Clustered]" if psnuuid=="C4PnwquCK8U"
+* replace with cluster info
+	foreach x in psnu snu1 psnuuid fy17snuprioritization {
+		replace `x' = cluster_`x' if cluster_set==1
+		}
+		*end do
+	drop cluster*
