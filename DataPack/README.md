@@ -1,22 +1,22 @@
 
 ### TO DO
 
-General
-- [x] validate IM and site level data against DATIM/Panorama
-- [x] hyperlink all cogs and buttons
-- [ ] surround each sub group with a border
-- [ ] how to clear/gray out Mil row?
-- [ ] FAQs for clustering, adjusting IM distribution, adding in SNU1 (for regional programs, SNU1 = country)
+Data Pack live 1/18/17
 
-## Items to consider changing based on pilot inputs
-HTC Data Entry
-- [ ] PEPFAR's Coverage of Net New - default = 100% --> change to PEPFAR Tx_Curr/Tx_Curr Sub Nat [Nigeria]
-
-Indicator Table
-- [ ] reorder variables for consistency [Moz]
-- [ ] FY16 PMTCT_STAT % Pos - PMTCT_STAT_POS/PMTCT_STAT [Denom] --> PMTCT_STAT_POS/PMTCT_STAT [Num] [Nigeria]
-
-Summary & targets
-- [ ] Revist FY18 TX_NEW calcuation --> do we need to include retention? [Moz]
-- [ ] Inclusion of OVC_HIVSTAT [Zambia]
-- [ ] Add PSNU1 level [Zambia]
+## Site & Disaggs Alloation tool
+To do
+- [ ] get site Q4v2.2 data
+- [ ] consider implications of how to setup pull file
+- [ ] write VBA script to populate & apply formatting
+- [ ] think about how to setup HTC tab
+Questions
+- [ ] how do teams extract data from various columns & into site tool?
+- [ ] Site allocation - is the setup of type in one column okay or does it need to be in sperate columns (will affect indicator tabs)
+- [ ] should distribution be a percent of disaggregate or total numerator?
+- [ ] TX_CURR/TX_NEW/PMTCT_STAT - expanded age range (25+ to 25-49, 50+) --> how to handle distribution?
+- [ ] for indicators with age ranges, include all or aggregate to match FY17 MER 2.0
+- [ ] PMTCT_ART - Include all MER 1.0 regimes?
+- [ ] PMTCT_EID - include disaggs due to issue?
+- [ ] PMTCT_EID - include POS?
+- [ ] is this the full set of targets?
+- [ ] highlander script data set preferable?

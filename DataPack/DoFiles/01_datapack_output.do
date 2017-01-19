@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based Data Pack at SNU level
 **   Date: November 10, 2016
-**   Updated: 1/17/17
+**   Updated: 1/18/17
 
 *** SETUP ***
 
@@ -31,8 +31,9 @@
 drop if indicator=="PLHIV"
 preserve
 	import delimited "$fvdata/PLHIV_20170113.txt", clear
+	collapse (sum) fy2016 fy2017, by( ïregion- coarsedisaggregate)
 	gen fy2016q4 = fy2017
-		replace fy2016q4 = fy2016 if fy2016q4==.
+		replace fy2016q4 = fy2016 if fy2016q4==0
 	drop fy2016 fy2017
 	tempfile tempplhiv
 	save "`tempplhiv'"
