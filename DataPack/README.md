@@ -3,14 +3,16 @@
 
 Data Pack live 1/18/17
 
-## Site & Disaggs Alloation tool
+#### Site & Disaggs Alloation tool
 To do
-- [ ] get site Q4v2.2 data
+- [ ] get site Q4v2.1 data
 - [ ] consider implications of how to setup pull file
 - [ ] write VBA script to populate & apply formatting
 - [ ] think about how to setup HTC tab
 - [ ] need to ensure that if IM has no FY16 results but FY18 targets, its highlighted or results are distributed in some way
 - [ ] incorporate site names (instead of just using UIDs)
+
+
 Questions
 - [ ] how do teams extract data from various columns & into site tool?
 - [ ] Site allocation - is the setup of type in one column okay or does it need to be in sperate columns (will affect indicator tabs)

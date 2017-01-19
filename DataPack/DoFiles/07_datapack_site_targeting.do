@@ -1,9 +1,9 @@
 **   Data Pack
 **   COP FY17
 **   Aaron Chafetz
-**   Purpose: generate output for Excel based IM targeting Data Pack appendix
+**   Purpose: generate output for Excel based Site & Disagg Allocation of Data Pack targets
 **   Date: January 3, 2017
-**   Updated: 1/16/17
+**   Updated: 1/19/17
 
 
 *define date for Fact View Files
@@ -88,7 +88,7 @@
 * keep just one dedup mechanism
 	replace mechanismid = 0 if mechanismid==1
 
-* aggregate up to PSNU level
+* string mech and rename variables for aggregation
 	drop fy*
 	tostring mechanismid, replace
 	ds *, not(type string)
