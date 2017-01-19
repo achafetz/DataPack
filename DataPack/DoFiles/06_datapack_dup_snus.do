@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: remove/combine duplicate SNUs with different UIDs & cluster SNUs
 **   Date: January 12, 2017
-**   Updated: 1/17/17
+**   Updated: 1/19/17
 
 ** COMBINE/DELETE SNUS **
 /*	
@@ -65,19 +65,24 @@ N. Barlett identified whether to combine/delete each
 ** Cluster SNUs **
 * clusters submitted by SI advisors - https://github.com/achafetz/ICPI/tree/master/DataPack/RawData
 
-* import cluster dataset
-	preserve
-		import delimited "$data/COP17Clusters.csv", clear
-		tempfile tempcluster
-		save "`tempcluster'"
-	restore
-* merge clusters onto factview
-	merge m:1 psnuuid using "`tempcluster'", nogen 
+*only for psnu and psnu x im datasets, not site (orgunituid should not exist in PSNU or PSNU IM dataset) 
+	capture confirm variable orgunituid
+	if _rc {
+	* import cluster dataset
+		preserve
+			import delimited "$data/COP17Clusters.csv", clear
+			tempfile tempcluster
+			save "`tempcluster'"
+		restore
+	* merge clusters onto factview
+		merge m:1 psnuuid using "`tempcluster'", nogen 
 
-* replace with cluster info
-	foreach x in psnu snu1 psnuuid fy17snuprioritization {
-		replace `x' = cluster_`x' if cluster_set==1
+	* replace with cluster info
+		foreach x in psnu snu1 psnuuid fy17snuprioritization {
+			replace `x' = cluster_`x' if cluster_set==1
+			}
+			*end do
+		drop cluster*
 		}
-		*end do
-	drop cluster*
+		*end
 
