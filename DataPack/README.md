@@ -9,6 +9,7 @@ To do
 - [ ] consider implications of how to setup pull file
 - [ ] write VBA script to populate & apply formatting
 - [ ] think about how to setup HTC tab
+- [ ] need to ensure that if IM has no FY16 results but FY18 targets, its highlighted or results are distributed in some way
 Questions
 - [ ] how do teams extract data from various columns & into site tool?
 - [ ] Site allocation - is the setup of type in one column okay or does it need to be in sperate columns (will affect indicator tabs)
@@ -19,4 +20,4 @@ Questions
 - [ ] PMTCT_EID - include disaggs due to issue?
 - [ ] PMTCT_EID - include POS?
 - [ ] is this the full set of targets?
-- [ ] highlander script data set preferable?
+- [ ] highlander script data set an option?
