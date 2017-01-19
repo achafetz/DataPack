@@ -7,6 +7,7 @@ form for choosing the OUs and Data Pack products
 'variables
         Public celltxt As String
         Public colIND As Integer
+        Public colSNU As Integer
         Public compl_fldr As String
         Public dataWkbk As Workbook
         Public DefPath As String
@@ -86,6 +87,7 @@ Sub PopulateDataPack()
         Call getData
         Call formatTable
         Call yieldFormulas
+        Call commentCluster
         Call setupSNUs
         Call setupHTCDistro
         Call lookupsumFormulas
@@ -278,6 +280,11 @@ Sub formatTable()
         Range(Cells(7, 5), Cells(LastRow, 5)).Select
         Selection.Validation.Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
             xlBetween, Formula1:="ScaleUp Sat, ScaleUp Agg, Sustained, Ctrl Supported, Sustained Com, Attained, NOT DEFINED, Mil"
+        Sheets("Assumption Input").Activate
+        Range(Cells(7, 4), Cells(LastRow, 4)).Select
+        Selection.Validation.Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
+            xlBetween, Formula1:="ScaleUp Sat, ScaleUp Agg, Sustained, Ctrl Supported, Sustained Com, Attained, NOT DEFINED, Mil"
+        Sheets("DATIM Indicator Table").Activate
     'add named ranges
         Range(Cells(4, 3), Cells(LastRow, LastColumn)).Select
         Application.DisplayAlerts = False
@@ -330,6 +337,175 @@ Sub yieldFormulas()
             Range(Cells(7, colIND), Cells(LastRow, colIND)).Select
             ActiveSheet.Paste
         Next IND
+
+End Sub
+
+Sub commentCluster()
+
+    On Error Resume Next
+
+    If OpUnit = "Botswana" Then
+        colSNU = WorksheetFunction.Match("Greater Gabarone Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Greater Gabarone Cluster: Gaborone District, Kgatleng District, Kweneng East District, South East District"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Greater Francistown Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Greater Francistown Cluster: Francistown District, North East District, Tutume District"
+        Cells(colSNU, 3).Comment.Visible = False
+    End If
+
+    If OpUnit = "Cameroon" Then
+        colSNU = WorksheetFunction.Match("Yaounde Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Yaounde Cluster: Djoungolo, Nkolndongo, Biyem Assi, Cite Verte, Efoulan"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Doula Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Doula Cluster: Deido, Cite de Palmiers, Nylon, Bonnassama, New Bell, Logbaba, Mbangue"
+        Cells(colSNU, 3).Comment.Visible = False
+    End If
+
+
+    If OpUnit = "Haiti" Then
+        colSNU = WorksheetFunction.Match("Greater Port-au-Prince Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Greater Port-au-Prince Cluster: Port-au-Prince, Croix-Desbouquets, L??og??ne"
+        Cells(colSNU, 3).Comment.Visible = False
+    End If
+
+
+    If OpUnit = "Mozambique" Then
+        colSNU = WorksheetFunction.Match("Maputo City Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Maputo City Cluster: Kamavota, Kamaxakeni, Kampfumu, Kamubukwana, Kanyaka, Katembe, Nlhamankulu"
+        Cells(colSNU, 3).Comment.Visible = False
+    End If
+
+
+    If OpUnit = "Tanzania" Then
+        colSNU = WorksheetFunction.Match("Arusha-Meru_Monduli Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Arusha-Meru_Monduli Cluster: Arusha CC, Arusha DC, Meru DC, Monduli DC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Dar es Salaam-Bagamoyo-Kisarawe-Kibaha-Mkuranga Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Dar es Salaam-Bagamoyo-Kisarawe-Kibaha-Mkuranga Cluster: Bagamoyo DC, Ilala MC, Kibaha DC, Kibaha TC, Kinondoni MC, Kisarawe DC, Mkuranga DC, Temeke MC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Dodoma_Bahi_Chamwino-Manyoni Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Dodoma_Bahi_Chamwino-Manyoni Cluster: Bahi DC, Chamwino DC, Dodoma MC, Kiteto DC, Manyoni DC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Geita Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Geita Cluster: Geita DC, Geita TC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Handeni-Kilindi Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Handeni-Kilindi Cluster: Handeni DC, Handeni TC, Kilindi DC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Iringa-Kilolo Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Iringa-Kilolo Cluster: Iringa DC, Iringa MC, Kilolo DC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Kahama Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Kahama Cluster: Kahama TC, Msalala DC, Ushetu DC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Kasulu Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Kasulu Cluster: Kasulu DC, Kasulu TC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Kigoma Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Kigoma Cluster: Kigoma DC, Kigoma Ujiji MC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Korogwe Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Korogwe Cluster: Korogwe DC, Korogwe TC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Kyerwa-Missenyi Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Kyerwa-Missenyi Cluster: Kyerwa DC, Missenyi DC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Lushoto Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Lushoto Cluster: Bumbuli DC, Lushoto DC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Masasi Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Masasi Cluster: Masasi DC, Masasi TC, Nanyumbu DC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Mbeya Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Mbeya Cluster: Busokelo DC, Mbarali DC, Mbeya CC, Mbeya DC, Rungwe DC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Morogoro Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Morogoro Cluster: Morogoro DC, Morogoro MC, Mvomero DC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+
+        colSNU = WorksheetFunction.Match("Moshi-Hai_Siha_Mwanga Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Moshi-Hai_Siha_Mwanga Cluster: Hai DC, Moshi DC, Moshi MC, Mwanga DC, Siha DC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+
+        colSNU = WorksheetFunction.Match("Mpanda Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Mpanda Cluster: Mpanda DC, Mpanda TC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Mtwara Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Mtwara Cluster: Mtwara DC, Mtwara Mikindani MC, Nanyumba TC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Mufindi Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Mufindi Cluster: Mafinga TC, Mufindi DC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Musoma Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Musoma Cluster: Bunda DC, Butiama DC, Musoma DC, Musoma MC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Mwanza Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Mwanza Cluster: Ilemela MC, Nyamagana MC, Sengerema DC, Ukerewe DC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Njombe Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Njombe Cluster: Makambako TC, Njombe DC, Njombe TC, Wanging'ombe DC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Nzega Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Nzega Cluster: Igunga DC, Nzega DC, Nzega TC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Pemba Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Pemba Cluster: Chake Chake, Wete"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Shinyanga Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Shinyanga Cluster: Kishapu DC, Shinyanga DC, Shinyanga MC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Singida-Hanang-Ikungi Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Singida-Hanang-Ikungi Cluster: Hanang DC, Ikungi DC, Singida DC, Singida MC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Songea-Namtumbo Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Songea-Namtumbo Cluster: Namtumbo DC, Songea DC, Songea MC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Tabora-Uyui Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Tabora-Uyui Cluster: Tabora MC, Uyui DC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Tanga-Pangani-Muheza-Mkinga Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Tanga-Pangani-Muheza-Mkinga Cluster: Mkinga DC, Muheza DC, Pangani DC, Tanga CC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Tarime Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Tarime Cluster: Tarime DC, Tarime TC"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Unguja/Zanziba Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Unguja/Zanziba Cluster: Kaskazini A, Magharibi, Mjini"
+        Cells(colSNU, 3).Comment.Visible = False
+    End If
 
 End Sub
 
