@@ -5,6 +5,12 @@
 **   Date: January 3, 2017
 **   Updated: 1/20/17
 
+*******************************
+
+*define OU remove after piloting
+	global ou "Malawi"
+	
+*******************************
 
 *define date for Fact View Files
 	global datestamp "20161115_v2"
@@ -24,7 +30,7 @@
 	
 	
 *import/open data
-	import delimited "$fvdata/All Site Dataset 20161230_Q4v2_1/ICPI_FactView_Site_By_IM_Malawi_20161230_Q4v2_1.txt", clear
+	import delimited "$fvdata/All Site Dataset 20161230_Q4v2_1/ICPI_FactView_Site_By_IM_${ou}_20161230_Q4v2_1.txt", clear
 
 *clean
 	rename ïorgunituid orgunituid
@@ -53,7 +59,7 @@
 	drop if psnu == "[no associated SNU]"
 	drop fy2015q2-fy2016q4 fy2017_targets
 * save
-	save "$output/temp_site_Malawi", replace
+	save "$output/temp_site_${ou}", replace
 	
 * gen vars for distro tabs (see 01_datapack_outputs)
 	// output generated in Data Pack template (POPsubset sheet)
@@ -136,7 +142,5 @@
 	sort operatingunit psnu orgunituid mechanismid  indicatortype
 
 *export
-	*export excel using "$dpexcel/Global_Sites_${date}.xlsx", ///
-		*sheet("`ou'") firstrow(variables) sheetreplace
-	export excel using "$dpexcel/Global_Site_${date}.xlsx", ///
+	export excel using "$dpexcel/${ou}_Site_${date}.xlsx", ///
 		firstrow(variables) sheet("Site Allocation") sheetreplace

@@ -6,6 +6,13 @@
 **   Updated: 1/20/17
 
 
+*******************************
+
+*define OU remove after piloting
+	global ou "Malawi"
+	
+*******************************
+
 *define date for Fact View Files
 	global datestamp "20161115_v2"
 
@@ -13,7 +20,7 @@
 	global date: di %tdCCYYNNDD date(c(current_date), "DMY")
 
 *open site dataset
-	use "$output/temp_site_Malawi", clear
+	use "$output/temp_site_${ou}", clear
 
 ** TX_NEW tab
 	*create variables
@@ -124,76 +131,76 @@
 	gen ovc_serv_as_m_15to17 = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="15-17" & numeratordenom=="N"
 	gen ovc_serv_as_m_18to24 = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="18-24" & numeratordenom=="N"
 	gen ovc_serv_as_m_o25 = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="25+" & numeratordenom=="N"
-	gen ovc_serv_as_f_u1_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="<01" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
-	gen ovc_serv_as_f_u1_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="<01" & otherdisaggregate=="Education Support" & numeratordenom=="N"
-	gen ovc_serv_as_f_u1_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="<01" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
-	gen ovc_serv_as_f_u1_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="<01" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
-	gen ovc_serv_as_f_u1_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="<01" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
-	gen ovc_serv_as_f_1to4_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="01-04" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
-	gen ovc_serv_as_f_1to4_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="01-04" & otherdisaggregate=="Education Support" & numeratordenom=="N"
-	gen ovc_serv_as_f_1to4_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="01-04" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
-	gen ovc_serv_as_f_1to4_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="01-04" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
-	gen ovc_serv_as_f_1to4_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="01-04" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
-	gen ovc_serv_as_f_5to9_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="05-09" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
-	gen ovc_serv_as_f_5to9_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="05-09" & otherdisaggregate=="Education Support" & numeratordenom=="N"
-	gen ovc_serv_as_f_5to9_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="05-09" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
-	gen ovc_serv_as_f_5to9_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="05-09" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
-	gen ovc_serv_as_f_5to9_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="05-09" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
-	gen ovc_serv_as_f_10to14_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="10-14" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
-	gen ovc_serv_as_f_10to14_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="10-14" & otherdisaggregate=="Education Support" & numeratordenom=="N"
-	gen ovc_serv_as_f_10to14_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="10-14" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
-	gen ovc_serv_as_f_10to14_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="10-14" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
-	gen ovc_serv_as_f_10to14_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="10-14" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
-	gen ovc_serv_as_f_15to17_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="15-17" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
-	gen ovc_serv_as_f_15to17_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="15-17" & otherdisaggregate=="Education Support" & numeratordenom=="N"
-	gen ovc_serv_as_f_15to17_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="15-17" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
-	gen ovc_serv_as_f_15to17_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="15-17" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
-	gen ovc_serv_as_f_15to17_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="15-17" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
-	gen ovc_serv_as_f_18to24_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="18-24" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
-	gen ovc_serv_as_f_18to24_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="18-24" & otherdisaggregate=="Education Support" & numeratordenom=="N"
-	gen ovc_serv_as_f_18to24_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="18-24" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
-	gen ovc_serv_as_f_18to24_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="18-24" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
-	gen ovc_serv_as_f_18to24_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="18-24" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
-	gen ovc_serv_as_f_o25_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="25+" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
-	gen ovc_serv_as_f_o25_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="25+" & otherdisaggregate=="Education Support" & numeratordenom=="N"
-	gen ovc_serv_as_f_o25_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="25+" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
-	gen ovc_serv_as_f_o25_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="25+" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
-	gen ovc_serv_as_f_o25_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Female" & age=="25+" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
-	gen ovc_serv_as_m_u1_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="<01" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
-	gen ovc_serv_as_m_u1_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="<01" & otherdisaggregate=="Education Support" & numeratordenom=="N"
-	gen ovc_serv_as_m_u1_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="<01" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
-	gen ovc_serv_as_m_u1_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="<01" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
-	gen ovc_serv_as_m_u1_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="<01" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
-	gen ovc_serv_as_m_1to4_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="01-04" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
-	gen ovc_serv_as_m_1to4_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="01-04" & otherdisaggregate=="Education Support" & numeratordenom=="N"
-	gen ovc_serv_as_m_1to4_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="01-04" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
-	gen ovc_serv_as_m_1to4_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="01-04" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
-	gen ovc_serv_as_m_1to4_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="01-04" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
-	gen ovc_serv_as_m_5to9_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="05-09" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
-	gen ovc_serv_as_m_5to9_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="05-09" & otherdisaggregate=="Education Support" & numeratordenom=="N"
-	gen ovc_serv_as_m_5to9_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="05-09" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
-	gen ovc_serv_as_m_5to9_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="05-09" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
-	gen ovc_serv_as_m_5to9_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="05-09" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
-	gen ovc_serv_as_m_10to14_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="10-14" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
-	gen ovc_serv_as_m_10to14_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="10-14" & otherdisaggregate=="Education Support" & numeratordenom=="N"
-	gen ovc_serv_as_m_10to14_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="10-14" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
-	gen ovc_serv_as_m_10to14_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="10-14" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
-	gen ovc_serv_as_m_10to14_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="10-14" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
-	gen ovc_serv_as_m_15to17_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="15-17" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
-	gen ovc_serv_as_m_15to17_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="15-17" & otherdisaggregate=="Education Support" & numeratordenom=="N"
-	gen ovc_serv_as_m_15to17_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="15-17" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
-	gen ovc_serv_as_m_15to17_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="15-17" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
-	gen ovc_serv_as_m_15to17_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="15-17" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
-	gen ovc_serv_as_m_18to24_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="18-24" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
-	gen ovc_serv_as_m_18to24_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="18-24" & otherdisaggregate=="Education Support" & numeratordenom=="N"
-	gen ovc_serv_as_m_18to24_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="18-24" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
-	gen ovc_serv_as_m_18to24_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="18-24" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
-	gen ovc_serv_as_m_18to24_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="18-24" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
-	gen ovc_serv_as_m_o25_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="25+" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
-	gen ovc_serv_as_m_o25_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="25+" & otherdisaggregate=="Education Support" & numeratordenom=="N"
-	gen ovc_serv_as_m_o25_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="25+" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
-	gen ovc_serv_as_m_o25_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="25+" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
-	gen ovc_serv_as_m_o25_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="25+" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
+	gen ovc_serv_as2_f_u1_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="<01" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
+	gen ovc_serv_as2_f_u1_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="<01" & otherdisaggregate=="Education Support" & numeratordenom=="N"
+	gen ovc_serv_as2_f_u1_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="<01" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
+	gen ovc_serv_as2_f_u1_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="<01" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
+	gen ovc_serv_as2_f_u1_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="<01" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
+	gen ovc_serv_as2_f_1to4_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="01-04" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
+	gen ovc_serv_as2_f_1to4_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="01-04" & otherdisaggregate=="Education Support" & numeratordenom=="N"
+	gen ovc_serv_as2_f_1to4_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="01-04" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
+	gen ovc_serv_as2_f_1to4_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="01-04" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
+	gen ovc_serv_as2_f_1to4_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="01-04" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
+	gen ovc_serv_as2_f_5to9_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="05-09" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
+	gen ovc_serv_as2_f_5to9_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="05-09" & otherdisaggregate=="Education Support" & numeratordenom=="N"
+	gen ovc_serv_as2_f_5to9_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="05-09" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
+	gen ovc_serv_as2_f_5to9_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="05-09" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
+	gen ovc_serv_as2_f_5to9_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="05-09" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
+	gen ovc_serv_as2_f_10to14_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="10-14" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
+	gen ovc_serv_as2_f_10to14_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="10-14" & otherdisaggregate=="Education Support" & numeratordenom=="N"
+	gen ovc_serv_as2_f_10to14_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="10-14" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
+	gen ovc_serv_as2_f_10to14_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="10-14" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
+	gen ovc_serv_as2_f_10to14_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="10-14" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
+	gen ovc_serv_as2_f_15to17_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="15-17" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
+	gen ovc_serv_as2_f_15to17_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="15-17" & otherdisaggregate=="Education Support" & numeratordenom=="N"
+	gen ovc_serv_as2_f_15to17_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="15-17" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
+	gen ovc_serv_as2_f_15to17_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="15-17" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
+	gen ovc_serv_as2_f_15to17_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="15-17" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
+	gen ovc_serv_as2_f_18to24_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="18-24" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
+	gen ovc_serv_as2_f_18to24_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="18-24" & otherdisaggregate=="Education Support" & numeratordenom=="N"
+	gen ovc_serv_as2_f_18to24_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="18-24" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
+	gen ovc_serv_as2_f_18to24_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="18-24" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
+	gen ovc_serv_as2_f_18to24_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="18-24" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
+	gen ovc_serv_as2_f_o25_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="25+" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
+	gen ovc_serv_as2_f_o25_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="25+" & otherdisaggregate=="Education Support" & numeratordenom=="N"
+	gen ovc_serv_as2_f_o25_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="25+" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
+	gen ovc_serv_as2_f_o25_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="25+" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
+	gen ovc_serv_as2_f_o25_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Female" & age=="25+" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
+	gen ovc_serv_as2_m_u1_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="<01" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
+	gen ovc_serv_as2_m_u1_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="<01" & otherdisaggregate=="Education Support" & numeratordenom=="N"
+	gen ovc_serv_as2_m_u1_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="<01" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
+	gen ovc_serv_as2_m_u1_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="<01" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
+	gen ovc_serv_as2_m_u1_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="<01" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
+	gen ovc_serv_as2_m_1to4_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="01-04" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
+	gen ovc_serv_as2_m_1to4_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="01-04" & otherdisaggregate=="Education Support" & numeratordenom=="N"
+	gen ovc_serv_as2_m_1to4_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="01-04" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
+	gen ovc_serv_as2_m_1to4_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="01-04" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
+	gen ovc_serv_as2_m_1to4_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="01-04" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
+	gen ovc_serv_as2_m_5to9_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="05-09" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
+	gen ovc_serv_as2_m_5to9_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="05-09" & otherdisaggregate=="Education Support" & numeratordenom=="N"
+	gen ovc_serv_as2_m_5to9_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="05-09" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
+	gen ovc_serv_as2_m_5to9_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="05-09" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
+	gen ovc_serv_as2_m_5to9_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="05-09" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
+	gen ovc_serv_as2_m_10to14_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="10-14" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
+	gen ovc_serv_as2_m_10to14_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="10-14" & otherdisaggregate=="Education Support" & numeratordenom=="N"
+	gen ovc_serv_as2_m_10to14_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="10-14" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
+	gen ovc_serv_as2_m_10to14_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="10-14" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
+	gen ovc_serv_as2_m_10to14_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="10-14" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
+	gen ovc_serv_as2_m_15to17_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="15-17" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
+	gen ovc_serv_as2_m_15to17_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="15-17" & otherdisaggregate=="Education Support" & numeratordenom=="N"
+	gen ovc_serv_as2_m_15to17_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="15-17" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
+	gen ovc_serv_as2_m_15to17_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="15-17" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
+	gen ovc_serv_as2_m_15to17_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="15-17" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
+	gen ovc_serv_as2_m_18to24_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="18-24" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
+	gen ovc_serv_as2_m_18to24_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="18-24" & otherdisaggregate=="Education Support" & numeratordenom=="N"
+	gen ovc_serv_as2_m_18to24_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="18-24" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
+	gen ovc_serv_as2_m_18to24_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="18-24" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
+	gen ovc_serv_as2_m_18to24_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="18-24" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
+	gen ovc_serv_as2_m_o25_econ = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="25+" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"
+	gen ovc_serv_as2_m_o25_edu = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="25+" & otherdisaggregate=="Education Support" & numeratordenom=="N"
+	gen ovc_serv_as2_m_o25_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="25+" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
+	gen ovc_serv_as2_m_o25_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="25+" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
+	gen ovc_serv_as2_m_o25_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="25+" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
 	gen kp_prev_k_fsw2 = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="FSW" & numeratordenom=="N"
 	gen kp_prev_k_pwid_f = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="Female PWID" & numeratordenom=="N"
 	gen kp_prev_k_pwid_m = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="Male PWID" & numeratordenom=="N"
@@ -210,6 +217,7 @@
 	gen pp_prev_as_m_20to24 = fy2016apr if indicator=="PP_PREV" & disaggregate=="Age/Sex" & sex=="Male" & age=="20-24" & numeratordenom=="N"
 	gen pp_prev_as_m_25to49 = fy2016apr if indicator=="PP_PREV" & disaggregate=="Age/Sex" & sex=="Male" & age=="25-49" & numeratordenom=="N"
 	gen pp_prev_as_m_o50 = fy2016apr if indicator=="PP_PREV" & disaggregate=="Age/Sex" & sex=="Male" & age=="50+" & numeratordenom=="N"
+
 
 * drop if no data in row
 	egen data = rownonmiss(tx_new_*)
@@ -248,22 +256,5 @@
 	sort operatingunit psnu orgunituid mechanismid  indicatortype	
 
 *export
-	export excel using "$dpexcel/Global_Site_${date}.xlsx", ///
+	export excel using "$dpexcel/${ou}_Site_${date}.xlsx", ///
 		firstrow(variables) sheet("Indicators") sheetreplace
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
