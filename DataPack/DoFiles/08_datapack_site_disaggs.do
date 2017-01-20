@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel disagg allocation of Data Pack targets
 **   Date: January 19, 2017
-**   Updated: 
+**   Updated: 1/20/17
 
 
 *define date for Fact View Files
@@ -18,7 +18,7 @@
 ** TX_NEW tab
 	*create variables
 	// output generated in Site & Disagg template (POPsubset sheet)
-	// updated 1/19
+	// updated 1/20
 	gen tx_new_asa_f_u1 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Female" & age=="<01" & numeratordenom=="N"
 	gen tx_new_asa_f_1to14 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Female" & age=="01-14" & numeratordenom=="N"
 	gen tx_new_asa_f_o15 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Female" & age=="15+" & numeratordenom=="N"
@@ -195,7 +195,8 @@
 	gen ovc_serv_as_m_o25_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="25+" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
 	gen ovc_serv_as_m_o25_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & sex=="Male" & age=="25+" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
 	gen kp_prev_k_fsw2 = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="FSW" & numeratordenom=="N"
-	gen kp_prev_k_pwid2 = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop"& inlist(otherdisaggregate, "Female PWID", "Male PWID") & numeratordenom=="N"
+	gen kp_prev_k_pwid_f = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="Female PWID" & numeratordenom=="N"
+	gen kp_prev_k_pwid_m = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="Male PWID" & numeratordenom=="N"
 	gen kp_prev_k_msmtg2 = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="MSM/TG" & numeratordenom=="N"
 	gen kp_mat_s_f = fy2016apr if indicator=="KP_MAT" & disaggregate=="Sex" & sex=="Female" & otherdisaggregate=="MSM/TG" & numeratordenom=="N"
 	gen kp_mat_s_m = fy2016apr if indicator=="KP_MAT" & disaggregate=="Sex" & sex=="Male" & otherdisaggregate=="MSM/TG" & numeratordenom=="N"
@@ -241,8 +242,9 @@
 *clean up
 	drop tot*
 	recode d_* (0 = .)
+	gen combo = orgunituid + "/" + mechanismid + "/" + indicatortype
 	destring mechanismid, replace
-	order operatingunit psnuuid psnu orgunituid mechanismid indicatortype
+	order operatingunit psnuuid psnu orgunituid mechanismid indicatortype combo
 	sort operatingunit psnu orgunituid mechanismid  indicatortype	
 
 *export

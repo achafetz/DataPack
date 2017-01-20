@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel site allocation of Data Pack targets
 **   Date: January 3, 2017
-**   Updated: 1/19/17
+**   Updated: 1/20/17
 
 
 *define date for Fact View Files
@@ -130,9 +130,10 @@
 	
 *clean up
 	recode S_* (0 = .)
+	gen combo = orgunituid + "/" + mechanismid + "/" + indicatortype
 	destring mechanismid, replace
-	order operatingunit psnuuid psnu orgunituid mechanismid indicatortype
-	sort operatingunit psnu orgunituid mechanismid  indicatortype	
+	order operatingunit psnuuid psnu orgunituid mechanismid indicatortype combo
+	sort operatingunit psnu orgunituid mechanismid  indicatortype
 
 *export
 	*export excel using "$dpexcel/Global_Sites_${date}.xlsx", ///
