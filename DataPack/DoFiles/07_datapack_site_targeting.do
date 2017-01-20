@@ -9,7 +9,7 @@
 
 *define OU remove after piloting
 	global ou "Malawi"
-	
+	global ou_ns subinstr(subinstr("${ou}", " ","",.),"'","",.)
 *******************************
 
 *define date for Fact View Files
@@ -59,7 +59,7 @@
 	drop if psnu == "[no associated SNU]"
 	drop fy2015q2-fy2016q4 fy2017_targets
 * save
-	save "$output/temp_site_${ou}", replace
+	save "$output/temp_site_${ou_ns}", replace
 	
 * gen vars for distro tabs (see 01_datapack_outputs)
 	// output generated in Data Pack template (POPsubset sheet)
@@ -142,5 +142,5 @@
 	sort operatingunit psnu orgunituid mechanismid  indicatortype
 
 *export
-	export excel using "$dpexcel/${ou}_Site_${date}.xlsx", ///
+	export excel using "$dpexcel/${ou_ns}_Site_${date}.xlsx", ///
 		firstrow(variables) sheet("Site Allocation") sheetreplace

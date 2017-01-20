@@ -10,7 +10,7 @@
 
 *define OU remove after piloting
 	global ou "Malawi"
-	
+	global ou_ns subinstr(subinstr("${ou}", " ","",.),"'","",.)
 *******************************
 
 *define date for Fact View Files
@@ -20,7 +20,7 @@
 	global date: di %tdCCYYNNDD date(c(current_date), "DMY")
 
 *open site dataset
-	use "$output/temp_site_${ou}", clear
+	use "$output/temp_site_${ou_ns}", clear
 
 ** TX_NEW tab
 	*create variables
@@ -256,5 +256,5 @@
 	sort operatingunit psnu orgunituid mechanismid  indicatortype	
 
 *export
-	export excel using "$dpexcel/${ou}_Site_${date}.xlsx", ///
+	export excel using "$dpexcel/${ou_ns}_Site_${date}.xlsx", ///
 		firstrow(variables) sheet("Indicators") sheetreplace
