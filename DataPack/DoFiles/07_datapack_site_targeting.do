@@ -61,8 +61,8 @@
 	gen tx_new = fy2016apr if indicator=="TX_NEW" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen tx_curr = fy2016apr if indicator=="TX_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen pmtct_stat = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	gen pmtct_stat_new_n = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New" & sex=="Newly Identified" & numeratordenom=="N"
-	gen pmtct_arv = fy2016apr if indicator=="PMTCT_ARV" & disaggregate=="MaternalRegimenType"& inlist(otherdisaggregate, "Life-long ART Already", "Life-long ART New", "Triple-drug ARV") & numeratordenom=="N"
+	gen pmtct_stat_new = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New" & sex=="Newly Identified" & numeratordenom=="N"
+	gen pmtct_arv = fy2016apr if indicator=="PMTCT_ARV" & disaggregate=="MaternalRegimineType"& inlist(otherdisaggregate, "Life-long ART Already", "Life-long ART New", "Triple-drug ARV") & numeratordenom=="N"
 	gen pmtct_eid = fy2016apr if indicator=="PMTCT_EID" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen tx_new_u1 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex" & age=="<01" & numeratordenom=="N"
 	gen tx_new_u15 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex" & inlist(age, "<01", "01-04", "05-14") & numeratordenom=="N"
@@ -79,6 +79,8 @@
 	gen kp_prev_msmtg = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="MSM/TG" & numeratordenom=="N"
 	gen kp_prev_pwid = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop"& inlist(otherdisaggregate, "Female PWID", "Male PWID") & numeratordenom=="N"
 	gen kp_prev = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & numeratordenom=="N"
+	gen pp_prev = fy2016apr if indicator=="PP_PREV" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	gen kp_mat = fy2016apr if indicator=="KP_MAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
 
 	
 	*fix TX_CURR disaggs
@@ -121,7 +123,7 @@
 	ds val_*
 	foreach v in `r(varlist)' {
 		egen `v'_tot = total(`v'), by(operatingunit psnuuid)
-		gen `=subinstr("`v'", "val_","S_",.)'_fy18 = `v'/`v'_tot
+		gen `=subinstr("`v'", "val_","S_",.)' = `v'/`v'_tot
 		}
 		*end
 	drop val_*

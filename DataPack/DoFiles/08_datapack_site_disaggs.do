@@ -237,9 +237,17 @@
 		}
 	*end
 	
+
+*clean up
 	drop tot*
 	recode d_* (0 = .)
-		
+	destring mechanismid, replace
+	order operatingunit psnuuid psnu orgunituid mechanismid indicatortype
+	sort operatingunit psnu orgunituid mechanismid  indicatortype	
+
+*export
+	export excel using "$dpexcel/Global_Site_${date}.xlsx", ///
+		firstrow(variables) sheet("Indicators") sheetreplace
 	
 	
 	
