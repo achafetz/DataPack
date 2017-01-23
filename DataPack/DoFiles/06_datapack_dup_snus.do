@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: remove/combine duplicate SNUs with different UIDs & cluster SNUs
 **   Date: January 12, 2017
-**   Updated: 1/22/17
+**   Updated: 1/23/17
 
 ** COMBINE/DELETE SNUS **
 /*	
@@ -43,14 +43,14 @@ N. Barlett identified whether to combine/delete each
 */
 
 *Combine 
-	replace psnuuid = "Oz0qJ8kNbKx" if psnuid=="gxf4z0agDsk"
-	replace psnuuid = "dASd72VnJPh" if psnuid=="dOQ8r7iwZvS"
-	replace psnuuid = "EzsXkY9WARj" if psnuid=="URj9zYi533e"
-	replace psnuuid = "KN2TmcAVqzi" if psnuid=="bDoKaxNx2Xb"
-	replace psnuuid = "HHDEeZbVEaw" if psnuid=="HhCbsjlKoWA"
-	replace psnuuid = "IxeWi5YG9lE" if psnuid=="dzjXm8e1cNs"
-	replace psnuuid = "kxsmKGMZ5QF" if psnuid=="mVuyipSx9aU"
-	replace psnuuid = "FjiNyXde6Ae" if psnuid=="xmRjV3Gx1H6"
+	replace psnuuid = "Oz0qJ8kNbKx" if psnuuid=="gxf4z0agDsk" //appears to have been resolved
+	replace psnuuid = "dASd72VnJPh" if psnuuid=="dOQ8r7iwZvS"
+	replace psnuuid = "EzsXkY9WARj" if psnuuid=="URj9zYi533e"
+	replace psnuuid = "KN2TmcAVqzi" if psnuuid=="bDoKaxNx2Xb"
+	replace psnuuid = "HHDEeZbVEaw" if psnuuid=="HhCbsjlKoWA"
+	replace psnuuid = "IxeWi5YG9lE" if psnuuid=="dzjXm8e1cNs"
+	replace psnuuid = "kxsmKGMZ5QF" if psnuuid=="mVuyipSx9aU"
+	replace psnuuid = "FjiNyXde6Ae" if psnuuid=="xmRjV3Gx1H6"
 
 	
 *Remove duplicates/blanks
@@ -62,6 +62,24 @@ N. Barlett identified whether to combine/delete each
 ** Remove SNUs **
 * S.Ally (1/17/17) - no Sustained - Commodities districts
 	drop if inlist(psnuuid, "O1kvkveo6Kt", "hbnRmYRVabV", "N7L1LQMsQKd", "nlS6OMUb6s3")
+
+** SNU NAMING ISSUES **
+* M. Melchior (1/21/17) - txt issue with French names 
+	replace psnu="Cap-Haïtien" if psnuuid=="JVXPyu8T2fO"
+	replace psnu="Anse à Veau" if psnuuid=="XXuTiMjae3r"
+	replace psnu="Fort Liberté" if psnuuid=="prA0IseYHWD"
+	replace psnu="Gonaïves" if psnuuid=="xBsmGxPgQaw"
+	replace psnu="Grande Rivière du Nord" if psnuuid=="fXIAya9MTsp"
+	replace psnu="Jérémie" if psnuuid=="lqOb8ytz3VU"
+	replace psnu="La Gonave" if psnuuid=="aIbf3wlRYB1"
+	replace psnu="Léogâne" if psnuuid=="nbvAsGLaXdk"
+	replace psnu="Limbé" if psnuuid=="rrAWd6oORtj"
+	replace psnu="Léogâne" if psnuuid=="nbvAsGLaXdk"
+	replace psnu="Môle Saint Nicolas" if psnuuid=="c0oeZEJ8qXk"
+	replace psnu="Miragoâne" if psnuuid=="Y0udgSlBzfb"
+	replace psnu="Saint-Raphaël" if psnuuid=="R2NsUDhdF8x"
+	replace psnu="Vallières" if psnuuid=="ONUWhpgEbVk"
+	replace psnu="Chardonniàres" if psnuuid=="mLFKTGjlEg1"
 
 ** Cluster SNUs **
 * clusters submitted by SI advisors - https://github.com/achafetz/ICPI/tree/master/DataPack/RawData
@@ -86,4 +104,3 @@ N. Barlett identified whether to combine/delete each
 		drop cluster*
 		}
 		*end
-

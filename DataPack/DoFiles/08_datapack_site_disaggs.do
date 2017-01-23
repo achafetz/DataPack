@@ -10,7 +10,7 @@
 
 *define OU remove after piloting
 	global ou "Malawi"
-	global ou_ns subinstr(subinstr("${ou}", " ","",.),"'","",.)
+	global ou_ns = subinstr(subinstr("${ou}", " ","",.),"'","",.)
 *******************************
 
 *define date for Fact View Files
@@ -220,7 +220,7 @@
 
 
 * drop if no data in row
-	egen data = rownonmiss(tx_new_*)
+	egen data = rownonmiss(tx_new_asa_f_u1-pp_prev_as_m_o50)
 	drop if data==0 & mechanismid!="0"
 	drop data
 	
@@ -236,7 +236,6 @@
 		pmtct_eid_i tb_art_s tb_art_a tb_stat_s tb_stat_a ///
 		vmmc_circ_a vmmc_circ_t ovc_serv_as kp_prev_k ///
 		kp_mat_s pp_prev_as {
-
 		egen tot_`t' = rowtotal(`t'_*)
 		qui: ds `t'_*
 		foreach v in `r(varlist)'{
