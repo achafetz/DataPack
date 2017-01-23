@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: remove/combine duplicate SNUs with different UIDs & cluster SNUs
 **   Date: January 12, 2017
-**   Updated: 1/19/17
+**   Updated: 1/22/17
 
 ** COMBINE/DELETE SNUS **
 /*	
@@ -43,17 +43,18 @@ N. Barlett identified whether to combine/delete each
 */
 
 *Combine 
-    replace psnuuid = "Oz0qJ8kNbKx" if psnuuid=="gxf4z0agDsk"
-	replace psnuuid = "gxf4z0agDsk" if psnuuid=="dASd72VnJPh"
-	replace psnuuid = "dASd72VnJPh" if psnuuid=="dOQ8r7iwZvS"
-	replace psnuuid = "dOQ8r7iwZvS" if psnuuid=="EzsXkY9WARj"
-	replace psnuuid = "EzsXkY9WARj" if psnuuid=="URj9zYi533e"
-	replace psnuuid = "URj9zYi533e" if psnuuid=="KN2TmcAVqzi"
-	replace psnuuid = "KN2TmcAVqzi" if psnuuid=="bDoKaxNx2Xb"
-	replace psnuuid = "bDoKaxNx2Xb" if psnuuid=="HHDEeZbVEaw"
+	replace psnuuid = "Oz0qJ8kNbKx" if psnuid=="gxf4z0agDsk"
+	replace psnuuid = "dASd72VnJPh" if psnuid=="dOQ8r7iwZvS"
+	replace psnuuid = "EzsXkY9WARj" if psnuid=="URj9zYi533e"
+	replace psnuuid = "KN2TmcAVqzi" if psnuid=="bDoKaxNx2Xb"
+	replace psnuuid = "HHDEeZbVEaw" if psnuid=="HhCbsjlKoWA"
+	replace psnuuid = "IxeWi5YG9lE" if psnuid=="dzjXm8e1cNs"
+	replace psnuuid = "kxsmKGMZ5QF" if psnuid=="mVuyipSx9aU"
+	replace psnuuid = "FjiNyXde6Ae" if psnuid=="xmRjV3Gx1H6"
+
 	
 *Remove duplicates/blanks
-	drop if inlist(psnuuid, "HhCbsjlKoWA", "IxeWi5YG9lE", "dzjXm8e1cNs", "kxsmKGMZ5QF", "mVuyipSx9aU")
+	drop if inlist(psnuuid, "RVzTHBO9fgR", "oygNEfySnMl", "h61xiVptz4A", "lC1wneS1GR5", "D47MUIzTapM")
 	
 *add Country Name to Regional Programs
 	replace psnu = snu1 + "/" + psnu if inlist(operatingunit, "Asia Regional Program", "Caribbean Region", "Central America Region", "Central Asia Region")
