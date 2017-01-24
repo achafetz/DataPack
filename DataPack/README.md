@@ -13,6 +13,7 @@ To do
 
 Questions
 - [ ] how do teams extract data from various columns in Data Pack & into site tool?
+- [ ] how to deal with DP targets that also have disaggs?
 - [ ] TX_CURR/TX_NEW/PMTCT_STAT - expanded age range (25+ to 25-49, 50+) --> how to handle distribution?
 - [ ] PMTCT_ART - Include all MER 1.0 regimes?
 - [ ] PMTCT_EID - include disaggs due to issue?
