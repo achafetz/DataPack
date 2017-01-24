@@ -21,11 +21,17 @@ Option Explicit
     Public view As String
 
 
+Sub loadform()
+    'prompt for form to load to choose OUs to run
+    frmRunSel.Show
+
+End Sub
 
 
 Sub PopulateSiteDisaggTool()
     'turn off screen updating
         Application.ScreenUpdating = False
+
         Debug.Print Application.ScreenUpdating
     'establish OUs on ref sheet
         Sheets("POPref").Activate
@@ -52,8 +58,9 @@ Sub PopulateSiteDisaggTool()
         Call getData
         Call siteDistro
         Call indDistro
-
-
+        Application.DisplayAlerts = False
+        Sheets(Array("Site Allocation", "Indicators")).Delete
+        Application.DisplayAlerts = True
         Call saveFile
 
         'Zip output folder
@@ -131,7 +138,7 @@ Sub getData()
         LastColumn = Range("A1").CurrentRegion.Columns.Count
         LastRow = Range("C1").CurrentRegion.Rows.Count
     'select OU data from global file to copy to data pack
-        Range(Cells(2, 3), Cells(LastRow, LastColumn)).Select
+        Range(Cells(2, 1), Cells(LastRow, LastColumn)).Select
     'copy the data and paste in the data pack
         Selection.Copy
         dpWkbk.Activate
@@ -139,6 +146,9 @@ Sub getData()
         Range("A7").Select
         Selection.PasteSpecial Paste:=xlPasteValues
         Application.CutCopyMode = False
+    'remove table (issue pasting from one table to another)
+       ' If sht = "Site Allocation" Then ActiveSheet.ListObjects("sitealloc").Unlist
+       ' If sht = "Indicators" Then ActiveSheet.ListObjects("indicators").Unlist
     Next
 
     'close dataset
@@ -151,20 +161,21 @@ Sub siteDistro()
     'find last row
         LastRow = Range("A1").CurrentRegion.Rows.Count
     'copy site info to Site IM Allocation tab
-        Range(Cells(7, 1), Cells(LastRow, 5)).Select
+        Range(Cells(8, 3), Cells(LastRow, 7)).Select
+        Selection.Copy
         Sheets("Site IM Allocation").Activate
         Range("C8").Select
         ActiveSheet.Paste
         Application.CutCopyMode = False
     'copy forumla down to all cells
-        LastColumn = Range("C2").CurrentRegion.Columns.Count
-        Range(Cells(7, 3), Cells(7, LastColumn)).Select
-        Selection.Copy
-        Range(Cells(7, 3), Cells(LastRow, LastColumn)).Select
-        ActiveSheet.Paste
-        Application.CutCopyMode = False
+        'LastColumn = Range("C2").CurrentRegion.Columns.Count
+        'Range(Cells(7, 3), Cells(7, LastColumn)).Select
+        'Selection.Copy
+        'Range(Cells(7, 3), Cells(LastRow, LastColumn)).Select
+        'ActiveSheet.Paste
+        'Application.CutCopyMode = False
     'hard code site info & distro
-        LastColumn = WorksheetFunction.Match("FY18 Target Allocation", ActiveWorkbook.Range("1:1"), 0) - 1
+        LastColumn = WorksheetFunction.Match("FY18 Target Allocation", Range("1:1"), 0) - 1
         Range(Cells(7, 3), Cells(LastRow, LastColumn)).Select
         Selection.Copy
         Selection.PasteSpecial Paste:=xlPasteValues
@@ -179,38 +190,39 @@ Sub indDistro()
     'copy site info
         Sheets("Indicators").Activate
     'find last row
-        LastRow = Range("C1").CurrentRegion.Rows.Count
+        LastRow = Range("A1").CurrentRegion.Rows.Count
+    'loop over sheets
+        shtNames = Array("TX_NEW", "TX_CURR", "PMTCT_STAT", _
+            "PMTCT_ART", "PMTCT_EID", "TB_ART", "TB_STAT", "VMMC_CIRC", _
+            "OVC_SERV", "KP_PREV", "KP_MAT", "PP_PREV")
+        For Each sht In shtNames
+        'copy site info to Site IM Allocation tab
+            Sheets("Indicators").Activate
+            Range(Cells(8, 3), Cells(LastRow, 7)).Select
+            Selection.Copy
+            Sheets(sht).Activate
+            Range("C8").Select
+            ActiveSheet.Paste
+            Application.CutCopyMode = False
 
-    Sheets(Array("TX_NEW", "TX_CURR", "PMTCT_STAT", _
-        "PMTCT_ART", "PMTCT_EID", "TB_ART", "TB_STAT", "VMMC_CIRC", _
-        "OVC_SERV", "KP_PREV", "KP_MAT", "PP_PREV")).Copy
-    For Each sht In shtNames
-    'copy site info to Site IM Allocation tab
-        Sheets("indicators").Activate
-        Range(Cells(7, 1), Cells(LastRow, 5)).Select
-        Sheets(sht).Activate
-        Range("C7").Select
-        Selection.PasteSpecial Paste:=xlPasteValues
-        Application.CutCopyMode = False
+        'copy forumla down to all cells
+            LastColumn = Range("C2").CurrentRegion.Columns.Count
+            Range(Cells(7, 3), Cells(7, LastColumn)).Select
+            Selection.Copy
+            Range(Cells(7, 3), Cells(LastRow, LastColumn)).Select
+            ActiveSheet.Paste
+            Application.CutCopyMode = False
 
-    'copy forumla down to all cells
-        LastColumn = Range("C2").CurrentRegion.Columns.Count
-        Range(Cells(7, 3), Cells(7, LastColumn)).Select
-        Selection.Copy
-        Range(Cells(7, 3), Cells(LastRow, LastColumn)).Select
-        ActiveSheet.Paste
-        Application.CutCopyMode = False
+        'hard code site info & distro
+            LastColumn = WorksheetFunction.Match("DP", Range("1:1"), 0) - 1
+            Range(Cells(7, 3), Cells(LastRow, LastColumn)).Select
+            Selection.Copy
+            Selection.PasteSpecial Paste:=xlPasteValues
+            Application.CutCopyMode = False
 
-    'hard code site info & distro
-        LastColumn = WorksheetFunction.Match("DP", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
-        Range(Cells(7, 3), Cells(LastRow, LastColumn)).Select
-        Selection.Copy
-        Selection.PasteSpecial Paste:=xlPasteValues
-        Application.CutCopyMode = False
+            Cells(1, 7).Select
 
-        Cells(1, 7).Select
-
-    Next sht
+        Next sht
 
 
 End Sub

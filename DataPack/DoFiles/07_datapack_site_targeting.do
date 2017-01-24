@@ -6,10 +6,11 @@
 **   Updated: 1/23/17
 
 *******************************
-
+/*
 *define OU remove after piloting
 	global ou "Malawi"
 	global ou_ns = subinstr(subinstr("${ou}", " ","",.),"'","",.)
+*/
 *******************************
 
 *define date for Fact View Files
@@ -105,7 +106,7 @@
 	replace tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex", "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "01-04", "05-14", "01-14") & numeratordenom=="N" & inlist(operatingunit, "Uganda", "South Africa")
 	replace tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & age=="01-14" & numeratordenom=="N" & inlist(operatingunit, "Mozambique", "Vietnam")
 
-*add common name
+*add common surname
 	drop fy*
 	ds *, not(type string)
 	foreach v in `r(varlist)'{

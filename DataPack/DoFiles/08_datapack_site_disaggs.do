@@ -7,10 +7,11 @@
 
 
 *******************************
-
+/*
 *define OU remove after piloting
 	global ou "Malawi"
 	global ou_ns = subinstr(subinstr("${ou}", " ","",.),"'","",.)
+*/
 *******************************
 
 *define date for Fact View Files
