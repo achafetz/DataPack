@@ -220,8 +220,9 @@
 
 
 * drop if no data in row
+	recode tx_new_asa_f_u1-pp_prev_as_m_o50 (0 = .)
 	egen data = rownonmiss(tx_new_asa_f_u1-pp_prev_as_m_o50)
-	drop if data==0 & mechanismid!="0"
+	drop if data==0 //& mechanismid!="0"
 	drop data
 	
 *collapse
@@ -234,7 +235,7 @@
 	foreach t in tx_new_asa tx_new_as tx_curr_asa tx_curr_as ///
 		pmtct_stat_kn pmtct_stat_kna pmtct_stat_a pmtct_art_m ///
 		pmtct_eid_i tb_art_s tb_art_a tb_stat_s tb_stat_a ///
-		vmmc_circ_a vmmc_circ_t ovc_serv_as kp_prev_k ///
+		vmmc_circ_a vmmc_circ_t ovc_serv_as ovc_serv_as2 kp_prev_k ///
 		kp_mat_s pp_prev_as {
 		egen tot_`t' = rowtotal(`t'_*)
 		qui: ds `t'_*

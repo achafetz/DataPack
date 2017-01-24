@@ -115,8 +115,9 @@
 	*end
 	
 * drop if no data in row
+	recode val_* (0 = .)
 	egen data = rownonmiss(val_*)
-	drop if data==0 & mechanismid!="0"
+	drop if data==0 //& mechanismid!="0"
 	drop data
 	
 *collapse
