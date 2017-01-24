@@ -14,8 +14,6 @@ N. Barlett identified whether to combine/delete each
 
 | operatingunit                    | psnu                | psnuuid     | action              |
 |----------------------------------|---------------------|-------------|---------------------|
-| Democratic Republic of the Congo | Mont-Ngafula 2      | Oz0qJ8kNbKx | Combine             |
-| Democratic Republic of the Congo | Mont-Ngafula 2      | gxf4z0agDsk | Combine             |
 | Ghana                            | Jomoro              | dASd72VnJPh | Combine             |
 | Ghana                            | Jomoro              | dOQ8r7iwZvS | Combine             |
 | Nigeria                          | eb Abakaliki        | EzsXkY9WARj | Combine             |
@@ -30,8 +28,6 @@ N. Barlett identified whether to combine/delete each
 | Nigeria                          | im Owerri Municipal | mVuyipSx9aU | Combine             |
 | Nigeria                          | im Owerri North     | FjiNyXde6Ae | Combine             |
 | Nigeria                          | im Owerri North     | xmRjV3Gx1H6 | Combine             |
-| Haiti                            | ValliÃ¨res          | ONUWhpgEbVk | Keep                |
-| Haiti                            | ValliÃ¨res          | RVzTHBO9fgR | Delete (Blank)      |
 | Nigeria                          | eb Ebonyi           | J4yYjIqL7mG | Keep                |
 | Nigeria                          | eb Ebonyi           | oygNEfySnMl | Delete (Blank)      |
 | Nigeria                          | en Enugu East       | HlABmTwBpu6 | Keep                |
@@ -43,7 +39,6 @@ N. Barlett identified whether to combine/delete each
 */
 
 *Combine 
-	replace psnuuid = "Oz0qJ8kNbKx" if psnuuid=="gxf4z0agDsk" //appears to have been resolved
 	replace psnuuid = "dASd72VnJPh" if psnuuid=="dOQ8r7iwZvS"
 	replace psnuuid = "EzsXkY9WARj" if psnuuid=="URj9zYi533e"
 	replace psnuuid = "KN2TmcAVqzi" if psnuuid=="bDoKaxNx2Xb"
@@ -54,7 +49,7 @@ N. Barlett identified whether to combine/delete each
 
 	
 *Remove duplicates/blanks
-	drop if inlist(psnuuid, "RVzTHBO9fgR", "oygNEfySnMl", "h61xiVptz4A", "lC1wneS1GR5", "D47MUIzTapM")
+	drop if inlist(psnuuid, "oygNEfySnMl", "h61xiVptz4A", "lC1wneS1GR5", "D47MUIzTapM")
 	
 *add Country Name to Regional Programs
 	replace psnu = snu1 + "/" + psnu if inlist(operatingunit, "Asia Regional Program", "Caribbean Region", "Central America Region", "Central Asia Region")
@@ -78,7 +73,7 @@ N. Barlett identified whether to combine/delete each
 	replace psnu="Môle Saint Nicolas" if psnuuid=="c0oeZEJ8qXk"
 	replace psnu="Miragoâne" if psnuuid=="Y0udgSlBzfb"
 	replace psnu="Saint-Raphaël" if psnuuid=="R2NsUDhdF8x"
-	replace psnu="Vallières" if psnuuid=="ONUWhpgEbVk"
+	replace psnu="Vallières" if inlist(psnuuid, "ONUWhpgEbVk", "RVzTHBO9fgR")
 	replace psnu="Chardonniàres" if psnuuid=="mLFKTGjlEg1"
 
 ** Cluster SNUs **
