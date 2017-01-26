@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel site allocation of Data Pack targets
 **   Date: January 3, 2017
-**   Updated: 1/23/17
+**   Updated: 1/25/17
 
 *******************************
 /*
@@ -18,17 +18,6 @@
 
 *set today's date for saving
 	global date: di %tdCCYYNNDD date(c(current_date), "DMY")
-
-/*
-*loop over all ous
-	cd "$fvdata/All Site Dataset 20161115_Q4v1_2/"
-	fs "*.txt"
-	foreach f in `r(files)'{
-		di "`f'"
-		}
-	foreach ou in 
-*/
-	
 	
 *import/open data
 	import delimited "$fvdata/All Site Dataset 20161230_Q4v2_1/ICPI_FactView_Site_By_IM_${ou}_20161230_Q4v2_1.txt", clear
@@ -44,15 +33,10 @@
 	drop fy16snuprioritization
 
 *update all partner and mech to offical names (based on FACTS Info)
-	capture confirm file "$output/officialnames.dta"
-	if _rc{
-		preserve
-		run "$dofiles/05_datapack_officialnames"
-		restore
-		}
-		*end
-	merge m:1 mechanismid using "$output/officialnames.dta", ///
-		update replace nogen keep(1 3 4 5) //keep all but non match from using
+	run "$dofiles/05_datapack_officialnames"
+
+*merge facility names onto dataset
+	run "$dofiles/09_datapack_sitenames"
 
 * string mech and rename variables for aggregation
 	tostring mechanismid, replace
@@ -64,9 +48,10 @@
 	
 * gen vars for distro tabs (see 01_datapack_outputs)
 	// output generated in Data Pack template (POPsubset sheet)
-	// updated 1/23
+	// updated 1/25
 	gen tx_new = fy2016apr if indicator=="TX_NEW" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen tx_curr = fy2016apr if indicator=="TX_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	gen pmtct_stat_D = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Total Denominator" & numeratordenom=="D"
 	gen pmtct_stat = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen pmtct_stat_new = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New" & otherdisaggregate=="Newly Identified" & numeratordenom=="N"
 	gen pmtct_arv = fy2016apr if indicator=="PMTCT_ARV" & disaggregate=="MaternalRegimenType"& inlist(otherdisaggregate, "Life-long ART Already", "Life-long ART New", "Triple-drug ARV") & numeratordenom=="N"
@@ -74,7 +59,9 @@
 	gen tx_new_u1 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex" & age=="<01" & numeratordenom=="N"
 	gen tx_new_u15 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex" & inlist(age, "<01", "01-04", "05-14") & numeratordenom=="N"
 	gen tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "<01", "01-04", "05-14") & numeratordenom=="N"
+	gen tb_stat_D = fy2016apr if indicator=="TB_STAT" & disaggregate=="Total Denominator" & numeratordenom=="D"
 	gen tb_stat = fy2016apr if indicator=="TB_STAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	gen tb_art_D = fy2016apr if indicator=="TB_ART" & disaggregate=="Total Denominator" & numeratordenom=="D"
 	gen tb_art = fy2016apr if indicator=="TB_ART" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen htc_tst_u15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & inlist(age, "<01", "01-04", "05-09","10-14") & numeratordenom=="N"
 	gen htc_tst_o15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & inlist(age, "15-19", "20-24", "25-49", "50+") & numeratordenom=="N"
@@ -82,13 +69,8 @@
 	gen vmmc_circ = fy2016apr if indicator=="VMMC_CIRC" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen ovc_serv = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen ovc_serv_u18 = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & inlist(age, "01-04", "05-09", "10-14", "15-17") & numeratordenom=="N"
-	gen kp_prev_fsw = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="FSW" & numeratordenom=="N"
-	gen kp_prev_msmtg = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="MSM/TG" & numeratordenom=="N"
-	gen kp_prev_pwid = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop"& inlist(otherdisaggregate, "Female PWID", "Male PWID") & numeratordenom=="N"
-	gen kp_prev = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & numeratordenom=="N"
 	gen pp_prev = fy2016apr if indicator=="PP_PREV" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	gen kp_mat = fy2016apr if indicator=="KP_MAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	
+
 	*fix TX_CURR disaggs
 	/*J. Houston
 	- HTC_TST: fine disags for most countries; fine + coarse for Haiti, Mozambique, Nigeria, South Africa, Tanzania, Uganda, Ukraine, and (coarse) Vietnam
@@ -121,7 +103,7 @@
 	drop data
 	
 *collapse
-	collapse (sum) val_*, by(operatingunit psnu psnuuid orgunituid indicatortype mechanismid)
+	collapse (sum) val_*, by(operatingunit psnu psnuuid orgunituid orgunitname indicatortype mechanismid implementingmechanismname primepartner)
 
 *sort
 	sort operatingunit indicatortype mechanismid psnu orgunituid
@@ -139,7 +121,7 @@
 	recode S_* (0 = .)
 	gen combo = orgunituid + "/" + mechanismid + "/" + indicatortype
 	destring mechanismid, replace
-	order operatingunit psnuuid psnu orgunituid mechanismid indicatortype combo
+	order operatingunit psnuuid psnu orgunituid orgunitname mechanismid implementingmechanismname primepartner indicatortype combo
 	sort operatingunit psnu orgunituid mechanismid  indicatortype
 
 *export

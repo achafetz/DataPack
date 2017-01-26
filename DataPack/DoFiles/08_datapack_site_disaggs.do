@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel disagg allocation of Data Pack targets
 **   Date: January 19, 2017
-**   Updated: 1/23/17
+**   Updated: 1/25/17
 
 
 *******************************
@@ -26,7 +26,7 @@
 ** TX_NEW tab
 	*create variables
 	// output generated in Site & Disagg template (POPsubset sheet)
-	// updated 1/23
+	// updated 1/25
 	gen tx_new_asa_f_u1 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Female" & age=="<01" & numeratordenom=="N"
 	gen tx_new_asa_f_1to14 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Female" & age=="01-14" & numeratordenom=="N"
 	gen tx_new_asa_f_o15 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Female" & age=="15+" & numeratordenom=="N"
@@ -66,34 +66,22 @@
 	gen tx_curr_as_m_15to19 = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Male" & age=="15-19" & numeratordenom=="N"
 	gen tx_curr_as_m_o20 = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Male" & age=="20+" & numeratordenom=="N"
 	gen pmtct_stat_kn_known = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"
-	gen pmtct_stat_kn_new2 = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New" & otherdisaggregate=="Newly Identified" & numeratordenom=="N"
-	gen pmtct_stat_kna_known_u15 = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New/Age" & age=="<15" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"
-	gen pmtct_stat_kna_know_15to19 = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New/Age" & age=="15-19" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"
-	gen pmtct_stat_kna_know_20to24 = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New/Age" & age=="20-24" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"
-	gen pmtct_stat_kna_know_o25 = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New/Age" & age=="25+" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"
-	gen pmtct_stat_kna_newn_u15 = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New/Age" & age=="<15" & otherdisaggregate=="Newly Identified" & numeratordenom=="N"
-	gen pmtct_stat_kna_new_15to19 = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New/Age" & age=="15-19" & otherdisaggregate=="Newly Identified" & numeratordenom=="N"
-	gen pmtct_stat_kna_new_20to24 = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New/Age" & age=="20-24" & otherdisaggregate=="Newly Identified" & numeratordenom=="N"
-	gen pmtct_stat_kna_new_o25 = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New/Age" & age=="25+" & otherdisaggregate=="Newly Identified" & numeratordenom=="N"
-	gen pmtct_stat_a_u15 = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Age" & age=="<15" & numeratordenom=="N"
-	gen pmtct_stat_a_15to19 = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Age" & age=="15-19" & numeratordenom=="N"
-	gen pmtct_stat_a_20to24 = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Age" & age=="20-24" & numeratordenom=="N"
-	gen pmtct_stat_a_o25 = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Age" & age=="25+" & numeratordenom=="N"
+	gen pmtct_stat_kn_new = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Known/New" & otherdisaggregate=="Newly Identified" & numeratordenom=="N"
 	gen pmtct_arv_m_azt = fy2016apr if indicator=="PMTCT_ARV" & disaggregate=="MaternalRegimeType" & otherdisaggregate=="AZT" & numeratordenom=="N"
 	gen pmtct_arv_m_lifealready = fy2016apr if indicator=="PMTCT_ARV" & disaggregate=="MaternalRegimeType" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"
 	gen pmtct_arv_m_lifenew = fy2016apr if indicator=="PMTCT_ARV" & disaggregate=="MaternalRegimeType" & otherdisaggregate=="Life-long ART New" & numeratordenom=="N"
 	gen pmtct_arv_m_single = fy2016apr if indicator=="PMTCT_ARV" & disaggregate=="MaternalRegimeType" & otherdisaggregate=="Single-dose NVP" & numeratordenom=="N"
 	gen pmtct_arv_m_tripe = fy2016apr if indicator=="PMTCT_ARV" & disaggregate=="MaternalRegimeType" & otherdisaggregate=="Triple-drug ARV" & numeratordenom=="N"
-	gen pmtct_eid_i_u2m = fy2016apr if indicator=="PMTCT_EID" & disaggregate=="InfantTest" & age=="[months] 00-02" & numeratordenom=="N"
+	gen pmtct_eid_i_u2mo = fy2016apr if indicator=="PMTCT_EID" & disaggregate=="InfantTest" & age=="[months] 00-02" & numeratordenom=="N"
 	gen pmtct_eid_i_2to12mo = fy2016apr if indicator=="PMTCT_EID" & disaggregate=="InfantTest" & age=="[months] 02-12" & numeratordenom=="N"
+	gen pmtct_eid_pos_2mo = fy2016apr if indicator=="PMTCT_EID_POS_2MO" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	gen pmtct_eid_pos_12mo = fy2016apr if indicator=="PMTCT_EID_POS_12MO" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	gen tb_art = fy2016apr if indicator=="TB_ART" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	gen tb_art_D = fy2016apr if indicator=="TB_ART" & disaggregate=="Total Denominator" & numeratordenom=="D"
 	gen tb_art_s_f = fy2016apr if indicator=="TB_ART" & disaggregate=="Sex" & sex=="Female" & numeratordenom=="N"
 	gen tb_art_s_m = fy2016apr if indicator=="TB_ART" & disaggregate=="Sex" & sex=="Male" & numeratordenom=="N"
-	gen tb_art_a_u1 = fy2016apr if indicator=="TB_ART" & disaggregate=="Age" & age=="<01" & numeratordenom=="N"
-	gen tb_art_a_1to4 = fy2016apr if indicator=="TB_ART" & disaggregate=="Age" & age=="01-04" & numeratordenom=="N"
-	gen tb_art_a_5to9 = fy2016apr if indicator=="TB_ART" & disaggregate=="Age" & age=="05-09" & numeratordenom=="N"
-	gen tb_art_a_10to14 = fy2016apr if indicator=="TB_ART" & disaggregate=="Age" & age=="10-14" & numeratordenom=="N"
-	gen tb_art_a_15to19 = fy2016apr if indicator=="TB_ART" & disaggregate=="Age" & age=="15-19" & numeratordenom=="N"
-	gen tb_art_a_o20 = fy2016apr if indicator=="TB_ART" & disaggregate=="Age" & age=="20+" & numeratordenom=="N"
+	gen tb_art_aa_u15 = fy2016apr if indicator=="TB_ART" & disaggregate=="Age Aggregated" & age=="<15" & numeratordenom=="N"
+	gen tb_art_aa_o15 = fy2016apr if indicator=="TB_ART" & disaggregate=="Age Aggregated" & age=="15+" & numeratordenom=="N"
 	gen tb_stat_s_f = fy2016apr if indicator=="TB_STAT" & disaggregate=="Sex" & sex=="Female" & numeratordenom=="N"
 	gen tb_stat_s_m = fy2016apr if indicator=="TB_STAT" & disaggregate=="Sex" & sex=="Male" & numeratordenom=="N"
 	gen tb_stat_a_u1 = fy2016apr if indicator=="TB_STAT" & disaggregate=="Age" & age=="<01" & numeratordenom=="N"
@@ -196,12 +184,6 @@
 	gen ovc_serv_as2_m_o25_oth = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="25+" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"
 	gen ovc_serv_as2_m_o25_care = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="25+" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"
 	gen ovc_serv_as2_m_o25_soc = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex/Service" & sex=="Male" & age=="25+" & otherdisaggregate=="Social Protection" & numeratordenom=="N"
-	gen kp_prev_k_fsw2 = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="FSW" & numeratordenom=="N"
-	gen kp_prev_k_pwid_f = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="Female PWID" & numeratordenom=="N"
-	gen kp_prev_k_pwid_m = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="Male PWID" & numeratordenom=="N"
-	gen kp_prev_k_msmtg2 = fy2016apr if indicator=="KP_PREV" & disaggregate=="KeyPop" & otherdisaggregate=="MSM/TG" & numeratordenom=="N"
-	gen kp_mat_s_f = fy2016apr if indicator=="KP_MAT" & disaggregate=="Sex" & sex=="Female" & otherdisaggregate=="MSM/TG" & numeratordenom=="N"
-	gen kp_mat_s_m = fy2016apr if indicator=="KP_MAT" & disaggregate=="Sex" & sex=="Male" & otherdisaggregate=="MSM/TG" & numeratordenom=="N"
 	gen pp_prev_as_f_10to14 = fy2016apr if indicator=="PP_PREV" & disaggregate=="Age/Sex" & sex=="Female" & age=="10-14" & numeratordenom=="N"
 	gen pp_prev_as_f_15to19 = fy2016apr if indicator=="PP_PREV" & disaggregate=="Age/Sex" & sex=="Female" & age=="15-19" & numeratordenom=="N"
 	gen pp_prev_as_f_20to24 = fy2016apr if indicator=="PP_PREV" & disaggregate=="Age/Sex" & sex=="Female" & age=="20-24" & numeratordenom=="N"
@@ -213,7 +195,6 @@
 	gen pp_prev_as_m_25to49 = fy2016apr if indicator=="PP_PREV" & disaggregate=="Age/Sex" & sex=="Male" & age=="25-49" & numeratordenom=="N"
 	gen pp_prev_as_m_o50 = fy2016apr if indicator=="PP_PREV" & disaggregate=="Age/Sex" & sex=="Male" & age=="50+" & numeratordenom=="N"
 
-
 * drop if no data in row
 	recode tx_new_asa_f_u1-pp_prev_as_m_o50 (0 = .)
 	egen data = rownonmiss(tx_new_asa_f_u1-pp_prev_as_m_o50)
@@ -223,15 +204,21 @@
 *collapse
 	drop fy2016apr
 	ds, not(type string)
-	collapse (sum) `r(varlist)', by(operatingunit psnu psnuuid orgunituid indicatortype mechanismid)
+	collapse (sum) `r(varlist)', by(operatingunit psnu psnuuid orgunituid orgunitname indicatortype mechanismid implementingmechanismname primepartner)
 	
+*create distro for denominators and eid_pos
+	gen d_tb_art_D = round(tb_art_D/tb_art,0.0001) 
+	gen d_pmtct_eid_pos_2mo = round(pmtct_eid_pos_2mo/pmtct_eid_i_u2mo,0.0001)
+	gen pmtct_eid_pos_12mo_g = pmtct_eid_pos_12mo - pmtct_eid_pos_2mo
+		replace pmtct_eid_pos_12mo_g = 0 if pmtct_eid_pos_12mo_g < 0
+	gen d_pmtct_eid_pos_12mo = round(pmtct_eid_pos_12mo_g/pmtct_eid_i_2to12mo,0.0001)
+	drop tb_art_D tb_art pmtct_eid_pos_2mo pmtct_eid_pos_12mo pmtct_eid_pos_12mo_g
 	
 *create distribution
 	foreach t in tx_new_asa tx_new_as tx_curr_asa tx_curr_as ///
-		pmtct_stat_kn pmtct_stat_kna pmtct_stat_a pmtct_arv_m ///
-		pmtct_eid_i tb_art_s tb_art_a tb_stat_s tb_stat_a ///
-		vmmc_circ_a vmmc_circ_t ovc_serv_as ovc_serv_as2 kp_prev_k ///
-		kp_mat_s pp_prev_as {
+		pmtct_stat_kn pmtct_arv_m pmtct_eid_i tb_art_s ///
+		tb_art_aa tb_stat_s tb_stat_a vmmc_circ_a vmmc_circ_t ///
+		ovc_serv_as ovc_serv_as2 pp_prev_as {
 		egen tot_`t' = rowtotal(`t'_*)
 		qui: ds `t'_*
 		foreach v in `r(varlist)'{
@@ -240,15 +227,17 @@
 			}
 		}
 	*end
-	
+
 
 *clean up
 	drop tot*
 	recode d_* (0 = .)
+	order d_tb_art_D, before(d_tb_art_s_f)
+	order d_pmtct_eid_pos_2mo d_pmtct_eid_pos_12mo, after(d_pmtct_eid_i_2to12mo)
 	gen combo = orgunituid + "/" + mechanismid + "/" + indicatortype
 	destring mechanismid, replace
-	order operatingunit psnuuid psnu orgunituid mechanismid indicatortype combo
-	sort operatingunit psnu orgunituid mechanismid  indicatortype	
+	order operatingunit psnuuid psnu orgunituid orgunitname mechanismid implementingmechanismname primepartner indicatortype combo
+	sort operatingunit psnu orgunituid mechanismid indicatortype	
 
 *export
 	export excel using "$dpexcel/${ou_ns}_Site_${date}.xlsx", ///

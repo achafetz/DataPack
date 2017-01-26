@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel based IM targeting Data Pack appendix
 **   Date: December 10, 2016
-**   Updated: 1/13/17
+**   Updated: 1/25/17
 
 *** SETUP ***
 
@@ -31,15 +31,7 @@
 	replace psnu = "[no associated SNU]" if psnu==""
 
 *update all partner and mech to offical names (based on FACTS Info)
-	capture confirm file "$output/officialnames.dta"
-	if _rc{
-		preserve
-		run "$dofiles/05_datapack_officialnames"
-		restore
-		}
-		*end
-	merge m:1 mechanismid using "$output/officialnames.dta", ///
-		update replace nogen keep(1 3 4 5) //keep all but non match from using
+	run "$dofiles/05_datapack_officialnames"
 
 *generate a dup im for all OUs
 	preserve

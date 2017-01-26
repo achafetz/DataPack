@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: mehcanism list
 **   Date: December 10, 2016
-**   Updated: 1/9/16
+**   Updated: 1/25/16
 
 *** SETUP ***
 
@@ -25,17 +25,10 @@
 		*end
 *clean
 	run "$dofiles/06_datapack_dup_snus"
+	
 *update all partner and mech to offical names (based on FACTS Info)
-	capture confirm file "$output/officialnames.dta"
-	if _rc{
-		preserve
-		run "$dofiles/05_datapack_officialnames"
-		restore
-		}
-		*end
-	merge m:1 mechanismid using "$output/officialnames.dta", ///
-		update replace nogen keep(1 3 4 5) //keep all but non match from using
-
+	run "$dofiles/05_datapack_officialnames"
+	
 *keep
 	gen n = 1
 	collapse n, by(operatingunit fundingagency mechanismid implementingmechanismname)
