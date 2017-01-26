@@ -378,6 +378,44 @@ Sub commentCluster()
         Cells(colSNU, 3).Comment.Visible = False
     End If
 
+    If OpUnit = "Uganda" Then
+        colSNU = WorksheetFunction.Match("Kampala Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Kampala Cluster: Wakiso District, Kampala District, Mukono District"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Mbarara Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Mbarara Cluster: Mbarara District, Kiruhura District, Sheema District, Buhweju District, Ibanda District, Ntungamo District, Bushenyi District, Mitooma District, Rubirizi District, Rukungiri District, Kanungu District"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Kabarole Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Kabarole Cluster: Kabarole District, Kyenjojo District, Kamwenge District, Ntoroko District"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Gulu Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Gulu Cluster: Gulu District, Nwoya District, Lamwo District, Pader District, Amuru District"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Gulu Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Gulu Cluster: Gulu District, Nwoya District, Lamwo District, Pader District, Amuru District"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Masaka Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Masaka Cluster: Masaka District, Rakai District, Lwengo District, Lyantonde District, Sembabule District, Bukomansimbi District, Kalungu District"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Kabale Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Kabale Cluster: Kabale District, Kisoro District"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Soroti Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Soroti Cluster: Soroti District, Amuria District, Kaberamaido District, Serere District, Ngora District, Katakwi District"
+        Cells(colSNU, 3).Comment.Visible = False
+
+        colSNU = WorksheetFunction.Match("Lira Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
+        Cells(colSNU, 3).AddComment "Lira Cluster: Lira District, Kole District, Otuke District, Alebtong District, Dokolo District, Amolatar District, Apac District"
+        Cells(colSNU, 3).Comment.Visible = False
+
+    End If
 
     If OpUnit = "Tanzania" Then
         colSNU = WorksheetFunction.Match("Arusha-Meru_Monduli Cluster", ActiveWorkbook.Sheets("DATIM Indicator Table").Range("C:C"), 0)
@@ -554,9 +592,9 @@ Sub setupHTCDistro()
         Next i
 
     'add in extra named ranges
-        INDnames = Array("T_htc_peds_need", "T_htc_adlt_need", "T_htc_need", "T_pos_ident", "T_ped_treat", "T_htc_pos", "T_tx_curr_exp", "T_tx_curr_u15_exp")
+        INDnames = Array("T_htc_peds_need", "T_htc_adlt_need", "T_htc_need", "T_pos_ident", "T_eid_treat", "T_ped_treat", "T_htc_pos", "T_tx_curr_exp", "T_tx_curr_u15_exp")
         For Each IND In INDnames
-            If IND = "T_pos_ident" Or IND = "T_ped_treat" Or IND = "T_tx_curr_exp" Or IND = "T_tx_curr_u15_exp" Then
+            If IND = "T_pos_ident" Or IND = "T_eid_treat" Or IND = "T_ped_treat" Or IND = "T_tx_curr_exp" Or IND = "T_tx_curr_u15_exp" Then
                 sht = "Target Calculation"
             Else
                 sht = "HTC Target Calculation"
@@ -900,7 +938,7 @@ Sub imTargeting()
     'setup/format IM distro tab
         Sheets("Allocation by IM").Activate
         LastRow = Range("C1").CurrentRegion.Rows.Count
-        Range(Cells(5, 7), Cells(LastRow, 23)).Select
+        Range(Cells(5, 7), Cells(LastRow, 24)).Select
         'format to hide zeros
         Selection.NumberFormat = "0%;-0%;;"
         LastColumn = Range("B2").CurrentRegion.Columns.Count 'TOFIX
@@ -915,9 +953,9 @@ Sub imTargeting()
         Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
         Application.DisplayAlerts = True
         'copy formulas down for target allocation
-        Range(Cells(7, 24), Cells(7, LastColumn)).Select
+        Range(Cells(7, 25), Cells(7, LastColumn)).Select
         Selection.Copy
-        Range(Cells(8, 24), Cells(LastRow, LastColumn)).Select
+        Range(Cells(8, 25), Cells(LastRow, LastColumn)).Select
         Selection.PasteSpecial Paste:=xlPasteFormulasAndNumberFormats
         Application.CutCopyMode = False
         'add total
