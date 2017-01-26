@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel site allocation of Data Pack targets
 **   Date: January 3, 2017
-**   Updated: 1/25/17
+**   Updated: 1/27/17
 
 *******************************
 /*
@@ -48,7 +48,7 @@
 	
 * gen vars for distro tabs (see 01_datapack_outputs)
 	// output generated in Data Pack template (POPsubset sheet)
-	// updated 1/25
+	// updated 1/26
 	gen tx_new = fy2016apr if indicator=="TX_NEW" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen tx_curr = fy2016apr if indicator=="TX_CURR" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen pmtct_stat_D = fy2016apr if indicator=="PMTCT_STAT" & disaggregate=="Total Denominator" & numeratordenom=="D"
@@ -61,7 +61,6 @@
 	gen tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & inlist(age, "<01", "01-04", "05-14") & numeratordenom=="N"
 	gen tb_stat_D = fy2016apr if indicator=="TB_STAT" & disaggregate=="Total Denominator" & numeratordenom=="D"
 	gen tb_stat = fy2016apr if indicator=="TB_STAT" & disaggregate=="Total Numerator" & numeratordenom=="N"
-	gen tb_art_D = fy2016apr if indicator=="TB_ART" & disaggregate=="Total Denominator" & numeratordenom=="D"
 	gen tb_art = fy2016apr if indicator=="TB_ART" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen htc_tst_u15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & inlist(age, "<01", "01-04", "05-09","10-14") & numeratordenom=="N"
 	gen htc_tst_o15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & inlist(age, "15-19", "20-24", "25-49", "50+") & numeratordenom=="N"
@@ -124,6 +123,12 @@
 	order operatingunit psnuuid psnu orgunituid orgunitname mechanismid implementingmechanismname primepartner indicatortype combo
 	sort operatingunit psnu orgunituid mechanismid  indicatortype
 
+*delete older version of the output
+	fs "$dpexcel/${ou_ns}_Site*.xlsx"
+	foreach f in `r(files)'{
+		erase "$dpexcel/`f'"
+		}
+		*end
 *export
 	export excel using "$dpexcel/${ou_ns}_Site_${date}.xlsx", ///
 		firstrow(variables) sheet("Site Allocation") sheetreplace

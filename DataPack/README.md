@@ -9,6 +9,7 @@ To do
 - [ ] think about how to setup HTC tab
 - [ ] need to ensure that if IM has no FY16 results but FY18 targets, its highlighted or results are distributed in some way
 - [x] incorporate site names (instead of just using UIDs)
+- [ ] QC data - all tabs - (1) distribution % matches Fact View, (2) allocation formulas are correct, (3) indicator totals match across tabs
 
 
 Questions
