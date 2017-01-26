@@ -113,7 +113,7 @@ Sub Initialize()
         tmplWkbk.Activate
         Sheets(Array("Home", "Data Pack SNU Targets", "Site IM Allocation", "TX_NEW", _
             "TX_CURR", "PMTCT_STAT", "PMTCT_ART", "PMTCT_EID", "TB_ART", "TB_STAT", "VMMC_CIRC", _
-            "OVC_SERV", "KP_PREV", "KP_MAT", "PP_PREV", "Site Allocation", "Indicators")).Copy
+            "OVC_SERV", "PP_PREV", "Site Allocation", "Indicators")).Copy
         Set dpWkbk = ActiveWorkbook
         ActiveWorkbook.Theme.ThemeColorScheme.Load (other_fldr & "Adjacency.xml")
     'hard code update date into home tab & insert OU name
@@ -146,9 +146,7 @@ Sub getData()
         Range("A7").Select
         Selection.PasteSpecial Paste:=xlPasteValues
         Application.CutCopyMode = False
-    'remove table (issue pasting from one table to another)
-       ' If sht = "Site Allocation" Then ActiveSheet.ListObjects("sitealloc").Unlist
-       ' If sht = "Indicators" Then ActiveSheet.ListObjects("indicators").Unlist
+
     Next
 
     'close dataset
@@ -161,7 +159,7 @@ Sub siteDistro()
     'find last row
         LastRow = Range("A1").CurrentRegion.Rows.Count
     'copy site info to Site IM Allocation tab
-        Range(Cells(8, 3), Cells(LastRow, 7)).Select
+        Range(Cells(8, 3), Cells(LastRow, 10)).Select
         Selection.Copy
         Sheets("Site IM Allocation").Activate
         Range("C8").Select
@@ -180,6 +178,14 @@ Sub siteDistro()
         Selection.Copy
         Selection.PasteSpecial Paste:=xlPasteValues
         Application.CutCopyMode = False
+    'add colored bar to right
+        Range(Cells(5, 1), Cells(LastRow, 1)).Select
+        With Selection.Interior
+            .Pattern = xlSolid
+            .PatternColorIndex = xlAutomatic
+            .ThemeColor = xlThemeColorAccent4
+            .TintAndShade = 0.399975585192419
+        End With
 
     Cells(1, 7).Select
 
@@ -193,12 +199,12 @@ Sub indDistro()
         LastRow = Range("A1").CurrentRegion.Rows.Count
     'loop over sheets
         shtNames = Array("TX_NEW", "TX_CURR", "PMTCT_STAT", _
-            "PMTCT_ART", "PMTCT_EID", "TB_ART", "TB_STAT", "VMMC_CIRC", _
-            "OVC_SERV", "KP_PREV", "KP_MAT", "PP_PREV")
+            "PMTCT_ART", "PMTCT_EID", "TB_ART", "TB_STAT", _
+            "VMMC_CIRC", "OVC_SERV", "PP_PREV")
         For Each sht In shtNames
         'copy site info to Site IM Allocation tab
             Sheets("Indicators").Activate
-            Range(Cells(8, 3), Cells(LastRow, 7)).Select
+            Range(Cells(8, 3), Cells(LastRow, 10)).Select
             Selection.Copy
             Sheets(sht).Activate
             Range("C8").Select
@@ -219,6 +225,14 @@ Sub indDistro()
             Selection.Copy
             Selection.PasteSpecial Paste:=xlPasteValues
             Application.CutCopyMode = False
+        'add colored bar to right
+            Range(Cells(5, 1), Cells(LastRow, 1)).Select
+            With Selection.Interior
+                .Pattern = xlSolid
+                .PatternColorIndex = xlAutomatic
+                .ThemeColor = xlThemeColorAccent4
+                .TintAndShade = 0.399975585192419
+            End With
 
             Cells(1, 7).Select
 
