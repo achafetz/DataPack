@@ -28,6 +28,8 @@ N. Barlett identified whether to combine/delete each
 | Nigeria                          | im Owerri Municipal | mVuyipSx9aU | Combine             |
 | Nigeria                          | im Owerri North     | FjiNyXde6Ae | Combine             |
 | Nigeria                          | im Owerri North     | xmRjV3Gx1H6 | Combine             |
+| Nigeria                          | ek Ikere            | FLIkT6NShZE | Combine             |
+| Nigeria                          | ek Ikere-Ekiti      | KT3e5pmPdfB | Combine             |
 | Nigeria                          | eb Ebonyi           | J4yYjIqL7mG | Keep                |
 | Nigeria                          | eb Ebonyi           | oygNEfySnMl | Delete (Blank)      |
 | Nigeria                          | en Enugu East       | HlABmTwBpu6 | Keep                |
@@ -46,6 +48,8 @@ N. Barlett identified whether to combine/delete each
 	replace psnuuid = "IxeWi5YG9lE" if psnuuid=="dzjXm8e1cNs"
 	replace psnuuid = "kxsmKGMZ5QF" if psnuuid=="mVuyipSx9aU"
 	replace psnuuid = "FjiNyXde6Ae" if psnuuid=="xmRjV3Gx1H6"
+	replace psnuuid = "KT3e5pmPdfB" if psnuuid=="FLIkT6NShZE"
+		replace psnu = "ek Ikere" if psnuuid=="KT3e5pmPdfB"
 
 	
 *Remove duplicates/blanks

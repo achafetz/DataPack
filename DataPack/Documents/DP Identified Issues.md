@@ -9,9 +9,9 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
     - Affected Tab: SNU Targets for EA
     - Fix:
         1. Change the formulas in the 3 cells identified below, updating the column letter in bold (note that [LastColumn] will be the last row number in your Data Pack)
-            * O7 =INDEX('Target Calculation'!$**BQ**$5:$**BQ**$[LastRow],MATCH(Tsnulist, snu,0))
+            * O7 =INDEX('Target Calculation'!$**BO**$5:$**BO**$[LastRow],MATCH(Tsnulist, snu,0))
             * Q7 =INDEX('Target Calculation'!$**BC**$5:$**BC**$[LastRow],MATCH(Tsnulist, snu,0))
-            * U7 =INDEX('HTC Target Calculation'!**P**$5:**P**$[LastRow],MATCH(Tsnulist, snu,0))
+            * U7 =INDEX('HTC Target Calculation'!**O**$5:**O**$[LastRow],MATCH(Tsnulist, snu,0))
         2. For each affected column (O, Q, U), copy the new formula down to all rows
 2. KP_MAT data missing
     - Issue: The KP_MAT column in the IM distribution was missing data (only affected 5 OUs - Central Asia Region, India, Kenya, Tanzania, and Vietnam)
