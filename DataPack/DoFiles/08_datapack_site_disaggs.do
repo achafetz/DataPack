@@ -26,7 +26,7 @@
 ** TX_NEW tab
 	*create variables
 	// output generated in Site & Disagg template (POPsubset sheet)
-	// updated 1/25
+	// updated 1/26
 	gen tx_new_asa_f_u1 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Female" & age=="<01" & numeratordenom=="N"
 	gen tx_new_asa_f_1to14 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Female" & age=="01-14" & numeratordenom=="N"
 	gen tx_new_asa_f_o15 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Female" & age=="15+" & numeratordenom=="N"
@@ -90,6 +90,37 @@
 	gen tb_stat_a_10to14 = fy2016apr if indicator=="TB_STAT" & disaggregate=="Age" & age=="10-14" & numeratordenom=="N"
 	gen tb_stat_a_15to19 = fy2016apr if indicator=="TB_STAT" & disaggregate=="Age" & age=="15-19" & numeratordenom=="N"
 	gen tb_stat_a_o20 = fy2016apr if indicator=="TB_STAT" & disaggregate=="Age" & age=="20+" & numeratordenom=="N"
+	gen htc_tst_aas_f_u15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Aggregated Age/Sex" & sex=="Female" & age=="<15" & numeratordenom=="N"
+	gen htc_tst_aas_f_o15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Aggregated Age/Sex" & sex=="Female" & age=="15+" & numeratordenom=="N"
+	gen htc_tst_aas_m_u15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Aggregated Age/Sex" & sex=="Male" & age=="<15" & numeratordenom=="N"
+	gen htc_tst_aas_m_o15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Aggregated Age/Sex" & sex=="Male" & age=="15+" & numeratordenom=="N"
+	gen htc_tst_asr_f_u1 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="<01" & numeratordenom=="N"
+	gen htc_tst_asr_f_1to4 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="01-04" & numeratordenom=="N"
+	gen htc_tst_asr_f_5to9 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="05-09" & numeratordenom=="N"
+	gen htc_tst_asr_f_10to14 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="10-14" & numeratordenom=="N"
+	gen htc_tst_asr_f_15to19 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="15-19" & numeratordenom=="N"
+	gen htc_tst_asr_f_20to24 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="20-24" & numeratordenom=="N"
+	gen htc_tst_asr_f_25to49 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="25-49" & numeratordenom=="N"
+	gen htc_tst_asr_f_o50 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="50+" & numeratordenom=="N"
+	gen htc_tst_asr_m_u1 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="<01" & numeratordenom=="N"
+	gen htc_tst_asr_m_1to4 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="01-04" & numeratordenom=="N"
+	gen htc_tst_asr_m_5to9 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="05-09" & numeratordenom=="N"
+	gen htc_tst_asr_m_10to14 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="10-14" & numeratordenom=="N"
+	gen htc_tst_asr_m_15to19 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="15-19" & numeratordenom=="N"
+	gen htc_tst_asr_m_20to24 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="20-24" & numeratordenom=="N"
+	gen htc_tst_asr_m_25to49 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="25-49" & numeratordenom=="N"
+	gen htc_tst_asr_m_o50 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="50+" & numeratordenom=="N"
+	gen htc_tst_spd_fac_inpatient = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Inpatient" & numeratordenom=="N"
+	gen htc_tst_spd_fac_tb = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Tuberculosis" & numeratordenom=="N"
+	gen htc_tst_spd_fac_anc = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Antenatal Clinic" & numeratordenom=="N"
+	gen htc_tst_spd_fac_vmmc = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Voluntary Medical Male Circumcision" & numeratordenom=="N"
+	gen htc_tst_spd_fac_vtcalone = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Voluntary Counseling & Testing standalone" & numeratordenom=="N"
+	gen htc_tst_spd_fac_vtccoloc = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Voluntary Counseling & Testing co-located" & numeratordenom=="N"
+	gen htc_tst_spd_fac_ct = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="HIV Care and Treatment Clinic" & numeratordenom=="N"
+	gen htc_tst_spd_fac_out = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Outpatient Department" & numeratordenom=="N"
+	gen htc_tst_spd_fac_oth = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Other Service Delivery Point" & numeratordenom=="N"
+	gen htc_tst_spd_com_home = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Home-based" & numeratordenom=="N"
+	gen htc_tst_spd_com_mobile = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Mobile" & numeratordenom=="N"
 	gen vmmc_circ_a_u1 = fy2016apr if indicator=="VMMC_CIRC" & disaggregate=="Age" & age=="<01" & numeratordenom=="N"
 	gen vmmc_circ_a_1to9 = fy2016apr if indicator=="VMMC_CIRC" & disaggregate=="Age" & age=="01-09" & numeratordenom=="N"
 	gen vmmc_circ_a_10to14 = fy2016apr if indicator=="VMMC_CIRC" & disaggregate=="Age" & age=="10-14" & numeratordenom=="N"
@@ -209,15 +240,14 @@
 *create distro for denominators and eid_pos
 	gen d_tb_art_D = round(tb_art_D/tb_art,0.0001) 
 	gen d_pmtct_eid_pos_2mo = round(pmtct_eid_pos_2mo/pmtct_eid_i_u2mo,0.0001)
-	gen pmtct_eid_pos_12mo_g = pmtct_eid_pos_12mo - pmtct_eid_pos_2mo
-		replace pmtct_eid_pos_12mo_g = 0 if pmtct_eid_pos_12mo_g < 0
-	gen d_pmtct_eid_pos_12mo = round(pmtct_eid_pos_12mo_g/pmtct_eid_i_2to12mo,0.0001)
-	drop tb_art_D tb_art pmtct_eid_pos_2mo pmtct_eid_pos_12mo pmtct_eid_pos_12mo_g
+	gen d_pmtct_eid_pos_12mo = round(pmtct_eid_pos_12mo/(pmtct_eid_i_u2mo + pmtct_eid_i_2to12mo),0.0001)
+	drop tb_art_D tb_art pmtct_eid_pos_2mo pmtct_eid_pos_12mo
 	
 *create distribution
 	foreach t in tx_new_asa tx_new_as tx_curr_asa tx_curr_as ///
 		pmtct_stat_kn pmtct_arv_m pmtct_eid_i tb_art_s ///
-		tb_art_aa tb_stat_s tb_stat_a vmmc_circ_a vmmc_circ_t ///
+		tb_art_aa tb_stat_s tb_stat_a htc_tst_aas htc_tst_asr ///
+		htc_tst_spd_fac htc_tst_spd_com vmmc_circ_a vmmc_circ_t ///
 		ovc_serv_as ovc_serv_as2 pp_prev_as {
 		egen tot_`t' = rowtotal(`t'_*)
 		qui: ds `t'_*

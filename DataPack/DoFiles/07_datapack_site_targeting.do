@@ -65,6 +65,8 @@
 	gen htc_tst_u15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & inlist(age, "<01", "01-04", "05-09","10-14") & numeratordenom=="N"
 	gen htc_tst_o15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & inlist(age, "15-19", "20-24", "25-49", "50+") & numeratordenom=="N"
 	gen htc_tst = fy2016apr if indicator=="HTC_TST" & disaggregate=="Total Numerator" & numeratordenom=="N"
+	gen htc_tst_fac = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint"& inlist(otherdisaggregate, "Inpatient", "Tuberculosis", "Antenatal Clinic", "Voluntary Medical Male Circumcision", "Voluntary Counseling & Testing standalone", "Voluntary Counseling & Testing co-located", "HIV Care and Treatment Clinic", "Outpatient Department", "Other Service Delivery Point") & numeratordenom=="N"
+	gen htc_tst_com = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint"& inlist(otherdisaggregate, "Home-based", "Mobile") & numeratordenom=="N"
 	gen vmmc_circ = fy2016apr if indicator=="VMMC_CIRC" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen ovc_serv = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen ovc_serv_u18 = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & inlist(age, "01-04", "05-09", "10-14", "15-17") & numeratordenom=="N"
