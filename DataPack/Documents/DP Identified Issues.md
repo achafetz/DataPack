@@ -1,6 +1,6 @@
 ## Issues and Fixes to the Data Pack
 
-updated: Jan 27
+updated: Jan 30
 
 Here is a running list of issues that affect the Data Pack for SI and EA advisors to be aware of
 
@@ -31,7 +31,7 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
         6. Copy this new formula down to all the rows in this column
         7. Navigate to the SNU Targets for EA tab
         8. Replace the formula in S7, HTC_TST(excluding PMTCT & VMMC), with the formula below
-            * S7 = INDEX(**'HTC Target Calculation'!$Q$7:$Q$[LastRow]**,MATCH(Tsnulist, snu,0))
+            * S7 = INDEX(**'HTC Target Calculation'!$Q$7:$Q$[LastRow]**,MATCH(Tsnulist, htc_snu,0))
         9. Copy this formula down to the rest of the rows in the column
 
 4. TX_CURR Patient Year calculation
@@ -42,3 +42,9 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
             * F7 =INDEX(**tx_new_u1_T**,MATCH(Tsnulist,snulist,0))
         2. Copy the formula down to all rows in column F, TX_CURR (<1) [PMTCT_EID]
         3. Rename the header to TX_CURR (<1) [**TX_NEW <1**]
+5. Wrong SNU reference
+  - Issue: The current formula indexes the SNU list from the main Target Calcuations tab, rather than the HTC Target Calcuation tabs. This could reference the wrong cells if the SNU lists are sorted in different orders
+  - Affected Tab: SNU Targets for EA
+  - Fix:
+        1. Replace MATCH(Tsnulist,**snu**,0)" with MATCH(Tsnulist,**htc_snulis**,0) in columns S, T, U, and V
+            * S7 = INDEX(T_htc_need,MATCH(Tsnulist, **htc_snu**,0))
