@@ -49,10 +49,10 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
         1. Replace MATCH(Tsnulist,**snu**,0)" with MATCH(Tsnulist,**htc_snulis**,0) in columns S, T, U, and V
             * S7 = INDEX(T_htc_need,MATCH(Tsnulist, **htc_snu**,0))
 6. Incorrect indicator reference
-  - Issue: THe forumula for the OVC target on the PBAC tab has an extra letter included that is throwing off the reference, causing no data to show up in column AG.
+  - Issue: The forumula for the OVC target on the PBAC tab has an extra letter included that is throwing off the reference, causing no data to show up in column AG.
   - Affected Tab: PBAC IM Targets
   - Fix:
-      1. Remove the "A" in AP_indtype so it is just P_indtype in AG7
+      1. Remove the mistyped "A" in "AP_indtype" so it is just "P_indtype" in AG7
         * AG7 =  SUMIFS(D_ovc_serv_fy18,D_priority,P_mech,D_type,**P_indtype**,D_mech,">1")
       2. Copy the formula from AG7 down to the AG13
       3. Remove the "A" in AP_indtype so it is just P_indtype in AG15
