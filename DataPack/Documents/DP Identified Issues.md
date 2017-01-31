@@ -33,6 +33,7 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
         8. Replace the formula in S7, HTC_TST(excluding PMTCT & VMMC), with the formula below
             * S7 = INDEX(**'HTC Target Calculation'!Q$7:Q$[LastRow]**,MATCH(Tsnulist, htc_snu,0))
         9. Copy this formula down to the rest of the rows in the column
+        
         NOTE: A change was made in step 8. The original fix (...$Q$7:$Q$[LastRow}...) was causing errors. 
 
 4. TX_CURR Patient Year calculation
