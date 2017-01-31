@@ -19,7 +19,7 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
     - Fix:
         1. SI advisors were identified regarding this issue, and provided either (a) the rows in column X to add KP_MAT % to if <5 rows affected, or (b) were issued new Data Packs and can be found on PEPFAR.net
 3. VMMC included in EA HTC calculation
-    - Issue: For the purposes of EA, VMMC and PMTCT test needs to be removed from the HTC to ensure we're not double counting those expenses in our Unit Expenditures. VMMC was mistakenly included in HTC total.
+    - Issue: For the purposes of EA, VMMC and PMTCT test needs to be removed from the HTC to ensure we are not double counting those expenses in our Unit Expenditures. VMMC was mistakenly included in HTC total.
     - Affected Tab: SNU Targets for EA
     - Fix:
         1. Navigate to the HTC Target Calculation tab
@@ -57,4 +57,4 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
       2. Copy the formula from AG7 down to the AG13
       3. Remove the "A" in AP_indtype so it is just P_indtype in AG15
         * AG15 = =SUMIFS(D_ovc_serv_fy18,D_mech,P_mech,D_type,**P_indtype**)
-      4. Copy the formula in AG15 down to the last row
+      4. Copy the formula in AG15 down to the last row 
