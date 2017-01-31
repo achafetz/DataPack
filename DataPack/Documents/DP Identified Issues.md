@@ -1,6 +1,6 @@
 ## Issues and Fixes to the Data Pack
 
-updated: Jan 30
+updated: Jan 31
 
 Here is a running list of issues that affect the Data Pack for SI and EA advisors to be aware of
 
