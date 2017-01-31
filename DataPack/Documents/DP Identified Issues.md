@@ -34,7 +34,7 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
             * S7 = INDEX(**'HTC Target Calculation'!Q$7:Q$[LastRow]**,MATCH(Tsnulist, htc_snu,0))
         9. Copy this formula down to the rest of the rows in the column
         
-        NOTE: A change was made in step h. The original fix (...$Q$7:$Q$[LastRow}...) was causing errors. 
+        NOTE: A change was made in step h. The original fix (...$Q$7:$Q$[LastRow]...) was causing errors. 
 
 4. TX_CURR Patient Year calculation
     - Issue: The current formula to calculate the patient year uses PMTCT_EID as a proxy for TX_CURR <1 (which is used to get TX_CURR 1-15 from the TX_CUR <15 calcuated in the Data Pack). Since PMTCT_EID over estimates those on treatment since it includes negative tests as well, so TX_NEW <1 should be used instead (as is used for the FY18 calculation).
