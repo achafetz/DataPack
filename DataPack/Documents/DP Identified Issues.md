@@ -48,8 +48,8 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
   - Issue: The current formula indexes the SNU list from the main Target Calcuations tab, rather than the HTC Target Calcuation tabs. This could reference the wrong cells if the SNU lists are sorted in different orders
   - Affected Tab: SNU Targets for EA
   - Fix:
-        1. Replace MATCH(Tsnulist,**snu**,0)" with MATCH(Tsnulist,**htc_snulis**,0) in columns S, T, U, and V
-            * S7 = INDEX(T_htc_need,MATCH(Tsnulist, **htc_snu**,0))
+        1. Replace MATCH(Tsnulist,**snu**,0)" with MATCH(Tsnulist,**snu_htc**,0) in columns S, T, U, and V
+            * S7 = INDEX(T_htc_need,MATCH(Tsnulist, **snu_htc**,0))
 6. Incorrect indicator reference
   - Issue: The forumula for the OVC target on the PBAC tab has an extra letter included that is throwing off the reference, causing no data to show up in column AG.
   - Affected Tab: PBAC IM Targets
