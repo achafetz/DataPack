@@ -592,7 +592,7 @@ Sub setupHTCDistro()
         Next i
 
     'add in extra named ranges
-        INDnames = Array("T_htc_peds_need", "T_htc_adlt_need", "T_htc_need", "T_pos_ident", "T_eid_treat", "T_ped_treat", "T_htc_pos", "T_tx_curr_exp", "T_tx_curr_u15_exp")
+        INDnames = Array("T_htc_peds_need", "T_htc_adlt_need", "T_htc_need", "T_pos_ident", "T_eid_treat", "T_ped_treat", "T_htc_pos", "T_tx_curr_exp", "T_tx_curr_u15_exp", "T_htc_pitc", "T_htc_cbtc", "T_htc_vct", "T_htc_othped", "T_htc_ea")
         For Each IND In INDnames
             If IND = "T_pos_ident" Or IND = "T_eid_treat" Or IND = "T_ped_treat" Or IND = "T_tx_curr_exp" Or IND = "T_tx_curr_u15_exp" Then
                 sht = "Target Calculation"

@@ -5,7 +5,7 @@
 	Purpose: Collapse full frozen data set to just observations needed for the 
 		ACT Tool used in country POARTS
 	Date: May 24, 2016
-	Updated: 12/22/2016
+	Updated: 2/1/17
 	Aaron Chafetz
 	USAID/ICPI 
 	
@@ -15,7 +15,7 @@
 	global source "C:\Users\achafetz\Documents\ICPI\Data"
 	global save  "C:\Users\achafetz\Documents\ICPI\Peds"
 *set date of frozen instance - needs to be changed w/ updated data
-	local datestamp "20161115_v2"
+	local datestamp "20161230_v2_2"
 *import frozen instance for ACT Monitoring Tool
 	capture confirm file "$source\ICPIFactView_SNUbyIM`datestamp'.dta"
 		if !_rc{
@@ -31,6 +31,7 @@
 
 *remove unnessary observations and indicators
 	drop if numeratordenom =="D" //only need numerators
+	rename fy16snuprioritization snuprioritization
 	keep operatingunit operatingunituid countryname psnu psnuuid ///
 		snuprioritization indicator disaggregate ///
 		age resultstatus otherdisaggregate ///
