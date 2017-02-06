@@ -60,3 +60,10 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
       3. Remove the "A" in AP_indtype so it is just P_indtype in AG15
         * AG15 = =SUMIFS(D_ovc_serv_fy18,D_mech,P_mech,D_type,**P_indtype**)
       4. Copy the formula in AG15 down to the last row 
+
+7. 2016 PLHIV points to wrong reference 
+  - Issue: The formula for 2016 PLHIV in the target setting tab points to the DATIM Indicator tab, when it should point to the Assumptions tab. If the country team makes changes to their 2016 PLHIV numbers, they won't be reflected in the target setting tab.
+  - Affected Tab: Target Calculation
+  - Fix:
+      1. In cell F7, replace =INDEX(plhiv,MATCH(snu,snulist,0)) with =INDEX(M_plhiv_fy16,MATCH(snu,Msnulist,0))
+      2. Copy the foruma from F7 down to the last row.
