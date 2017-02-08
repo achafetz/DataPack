@@ -67,3 +67,14 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
   - Fix:
       1. In cell F7, replace =INDEX(plhiv,MATCH(snu,snulist,0)) with =INDEX(M_plhiv_fy16,MATCH(snu,Msnulist,0))
       2. Copy the foruma from F7 down to the last row.
+      
+8. Pediatric HTC is calculated on all treatment under five and doesn't exclude EID (under 1)
+ - Issue: The formula for total pediatric positives to identify in the HTC Target Calculation tab currently pulls all pediatric positives, instead of excluding those under one who are found through EID and do not need to be found through the HTC testing program. 
+  - Affected Tab: HTC Target Calculation
+  - Fix:
+      1. You must create a named refernce for T_eid_treat. This is done in the Excel Name Manager
+         a. Under the excel ribbon "Formulas" click on name manager. 
+         b. Create a new named range called "T_eid_treat" and set it to reference ='Target Calculation'!$BQ$5:$BQ$[Last Row] (which is               FY18 Target TX_NEW (under 1)
+      2. In the HTC Target Calculation tab, in cell F7, replace =IFERROR(INDEX(T_ped_treat,MATCH(snu_htc,snu,0))/D7,0)
+      with =IFERROR(IF((INDEX(T_ped_treat,MATCH(snu_htc,snu,0))-INDEX(T_eid_treat,MATCH(snu_htc,snu,0)))<0,0,         (INDEX(T_ped_treat,MATCH(snu_htc,snu,0))-INDEX(T_eid_treat,MATCH(snu_htc,snu,0))))/D7,0)
+      3. Copy the foruma from F7 down to the last row. 
