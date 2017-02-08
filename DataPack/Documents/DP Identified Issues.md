@@ -77,4 +77,4 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
          2. Create a new named range called "T_eid_treat" and set it to reference ='Target Calculation'!$BQ$5:$BQ$[Last Row] (which is               FY18 Target TX_NEW (under 1)
       2. In the HTC Target Calculation tab, in cell F7, replace =IFERROR(INDEX(T_ped_treat,MATCH(snu_htc,snu,0))/D7,0)
       with =IFERROR(IF((INDEX(T_ped_treat,MATCH(snu_htc,snu,0))-INDEX(T_eid_treat,MATCH(snu_htc,snu,0)))<0,0,         (INDEX(T_ped_treat,MATCH(snu_htc,snu,0))-INDEX(T_eid_treat,MATCH(snu_htc,snu,0))))/D7,0)
-      3. Copy the foruma from F7 down to the last row. 
+      3. Copy the formula from F7 down to the last row. 
