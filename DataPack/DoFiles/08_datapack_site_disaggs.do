@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel disagg allocation of Data Pack targets
 **   Date: January 19, 2017
-**   Updated: 1/25/17
+**   Updated: 2/9/17
 
 
 *******************************
@@ -14,12 +14,6 @@
 */
 *******************************
 
-*define date for Fact View Files
-	global datestamp "20161115_v2"
-
-*set today's date for saving
-	global date: di %tdCCYYNNDD date(c(current_date), "DMY")
-
 *open site dataset
 	use "$output/temp_site_${ou_ns}", clear
 
@@ -27,11 +21,9 @@
 	*create variables
 	// output generated in Site & Disagg template (POPsubset sheet)
 	// updated 1/26
-	gen tx_new_asa_f_u1 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Female" & age=="<01" & numeratordenom=="N"
-	gen tx_new_asa_f_1to14 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Female" & age=="01-14" & numeratordenom=="N"
+	gen tx_new_asa_f_u15 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Female" & age=="<15" & numeratordenom=="N"
 	gen tx_new_asa_f_o15 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Female" & age=="15+" & numeratordenom=="N"
-	gen tx_new_asa_m_u1 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Male" & age=="<01" & numeratordenom=="N"
-	gen tx_new_asa_m_1to14 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Male" & age=="01-14" & numeratordenom=="N"
+	gen tx_new_asa_m_u15 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Male" & age=="<15" & numeratordenom=="N"
 	gen tx_new_asa_m_o15 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex Aggregated" & sex=="Male" & age=="15+" & numeratordenom=="N"
 	gen tx_new_as_f_u1 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Female" & age=="<01" & numeratordenom=="N"
 	gen tx_new_as_f_1to4 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Female" & age=="01-04" & numeratordenom=="N"
@@ -49,11 +41,9 @@
 	gen tx_new_as_m_20to24 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Male" & age=="20-24" & numeratordenom=="N"
 	gen tx_new_as_m_25to49 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Male" & age=="25-49" & numeratordenom=="N"
 	gen tx_new_as_m_o50 = fy2016apr if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Male" & age=="50+" & numeratordenom=="N"
-	gen tx_curr_asa_f_u1 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & sex=="Female" & age=="<01" & numeratordenom=="N"
-	gen tx_curr_asa_f_1to14 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & sex=="Female" & age=="01-14" & numeratordenom=="N"
+	gen tx_curr_asa_f_u15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & sex=="Female" & age=="<15" & numeratordenom=="N"
 	gen tx_curr_asa_f_o15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & sex=="Female" & age=="15+" & numeratordenom=="N"
-	gen tx_curr_asa_m_u1 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & sex=="Male" & age=="<01" & numeratordenom=="N"
-	gen tx_curr_asa_m_1to14 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & sex=="Male" & age=="01-14" & numeratordenom=="N"
+	gen tx_curr_asa_m_u15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & sex=="Male" & age=="<15" & numeratordenom=="N"
 	gen tx_curr_asa_m_o15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & sex=="Male" & age=="15+" & numeratordenom=="N"
 	gen tx_curr_as_f_u1 = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Female" & age=="<01" & numeratordenom=="N"
 	gen tx_curr_as_f_1to4 = fy2016apr if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Female" & age=="01-04" & numeratordenom=="N"

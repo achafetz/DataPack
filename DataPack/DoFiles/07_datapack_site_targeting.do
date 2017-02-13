@@ -3,28 +3,48 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel site allocation of Data Pack targets
 **   Date: January 3, 2017
-**   Updated: 1/27/17
+**   Updated: 2/2/17
 
 *******************************
 /*
 *define OU remove after piloting
-	global ou "Malawi"
+	global ou "Mozambique"
 	global ou_ns = subinstr(subinstr("${ou}", " ","",.),"'","",.)
 */
 *******************************
 
 *define date for Fact View Files
-	global datestamp "20161115_v2"
+	global datestamp "20161230_Q4v2_1"
 
 *set today's date for saving
 	global date: di %tdCCYYNNDD date(c(current_date), "DMY")
 	
 *import/open data
-	import delimited "$fvdata/All Site Dataset 20161230_Q4v2_1/ICPI_FactView_Site_By_IM_${ou}_20161230_Q4v2_1.txt", clear
+	import delimited "$fvdata/All Site Dataset 20161230_Q4v2_1/ICPI_FactView_Site_By_IM_${ou}_${datestamp}.txt", clear
+	rename ïorgunituid orgunituid
+	
+*********************
+* MCAD file for aggregated <15/15+
+* TODO
+*import 
+	preserve
+	import delimited "$fvdata/All MCAD Site Dataset ${datestamp}/ICPI_FactView_MCAD_Site_By_IM_${ou}_${datestamp}.txt", clear
+	tempfile temp_mcad
+	save "`temp_mcad'"
+	restore
+
+*drop Fact View duplicatoin
+	drop if (indicator=="HTC_TST" & disaggregate=="Age/Sex Aggregated") | ///
+		(inlist(indicator, "TX_CURR", "TX_NEW") & ///
+		disaggregate=="Age/Sex Aggregated")
+*append MCAD file on
+	append using "`temp_mcad'", force
+	
+*********************
 
 *clean
-	rename ïorgunituid orgunituid
 	run "$dofiles/06_datapack_dup_snus"
+	drop if operatingunit!="$ou"
 	replace psnu = "[no associated SNU]" if psnu==""
 	replace mechanismid = 0 if mechanismid==1 //keep just one dedup mechanism
 
@@ -34,15 +54,17 @@
 
 *update all partner and mech to offical names (based on FACTS Info)
 	run "$dofiles/05_datapack_officialnames"
-
+	
 *merge facility names onto dataset
 	run "$dofiles/09_datapack_sitenames"
-
+	
 * string mech and rename variables for aggregation
 	tostring mechanismid, replace
+	
 *drop excess
 	drop if psnu == "[no associated SNU]"
 	drop fy2015q2-fy2016q4 fy2017_targets
+	
 * save
 	save "$output/temp_site_${ou_ns}", replace
 	
@@ -72,10 +94,11 @@
 	gen ovc_serv_u18 = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & inlist(age, "01-04", "05-09", "10-14", "15-17") & numeratordenom=="N"
 	gen pp_prev = fy2016apr if indicator=="PP_PREV" & disaggregate=="Total Numerator" & numeratordenom=="N"
 
-	*fix TX_CURR disaggs
+	*fix TX_CURR disaggs --> resolved with MCAD dataset
 	/*J. Houston
 	- HTC_TST: fine disags for most countries; fine + coarse for Haiti, Mozambique, Nigeria, South Africa, Tanzania, Uganda, Ukraine, and (coarse) Vietnam
 	- TX_CURR: fine disags for all countries except (coarse) Mozambique and Vietnam, (fine + coarse)  Uganda and South Africa */
+	/*
 	foreach v in htc_tst_u15 htc_tst_o15{
 		replace `v' = . if inlist(operatingunit, "Haiti", "Mozambique", ///
 			"Nigeria", "South Africa", "Tanzania", "Uganda", "Ukraine", "Vietnam")
@@ -88,7 +111,8 @@
 	replace tx_curr_u15 = . if inlist(operatingunit, "Mozambique", "South Africa", "Uganda", "Vietnam")
 	replace tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex", "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "01-04", "05-14", "01-14") & numeratordenom=="N" & inlist(operatingunit, "Uganda", "South Africa")
 	replace tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & age=="01-14" & numeratordenom=="N" & inlist(operatingunit, "Mozambique", "Vietnam")
-
+	*/
+	
 *add common surname
 	drop fy*
 	ds *, not(type string)

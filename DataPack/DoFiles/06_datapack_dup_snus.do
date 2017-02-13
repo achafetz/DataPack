@@ -10,7 +10,7 @@
 List of PSNUs that have the same name but different UIDs
 Duplicate list produced from following do file
 	https://github.com/achafetz/ICPI/blob/master/Other/dupSNUs.do
-N. Barlett identified whether to combine/delete each
+N. Bartlett identified whether to combine/delete each
 
 | operatingunit                    | psnu                | psnuuid     | action              |
 |----------------------------------|---------------------|-------------|---------------------|
