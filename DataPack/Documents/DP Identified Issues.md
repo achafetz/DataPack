@@ -1,6 +1,6 @@
 ## Issues and Fixes to the Data Pack
 
-updated: Jan 31
+updated: Feb 8
 
 Here is a running list of issues that affect the Data Pack for SI and EA advisors to be aware of
 
@@ -60,3 +60,21 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
       3. Remove the "A" in AP_indtype so it is just P_indtype in AG15
         * AG15 = =SUMIFS(D_ovc_serv_fy18,D_mech,P_mech,D_type,**P_indtype**)
       4. Copy the formula in AG15 down to the last row 
+
+7. 2016 PLHIV points to wrong reference 
+  - Issue: The formula for 2016 PLHIV in the target setting tab points to the DATIM Indicator tab, when it should point to the Assumptions tab. If the country team makes changes to their 2016 PLHIV numbers, they won't be reflected in the target setting tab.
+  - Affected Tab: Target Calculation
+  - Fix:
+      1. In cell F7, replace =INDEX(plhiv,MATCH(snu,snulist,0)) with =INDEX(M_plhiv_fy16,MATCH(snu,Msnulist,0))
+      2. Copy the foruma from F7 down to the last row.
+      
+8. Pediatric HTC is calculated on all treatment under five and doesn't exclude EID (under 1)
+ - Issue: The formula for total pediatric positives to identify in the HTC Target Calculation tab currently pulls all pediatric positives, instead of excluding those under one who are found through EID and do not need to be found through the HTC testing program. 
+  - Affected Tab: HTC Target Calculation
+  - Fix:
+      1. You must create a named reference for T_eid_treat. This is done in the Excel Name Manager
+         1. Under the excel ribbon "Formulas" click on name manager. 
+         2. Create a new named range called "T_eid_treat" and set it to reference ='Target Calculation'!$BQ$5:$BQ$[Last Row] (which is               FY18 Target TX_NEW (under 1)
+      2. In the HTC Target Calculation tab, in cell F7, replace =IFERROR(INDEX(T_ped_treat,MATCH(snu_htc,snu,0))/D7,0)
+      with =IFERROR(IF((INDEX(T_ped_treat,MATCH(snu_htc,snu,0))-INDEX(T_eid_treat,MATCH(snu_htc,snu,0)))<0,0,         (INDEX(T_ped_treat,MATCH(snu_htc,snu,0))-INDEX(T_eid_treat,MATCH(snu_htc,snu,0))))/D7,0)
+      3. Copy the formula from F7 down to the last row. 
