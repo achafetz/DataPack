@@ -83,5 +83,5 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
  - Issue: The formula for calulating Net New takes into consideration PEPFARs coverage of net new. This formula misapplies PEPFAR coverage in SNUs where coverage is less than 100%.
   - Affected Tab: Target Calculation
   - Fix:
-      1. In cell AD7, replace =IFERROR(IF(AC7*G7*AB7-IF(N7>AA7,N7,AA7)<0,0,AC7*G7*AB7-IF(N7>AA7,N7,AA7)),0) with =IFERROR(IF(G7*AB7-IF(N7>AA7,N7,AA7)*AC7<0,0,G7*AB7-IF(N7>AA7,N7,AA7)*AC7),0)
+      1. In cell AD7, replace =IFERROR(IF(AC7*G7*AB7-IF(N7>AA7,N7,AA7)<0,0,AC7*G7*AB7-IF(N7>AA7,N7,AA7)),0) with =IFERROR(IF(AC7*(G7*AB7-IF(N7>AA7,N7,AA7))<0,0,AC7*(G7*AB7-IF(N7>AA7,N7,AA7))),0)
       2. Copy the formula from AD7 down to the last row.
