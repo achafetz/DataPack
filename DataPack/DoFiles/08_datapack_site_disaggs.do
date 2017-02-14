@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel disagg allocation of Data Pack targets
 **   Date: January 19, 2017
-**   Updated: 2/9/17
+**   Updated: 2/13/17
 
 
 *******************************
@@ -100,17 +100,6 @@
 	gen htc_tst_asr_m_20to24 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="20-24" & numeratordenom=="N"
 	gen htc_tst_asr_m_25to49 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="25-49" & numeratordenom=="N"
 	gen htc_tst_asr_m_o50 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="50+" & numeratordenom=="N"
-	gen htc_tst_spd_fac_inpatient = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Inpatient" & numeratordenom=="N"
-	gen htc_tst_spd_fac_tb = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Tuberculosis" & numeratordenom=="N"
-	gen htc_tst_spd_fac_anc = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Antenatal Clinic" & numeratordenom=="N"
-	gen htc_tst_spd_fac_vmmc = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Voluntary Medical Male Circumcision" & numeratordenom=="N"
-	gen htc_tst_spd_fac_vtcalone = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Voluntary Counseling & Testing standalone" & numeratordenom=="N"
-	gen htc_tst_spd_fac_vtccoloc = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Voluntary Counseling & Testing co-located" & numeratordenom=="N"
-	gen htc_tst_spd_fac_ct = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="HIV Care and Treatment Clinic" & numeratordenom=="N"
-	gen htc_tst_spd_fac_out = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Outpatient Department" & numeratordenom=="N"
-	gen htc_tst_spd_fac_oth = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Other Service Delivery Point" & numeratordenom=="N"
-	gen htc_tst_spd_com_home = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Home-based" & numeratordenom=="N"
-	gen htc_tst_spd_com_mobile = fy2016apr if indicator=="HTC_TST" & disaggregate=="ServiceDeliveryPoint" & otherdisaggregate=="Mobile" & numeratordenom=="N"
 	gen vmmc_circ_a_u1 = fy2016apr if indicator=="VMMC_CIRC" & disaggregate=="Age" & age=="<01" & numeratordenom=="N"
 	gen vmmc_circ_a_1to9 = fy2016apr if indicator=="VMMC_CIRC" & disaggregate=="Age" & age=="01-09" & numeratordenom=="N"
 	gen vmmc_circ_a_10to14 = fy2016apr if indicator=="VMMC_CIRC" & disaggregate=="Age" & age=="10-14" & numeratordenom=="N"
@@ -237,8 +226,7 @@
 	foreach t in tx_new_asa tx_new_as tx_curr_asa tx_curr_as ///
 		pmtct_stat_kn pmtct_arv_m pmtct_eid_i tb_art_s ///
 		tb_art_aa tb_stat_s tb_stat_a htc_tst_aas htc_tst_asr ///
-		htc_tst_spd_fac htc_tst_spd_com vmmc_circ_a vmmc_circ_t ///
-		ovc_serv_as ovc_serv_as2 pp_prev_as {
+		vmmc_circ_a vmmc_circ_t ovc_serv_as ovc_serv_as2 pp_prev_as {
 		egen tot_`t' = rowtotal(`t'_*)
 		qui: ds `t'_*
 		foreach v in `r(varlist)'{

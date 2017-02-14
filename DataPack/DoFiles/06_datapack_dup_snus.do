@@ -84,8 +84,8 @@ N. Bartlett identified whether to combine/delete each
 * clusters submitted by SI advisors - https://github.com/achafetz/ICPI/tree/master/DataPack/RawData
 
 *only for psnu and psnu x im datasets, not site (orgunituid should not exist in PSNU or PSNU IM dataset) 
-	capture confirm variable orgunituid
-	if _rc {
+	*capture confirm variable orgunituid
+	*if _rc {
 	* import cluster dataset
 		preserve
 			import delimited "$data/COP17Clusters.csv", clear
@@ -93,13 +93,16 @@ N. Bartlett identified whether to combine/delete each
 			save "`tempcluster'"
 		restore
 	* merge clusters onto factview
-		merge m:1 psnuuid using "`tempcluster'", nogen 
-
+		merge m:1 psnuuid using "`tempcluster'", nogen force 
+	
+	*ensure prioritization is string
+		capture confirm string variable fy17snuprioritization
+		 if _rc tostring fy17snuprioritization, replace
 	* replace with cluster info
 		foreach x in psnu snu1 psnuuid fy17snuprioritization {
 			replace `x' = cluster_`x' if cluster_set==1
 			}
 			*end do
 		drop cluster*
-		}
+		*}
 		*end

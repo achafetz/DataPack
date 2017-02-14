@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: run through all do files
 **   Date: January 10, 2017
-**	 Updated: 1/24/17
+**	 Updated: 2/1317
 
 *** RUN ALL DO FILES FOR DATA PACK ***
 
@@ -11,6 +11,8 @@
 	- ICPI Fact View NAT_SUBNAT Q4v2.2
 	- ICPI Fact View PSNU Q4v2.2
 	- ICPI Fact View PSNU by IM Q4v2.2
+	- ICPI Fact View Site by IM Q4v2.1
+	- ICPI MCAD Site Q4v2.1 [TX_CURR, TX_NEW, HTC_TST]
 	- FACTS Info Official Names (derived from COP Matrix)
 	- COP17 Clusters (submitted by SI advisors)
 	*/	
@@ -31,25 +33,29 @@
 		run "$dofiles/04_datapack_im_targeting"
 bob	
 ** SITE & DISAGG DISTRIBUTION TOOL **
-	*OUs to create site datasets for
-		local oulist "Angola" "Asia Regional Program" "Botswana" "Burma" ///
-			"Burundi" "Cambodia" "Cameroon" "Caribbean Region" ///
-			"Central America Region" "Central Asia Region" ///
-			"Cote d'Ivoire" "Democratic Republic of the Congo" ///
-			"Dominican Republic" "Ethiopia" "Ghana" "Guyana" ///
-			"Haiti" "India" "Indonesia" "Kenya" "Lesotho" ///
-			"Malawi" "Mozambique" "Namibia" "Nigeria" ///
-			"Papua New Guinea" "Rwanda" "South Africa" ///
-			"South Sudan" "Swaziland" "Tanzania" "Uganda" ///
-			"Ukraine" "Vietnam" "Zambia" "Zimbabwe" 
+	*OUs to create site datasets [Tanzania removed] 
+	/* "Angola" "Asia Regional Program" "Botswana" "Burma" "Burundi" "Cambodia" "Cameroon" "Caribbean Region"
+			"Central America Region" "Central Asia Region"
+			"Cote d'Ivoire" "Democratic Republic of the Congo" 
+			"Dominican Republic" "Ethiopia" "Ghana" "Guyana"
+			"Haiti" "India" "Indonesia" "Kenya" "Lesotho" "Malawi" "Mozambique" "Namibia" "Nigeria"
+			"Papua New Guinea" "Rwanda" "South Africa"
+			"South Sudan" "Swaziland" "Uganda"
+			"Ukraine" "Vietnam" "Zambia" 
+	*/
+	set tr off
+		#delimit ;
+		local oulist `" "Tanzania" "' ;
+		#delimit cr	
 	
 	foreach ou of local oulist{
 	
 	*globals
-		global ou `ou'
-		global ou_ns = subinstr(subinstr("${ou}", " ","",.),"'","",.)
+		global ou "`ou'"
+		global ou_ns = subinstr(subinstr("`ou'", " ","",.),"'","",.)
+		di "$ou_ns"
 	*07 - setup distribution data for site targeting (mirrors 04)
-		run "$dofiles/07_datapack_site_targeting"
+		*run "$dofiles/07_datapack_site_targeting"
 	*08 - setup disagdistribution by indicator, site, IM, and type
 		run "$dofiles/08_datapack_site_disaggs"
 		
