@@ -66,7 +66,7 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
   - Affected Tab: Target Calculation
   - Fix:
       1. In cell F7, replace =INDEX(plhiv,MATCH(snu,snulist,0)) with =INDEX(M_plhiv_fy16,MATCH(snu,Msnulist,0))
-      2. Copy the foruma from F7 down to the last row.
+      2. Copy the formula from F7 down to the last row.
       
 8. Pediatric HTC is calculated on all treatment under five and doesn't exclude EID (under 1)
  - Issue: The formula for total pediatric positives to identify in the HTC Target Calculation tab currently pulls all pediatric positives, instead of excluding those under one who are found through EID and do not need to be found through the HTC testing program. 
@@ -78,3 +78,10 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
       2. In the HTC Target Calculation tab, in cell F7, replace =IFERROR(INDEX(T_ped_treat,MATCH(snu_htc,snu,0))/D7,0)
       with =IFERROR(IF((INDEX(T_ped_treat,MATCH(snu_htc,snu,0))-INDEX(T_eid_treat,MATCH(snu_htc,snu,0)))<0,0,         (INDEX(T_ped_treat,MATCH(snu_htc,snu,0))-INDEX(T_eid_treat,MATCH(snu_htc,snu,0))))/D7,0)
       3. Copy the formula from F7 down to the last row. 
+
+9. PEPFARs coverage of Net New is misapplied
+ - Issue: The formula for calulating Net New takes into consideration PEPFARs coverage of net new. This formula misapplies PEPFAR coverage in SNUs where coverage is less than 100%.
+  - Affected Tab: Target Calculation
+  - Fix:
+      1. In cell AD7, replace =IFERROR(IF(AC7*G7*AB7-IF(N7>AA7,N7,AA7)<0,0,AC7*G7*AB7-IF(N7>AA7,N7,AA7)),0) with =IFERROR(IF(G7*AB7-IF(N7>AA7,N7,AA7)*AC7<0,0,G7*AB7-IF(N7>AA7,N7,AA7)*AC7),0)
+      2. Copy the formula from AD7 down to the last row.
