@@ -1,6 +1,6 @@
 ## Issues and Fixes to the Data Pack
 
-updated: Feb 14
+updated: Feb 15
 
 Here is a running list of issues that affect the Data Pack for SI and EA advisors to be aware of
 
@@ -87,3 +87,10 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
       2. Copy the formula from AD7 down to the last row.
       3. In cell BX7, replace `=IFERROR(IF(J7*BW7-IF(R7>BV7,R7,BV7)<0,0,J7*BW7-IF(R7>BV7,R7,BV7)),0)' with `=IFERROR(IF(J7*(BW7-IF(R7>BV7,R7,BV7))<0,0,J7*(BW7-IF(R7>BV7,R7,BV7))),0)'
       4. Copy the formula from BX7 down to the last row.
+
+10. Wrong prioritization reference in Allocation by IM tab 
+  - Issue: The formula for SNU prioritization in the Allocation by IM tab uses the original prioritization from DATIM. If there is a change made to the prioritization in the Assumptions tab, it will not be reflected here
+  - Affected Tab: Allocation by IM
+  - Fix:
+      1. In cell D7, replace =IFERROR(INDEX(priority_snu,MATCH(Dsnulist,snulist,0)),"NOT DEFINED") with =IFERROR(INDEX(M_priority_snu,MATCH(Dsnulist,snulist,0)),"NOT DEFINED")
+      2. Copy the formula from D7 down to the last row.
