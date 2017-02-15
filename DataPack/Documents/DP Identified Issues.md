@@ -92,5 +92,5 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
   - Issue: The formula for SNU prioritization in the Allocation by IM tab uses the original prioritization from DATIM. If there is a change made to the prioritization in the Assumptions tab, it will not be reflected here
   - Affected Tab: Allocation by IM
   - Fix:
-      1. In cell D7, replace =IFERROR(INDEX(priority_snu,MATCH(Dsnulist,snulist,0)),"NOT DEFINED") with =IFERROR(INDEX(M_priority_snu,MATCH(Dsnulist,snulist,0)),"NOT DEFINED")
+      1. In cell D7, replace =IFERROR(INDEX(**priority_snu**,MATCH(Dsnulist,snulist,0)),"NOT DEFINED") with =IFERROR(INDEX(**M_priority_snu**,MATCH(Dsnulist,snulist,0)),"NOT DEFINED")
       2. Copy the formula from D7 down to the last row.
