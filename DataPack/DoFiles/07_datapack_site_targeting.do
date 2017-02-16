@@ -8,7 +8,7 @@
 *******************************
 /*
 *define OU remove after piloting
-	global ou "Mozambique"
+	global ou "Kenya"
 	global ou_ns = subinstr(subinstr("${ou}", " ","",.),"'","",.)
 */
 *******************************

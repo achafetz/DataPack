@@ -45,7 +45,14 @@ bob
 	*/
 	set tr off
 		#delimit ;
-		local oulist `" "Tanzania" "' ;
+		local oulist `"  "Angola" "Asia Regional Program" "Botswana" "Burma" "Burundi" "Cambodia" "Cameroon" "Caribbean Region"
+			"Central America Region" "Central Asia Region"
+			"Cote d'Ivoire" "Democratic Republic of the Congo" 
+			"Dominican Republic" "Ethiopia" "Ghana" "Guyana"
+			"Haiti" "India" "Indonesia" "Kenya" "Lesotho" "Malawi" "Mozambique" "Namibia" "Nigeria"
+			"Papua New Guinea" "Rwanda" "South Africa"
+			"South Sudan" "Swaziland" "Uganda"
+			"Ukraine" "Vietnam" "Zambia"   "' ;
 		#delimit cr	
 	
 	foreach ou of local oulist{
@@ -55,9 +62,9 @@ bob
 		global ou_ns = subinstr(subinstr("`ou'", " ","",.),"'","",.)
 		di "$ou_ns"
 	*07 - setup distribution data for site targeting (mirrors 04)
-		*run "$dofiles/07_datapack_site_targeting"
+		do "$dofiles/07_datapack_site_targeting"
 	*08 - setup disagdistribution by indicator, site, IM, and type
-		run "$dofiles/08_datapack_site_disaggs"
+		do "$dofiles/08_datapack_site_disaggs"
 		
 		}
 		*end

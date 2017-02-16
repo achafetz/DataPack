@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel disagg allocation of Data Pack targets
 **   Date: January 19, 2017
-**   Updated: 2/13/17
+**   Updated: 2/16/17
 
 
 *******************************
@@ -206,7 +206,10 @@
 	gen pp_prev_as_m_o50 = fy2016apr if indicator=="PP_PREV" & disaggregate=="Age/Sex" & sex=="Male" & age=="50+" & numeratordenom=="N"
 
 * drop if no data in row
-	recode tx_new_asa_f_u1-pp_prev_as_m_o50 (0 = .)
+	foreach x of varlist tx_new_asa_f_u1-pp_prev_as_m_o50 {
+		recode `x' (0 = .)
+		}
+		*end
 	egen data = rownonmiss(tx_new_asa_f_u1-pp_prev_as_m_o50)
 	drop if data==0 //& mechanismid!="0"
 	drop data
