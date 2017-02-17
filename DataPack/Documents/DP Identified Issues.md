@@ -85,7 +85,7 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
   - Fix:
       1. In cell AD7, replace `=IFERROR(IF(AC7*G7*AB7-IF(N7>AA7,N7,AA7)<0,0,AC7*G7*AB7-IF(N7>AA7,N7,AA7)),0)` with `=IFERROR(IF(AC7*(G7*AB7-IF(N7>AA7,N7,AA7))<0,0,AC7*(G7*AB7-IF(N7>AA7,N7,AA7))),0)`
       2. Copy the formula from AD7 down to the last row.
-      3. In cell BX7, replace `=IFERROR(IF(J7*BW7-IF(R7>BV7,R7,BV7)<0,0,J7*BW7-IF(R7>BV7,R7,BV7)),0)' with `=IFERROR(IF(J7*(BW7-IF(R7>BV7,R7,BV7))<0,0,J7*(BW7-IF(R7>BV7,R7,BV7))),0)'
+      3. In cell BX7, replace =IFERROR(IF(J7*BW7-IF(R7>BV7,R7,BV7)<0,0,J7*BW7-IF(R7>BV7,R7,BV7)),0) with =IFERROR(IF((J7*BW7-IF(R7>BV7,R7,BV7))<0,0,(J7*BW7-IF(R7>BV7,R7,BV7))),0)
       4. Copy the formula from BX7 down to the last row.
 
 10. Wrong prioritization reference in Allocation by IM tab 
