@@ -1,6 +1,6 @@
 ## Issues and Fixes to the Data Pack
 
-updated: Feb 15
+updated: Feb 20
 
 Here is a running list of issues that affect the Data Pack for SI and EA advisors to be aware of
 
@@ -31,10 +31,11 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
         6. Copy this new formula down to all the rows in this column
         7. Navigate to the SNU Targets for EA tab
         8. Replace the formula in S7, HTC_TST(excluding PMTCT & VMMC), with the formula below
-            * S7 = INDEX(**'HTC Target Calculation'!Q$7:Q$[LastRow]**,MATCH(Tsnulist, htc_snu,0))
+            * S7 = INDEX(**'HTC Target Calculation'!Q$5:Q$[LastRow]**,MATCH(Tsnulist, htc_snu,0))
         9. Copy this formula down to the rest of the rows in the column
         
-        NOTE: A change was made in step h. The original fix (...$Q$7:$Q$[LastRow]...) was causing errors. 
+        NOTE: A change was made in step h. The original fix (...$Q$7:$Q$[LastRow]...) was causing errors.
+        NOTE 2: A second change was made in step h. The revised fix (...Q$7:Q$[LastRow]...) was causing errors.
 
 4. TX_CURR Patient Year calculation
     - Issue: The current formula to calculate the patient year uses PMTCT_EID as a proxy for TX_CURR <1 (which is used to get TX_CURR 1-15 from the TX_CUR <15 calcuated in the Data Pack). Since PMTCT_EID over estimates those on treatment since it includes negative tests as well, so TX_NEW <1 should be used instead (as is used for the FY18 calculation).
@@ -92,3 +93,17 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
   - Fix:
       1. In cell D7, replace =IFERROR(INDEX(**priority_snu**,MATCH(Dsnulist,snulist,0)),"NOT DEFINED") with =IFERROR(INDEX(**M_priority_snu**,MATCH(Dsnulist,snulist,0)),"NOT DEFINED")
       2. Copy the formula from D7 down to the last row.
+
+11. Potential double-counting of HTC 
+  - Issue: Some of the named ranges are starting from cell 7 when they should start at cell 5. This is causing random errors including 
+  REF errors and double counting of certain HTC numbers.
+  - Affected Tab: SNU Targets for EA
+  - Fix:
+      1. In cells S7, T7, U7, and V7, replace ('HTC Target Calculation'!..**$5**:..$17) with ('HTC Target Calculation'!..**$7**:..$17) 
+      2. This will cause errors which will be fixed by step c. 
+      3. You must change some named references. This is done in the Excel Name Manager.
+         1. Under the excel ribbon "Formulas" click on name manager. 
+         2. Change the following named ranges:
+            1. htc_snu: From ='HTC Target Calculation'!$C$7:$C$[Last Row] to ='HTC Target Calculation'!$C$5:$C$[Last Row]
+            2. snu_htc: From ='HTC Target Calculation'!$C$7:$C$[Last Row] to ='HTC Target Calculation'!$C$5:$C$[Last Row]
+            3. Tsnulist: From ='SNU Targets for EA'!$C$7:$C$[Last Row] to ='SNU Targets for EA'!$C$5:$C$[Last Row]
