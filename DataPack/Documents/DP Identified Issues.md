@@ -99,7 +99,7 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
   REF errors and double counting of certain HTC numbers.
   - Affected Tab: SNU Targets for EA
   - Fix:
-      1. In cells S7, T7, U7, and V7, replace ('HTC Target Calculation'!..**$5**:..$[Last Row]) with ('HTC Target Calculation'!..**$7**:..$[Last Row]) 
+      1. In cells S7, T7, U7, and V7, replace ('HTC Target Calculation'!..**$7**:..$[Last Row]) with ('HTC Target Calculation'!..**$5**:..$[Last Row]) 
       2. This will cause errors which will be fixed by step c. 
       3. You must change some named references. This is done in the Excel Name Manager.
          1. Under the excel ribbon "Formulas" click on name manager. 
