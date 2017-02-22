@@ -112,5 +112,5 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
   - Issue: The forumula for the PMTCT_EID points to TX_under1 and it should point to PMTCT_EID
   - Affected Tab: PBAC IM Targets
   - Fix:
-      1. Select Column N and O
+      1. Select Column N and O, and search and replace.
       2. For the whole of those two columns, replace **D_tx_curr_u1_fy18** with **D_pmtct_eid_fy18**
