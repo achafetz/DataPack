@@ -107,3 +107,10 @@ Here is a running list of issues that affect the Data Pack for SI and EA advisor
             1. htc_snu: From ='HTC Target Calculation'!$C$7:$C$[Last Row] to ='HTC Target Calculation'!$C$5:$C$[Last Row]
             2. snu_htc: From ='HTC Target Calculation'!$C$7:$C$[Last Row] to ='HTC Target Calculation'!$C$5:$C$[Last Row]
             3. Tsnulist: From ='SNU Targets for EA'!$C$7:$C$[Last Row] to ='SNU Targets for EA'!$C$5:$C$[Last Row]
+
+12. PBAC IM Targets PMTCT_EID points to TX_under1
+  - Issue: The forumula for the PMTCT_EID points to TX_under1 and it should point to PMTCT_EID
+  - Affected Tab: PBAC IM Targets
+  - Fix:
+      1. Select Column N and O
+      2. For the whole of those two columns, replace **D_tx_curr_u1_fy18** with **D_pmtct_eid_fy18**
