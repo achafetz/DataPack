@@ -1,7 +1,7 @@
 ### Target Compiler Tool
 
 
-The Site and Disaggregate Tool, new this COP cycle, allows teams to take the district targets and allocate them down to the site level. To do so, the site tool needs to draw on the targets created in the Data Pack. Since there site tool was created after the distribution of the data pack, there is no output tab as there is for the PBAC that puts all the targets in one place and updates automatically as inputs are adjusted in the Data Pack.
+The Site and Disaggregate Tool, new this COP cycle, allows teams to take the district targets and allocate them down to the site level. To do so, the site tool needs to draw on the targets created in the Data Pack. Since the site tool was created after the distribution of the data pack, there is no output tab as there is for the PBAC that puts all the targets in one place and updates automatically as inputs are adjusted in the Data Pack.
 
 Rather than having to manually search for the 23 columns needed for the site and disaggregate tool and copy them one by one from one spreadsheet to the other, we have created a macro in Excel that automatically does all this for you in one fell swoop in an Excel file called the target Compiler Tool.
 
