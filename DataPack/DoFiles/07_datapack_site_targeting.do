@@ -3,12 +3,12 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel site allocation of Data Pack targets
 **   Date: January 3, 2017
-**   Updated: 2/2/17
+**   Updated: 3/2/17
 
 *******************************
 /*
 *define OU remove after piloting
-	global ou "Kenya"
+	global ou "Zambia"
 	global ou_ns = subinstr(subinstr("${ou}", " ","",.),"'","",.)
 */
 *******************************
@@ -47,6 +47,7 @@
 	drop if operatingunit!="$ou"
 	replace psnu = "[no associated SNU]" if psnu==""
 	replace mechanismid = 0 if mechanismid==1 //keep just one dedup mechanism
+	replace psnu="Ikelengi District" if psnuuid=="BFJPdJYyZSS" //mislabelled psnu in Zambia
 
 *adjust prioritizations
 	rename fy17snuprioritization snuprioritization
@@ -56,7 +57,7 @@
 	run "$dofiles/05_datapack_officialnames"
 	
 *merge facility names onto dataset
-	run "$dofiles/09_datapack_sitenames"
+	run "$dofiles/10_datapack_sitenames"
 	
 * string mech and rename variables for aggregation
 	tostring mechanismid, replace
@@ -66,7 +67,7 @@
 	drop fy2015q2-fy2016q4 fy2017_targets
 	
 * save
-	save "$output/temp_site_${ou_ns}", replace
+	save "$output/temp_site_${ou_ns}_base", replace
 	
 * gen vars for distro tabs (see 01_datapack_outputs)
 	// output generated in Data Pack template (POPsubset sheet)
@@ -91,25 +92,6 @@
 	gen ovc_serv = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Total Numerator" & numeratordenom=="N"
 	gen ovc_serv_u18 = fy2016apr if indicator=="OVC_SERV" & disaggregate=="Age/Sex" & inlist(age, "01-04", "05-09", "10-14", "15-17") & numeratordenom=="N"
 	gen pp_prev = fy2016apr if indicator=="PP_PREV" & disaggregate=="Total Numerator" & numeratordenom=="N"
-
-	*fix TX_CURR disaggs --> resolved with MCAD dataset
-	/*J. Houston
-	- HTC_TST: fine disags for most countries; fine + coarse for Haiti, Mozambique, Nigeria, South Africa, Tanzania, Uganda, Ukraine, and (coarse) Vietnam
-	- TX_CURR: fine disags for all countries except (coarse) Mozambique and Vietnam, (fine + coarse)  Uganda and South Africa */
-	/*
-	foreach v in htc_tst_u15 htc_tst_o15{
-		replace `v' = . if inlist(operatingunit, "Haiti", "Mozambique", ///
-			"Nigeria", "South Africa", "Tanzania", "Uganda", "Ukraine", "Vietnam")
-		}
-		*end
-	replace htc_tst_u15 = fy2016apr if indicator=="HTC_TST" & inlist(disaggregate, "Age/Sex/Result", "Age/Sex Aggregated/Result") & inlist(age, "<01", "01-04", "05-09","10-14", "<15") & numeratordenom=="N" & inlist(operatingunit, "Haiti", "Mozambique", "Nigeria", "South Africa", "Tanzania", "Uganda", "Ukraine")
-	replace htc_tst_u15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex Aggregated/Result" & age=="<15" & numeratordenom=="N" & operatingunit=="Vietnam"
-	replace htc_tst_o15 = fy2016apr if indicator=="HTC_TST" & inlist(disaggregate, "Age/Sex/Result", "Age/Sex Aggregated/Result") & inlist(age, "15-19", "20-24", "25-49", "50+", ">15") & numeratordenom=="N" & inlist(operatingunit, "Haiti", "Mozambique", "Nigeria", "South Africa", "Tanzania", "Uganda", "Ukraine")
-	replace htc_tst_o15 = fy2016apr if indicator=="HTC_TST" & disaggregate=="Age/Sex Aggregated/Result" & age==">15" & numeratordenom=="N" & operatingunit=="Vietnam"
-	replace tx_curr_u15 = . if inlist(operatingunit, "Mozambique", "South Africa", "Uganda", "Vietnam")
-	replace tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex", "Age/Sex Aggregated", "Age/Sex, Aggregated") & inlist(age, "01-04", "05-14", "01-14") & numeratordenom=="N" & inlist(operatingunit, "Uganda", "South Africa")
-	replace tx_curr_u15 = fy2016apr if indicator=="TX_CURR" & inlist(disaggregate, "Age/Sex Aggregated", "Age/Sex, Aggregated") & age=="01-14" & numeratordenom=="N" & inlist(operatingunit, "Mozambique", "Vietnam")
-	*/
 	
 *add common surname
 	drop fy*
@@ -147,12 +129,5 @@
 	order operatingunit psnuuid psnu orgunituid orgunitname mechanismid implementingmechanismname primepartner indicatortype combo
 	sort operatingunit psnu orgunituid mechanismid  indicatortype
 
-*delete older version of the output
-	fs "$dpexcel/${ou_ns}_Site*.xlsx"
-	foreach f in `r(files)'{
-		erase "$dpexcel/`f'"
-		}
-		*end
-*export
-	export excel using "$dpexcel/${ou_ns}_Site_${date}.xlsx", ///
-		firstrow(variables) sheet("Site Allocation") sheetreplace
+*save 
+	save "$output/temp_site_${ou_ns}_alloc", replace

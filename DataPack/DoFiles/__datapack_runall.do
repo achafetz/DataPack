@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: run through all do files
 **   Date: January 10, 2017
-**	 Updated: 2/1317
+**	 Updated: 3/2/17
 
 *** RUN ALL DO FILES FOR DATA PACK ***
 
@@ -65,6 +65,7 @@ bob
 		do "$dofiles/07_datapack_site_targeting"
 	*08 - setup disagdistribution by indicator, site, IM, and type
 		do "$dofiles/08_datapack_site_disaggs"
-		
+	*09 - merge 07 and 08 into one file and export
+		do "$dofiles/09_datapack_site_compile"	
 		}
 		*end

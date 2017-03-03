@@ -3,19 +3,19 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel disagg allocation of Data Pack targets
 **   Date: January 19, 2017
-**   Updated: 2/16/17
+**   Updated: 3/2/17
 
 
 *******************************
 /*
 *define OU remove after piloting
-	global ou "Malawi"
+	global ou "Zambia"
 	global ou_ns = subinstr(subinstr("${ou}", " ","",.),"'","",.)
 */
 *******************************
 
 *open site dataset
-	use "$output/temp_site_${ou_ns}", clear
+	use "$output/temp_site_${ou_ns}_base", clear
 
 ** TX_NEW tab
 	*create variables
@@ -248,8 +248,5 @@
 	gen combo = orgunituid + "/" + mechanismid + "/" + indicatortype
 	destring mechanismid, replace
 	order operatingunit psnuuid psnu orgunituid orgunitname mechanismid implementingmechanismname primepartner indicatortype combo
-	sort operatingunit psnu orgunituid mechanismid indicatortype	
-
-*export
-	export excel using "$dpexcel/${ou_ns}_Site_${date}.xlsx", ///
-		firstrow(variables) sheet("Indicators") sheetreplace
+*save 
+	save "$output/temp_site_${ou_ns}_disaggs", replace

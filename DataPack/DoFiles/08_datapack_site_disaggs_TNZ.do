@@ -3,19 +3,19 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel disagg allocation of Data Pack targets
 **   Date: January 19, 2017
-**   Updated: 2/13/17
+**   Updated: 3/2/17
 
 
 *******************************
 /*
 *define OU remove after piloting
-	global ou Tanzania"
+	global ou "Tanzania"
 	global ou_ns = subinstr(subinstr("${ou}", " ","",.),"'","",.)
 */
 *******************************
 
 *open site dataset
-	use "$output/temp_site_${ou_ns}", clear
+	use "$output/temp_site_${ou_ns}_base", clear
 
 ** TX_NEW tab
 	*create variables
@@ -25,36 +25,34 @@
 	gen tx_new_aas_f_o15 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Aggregated Age/Sex" & sex=="Female" & age=="15+" & numeratordenom=="N"
 	gen tx_new_aas_m_u15 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Aggregated Age/Sex" & sex=="Male" & age=="<15" & numeratordenom=="N"
 	gen tx_new_aas_m_o15 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Aggregated Age/Sex" & sex=="Male" & age=="15+" & numeratordenom=="N"
-	gen tx_new_as_f_u1 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Female" & age=="<01" & numeratordenom=="N"
-	gen tx_new_as_f_1to4 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Female" & age=="01-04" & numeratordenom=="N"
-	gen tx_new_as_f_5to9 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Female" & age=="05-09" & numeratordenom=="N"
-	gen tx_new_as_f_10to14 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Female" & age=="10-14" & numeratordenom=="N"
-	gen tx_new_as_f_15to19 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Female" & age=="15-19" & numeratordenom=="N"
-	gen tx_new_as_f_20to24 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Female" & age=="20-24" & numeratordenom=="N"
-	gen tx_new_as_f_25to49 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Female" & age=="25-49" & numeratordenom=="N"
-	gen tx_new_as_f_o50 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Female" & age=="50+" & numeratordenom=="N"
-	gen tx_new_as_m_u1 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Male" & age=="<01" & numeratordenom=="N"
-	gen tx_new_as_m_1to4 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Male" & age=="01-04" & numeratordenom=="N"
-	gen tx_new_as_m_5to9 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Male" & age=="05-09" & numeratordenom=="N"
-	gen tx_new_as_m_10to14 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Male" & age=="10-14" & numeratordenom=="N"
-	gen tx_new_as_m_15to19 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Male" & age=="15-19" & numeratordenom=="N"
-	gen tx_new_as_m_20to24 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Male" & age=="20-24" & numeratordenom=="N"
-	gen tx_new_as_m_25to49 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Male" & age=="25-49" & numeratordenom=="N"
-	gen tx_new_as_m_o50 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="Age/Sex" & sex=="Male" & age=="50+" & numeratordenom=="N"
+	gen tx_new_as_u1 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="AgeLessThanTen" & age=="<01" & numeratordenom=="N"
+	gen tx_new_as_1to9 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="AgeLessThanTen" & age=="01-09" & numeratordenom=="N"
+	gen tx_new_as_f_10to14 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="AgeAboveTen/Sex" & sex=="Female" & age=="10-14" & numeratordenom=="N"
+	gen tx_new_as_f_15to19 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="AgeAboveTen/Sex" & sex=="Female" & age=="15-19" & numeratordenom=="N"
+	gen tx_new_as_f_20to24 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="AgeAboveTen/Sex" & sex=="Female" & age=="20-24" & numeratordenom=="N"
+	gen tx_new_as_f_25to49 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="AgeAboveTen/Sex" & sex=="Female" & age=="25-49" & numeratordenom=="N"
+	gen tx_new_as_f_o50 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="AgeAboveTen/Sex" & sex=="Female" & age=="50+" & numeratordenom=="N"
+	gen tx_new_as_m_10to14 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="AgeAboveTen/Sex" & sex=="Male" & age=="10-14" & numeratordenom=="N"
+	gen tx_new_as_m_15to19 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="AgeAboveTen/Sex" & sex=="Male" & age=="15-19" & numeratordenom=="N"
+	gen tx_new_as_m_20to24 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="AgeAboveTen/Sex" & sex=="Male" & age=="20-24" & numeratordenom=="N"
+	gen tx_new_as_m_25to49 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="AgeAboveTen/Sex" & sex=="Male" & age=="25-49" & numeratordenom=="N"
+	gen tx_new_as_m_o50 = fy2017_targets if indicator=="TX_NEW" & disaggregate=="AgeAboveTen/Sex" & sex=="Male" & age=="50+" & numeratordenom=="N"
 	gen tx_curr_aas_f_u15 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Aggregated Age/Sex" & sex=="Female" & age=="<15" & numeratordenom=="N"
 	gen tx_curr_aas_f_o15 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Aggregated Age/Sex" & sex=="Female" & age=="15+" & numeratordenom=="N"
 	gen tx_curr_aas_m_u15 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Aggregated Age/Sex" & sex=="Male" & age=="<15" & numeratordenom=="N"
 	gen tx_curr_aas_m_o15 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Aggregated Age/Sex" & sex=="Male" & age=="15+" & numeratordenom=="N"
-	gen tx_curr_as_f_u1 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Female" & age=="<01" & numeratordenom=="N"
-	gen tx_curr_as_f_1to4 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Female" & age=="01-04" & numeratordenom=="N"
-	gen tx_curr_as_f_05to14 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Female" & age=="05-14" & numeratordenom=="N"
-	gen tx_curr_as_f_15to19 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Female" & age=="15-19" & numeratordenom=="N"
-	gen tx_curr_as_f_o20 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Female" & age=="20+" & numeratordenom=="N"
-	gen tx_curr_as_m_u1 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Male" & age=="<01" & numeratordenom=="N"
-	gen tx_curr_as_m_1to4 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Male" & age=="01-04" & numeratordenom=="N"
-	gen tx_curr_as_m_5to14 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Male" & age=="05-14" & numeratordenom=="N"
-	gen tx_curr_as_m_15to19 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Male" & age=="15-19" & numeratordenom=="N"
-	gen tx_curr_as_m_o20 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="Age/Sex" & sex=="Male" & age=="20+" & numeratordenom=="N"
+	gen tx_curr_as_u1 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="AgeLessThanTen" & age=="<01" & numeratordenom=="N"
+	gen tx_curr_as_1to9 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="AgeLessThanTen" & age=="01-09" & numeratordenom=="N"
+	gen tx_curr_as_f_10to14 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="AgeAboveTen/Sex" & sex=="Female" & age=="10-14" & numeratordenom=="N"
+	gen tx_curr_as_f_15to19 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="AgeAboveTen/Sex" & sex=="Female" & age=="15-19" & numeratordenom=="N"
+	gen tx_curr_as_f_20to24 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="AgeAboveTen/Sex" & sex=="Female" & age=="20-24" & numeratordenom=="N"
+	gen tx_curr_as_f_25to49 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="AgeAboveTen/Sex" & sex=="Female" & age=="25-49" & numeratordenom=="N"
+	gen tx_curr_as_f_o50 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="AgeAboveTen/Sex" & sex=="Female" & age=="50+" & numeratordenom=="N"
+	gen tx_curr_as_m_10to14 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="AgeAboveTen/Sex" & sex=="Male" & age=="10-14" & numeratordenom=="N"
+	gen tx_curr_as_m_15to19 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="AgeAboveTen/Sex" & sex=="Male" & age=="15-19" & numeratordenom=="N"
+	gen tx_curr_as_m_20to24 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="AgeAboveTen/Sex" & sex=="Male" & age=="20-24" & numeratordenom=="N"
+	gen tx_curr_as_m_25to49 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="AgeAboveTen/Sex" & sex=="Male" & age=="25-49" & numeratordenom=="N"
+	gen tx_curr_as_m_o50 = fy2017_targets if indicator=="TX_CURR" & disaggregate=="AgeAboveTen/Sex" & sex=="Male" & age=="50+" & numeratordenom=="N"
 	gen pmtct_stat_kn_known = fy2017_targets if indicator=="PMTCT_STAT" & disaggregate=="Known/New" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"
 	gen pmtct_stat_kn_new = fy2017_targets if indicator=="PMTCT_STAT" & disaggregate=="Known/New" & otherdisaggregate=="Newly Identified" & numeratordenom=="N"
 	gen pmtct_arv_m_azt = fy2017_targets if indicator=="PMTCT_ARV" & disaggregate=="MaternalRegimenType" & otherdisaggregate=="AZT" & numeratordenom=="N"
@@ -88,22 +86,18 @@
 	gen htc_tst_aas_f_o15 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex Aggregated/Result" & sex=="Female" & age=="15+" & numeratordenom=="N"
 	gen htc_tst_aas_m_u15 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex Aggregated/Result" & sex=="Male" & age=="<15" & numeratordenom=="N"
 	gen htc_tst_aas_m_o15 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex Aggregated/Result" & sex=="Male" & age=="15+" & numeratordenom=="N"
-	gen htc_tst_asr_f_u1 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="<01" & numeratordenom=="N"
-	gen htc_tst_asr_f_1to4 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="01-04" & numeratordenom=="N"
-	gen htc_tst_asr_f_5to9 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="05-09" & numeratordenom=="N"
-	gen htc_tst_asr_f_10to14 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="10-14" & numeratordenom=="N"
-	gen htc_tst_asr_f_15to19 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="15-19" & numeratordenom=="N"
-	gen htc_tst_asr_f_20to24 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="20-24" & numeratordenom=="N"
-	gen htc_tst_asr_f_25to49 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="25-49" & numeratordenom=="N"
-	gen htc_tst_asr_f_o50 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Female" & age=="50+" & numeratordenom=="N"
-	gen htc_tst_asr_m_u1 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="<01" & numeratordenom=="N"
-	gen htc_tst_asr_m_1to4 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="01-04" & numeratordenom=="N"
-	gen htc_tst_asr_m_5to9 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="05-09" & numeratordenom=="N"
-	gen htc_tst_asr_m_10to14 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="10-14" & numeratordenom=="N"
-	gen htc_tst_asr_m_15to19 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="15-19" & numeratordenom=="N"
-	gen htc_tst_asr_m_20to24 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="20-24" & numeratordenom=="N"
-	gen htc_tst_asr_m_25to49 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="25-49" & numeratordenom=="N"
-	gen htc_tst_asr_m_o50 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="Age/Sex/Result" & sex=="Male" & age=="50+" & numeratordenom=="N"
+	gen htc_tst_asr_u1 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="AgeLessThanTen/Positive" & age=="<01" & numeratordenom=="N"
+	gen htc_tst_asr_1to9 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="AgeLessThanTen/Positive" & age=="01-09" & numeratordenom=="N"
+	gen htc_tst_asr_f_10to14 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="AgeAboveTen/Sex/Positive" & sex=="Female" & age=="10-14" & numeratordenom=="N"
+	gen htc_tst_asr_f_15to19 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="AgeAboveTen/Sex/Positive" & sex=="Female" & age=="15-19" & numeratordenom=="N"
+	gen htc_tst_asr_f_20to24 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="AgeAboveTen/Sex/Positive" & sex=="Female" & age=="20-24" & numeratordenom=="N"
+	gen htc_tst_asr_f_25to49 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="AgeAboveTen/Sex/Positive" & sex=="Female" & age=="25-49" & numeratordenom=="N"
+	gen htc_tst_asr_f_o50 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="AgeAboveTen/Sex/Positive" & sex=="Female" & age=="50+" & numeratordenom=="N"
+	gen htc_tst_asr_m_10to14 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="AgeAboveTen/Sex/Positive" & sex=="Male" & age=="10-14" & numeratordenom=="N"
+	gen htc_tst_asr_m_15to19 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="AgeAboveTen/Sex/Positive" & sex=="Male" & age=="15-19" & numeratordenom=="N"
+	gen htc_tst_asr_m_20to24 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="AgeAboveTen/Sex/Positive" & sex=="Male" & age=="20-24" & numeratordenom=="N"
+	gen htc_tst_asr_m_25to49 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="AgeAboveTen/Sex/Positive" & sex=="Male" & age=="25-49" & numeratordenom=="N"
+	gen htc_tst_asr_m_o50 = fy2017_targets if indicator=="HTC_TST" & disaggregate=="AgeAboveTen/Sex/Positive" & sex=="Male" & age=="50+" & numeratordenom=="N"
 	gen vmmc_circ_a_u1 = fy2017_targets if indicator=="VMMC_CIRC" & disaggregate=="Age2017" & age=="<01" & numeratordenom=="N"
 	gen vmmc_circ_a_1to9 = fy2017_targets if indicator=="VMMC_CIRC" & disaggregate=="Age2017" & age=="01-09" & numeratordenom=="N"
 	gen vmmc_circ_a_10to14 = fy2017_targets if indicator=="VMMC_CIRC" & disaggregate=="Age2017" & age=="10-14" & numeratordenom=="N"
@@ -210,22 +204,25 @@
 	gen pp_prev_as_m_o50 = .
 
 * drop if no data in row
-	recode tx_new_aas_f_u1-pp_prev_as_m_o50 (0 = .)
+	foreach x of varlist tx_new_aas_f_u1-pp_prev_as_m_o50 {
+		recode `x' (0 = .)
+		}
+		*end
 	egen data = rownonmiss(tx_new_aas_f_u1-pp_prev_as_m_o50)
 	drop if data==0 //& mechanismid!="0"
 	drop data
-	
+
 *collapse
 	drop fy2017_targets
 	ds, not(type string)
 	collapse (sum) `r(varlist)', by(operatingunit psnu psnuuid orgunituid orgunitname indicatortype mechanismid implementingmechanismname primepartner)
-	
+
 *create distro for denominators and eid_pos
-	gen d_tb_art_D = round(tb_art_D/tb_art,0.0001) 
+	gen d_tb_art_D = round(tb_art_D/tb_art,0.0001)
 	gen d_pmtct_eid_pos_2mo = round(pmtct_eid_pos_2mo/pmtct_eid_i_u2mo,0.0001)
 	gen d_pmtct_eid_pos_12mo = round(pmtct_eid_pos_12mo/(pmtct_eid_i_u2mo + pmtct_eid_i_2to12mo),0.0001)
 	drop tb_art_D tb_art pmtct_eid_pos_2mo pmtct_eid_pos_12mo
-	
+
 *create distribution
 	foreach t in tx_new_aas tx_new_as tx_curr_aas tx_curr_as ///
 		pmtct_stat_kn pmtct_arv_m pmtct_eid_i  ///
@@ -249,8 +246,7 @@
 	gen combo = orgunituid + "/" + mechanismid + "/" + indicatortype
 	destring mechanismid, replace
 	order operatingunit psnuuid psnu orgunituid orgunitname mechanismid implementingmechanismname primepartner indicatortype combo
-	sort operatingunit psnu orgunituid mechanismid indicatortype	
+	sort operatingunit psnu orgunituid mechanismid indicatortype
 
-*export
-	export excel using "$dpexcel/${ou_ns}_Site_${date}.xlsx", ///
-		firstrow(variables) sheet("Indicators") sheetreplace
+	*save
+		save "$output/temp_site_${ou_ns}_disaggs", replace
