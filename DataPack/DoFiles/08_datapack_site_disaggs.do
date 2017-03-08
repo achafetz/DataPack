@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel disagg allocation of Data Pack targets
 **   Date: January 19, 2017
-**   Updated: 3/2/17
+**   Updated: 3/5/17
 
 
 *******************************
@@ -217,6 +217,8 @@
 *collapse
 	drop fy2016apr
 	ds, not(type string)
+	sort psnuuid
+	replace psnu = psnu[_n-1] if psnuuid==psnuuid[_n-1]
 	collapse (sum) `r(varlist)', by(operatingunit psnu psnuuid orgunituid orgunitname indicatortype mechanismid implementingmechanismname primepartner)
 	
 *create distro for denominators and eid_pos

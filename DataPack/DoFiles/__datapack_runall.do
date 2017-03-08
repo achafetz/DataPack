@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: run through all do files
 **   Date: January 10, 2017
-**	 Updated: 3/2/17
+**	 Updated: 3/5/17
 
 *** RUN ALL DO FILES FOR DATA PACK ***
 
@@ -41,12 +41,11 @@ bob
 			"Haiti" "India" "Indonesia" "Kenya" "Lesotho" "Malawi" "Mozambique" "Namibia" "Nigeria"
 			"Papua New Guinea" "Rwanda" "South Africa"
 			"South Sudan" "Swaziland" "Uganda"
-			"Ukraine" "Vietnam" "Zambia" 
+			"Ukraine" "Vietnam" "Zambia" "Zimbabwe"
 	*/
 	set tr off
 		#delimit ;
-		local oulist `"  "Angola" "Asia Regional Program" "Botswana" "Burma" "Burundi" "Cambodia" "Cameroon" "Caribbean Region"
-			"Central America Region" "Central Asia Region"
+		local oulist `"  "Central Asia Region"
 			"Cote d'Ivoire" "Democratic Republic of the Congo" 
 			"Dominican Republic" "Ethiopia" "Ghana" "Guyana"
 			"Haiti" "India" "Indonesia" "Kenya" "Lesotho" "Malawi" "Mozambique" "Namibia" "Nigeria"

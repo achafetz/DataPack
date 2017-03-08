@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: generate output for Excel site allocation of Data Pack targets
 **   Date: January 3, 2017
-**   Updated: 3/2/17
+**   Updated: 3/5/17
 
 *******************************
 /*
@@ -47,7 +47,8 @@
 	drop if operatingunit!="$ou"
 	replace psnu = "[no associated SNU]" if psnu==""
 	replace mechanismid = 0 if mechanismid==1 //keep just one dedup mechanism
-	replace psnu="Ikelengi District" if psnuuid=="BFJPdJYyZSS" //mislabelled psnu in Zambia
+	sort psnuuid
+	replace psnu = psnu[_n-1] if psnuuid==psnuuid[_n-1]
 
 *adjust prioritizations
 	rename fy17snuprioritization snuprioritization
