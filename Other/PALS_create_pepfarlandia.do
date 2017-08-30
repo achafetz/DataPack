@@ -3,7 +3,7 @@
 **   Aaron Chafetz
 **   Purpose: created "anonymized" datasets
 **   Date: Aug 15, 2017
-**   Updated: 8/17/17
+**   Updated: 8/18/17
 
 *** high level dataset for handout ***
 
@@ -42,7 +42,10 @@
 	use "C:\Users\achafetz\Documents\ICPI\Data\ICPI_FactView_PSNU_IM_20170702_v2_1.dta", clear	
 
 * subset to key OU and indicators
-	keep if operatingunit=="Cote d'Ivoire" & inlist(indicator, "HTS_TST_POS", "TX_NEW")
+	keep if operatingunit=="Cote d'Ivoire" & ///
+		inlist(indicator, "HTS_TST_POS", "TX_NEW") & ///
+		inlist(standardizeddisaggregate, "Modality/MostCompleteAgeDisagg", ///
+			"MostCompleteAgeDisagg", "Total Numerator")
 
 *mask psnus (using snu1 to reduce psnu count)	
 	*new list of psnus and snu1s
@@ -53,20 +56,20 @@
 		"Abidjan 2" "North" "Banrockburn"
 		"Agneby-Tiassa-Me" "North" "Lundy"
 		"Belier" "North" "Ballater"
-		"Bounkani-gontougo" "North" "Murkwell "
+		"Bounkani-gontougo" "North" "Murkwell"
 		"Cavally-Guemon" "North" "Luton"
 		"Gbeke" "South" "Stratford"
 		"Gbokle-Nawa-San Pedro" "South" "Thralkeld"
 		"Goh" "South" "Swindmore"
 		"Hambol" "South" "Fallkirk"
 		"Haut-Sassandra" "South" "Skargness"
-		"Indenie-Djuablin" "South" "Coalfell "
+		"Indenie-Djuablin" "South" "Coalfell"
 		"Kabadougou-Bafing-Folon" "East" "Solaris"
-		"Loh-Djiboua" "East" "Briar Glen "
+		"Loh-Djiboua" "East" "Briar Glen"
 		"Marahoue" "East" "Lullin "
 		"N'zi-ifou" "East" "Meteli"
 		"Poro-Tchologo-Bagoue" "East" "Landow"
-		"Sud-Comoe" "East" "Tardide "
+		"Sud-Comoe" "East" "Tardide"
 		"Tonkpi" "West" "Sharpton"
 		"Worodougou-Bere" "West" "Rivermouth"
 		"_Military Cote d'Ivoire" "_Military" "_Military"
@@ -104,7 +107,7 @@
 		13561 20243 "YHPNV" "ImpEdge"
 		13616 20244 "JHCSV" "Vela 2"
 		13624 20245 "EBNIR" "Onion"
-		13631 20246 "WCAUJ" "Chronos "
+		13631 20246 "WCAUJ" "Chronos"
 		13651 20247 "PZNVP" "Draco"
 		16685 20248 "CAHXS" "Spearpoint"
 		17494 20249 "TLASH" "Gamma"
@@ -139,9 +142,14 @@
 	*merge
 	sort mechanismid
 	merge m:1 mechanismid using "`temp_mech'", nogen
+
 	
+*simplify snu prioritizations	
+	gen fy17snuprioritization_new = "Scale-Up" if strpos(fy17snuprioritization,"Scale")>0
+		replace fy17snuprioritization_new = "Other" if fy17snuprioritization_new!="Scale-Up"
+		
 *replace original variables with masked ones
-	foreach n in snu1 psnu mechanismid implementingmechanismname primepartner{
+	foreach n in snu1 psnu mechanismid implementingmechanismname primepartner fy17snuprioritization{
 		replace `n' = `n'_new
 		drop `n'_new
 		}
@@ -151,11 +159,21 @@
 	replace operatingunit = "PEPFARlandia"
 
 *clear region and uids for deidentification
-	foreach i in ïregion regionuid operatingunituid countryname snu1uid psnuuid mechanismuid {
+	foreach i in ïregion regionuid operatingunituid countryname snu1uid psnuuid mechanismuid fy16snuprioritization{
 		replace `i' = ""
 		}
 		*end
+
+*rename region
+	rename ïregion region
+	
+*remove blank rows
+	egen row_tot = rowtotal(fy2016* fy2017*)
+		drop if row_tot==0
+		drop row_tot
 		
 *export file for use
-	export delimited "C:\Users\achafetz\Documents\ICPI\PALS\FactView_PEPFARlandia_fy17q2.txt", nolabel replace dataf
+	export delimited ///
+		"C:\Users\achafetz\Documents\ICPI\PALS\FactView_PEPFARlandia_fy17q2.txt", ///
+		nolabel replace dataf delimiter(tab)
 	
