@@ -1,16 +1,24 @@
 
 ### TO DO
 
-Data Pack live 1/18/17
+Release of Data Packs is planned for Janurary 2018. Historic Data Packs can be found on pepfar.net country pages.
 
-#### Site & Disaggs Alloation tool
 To do
-- [ ] QC data - all tabs - (1) distribution % matches Fact View, (2) allocation formulas are correct, (3) indicator totals match across tabs
+- [ ] gather cluster info from countries
+- [ ] collect final IM and hierarchy list from OUs preferaby by December
+- [ ] add all indicators to Data Pack
+- [ ] determine how to add age/sex disaggs for every indicator
+- [ ] identitify all changes to assumptions
+- [ ] identify all changes to formulas
+- [ ] update code
+  - [ ] update old Stata code to FY17
+    - [ ] indicator "definitions" created in Data Pack template
+  - [ ] update old VBA code
+  - [ ] transition to R?
+- [ ] create improved site tool (rather than go through DATIM?)
+- [ ] process to import site level into DATIM
 
 
 Questions
-- [ ] how do teams extract data from various columns in Data Pack & into site tool?
-- [ ] how to deal with DP targets that also have disaggs?
-- [ ] default filter to only rows with data?
-- [ ] include mech name, mech id, prime partner; defaut to show just mech name?
-- [ ] do we include completeness? if so, how?
+- [ ] where does Data Pack stop and DATIM process begin?
+- [ ] will peds portion exist with all age/sex disaggs?
