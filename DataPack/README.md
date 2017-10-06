@@ -27,3 +27,6 @@ Update notes
 - [ ] need to adjust all HTS_TST_POS related named ranges from hts_tst_u15_pos to hts_tst_pos_u15 or hts_tst_spd_inpatient_neg to hts_tst_neg_spd_inpatient
 - [ ] change all lookup names in VBA script to reflect fy17 etc
 - [ ] for HTS, including index, indexmod, othermod; excluded KeyPop, malnutrition, pediatric, PMTCT ANC (should KeyPop be excluded?)
+
+Proposed timeline
+![gantt chart](https://user-images.githubusercontent.com/8933069/31277882-002d564a-aa71-11e7-9b6c-094daf6f5006.PNG)
