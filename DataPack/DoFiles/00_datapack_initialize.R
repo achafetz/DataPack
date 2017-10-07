@@ -2,7 +2,7 @@
 # A.Chafetz, USAID
 # Purpose: initialize packages, folder structure, and global file paths
 # Adapted from T. Essam, USAID
-# Updated: 9/20/17 
+# Updated: 10/7/17 
 # https://github.com/achafetz/ICPI/tree/master/DataPack
 
 ## DEPENDENT PACKAGES ##
