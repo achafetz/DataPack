@@ -2,8 +2,8 @@
 # A.Chafetz, USAID
 # Purpose: initialize packages, folder structure, and global file paths
 # Adapted from T. Essam, USAID
-# Updated: 10/7/17 
-# https://github.com/achafetz/ICPI/tree/master/DataPack
+# Updated: 10/8/17 
+# https://github.com/achafetz/DataPack
 
 ## DEPENDENT PACKAGES ##
   lib <- c("tidyverse",  "readr")
@@ -13,7 +13,7 @@
 #  must be run each time R project is opened
 # Choose the project path location to where you want the project parent 
 #   folder to go on your machine.
-  projectpath <- "C:/Users/achafetz/Documents/GitHub/ICPI"
+  projectpath <- "C:/Users/achafetz/Documents/GitHub/"
   setwd(projectpath)
 
 # Run a macro to set up study folder
@@ -29,7 +29,7 @@
     assign(tolower(f), file.path(projectpath, pfolder, f,"/"))
   }
 #additional folders outside of project folder (due to large file size)
-  fvdata <- "C:/Users/achafetz/Documents/ICPI/Data/"
+  fvdata <- "C:/Users/achafetz/Documents/ICPI/Data"
   dpexcel <- "C:/Users/achafetz/Documents/DataPack/DataPulls"
   
   
