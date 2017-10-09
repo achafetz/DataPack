@@ -56,8 +56,7 @@
                                          fy2017q1 + fy2017q2 + fy2017q3)),
                fy2018_targets = fy2017_targets * 1.5,
                fy18snuprioritization = as.character(fy16snuprioritization))
-        
-      
+      df_indtbl[df_indtbl==0] <- NA
       
 ##REMOVE_ABOVE######################################################################################################################### 
       

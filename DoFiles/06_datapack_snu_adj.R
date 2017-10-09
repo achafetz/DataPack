@@ -3,7 +3,7 @@
 ##   Aaron Chafetz
 ##   Purpose: remove/combine duplicate SNUs with different UIDs & cluster SNUs
 ##   Date: January 12, 2017
-##   Updated: 10/8/17
+##   Updated: 10/9/17
 
 ## COMBINE/DELETE SNUS ##
 
@@ -100,27 +100,25 @@
   #capture confirm variable orgunituid
 
   # import cluster dataset
-    df_cluster  <- read.csv(file.path(rawdata, "COP17Clusters.csv", sep=""))
-      df_cluster[] <- lapply(df_cluster, as.character) #imported as factors, so converting to character
-      df_cluster$cluster_set <- as.integer(df_cluster$cluster_set)
+    df_cluster  <- read.csv(file.path(rawdata, "COP17Clusters.csv", sep=""), stringsAsFactors = FALSE)
       
   # remove duplicate data/headers
-    df_cluster <- select(df_cluster, -operatingunit, -psnu, -fy17snuprioritization, -cluster_submitter, -cluster_date)
+    df_cluster <- select(df_cluster, -operatingunit, -psnu, -fy17snuprioritization, -cluster_set:-cluster_date)
     
   # merge clusters onto factview
     df_curr <- left_join(df_curr, df_cluster, by = "psnuuid")
-
+    rm(df_cluster)
+      
   # replace with cluster info
     df_curr <- df_curr %>%
       mutate(
-        psnu = ifelse(cluster_set == 1, cluster_psnu, psnu),
-        snu1 = ifelse(cluster_set == 1, cluster_snu1, snu1),
-        psnuuid = ifelse(cluster_set == 1, cluster_psnuuid, psnuuid),
-        fy17snuprioritization = ifelse(cluster_set == 1, cluster_fy17snuprioritization, fy17snuprioritization)
+        psnu = ifelse(is.na(cluster_psnu), psnu, cluster_psnu),
+        snu1 = ifelse(is.na(cluster_snu1), snu1, cluster_snu1),
+        psnuuid = ifelse(is.na(cluster_psnuuid), psnuuid, cluster_psnuuid),
+        fy17snuprioritization = ifelse(is.na(cluster_fy17snuprioritization), fy17snuprioritization, cluster_fy17snuprioritization)
         ) %>%
-      select(-cluster_psnu:-cluster_set)
+      select(-cluster_psnu:-cluster_fy17snuprioritization)
     
-    rm(df_cluster)
     
     
     
