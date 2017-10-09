@@ -40,13 +40,19 @@
   #  | Nigeria                          | im Ngor Okpala      | D47MUIzTapM | Delete (Duplicates) |
 
   
-  #combine 
-    psnuuid <- c("dOQ8r7iwZvS", "URj9zYi533e", "bDoKaxNx2Xb", "HhCbsjlKoWA", "dzjXm8e1cNs", "mVuyipSx9aU", "xmRjV3Gx1H6", "FLIkT6NShZE") #old
-    psnuuid_adj <- c("dASd72VnJPh", "EzsXkY9WARj", "KN2TmcAVqzi", "HHDEeZbVEaw", "IxeWi5YG9lE", "kxsmKGMZ5QF", "FjiNyXde6Ae", "KT3e5pmPdfB") #new
-    df_adj <- data.frame(psnuuid, psnuuid_adj, stringsAsFactors = FALSE)
-      rm(psnuuid, psnuuid_adj)
-
-
+  #table of dup PSNUs( (psnuuid) & their replacments (psnuuid_adj)
+    df_adj <- tribble(
+           ~psnuuid,	 ~psnuuid_adj,
+      "dOQ8r7iwZvS",	"dASd72VnJPh",
+      "URj9zYi533e",	"EzsXkY9WARj",
+      "bDoKaxNx2Xb",	"KN2TmcAVqzi",
+      "HhCbsjlKoWA",	"HHDEeZbVEaw",
+      "dzjXm8e1cNs",	"IxeWi5YG9lE",
+      "mVuyipSx9aU",	"kxsmKGMZ5QF",
+      "xmRjV3Gx1H6",	"FjiNyXde6Ae",
+      "FLIkT6NShZE",	"KT3e5pmPdfB"
+    )
+      
   #replace duplicate UIDs so only one per PSNU
     df_curr <- df_curr %>%
       left_join(df_adj, by = "psnuuid") %>%
@@ -100,8 +106,8 @@
   #capture confirm variable orgunituid
 
   # import cluster dataset
-    df_cluster  <- read.csv(file.path(rawdata, "COP17Clusters.csv", sep=""), stringsAsFactors = FALSE)
-      
+    df_cluster  <- read_csv(file.path(rawdata, "COP17Clusters.csv", sep=""))
+    
   # remove duplicate data/headers
     df_cluster <- select(df_cluster, -operatingunit, -psnu, -fy17snuprioritization, -cluster_set:-cluster_date)
     
