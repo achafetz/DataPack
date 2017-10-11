@@ -204,7 +204,15 @@
     
     #clear mil data, but keep as row placeholder for their entry
       # %%%% TBD %%%%
-
+      
+      df_mwi = df_mwi %>% 
+        mutate(mil_flag = ifelse(str_detect(district, '\\_Military Malawi'), 1, 0))
+      
+      
+      military_list <- df_psnu %>% 
+        filter(str_detect(psnu, '\\_Military')) %>%
+        distinct(operatingunit, psnu, psnuuid, typemilitary) 
+      
 
 
 
