@@ -2,12 +2,12 @@
 ##  A.Chafetz, USAID
 ##  Purpose: initialize packages, folder structure, and global file paths
 ##  Adapted from T. Essam, USAID
-##  Updated: 10/9/17 
+##  Updated: 10/11/17 
 ##  https://github.com/achafetz/DataPack
 
 ## DEPENDENT PACKAGES -------------------------------------------------------------------------
   #load libraries 
-    lib <- c("tidyverse")
+    lib <- c("tidyverse", "stringr", "forcats")
     lapply(lib, require, character.only = TRUE)
   
 ## FILE PATHS ---------------------------------------------------------------------------------

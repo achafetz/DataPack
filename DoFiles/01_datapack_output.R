@@ -54,11 +54,14 @@
                                          fy2017q1 + fy2017q2 + fy2017q3)),
                fy2018_targets = fy2017_targets * 1.5,
                fy18snuprioritization = as.character(fy16snuprioritization))
-      
+      df_indtbl[df_indtbl==0] <- NA
 #  ^^^^^^ REMOVE ABOVE ^^^^^^
       
 ## AGGREGATE TO PNSU X DISAGGS LEVEL ------------------------------------------------------------------------------
-  #have to aggregate here; otherwise variable generation vector (next section) is too large to run
+    #remove military data (will only use placeholders in the data pack)
+    df_indtbl <- filter(df_indtbl, is.na(typemilitary))
+      
+    #have to aggregate here; otherwise variable generation vector (next section) is too large to run
     df_indtbl <- rename(df_indtbl, snuprioritization = fy18snuprioritization)  
     
     df_indtbl <- df_indtbl %>%
@@ -186,34 +189,32 @@
              priority_snu = snuprioritization) %>%
 
     #reorder columns
-        select(operatingunit, psnuuid, snulist, snu1, priority_snu, hts_tst:vmmc_circ_subnat) %>%
+        select(operatingunit, psnuuid, snulist, snu1, priority_snu, hts_tst:vmmc_circ_subnat)
     
+    #add military districts back in as row placeholder for country entry
+      df_mil <- read_csv(file.path(rawdata, "COP18_mil_psnus.csv"))
+    
+    #append military data onto indicator table 
+      df_indtbl <- bind_rows(df_indtbl, df_mil)
+        rm(df_mil)
+      
     #rename prioritizations (due to spacing and to match last year)
-      mutate(priority_snu = if_else(priority_snu == "1 - Scale-Up: Saturation", "ScaleUp Sat", priority_snu),
-             priority_snu = if_else(priority_snu == "2 - Scale-Up: Aggressive", "ScaleUp Agg", priority_snu),
-             priority_snu = if_else(priority_snu == "4 - Sustained", "Sustained", priority_snu), 
-             priority_snu = if_else(priority_snu == "5 - Centrally Supported", "Ctrl Supported", priority_snu),
-             priority_snu = if_else(priority_snu == "6 - Sustained: Commodities", "Sustained Com", priority_snu),
-             priority_snu = if_else(priority_snu == "7 - Attained", "Attained", priority_snu),
-             priority_snu = if_else(priority_snu == "8 - Not PEPFAR Supported", "Not Supported", priority_snu),
-             priority_snu = if_else(priority_snu == str_detect(priority_snu, "Military"), "MIL", priority_snu),
-             priority_snu = if_else(is.na(priority_snu), "NOT DEFINED", priority_snu))
-
-    #sort by PLHIV
-      arrange(operatingunit, desc(plhivsubnat), snulist)
+      priority_levels <- c("1 - Scale-Up: Saturation", "2 - Scale-Up: Aggressive", "4 - Sustained", "5 - Centrally Supported",
+                           "6 - Sustained: Commodities", "7 - Attained", "8 - Not PEPFAR Supported", "Mil", "NOT DEFINED")
+      df_indtbl <- mutate(df_indtbl, priority_snu = ifelse(is.na(priority_snu), "NOT DEFINED", priority_snu))
+      df_indtbl$priority_snu <- parse_factor(df_indtbl$priority_snu, priority_levels, include_na = TRUE) #convert to factor
     
-    #clear mil data, but keep as row placeholder for their entry
-      # %%%% TBD %%%%
-      
-      df_mwi = df_mwi %>% 
-        mutate(mil_flag = ifelse(str_detect(district, '\\_Military Malawi'), 1, 0))
-      
-      
-      military_list <- df_psnu %>% 
-        filter(str_detect(psnu, '\\_Military')) %>%
-        distinct(operatingunit, psnu, psnuuid, typemilitary) 
-      
+      df_indtbl <- df_indtbl %>%
+        mutate(priority_snu = fct_recode(priority_snu,
+                    "ScaleUp Sat"    =  "1 - Scale-Up: Saturation", 
+                    "ScaleUp Agg"    =  "2 - Scale-Up: Aggressive", 
+                    "Sustained"      =  "4 - Sustained", 
+                    "Ctrl Supported" =  "5 - Centrally Supported",  
+                    "Sustained Com"  =  "6 - Sustained: Commodities",
+                    "Attained"       =  "7 - Attained",  
+                    "Not Supported"  =  "8 - Not PEPFAR Supported")) %.%
 
-
+        #sort by PLHIV
+        arrange(operatingunit, desc(plhivsubnat), snulist)
 
     
