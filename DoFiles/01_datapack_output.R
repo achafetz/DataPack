@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 10/9
+##   Updated: 10/11
 
 
 ## SETUP ------------------------------------------------------------------------------------------------------
@@ -212,7 +212,7 @@
                     "Ctrl Supported" =  "5 - Centrally Supported",  
                     "Sustained Com"  =  "6 - Sustained: Commodities",
                     "Attained"       =  "7 - Attained",  
-                    "Not Supported"  =  "8 - Not PEPFAR Supported")) %.%
+                    "Not Supported"  =  "8 - Not PEPFAR Supported")) %>%
 
         #sort by PLHIV
         arrange(operatingunit, desc(plhivsubnat), snulist)
