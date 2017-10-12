@@ -14,7 +14,7 @@
   #must be run each time R project is opened
   #Choose the project path location to where you want the project parent 
   #folder to go on your machine.
-    projectpath <- "C:/Users/achafetz/Documents/GitHub/"
+    projectpath <- "C:/Users/achafetz/Documents/GitHub"
     setwd(projectpath)
 
   # Run a macro to set up study folder

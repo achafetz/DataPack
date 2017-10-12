@@ -65,13 +65,18 @@
     df_indtbl <- rename(df_indtbl, snuprioritization = fy18snuprioritization)  
     
     df_indtbl <- df_indtbl %>%
-      group_by(operatingunit, snu1, psnu, psnuuid, snuprioritization, indicator, standardizeddisaggregate, sex, age, resultstatus, otherdisaggregate, modality, numeratordenom) %>%
-        summarize_at(vars(fy2017apr, fy2017_targets, fy2018_targets), funs(sum(., na.rm=TRUE))) %>%
+      group_by(operatingunit, snu1, psnu, psnuuid, snuprioritization, indicator, standardizeddisaggregate, 
+               sex, age, resultstatus, otherdisaggregate, modality, numeratordenom) %>%
+        summarize_at(vars(fy2015apr, fy2016apr, fy2017apr, fy2017_targets, fy2018_targets), funs(sum(., na.rm=TRUE))) %>%
         ungroup
-  
+
+## SAVE TEMP FILE -------------------------------------------------------------------------------------------------
+    #save temp file as starting point for  02_datapack_output_keyind
+      save(df_indtbl, file = file.path(stataoutput, "append_temp.RData"))
+    
 ## GENERATE VARIABLES/COLUMNS -------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
-  # updated 10/8
+  # updated 10/12
     
     df_indtbl <- df_indtbl %>%
     mutate(
@@ -120,12 +125,12 @@
       ovc_serv_u18 = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex") & age %in% c("<01", "01-09", "10-14", "15-17") & numeratordenom=="N"), fy2017apr, 0), 
       ovc_serv_u18_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex") & age %in% c("<01", "01-09", "10-14", "15-17") & numeratordenom=="N"), fy2018_targets, 0), 
       plhivsubnat = ifelse((indicator=="PLHIV (SUBNAT)" & standardizeddisaggregate=="Total Numerator"), fy2017apr, 0), 
-      plhivsubnatagesex_u15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="<15"), fy2017apr, 0), 
-      plhivsubnatagesex_o15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="15+"), fy2017apr, 0), 
-      pmtct_art_already = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="MaternalRegimenType" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
-      pmtct_art_already_T = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="MaternalRegimenType2017" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2018_targets, 0), 
-      pmtct_art_curr = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="MaternalRegimenType" & otherdisaggregate %in% c("Life-long ART New", "Triple-drug ARV") & numeratordenom=="N"), fy2017apr, 0), 
-      pmtct_art_curr_T = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="MaternalRegimenType2017" & otherdisaggregate=="Life-long ART New" & numeratordenom=="N"), fy2018_targets, 0), 
+      plhivsubnat,age/sex_u15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="<15"), fy2017apr, 0), 
+      plhivsubnat,age/sex_o15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="15+"), fy2017apr, 0), 
+      pmtct_art_already = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
+      pmtct_art_already_T = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2018_targets, 0), 
+      pmtct_art_curr = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate %in% c("Life-long ART New", "Triple-drug ARV") & numeratordenom=="N"), fy2017apr, 0), 
+      pmtct_art_curr_T = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART New" & numeratordenom=="N"), fy2018_targets, 0), 
       pmtct_eid = ifelse((indicator=="PMTCT_EID" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
       pmtct_eid_T = ifelse((indicator=="PMTCT_EID" & standardizeddisaggregate=="InfantTest" & numeratordenom=="N"), fy2018_targets, 0), 
       pmtct_eid_pos_12mo = ifelse((indicator=="PMTCT_EID_POS_12MO" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
@@ -215,6 +220,9 @@
                     "Not Supported"  =  "8 - Not PEPFAR Supported")) %>%
 
         #sort by PLHIV
-        arrange(operatingunit, desc(plhivsubnat), snulist)
-
+        arrange(operatingunit, desc(plhivsubnat), snulist) 
+## EXPORT -------------------------------------------------------------------------------------------------------
+      
+  write_csv(df_indtbl, file.path(exceloutput, paste("Global_IndTbl", date, ".csv", sep="")))
+    rm(df_indtbl, priority_levels)
     
