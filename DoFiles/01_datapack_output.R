@@ -3,8 +3,12 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 10/11
+##   Updated: 10/13
 
+## DEPENDENCIES
+    # run 00_datapack_initialize
+    # ICPI Fact View NAT_SUBNAT
+    # ICPI Fact View PSNU
 
 ## SETUP ------------------------------------------------------------------------------------------------------
   
@@ -28,7 +32,7 @@
 ## MER - PSNUxIM ----------------------------------------------------------------------------------------------
     
   #import
-    df_mer  <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_IM_", datestamp, ".txt", sep="")))
+    df_mer  <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_", datestamp, ".txt", sep="")))
     names(df_mer) <- tolower(names(df_mer))
     
   
@@ -70,6 +74,41 @@
         summarize_at(vars(fy2015apr, fy2016apr, fy2017apr, fy2017_targets, fy2018_targets), funs(sum(., na.rm=TRUE))) %>%
         ungroup
 
+## CLEAN UP -------------------------------------------------------------------------------------------------------
+    
+    df_indtbl <- df_indtbl %>%
+      
+      #remove blank rows(and military)
+      drop_na(psnuuid)  %>%
+      
+      #rename
+      rename(snulist = psnu, 
+             priority_snu = snuprioritization)
+
+    
+    #add military districts back in as row placeholder for country entry
+    df_mil <- read_csv(file.path(rawdata, "COP18_mil_psnus.csv"))
+    
+    #append military data onto indicator table 
+    df_indtbl <- bind_rows(df_indtbl, df_mil)
+    rm(df_mil)
+    
+    #rename prioritizations (due to spacing and to match last year)
+    priority_levels <- c("1 - Scale-Up: Saturation", "2 - Scale-Up: Aggressive", "4 - Sustained", "5 - Centrally Supported",
+                         "6 - Sustained: Commodities", "7 - Attained", "8 - Not PEPFAR Supported", "Mil", "NOT DEFINED")
+    df_indtbl <- mutate(df_indtbl, priority_snu = ifelse(is.na(priority_snu), "NOT DEFINED", priority_snu))
+    df_indtbl$priority_snu <- parse_factor(df_indtbl$priority_snu, priority_levels, include_na = TRUE) #convert to factor
+    
+    df_indtbl <- df_indtbl %>%
+      mutate(priority_snu = fct_recode(priority_snu,
+                                       "ScaleUp Sat"    =  "1 - Scale-Up: Saturation", 
+                                       "ScaleUp Agg"    =  "2 - Scale-Up: Aggressive", 
+                                       "Sustained"      =  "4 - Sustained", 
+                                       "Ctrl Supported" =  "5 - Centrally Supported",  
+                                       "Sustained Com"  =  "6 - Sustained: Commodities",
+                                       "Attained"       =  "7 - Attained",  
+                                       "Not Supported"  =  "8 - Not PEPFAR Supported"))
+    
 ## SAVE TEMP FILE -------------------------------------------------------------------------------------------------
     #save temp file as starting point for  02_datapack_output_keyind
       save(df_indtbl, file = file.path(stataoutput, "append_temp.RData"))
@@ -125,8 +164,8 @@
       ovc_serv_u18 = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex") & age %in% c("<01", "01-09", "10-14", "15-17") & numeratordenom=="N"), fy2017apr, 0), 
       ovc_serv_u18_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex") & age %in% c("<01", "01-09", "10-14", "15-17") & numeratordenom=="N"), fy2018_targets, 0), 
       plhivsubnat = ifelse((indicator=="PLHIV (SUBNAT)" & standardizeddisaggregate=="Total Numerator"), fy2017apr, 0), 
-      plhivsubnat,age/sex_u15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="<15"), fy2017apr, 0), 
-      plhivsubnat,age/sex_o15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="15+"), fy2017apr, 0), 
+      plhivsubnatagesex_u15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="<15"), fy2017apr, 0), 
+      plhivsubnatagesex_o15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="15+"), fy2017apr, 0), 
       pmtct_art_already = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
       pmtct_art_already_T = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2018_targets, 0), 
       pmtct_art_curr = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate %in% c("Life-long ART New", "Triple-drug ARV") & numeratordenom=="N"), fy2017apr, 0), 
@@ -173,56 +212,22 @@
       vmmc_circ_subnat = ifelse((indicator=="VMMC_CIRC_SUBNAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0))
       
   
-## AGGREGATE TO PNSU LEVEL ----------------------------------------------------------------------------------------
+## AGGREGATE TO PSNU LEVEL ----------------------------------------------------------------------------------------
     #have to aggregate here; otherwise variable generation vector (next section) is too large to run
     
     df_indtbl <- df_indtbl %>%
-      group_by(operatingunit, snu1, psnu, psnuuid, snuprioritization) %>%
+      group_by(operatingunit, snu1, snulist, psnuuid, priority_snu) %>%
       summarize_at(vars(hts_tst:vmmc_circ_subnat), funs(sum(., na.rm=TRUE))) %>%
-      ungroup 
+      ungroup  %>%
     
-    
-## CLEAN UP -------------------------------------------------------------------------------------------------------
-    
-    df_indtbl <- df_indtbl %>%
-    
-    #remove blabk rows
-      drop_na(psnuuid)  %>%
-      
-    #rename
-      rename(snulist = psnu, 
-             priority_snu = snuprioritization) %>%
-
     #reorder columns
-        select(operatingunit, psnuuid, snulist, snu1, priority_snu, hts_tst:vmmc_circ_subnat)
+      select(operatingunit, psnuuid, snulist, snu1, priority_snu, hts_tst:vmmc_circ_subnat) %>%
     
-    #add military districts back in as row placeholder for country entry
-      df_mil <- read_csv(file.path(rawdata, "COP18_mil_psnus.csv"))
-    
-    #append military data onto indicator table 
-      df_indtbl <- bind_rows(df_indtbl, df_mil)
-        rm(df_mil)
+    #sort by PLHIV
+      arrange(operatingunit, desc(plhivsubnat), snulist) 
       
-    #rename prioritizations (due to spacing and to match last year)
-      priority_levels <- c("1 - Scale-Up: Saturation", "2 - Scale-Up: Aggressive", "4 - Sustained", "5 - Centrally Supported",
-                           "6 - Sustained: Commodities", "7 - Attained", "8 - Not PEPFAR Supported", "Mil", "NOT DEFINED")
-      df_indtbl <- mutate(df_indtbl, priority_snu = ifelse(is.na(priority_snu), "NOT DEFINED", priority_snu))
-      df_indtbl$priority_snu <- parse_factor(df_indtbl$priority_snu, priority_levels, include_na = TRUE) #convert to factor
-    
-      df_indtbl <- df_indtbl %>%
-        mutate(priority_snu = fct_recode(priority_snu,
-                    "ScaleUp Sat"    =  "1 - Scale-Up: Saturation", 
-                    "ScaleUp Agg"    =  "2 - Scale-Up: Aggressive", 
-                    "Sustained"      =  "4 - Sustained", 
-                    "Ctrl Supported" =  "5 - Centrally Supported",  
-                    "Sustained Com"  =  "6 - Sustained: Commodities",
-                    "Attained"       =  "7 - Attained",  
-                    "Not Supported"  =  "8 - Not PEPFAR Supported")) %>%
-
-        #sort by PLHIV
-        arrange(operatingunit, desc(plhivsubnat), snulist) 
 ## EXPORT -------------------------------------------------------------------------------------------------------
       
   write_csv(df_indtbl, file.path(exceloutput, paste("Global_IndTbl", date, ".csv", sep="")))
-    rm(df_indtbl, priority_levels)
+    rm(df_indtbl, priority_levels, date, datestamp)
     
