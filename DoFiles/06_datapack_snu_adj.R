@@ -3,7 +3,7 @@
 ##   Aaron Chafetz
 ##   Purpose: remove/combine duplicate SNUs with different UIDs & cluster SNUs
 ##   Date: January 12, 2017
-##   Updated: 10/9/17
+##   Updated: 10/17/17
 
 ## COMBINE/DELETE SNUS ##
 
@@ -40,17 +40,15 @@
   #  | Nigeria                          | im Ngor Okpala      | D47MUIzTapM | Delete (Duplicates) |
 
   
-  #table of dup PSNUs( (psnuuid) & their replacments (psnuuid_adj)
+  #table of dup PSNUs(psnuuid) & their replacments (psnuuid_adj)
     df_adj <- tribble(
-           ~psnuuid,	 ~psnuuid_adj,
-      "dOQ8r7iwZvS",	"dASd72VnJPh",
-      "URj9zYi533e",	"EzsXkY9WARj",
-      "bDoKaxNx2Xb",	"KN2TmcAVqzi",
-      "HhCbsjlKoWA",	"HHDEeZbVEaw",
-      "dzjXm8e1cNs",	"IxeWi5YG9lE",
-      "mVuyipSx9aU",	"kxsmKGMZ5QF",
-      "xmRjV3Gx1H6",	"FjiNyXde6Ae",
-      "FLIkT6NShZE",	"KT3e5pmPdfB"
+            ~psnuuid,	    ~psnuuid_adj,
+       "Z6b0Advh1f8",    "qPyHEwO7X6D",
+       "EzsXkY9WARj",    "URj9zYi533e",
+       "KN2TmcAVqzi",    "bDoKaxNx2Xb",
+       "kxsmKGMZ5QF",    "mVuyipSx9aU",
+       "FjiNyXde6Ae",    "xmRjV3Gx1H6",
+       "J4yYjIqL7mG",    "oygNEfySnMl"
     )
       
   #replace duplicate UIDs so only one per PSNU
@@ -63,7 +61,8 @@
       mutate(psnu = ifelse(psnuuid=="KT3e5pmPdfB","ek Ikere", psnu)) %>%
     
   #remove all duplicates/blank PSNUs
-      filter(!psnuuid %in% c("oygNEfySnMl", "h61xiVptz4A", "lC1wneS1GR5", "D47MUIzTapM")) %>%
+      filter(!psnuuid %in% c("dOQ8r7iwZvS", "HHDEeZbVEaw", "IxeWi5YG9lE", "KT3e5pmPdfB", "h61xiVptz4A", 
+                             "lC1wneS1GR5", "D47MUIzTapM", "RVzTHBO9fgR")) %>%
   
   #add country name to regional programs
      mutate(psnu = ifelse((operatingunit %in% 
@@ -102,8 +101,7 @@
    
 ## Cluster SNUs ##
   # clusters submitted by SI advisors - https://github.com/achafetz/ICPI/tree/master/DataPack/RawData
-  #only for psnu and psnu x im datasets, not site (orgunituid should not exist in PSNU or PSNU IM dataset) 
-  #capture confirm variable orgunituid
+  # only for psnu and psnu x im datasets, not site (orgunituid should not exist in PSNU or PSNU IM dataset) 
 
   # import cluster dataset
     df_cluster  <- read_csv(file.path(rawdata, "COP17Clusters.csv", sep=""))
