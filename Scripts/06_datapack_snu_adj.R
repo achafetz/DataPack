@@ -12,32 +12,38 @@
   ## https://github.com/achafetz/ICPI_Projects/blob/master/Other/dupSNUs.do
   ## N. Bartlett identified whether to combine/delete each
   
-  #  | operatingunit                    | psnu                | psnuuid     | action              |
-  #  |----------------------------------|---------------------|-------------|---------------------|
-  #  | Ghana                            | Jomoro              | dASd72VnJPh | Combine             |
-  #  | Ghana                            | Jomoro              | dOQ8r7iwZvS | Combine             |
-  #  | Nigeria                          | eb Abakaliki        | EzsXkY9WARj | Combine             |
-  #  | Nigeria                          | eb Abakaliki        | URj9zYi533e | Combine             |
-  #  | Nigeria                          | eb Afikpo North     | KN2TmcAVqzi | Combine             |
-  #  | Nigeria                          | eb Afikpo North     | bDoKaxNx2Xb | Combine             |
-  #  | Nigeria                          | en Enugu South      | HHDEeZbVEaw | Combine             |
-  #  | Nigeria                          | en Enugu South      | HhCbsjlKoWA | Combine             |
-  #  | Nigeria                          | im Ezinihitte       | IxeWi5YG9lE | Combine             |
-  #  | Nigeria                          | im Ezinihitte       | dzjXm8e1cNs | Combine             |
-  #  | Nigeria                          | im Owerri Municipal | kxsmKGMZ5QF | Combine             |
-  #  | Nigeria                          | im Owerri Municipal | mVuyipSx9aU | Combine             |
-  #  | Nigeria                          | im Owerri North     | FjiNyXde6Ae | Combine             |
-  #  | Nigeria                          | im Owerri North     | xmRjV3Gx1H6 | Combine             |
-  #  | Nigeria                          | ek Ikere            | FLIkT6NShZE | Combine             |
-  #  | Nigeria                          | ek Ikere-Ekiti      | KT3e5pmPdfB | Combine             |
-  #  | Nigeria                          | eb Ebonyi           | J4yYjIqL7mG | Keep                |
-  #  | Nigeria                          | eb Ebonyi           | oygNEfySnMl | Delete (Blank)      |
-  #  | Nigeria                          | en Enugu East       | HlABmTwBpu6 | Keep                |
-  #  | Nigeria                          | en Enugu East       | h61xiVptz4A | Delete (Duplicates) |
-  #  | Nigeria                          | en Nsukka           | ITdnyCiBvz7 | Keep                |
-  #  | Nigeria                          | en Nsukka           | lC1wneS1GR5 | Delete (Duplicates) |
-  #  | Nigeria                          | im Ngor Okpala      | vpCKW3gWNhV | Keep                |
-  #  | Nigeria                          | im Ngor Okpala      | D47MUIzTapM | Delete (Duplicates) |
+#   | operatingunit | psnu                    | psnuuid     | COP17 action        | COP18 action   |
+#   |---------------|-------------------------|-------------|---------------------|----------------|
+#   | Burma         | Dagon Myothit (Seikkan) | Z6b0Advh1f8 | N/A                 | Combine        |
+#   | Burma         | Dagon Myothit (Seikkan) | qPyHEwO7X6D | N/A                 | Combine        |
+#   | Ghana         | Jomoro                  | dASd72VnJPh | Combine             | Keep           |
+#   | Ghana         | Jomoro                  | dOQ8r7iwZvS | Combine             | Delete (Blank) |
+#   | Nigeria       | eb Abakaliki            | EzsXkY9WARj | Combine             | Combine        |
+#   | Nigeria       | eb Abakaliki            | URj9zYi533e | Combine             | Combine        |
+#   | Nigeria       | eb Afikpo North         | KN2TmcAVqzi | Combine             | Combine        |
+#   | Nigeria       | eb Afikpo North         | bDoKaxNx2Xb | Combine             | Combine        |
+#   | Nigeria       | en Enugu South          | HHDEeZbVEaw | Combine             | Delete (Blank) |
+#   | Nigeria       | en Enugu South          | HhCbsjlKoWA | Combine             | Keep           |
+#   | Nigeria       | im Ezinihitte           | IxeWi5YG9lE | Combine             | Delete (Blank) |
+#   | Nigeria       | im Ezinihitte           | dzjXm8e1cNs | Combine             | Keep           |
+#   | Nigeria       | im Owerri Municipal     | kxsmKGMZ5QF | Combine             | Combine        |
+#   | Nigeria       | im Owerri Municipal     | mVuyipSx9aU | Combine             | Combine        |
+#   | Nigeria       | im Owerri North         | FjiNyXde6Ae | Combine             | Combine        |
+#   | Nigeria       | im Owerri North         | xmRjV3Gx1H6 | Combine             | Combine        |
+#   | Nigeria       | ek Ikere                | FLIkT6NShZE | Combine             | Keep           |
+#   | Nigeria       | ek Ikere-Ekiti          | KT3e5pmPdfB | Combine             | Delete (Blank) |
+#   | Nigeria       | eb Ebonyi               | J4yYjIqL7mG | Keep                | Combine        |
+#   | Nigeria       | eb Ebonyi               | oygNEfySnMl | Delete (Blank)      | Combine        |
+#   | Nigeria       | en Enugu East           | HlABmTwBpu6 | Keep                | Keep           |
+#   | Nigeria       | en Enugu East           | h61xiVptz4A | Delete (Duplicates) | Delete (Blank) |
+#   | Nigeria       | en Nsukka               | ITdnyCiBvz7 | Keep                | Keep           |
+#   | Nigeria       | en Nsukka               | lC1wneS1GR5 | Delete (Duplicates) | Delete (Blank) |
+#   | Nigeria       | im Ngor Okpala          | vpCKW3gWNhV | Keep                | Keep           |
+#   | Nigeria       | im Ngor Okpala          | D47MUIzTapM | Delete (Duplicates) | Delete (Blank) |
+#   | Haiti         | Vallières               | RVzTHBO9fgR | N/A                 | Delete (Blank) |
+#   | Haiti         | Vallières               | ONUWhpgEbVk | N/A                 | Keep           |
+#   | India         | Chandigarh              | rdZgJxh6GA6 | N/A                 | No FY17 data   |
+#   | India         | Chandigarh              | eknq1Uf5JK6 | N/A                 | No FY17 data   |
 
   
   #table of dup PSNUs(psnuuid) & their replacments (psnuuid_adj)
@@ -71,12 +77,13 @@
     rm(df_adj)
 
     
+    
 ## REMOVE SNUs ##
   #S.Ally (1/17/17) - no Sustained - Commodities districts 
       df_curr <- df_curr %>%
         filter(!psnuuid %in% c("O1kvkveo6Kt", "hbnRmYRVabV", "N7L1LQMsQKd", "nlS6OMUb6s3"))
 
-    
+
 
 ## SNU NAMING ISSUES ##
   # M. Melchior (1/21/17) - txt import issue with French names 
