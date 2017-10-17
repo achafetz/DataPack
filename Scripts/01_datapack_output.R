@@ -59,6 +59,7 @@
                fy2018_targets = fy2017_targets * 1.5,
                fy18snuprioritization = as.character(fy16snuprioritization))
       df_indtbl[df_indtbl==0] <- NA
+      
 #  ^^^^^^ REMOVE ABOVE ^^^^^^
       
 ## AGGREGATE TO PNSU X DISAGGS LEVEL ------------------------------------------------------------------------------
@@ -228,6 +229,6 @@
       
 ## EXPORT -------------------------------------------------------------------------------------------------------
       
-  write_csv(df_indtbl, file.path(exceloutput, paste("Global_IndTbl", date, ".csv", sep="")))
+  write_csv(df_indtbl, file.path(output, paste("Global_IndTbl", date, ".csv", sep="")))
     rm(df_indtbl, priority_levels, date, datestamp)
     
