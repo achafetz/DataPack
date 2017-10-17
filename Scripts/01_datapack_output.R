@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 10/13
+##   Updated: 10/17
 
 ## DEPENDENCIES
     # run 00_datapack_initialize
@@ -42,7 +42,7 @@
     
     #cleanup PSNUs (dups & clusters)
       df_curr <- df_indtbl
-      source(file.path(dofiles, "06_datapack_snu_adj.R"))
+      source(file.path(scripts, "06_datapack_snu_adj.R"))
       df_indtbl <- df_curr
       rm(df_curr)
       
@@ -111,7 +111,7 @@
     
 ## SAVE TEMP FILE -------------------------------------------------------------------------------------------------
     #save temp file as starting point for  02_datapack_output_keyind
-      save(df_indtbl, file = file.path(stataoutput, "append_temp.RData"))
+      save(df_indtbl, file = file.path(tempoutput, "append_temp.RData"))
     
 ## GENERATE VARIABLES/COLUMNS -------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)

@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 10/13
+##   Updated: 10/17
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -21,7 +21,7 @@
 ## FILTER DATA ------------------------------------------------------------------------------------------------------    
   
     #import data
-      load(file.path(stataoutput, "append_temp.Rdata"), verbose = FALSE)
+      load(file.path(tempoutput, "append_temp.Rdata"), verbose = FALSE)
         
     #filter
       df_keyindtbl <- df_indtbl %>%
