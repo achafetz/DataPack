@@ -25,7 +25,7 @@
   #Choose your folders to createa and and stored as values
     folderlist <- c("RawData", "TempOutput", "Output", "Scripts")
     for (f in folderlist){
-      dir.create(file.path(projectpath, pfolder, f))
+      dir.create(file.path(projectpath, pfolder, f), showWarnings = FALSE)
       assign(tolower(f), file.path(projectpath, pfolder, f,"/"))
     }
 
@@ -35,6 +35,6 @@
 
 
 ## CLEAN UP STORED GLOBALS -------------------------------------------------------------------
-  rm(lib, projectpath, pfolder, folderlist, f)
+  rm(projectpath, pfolder, folderlist, f)
     
     
