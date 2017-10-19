@@ -4,6 +4,7 @@
 *.xlsm
 *.dta
 *.txt
+*.Rdata
 
 #documents and other files
 *.pdf
