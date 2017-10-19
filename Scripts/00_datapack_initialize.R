@@ -34,6 +34,14 @@
     dpexcel <- "~/DataPack/DataPulls"
 
 
+## DATES ---------------------------------------------------------------------------------------
+    
+  #define date for Fact View Files
+    datestamp <- "20170922_v2_1" #currently 3, needs to be updated with 4 when available
+    
+  #set today's date for saving
+    date <-  format(Sys.Date(), format="%d%b%Y")
+    
 ## CLEAN UP STORED GLOBALS -------------------------------------------------------------------
   rm(projectpath, pfolder, folderlist, f)
     
