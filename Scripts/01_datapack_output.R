@@ -41,10 +41,10 @@
       rm(df_mer, df_subnat)
     
     #cleanup PSNUs (dups & clusters)
-      df_curr <- df_indtbl
       source(file.path(scripts, "06_datapack_snu_adj.R"))
-      df_indtbl <- df_curr
-      rm(df_curr)
+      cleanup_snus(df_indtbl)
+      cluster_snus(df_indtbl)
+
       
 ## REMOVE BELOW  -------------------------------------------------------------------------------------------------
       
