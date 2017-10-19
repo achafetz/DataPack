@@ -3,8 +3,9 @@
 ##   Aaron Chafetz
 ##   Purpose: remove/combine duplicate SNUs with different UIDs & cluster SNUs
 ##   Date: January 12, 2017
-##   Updated: 10/18/17
+##   Updated: 10/17/17
 
+## COMBINE/DELETE SNUS ##
 
   ##List of PSNUs that have the same name but different UIDs
   ## Duplicate list produced from following do file
@@ -44,10 +45,6 @@
 #   | India         | Chandigarh              | rdZgJxh6GA6 | N/A                 | No FY17 data   |
 #   | India         | Chandigarh              | eknq1Uf5JK6 | N/A                 | No FY17 data   |
 
-
-## COMBINE/DELETE SNUS -----------------------------------------------------------------------------
-
-cleanup_snus <- function(df) {
   
   #table of dup PSNUs(psnuuid) & their replacments (psnuuid_adj)
     df_adj <- tribble(
@@ -61,7 +58,7 @@ cleanup_snus <- function(df) {
     )
       
   #replace duplicate UIDs so only one per PSNU
-    df <- df %>%
+    df_curr <- df_curr %>%
       left_join(df_adj, by = "psnuuid") %>%
       mutate(psnuuid = ifelse(is.na(psnuuid_adj), psnuuid, psnuuid_adj)) %>%
       select(-psnuuid_adj) %>%
@@ -76,42 +73,43 @@ cleanup_snus <- function(df) {
   #add country name to regional programs
      mutate(psnu = ifelse((operatingunit %in% 
                             c("Asia Regional Program", "Caribbean Region", "Central America Region", "Central Asia Region")), 
-                         paste(snu1, psnu, sep = "/"), psnu)) %>%
+                         paste(snu1, psnu, sep = "/"), psnu))
+    rm(df_adj)
+
     
-  ## REMOVE SNUs ##
-    #S.Ally (1/17/17) - no Sustained - Commodities districts 
-      filter(!psnuuid %in% c("O1kvkveo6Kt", "hbnRmYRVabV", "N7L1LQMsQKd", "nlS6OMUb6s3")) %>%
-  
-  ## SNU NAMING ISSUES ##
-    # M. Melchior (1/21/17) - txt import issue with French names 
-      mutate( psnu = ifelse(psnuuid == "JVXPyu8T2fO", "Cap-Haïtien", psnu), 
-              psnu = ifelse(psnuuid == "XXuTiMjae3r", "Anse à Veau", psnu),
-              psnu = ifelse(psnuuid == "prA0IseYHWD", "Fort Liberté", psnu),
-              psnu = ifelse(psnuuid == "xBsmGxPgQaw", "Gonaïves", psnu),
-              psnu = ifelse(psnuuid == "fXIAya9MTsp", "Grande Rivière du Nord", psnu),
-              psnu = ifelse(psnuuid == "lqOb8ytz3VU", "Jérémie", psnu),
-              psnu = ifelse(psnuuid == "aIbf3wlRYB1", "La Gonave", psnu),
-              psnu = ifelse(psnuuid == "nbvAsGLaXdk", "Léogâne", psnu),
-              psnu = ifelse(psnuuid == "rrAWd6oORtj", "Limbé", psnu),
-              psnu = ifelse(psnuuid == "nbvAsGLaXdk", "Léogâne", psnu),
-              psnu = ifelse(psnuuid == "c0oeZEJ8qXk", "Môle Saint Nicolas", psnu),
-              psnu = ifelse(psnuuid == "Y0udgSlBzfb", "Miragoâne", psnu),
-              psnu = ifelse(psnuuid == "R2NsUDhdF8x", "Saint-Raphaël", psnu),
-              psnu = ifelse(psnuuid == "mLFKTGjlEg1", "Chardonniàres", psnu),
-              psnu = ifelse((psnuuid %in% c("ONUWhpgEbVk", "RVzTHBO9fgR")), "Vallières", psnu)
-              ) 
+    
+## REMOVE SNUs ##
+  #S.Ally (1/17/17) - no Sustained - Commodities districts 
+      df_curr <- df_curr %>%
+        filter(!psnuuid %in% c("O1kvkveo6Kt", "hbnRmYRVabV", "N7L1LQMsQKd", "nlS6OMUb6s3"))
+
+
+
+## SNU NAMING ISSUES ##
+  # M. Melchior (1/21/17) - txt import issue with French names 
+   df_curr <- df_curr %>%
+    mutate( psnu = ifelse(psnuuid == "JVXPyu8T2fO", "Cap-Haïtien", psnu), 
+            psnu = ifelse(psnuuid == "XXuTiMjae3r", "Anse à Veau", psnu),
+            psnu = ifelse(psnuuid == "prA0IseYHWD", "Fort Liberté", psnu),
+            psnu = ifelse(psnuuid == "xBsmGxPgQaw", "Gonaïves", psnu),
+            psnu = ifelse(psnuuid == "fXIAya9MTsp", "Grande Rivière du Nord", psnu),
+            psnu = ifelse(psnuuid == "lqOb8ytz3VU", "Jérémie", psnu),
+            psnu = ifelse(psnuuid == "aIbf3wlRYB1", "La Gonave", psnu),
+            psnu = ifelse(psnuuid == "nbvAsGLaXdk", "Léogâne", psnu),
+            psnu = ifelse(psnuuid == "rrAWd6oORtj", "Limbé", psnu),
+            psnu = ifelse(psnuuid == "nbvAsGLaXdk", "Léogâne", psnu),
+            psnu = ifelse(psnuuid == "c0oeZEJ8qXk", "Môle Saint Nicolas", psnu),
+            psnu = ifelse(psnuuid == "Y0udgSlBzfb", "Miragoâne", psnu),
+            psnu = ifelse(psnuuid == "R2NsUDhdF8x", "Saint-Raphaël", psnu),
+            psnu = ifelse(psnuuid == "mLFKTGjlEg1", "Chardonniàres", psnu),
+            psnu = ifelse((psnuuid %in% c("ONUWhpgEbVk", "RVzTHBO9fgR")), "Vallières", psnu)
+            ) 
    
-}
-
-
-
-
-
-## Cluster SNUs --------------------------------------------------------------------------------------------
+   
+## Cluster SNUs ##
   # clusters submitted by SI advisors - https://github.com/achafetz/ICPI/tree/master/DataPack/RawData
   # only for psnu and psnu x im datasets, not site (orgunituid should not exist in PSNU or PSNU IM dataset) 
 
-cluster_snus <- function(df){
   # import cluster dataset
     df_cluster  <- read_csv(file.path(rawdata, "COP17Clusters.csv", sep=""))
     
@@ -119,10 +117,11 @@ cluster_snus <- function(df){
     df_cluster <- select(df_cluster, -operatingunit, -psnu, -fy17snuprioritization, -cluster_set:-cluster_date)
     
   # merge clusters onto factview
-    df <- left_join(df, df_cluster, by = "psnuuid")
+    df_curr <- left_join(df_curr, df_cluster, by = "psnuuid")
+    rm(df_cluster)
       
   # replace with cluster info
-    df <- df %>%
+    df_curr <- df_curr %>%
       mutate(
         psnu = ifelse(is.na(cluster_psnu), psnu, cluster_psnu),
         snu1 = ifelse(is.na(cluster_snu1), snu1, cluster_snu1),
@@ -131,6 +130,6 @@ cluster_snus <- function(df){
         ) %>%
       select(-cluster_psnu:-cluster_fy17snuprioritization)
     
-} 
+    
     
     
