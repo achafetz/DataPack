@@ -3,20 +3,12 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 10/17
+##   Updated: 10/19
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
     # append_temp.Rdata (01_datapack_output.R)
 
-
-## SETUP ------------------------------------------------------------------------------------------------------
-
-  #define date for Fact View Files
-    datestamp <- "20170922_v2_1" #currently 3, needs to be updated with 4 when available
-
-  #set today's date for saving
-    date <-  format(Sys.Date(), format="%d%b%Y")
 
 ## FILTER DATA ------------------------------------------------------------------------------------------------------    
   
@@ -57,12 +49,12 @@
         spread(header, value) %>%
         
     #reorder
-        select(operatingunit, psnuuid, snuprioritization, psnu, a_sp1:VMMC_CIRC_fy2018_targets)
+        select(operatingunit, psnuuid, priority_snu, snulist, a_sp1:VMMC_CIRC_fy2018_targets)
       
 ## EXPORT -----------------------------------------------------------------------------------------------------  
     
-    write_csv(df_keyindtbl, file.path(exceloutput, paste("Global_KeyTrends", date, ".csv", sep="")))
-      rm(df_keyindtbl, date, datestamp)
+    write_csv(df_keyindtbl, file.path(output, paste("Global_KeyTrends.csv", sep="")))
+      rm(df_keyindtbl)
       
       
       
