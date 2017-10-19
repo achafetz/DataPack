@@ -6,9 +6,10 @@
 ##   Updated: 10/19
 
 ## DEPENDENCIES
-    # run 00_datapack_initialize
+    # run 00_datapack_initialize.R
     # ICPI Fact View NAT_SUBNAT
     # ICPI Fact View PSNU
+    # 06_datapack_snu_adj.R
 
 
 ## NAT_SUBNAT --------------------------------------------------------------------------------------------------

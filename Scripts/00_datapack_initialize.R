@@ -2,12 +2,12 @@
 ##  A.Chafetz, USAID
 ##  Purpose: initialize packages, folder structure, and global file paths
 ##  Adapted from T. Essam, USAID [Stata]
-##  Updated: 10/17/17 
+##  Updated: 10/19/17 
 ##  https://github.com/achafetz/DataPack
 
 ## DEPENDENT PACKAGES -------------------------------------------------------------------------
   #load libraries 
-    pacman::p_load("tidyverse", "stringr", "forcats")
+    pacman::p_load("tidyverse", "stringr", "forcats", "readxl")
 
 ## FILE PATHS ---------------------------------------------------------------------------------
   #must be run each time R project is opened
@@ -41,6 +41,7 @@
     
   #set today's date for saving
     date <-  format(Sys.Date(), format="%d%b%Y")
+    
     
 ## CLEAN UP STORED GLOBALS -------------------------------------------------------------------
   rm(projectpath, pfolder, folderlist, f)

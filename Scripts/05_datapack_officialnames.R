@@ -3,17 +3,18 @@
 ##   Purpose: identify official names from FACTSInfo
 ##   Adopted from COP17 Stata code/PPR 03_partnerreport_dashoardoutput
 ##   Date: Oct 13, 2017
-##   Updated: 
+##   Updated: 10/19/17
 
 
-## DEPENDENCIES
+## DEPENDENCIES -------------------------------------------------------------------------------------------------
   # Standard COP Matrix Report from FACTSInfo
-  # ICPI Fact View (df_curr)
     	
-### OFFICIAL NAMES
-	
+## OFFICIAL NAMES -------------------------------------------------------------------------------------------------
+
+cleanup_mechs <- function(df) {
+
   #import official mech and partner names; source: FACTS Info
-  	df_names <- read_excel(file.path(rawdata,"FY12-16 Standard COP Matrix Report-20170822.xls"), skip = 1)
+  	df_names <- read_excel(file.path(rawdata,"FY12-16 Standard COP Matrix Report-20171019.xls"), skip = 1)
   	
   #rename variables
   	names(df_names) <- c("operatingunit", "mechanismid", "primepartner_2014", "implementingmechanismname_2014", 
@@ -44,17 +45,19 @@
   	  
   	  #keep names with mechid (converted to string) for merging into main df, renaming (_F) to identify as from FACTS
     	  select(mechanismid, implementingmechanismname, primepartner) %>%
-    	  mutate(mechanismid =  as.character(mechanismid)) %>%
-    	  rename(implementingmechanismname_F = implementingmechanismname, primepartner_F = primepartner)
-  	  
+  	    mutate(mechanismid = ifelse(!is.character(mechanismid), as.character(mechanismid), mechanismid)) %>%
+    	  rename(implementingmechanismname_F = implementingmechanismname, primepartner_F = primepartner) 
+  	    
+      #match mechanism id type for compatible merge
+  	    df <- mutate(df, mechanismid = ifelse(!is.character(mechanismid), as.character(mechanismid), mechanismid))
+  	   
   #merge in official names
-  	df_curr <- left_join(df_curr, df_names, by="mechanismid")
-    rm(df_names)
-     
+  	df <- left_join(df, df_names, by="mechanismid")
+    
   #replace prime partner and mech names with official names
-    df_curr <- df_curr %>%
+    df <- df %>%
   	   mutate(implementingmechanismname = ifelse(is.na(implementingmechanismname_F), implementingmechanismname, implementingmechanismname_F), 
   	                  primepartner = ifelse(is.na(primepartner_F), primepartner, primepartner_F)) %>%
   	   select(-ends_with("_F"))
-    
+}
   	 
