@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 10/17
+##   Updated: 10/19
 
 ## DEPENDENCIES
     # run 00_datapack_initialize
@@ -116,14 +116,14 @@
     
 ## GENERATE VARIABLES/COLUMNS -------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
-  # updated 10/12
+  # updated 10/19
     
     df_indtbl <- df_indtbl %>%
     mutate(
       hts_tst = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
       hts_tst_pos = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
-      hts_tst_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/AgeLessThanTen/Result" & numeratordenom=="N"), fy2017apr, 0), 
-      hts_tst_pos_u15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/AgeLessThanTen/Result" & numeratordenom=="N"), fy2017apr, 0), 
+      hts_tst_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate %in% c("Modality/AgeLessThanTen/Result", "Modality/AgeAboveTen/Sex/Result") & age %in% c("<01", "01-09", "10-14" ) & numeratordenom=="N"), fy2017apr, 0), 
+      hts_tst_pos_u15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate %in% c("Modality/AgeLessThanTen/Result", "Modality/AgeAboveTen/Sex/Result") & age %in% c("<01", "01-09", "10-14" ) & numeratordenom=="N"), fy2017apr, 0), 
       hts_tst_u15_yield = 0, 
       hts_tst_neg_inpat = ifelse((indicator=="HTS_TST_NEG" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & modality=="Inpat" & numeratordenom=="N"), fy2017apr, 0), 
       hts_tst_neg_index = ifelse((indicator=="HTS_TST_NEG" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & modality=="Index" & numeratordenom=="N"), fy2017apr, 0), 
@@ -165,8 +165,8 @@
       ovc_serv_u18 = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex") & age %in% c("<01", "01-09", "10-14", "15-17") & numeratordenom=="N"), fy2017apr, 0), 
       ovc_serv_u18_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex") & age %in% c("<01", "01-09", "10-14", "15-17") & numeratordenom=="N"), fy2018_targets, 0), 
       plhivsubnat = ifelse((indicator=="PLHIV (SUBNAT)" & standardizeddisaggregate=="Total Numerator"), fy2017apr, 0), 
-      plhivsubnatagesex_u15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="<15"), fy2017apr, 0), 
-      plhivsubnatagesex_o15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="15+"), fy2017apr, 0), 
+      plhivsubnat,age/sex_u15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="<15"), fy2017apr, 0), 
+      plhivsubnat,age/sex_o15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="15+"), fy2017apr, 0), 
       pmtct_art_already = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
       pmtct_art_already_T = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2018_targets, 0), 
       pmtct_art_curr = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate %in% c("Life-long ART New", "Triple-drug ARV") & numeratordenom=="N"), fy2017apr, 0), 
@@ -179,9 +179,9 @@
       pmtct_stat_D_T = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2018_targets, 0), 
       pmtct_stat = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
       pmtct_stat_T = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
-      pmtct_stat_pos = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Known/New" & numeratordenom=="N"), fy2017apr, 0), 
+      pmtct_stat_pos = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Age/KnownNewResult" & resultstatus=="Positive" & numeratordenom=="N"), fy2017apr, 0), 
       pmtct_stat_yield = 0, 
-      pmtct_stat_knownpos = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Known/New" & resultstatus=="Positive" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"), fy2017apr, 0), 
+      pmtct_stat_knownpos = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Age/KnownNewResult" & resultstatus=="Positive" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"), fy2017apr, 0), 
       pop_estsubnat = ifelse((indicator=="POP_EST (SUBNAT)" & standardizeddisaggregate=="Total Numerator"), fy2017apr, 0), 
       pop_estsubnat,sex_m = ifelse((indicator=="POP_EST (SUBNAT, Sex)" & standardizeddisaggregate=="Total Numerator" & sex=="Male"), fy2017apr, 0), 
       pp_prev = ifelse((indicator=="PP_PREV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
@@ -211,7 +211,7 @@
       vmmc_circ_T = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
       vmmc_circ_rng_T = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="Age" & age %in% c("15-19", "20-24", "25-29") & numeratordenom=="N"), fy2018_targets, 0), 
       vmmc_circ_subnat = ifelse((indicator=="VMMC_CIRC_SUBNAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0))
-      
+
   
 ## AGGREGATE TO PSNU LEVEL ----------------------------------------------------------------------------------------
     #have to aggregate here; otherwise variable generation vector (next section) is too large to run
