@@ -29,5 +29,50 @@
   #create a deduplication mechanism for every SNU
   
   #collapse to unique list of psnus
-  df_de
+    df_dedups <- df_mechdistro %>%
+        filter(is.na(typemilitary)) %>%
+        distinct(operatingunit, psnuuid, psnu) %>%
+        filter(!is.na(psnuuid)) %>%
+        mutate(DSD = "00000", TA = "00000") %>%
+        gather(indicatortype, mechanismid, DSD, TA)
+  
+## MECH DISTRIBUTION ---------------------------------------------------------------------------------------
+  #from 01_datapack_output
+
+  ## TODO <<< ----    
+      
+      
+      
+## CLEAN UP -------------------------------------------------------------------------------------------------
+  
+  #keep just one dedup
+    df_mechdistro <- mutate(df_mechdistro, mechanismid = ifelse(mechanismid == "00001", "00000", mechanismid))
+      
+  #append psnu DSD + TA dedups on 
+    df_mechdistro <- bind_row(df_mechdistro, df_dedups)  
+  
+    # drop fy*
+    # tostring mechanismid, replace
+    # ds *, not(type string)
+    # foreach v in `r(varlist)'{
+		#   rename `v' val_`v'
+		# }
+	  #end
+    
+  #aggregate up to psnu level
+    isnum <- sapply(df_mechdistro, is.numeric)
+    df_mechdistro <- df_mechdistro %>% 
+      group_by(operatingunit, psnu, psnuuid, indicatortype, mechanismid) %>%
+      summarise(vars(isnum), funs(sum(., na.rm = TRUE)))
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
   

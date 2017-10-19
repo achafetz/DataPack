@@ -60,7 +60,7 @@
     
     #have to aggregate here; otherwise variable generation vector (next section) is too large to run
       df_indtbl <- df_indtbl %>%
-        filter(df_indtbl, is.na(typemilitary)) %>% #remove military data (will only use placeholders in the data pack)
+        filter(is.na(typemilitary)) %>% #remove military data (will only use placeholders in the data pack)
         group_by(operatingunit, snu1, psnu, psnuuid, fy18snuprioritization, indicator, standardizeddisaggregate, 
                  sex, age, resultstatus, otherdisaggregate, modality, numeratordenom) %>%
           summarize_at(vars(fy2015apr, fy2016apr, fy2017apr, fy2017_targets, fy2018_targets), funs(sum(., na.rm=TRUE))) %>%
