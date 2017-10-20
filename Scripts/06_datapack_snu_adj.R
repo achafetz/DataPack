@@ -113,22 +113,24 @@ cleanup_snus <- function(df) {
 
 cluster_snus <- function(df){
   # import cluster dataset
-  df_cluster  <- read_csv(file.path(rawdata, "COP17Clusters.csv", sep=""))
+    #df_cluster  <- read_csv(file.path(rawdata, "COP17Clusters.csv", sep=""))
+    gh <- getURL("https://raw.githubusercontent.com/achafetz/DataPack/master/RawData/COP17Clusters.csv")
+    df_cluster <- read.csv(text = gh)
   
   # remove duplicate data/headers
-  df_cluster <- select(df_cluster, -operatingunit, -psnu, -fy17snuprioritization, -cluster_set:-cluster_date)
+    df_cluster <- select(df_cluster, -operatingunit, -psnu, -fy17snuprioritization, -cluster_set:-cluster_date)
   
   # merge clusters onto factview
-  df <- left_join(df, df_cluster, by = "psnuuid")
+    df <- left_join(df, df_cluster, by = "psnuuid")
   
   # replace with cluster info
-  df <- df %>%
-    mutate(
-      psnu = ifelse(is.na(cluster_psnu), psnu, cluster_psnu),
-      snu1 = ifelse(is.na(cluster_snu1), snu1, cluster_snu1),
-      psnuuid = ifelse(is.na(cluster_psnuuid), psnuuid, cluster_psnuuid),
-      fy17snuprioritization = ifelse(is.na(cluster_fy17snuprioritization), fy17snuprioritization, cluster_fy17snuprioritization)
-    ) %>%
-    select(-cluster_psnu:-cluster_fy17snuprioritization)
+    df <- df %>%
+      mutate(
+        psnu = ifelse(is.na(cluster_psnu), psnu, cluster_psnu),
+        snu1 = ifelse(is.na(cluster_snu1), snu1, cluster_snu1),
+        psnuuid = ifelse(is.na(cluster_psnuuid), psnuuid, cluster_psnuuid),
+        fy17snuprioritization = ifelse(is.na(cluster_fy17snuprioritization), fy17snuprioritization, cluster_fy17snuprioritization)
+      ) %>%
+      select(-cluster_psnu:-cluster_fy17snuprioritization)
   
 } 

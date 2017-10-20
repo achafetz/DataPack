@@ -7,7 +7,7 @@
 
 ## DEPENDENT PACKAGES -------------------------------------------------------------------------
   #load libraries 
-    pacman::p_load("tidyverse", "stringr", "forcats", "readxl")
+    pacman::p_load("tidyverse", "stringr", "forcats", "readxl", "RCurl")
 
 ## FILE PATHS ---------------------------------------------------------------------------------
   #must be run each time R project is opened

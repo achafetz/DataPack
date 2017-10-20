@@ -20,7 +20,7 @@
   #update all partner and mech to offical names (based on FACTS Info)
   #cleanup PSNUs (dups & clusters)
       source(file.path(scripts, "05_datapack_officialnames.R"))
-      cleanup_mechs(df_mechlist)
+      cleanup_mechs(df_mechlist, rawdata)
   
   #unique list of mechanisms
     df_mechlist <- df_mechlist %>%
