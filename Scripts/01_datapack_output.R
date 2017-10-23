@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 10/19
+##   Updated: 10/23
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -15,8 +15,8 @@
 ## NAT_SUBNAT --------------------------------------------------------------------------------------------------
 
   #import data
-    df_subnat  <- read_tsv(file.path(fvdata, paste("ICPI_FactView_NAT_SUBNAT_", datestamp, ".txt", sep="")))
-    names(df_subnat) <- tolower(names(df_subnat))
+    df_subnat <- read_tsv(file.path(fvdata, paste("ICPI_FactView_NAT_SUBNAT_", datestamp, ".txt", sep="")))
+    df_subnat <- rename_all(df_subnat, tolower)
     
   #align nat_subnat names with what is in fact view
     df_subnat <- df_subnat %>%
@@ -27,7 +27,7 @@
     
   #import
     df_mer  <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_", datestamp, ".txt", sep="")))
-    names(df_mer) <- tolower(names(df_mer))
+    df_mer <- rename_all(df_mer, tolower)
     
   
 ## APPEND -----------------------------------------------------------------------------------------------------
