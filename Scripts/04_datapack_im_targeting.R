@@ -15,7 +15,7 @@
 
   #import
     df_mechdistro <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_IM_", datestamp, ".txt", sep="")))
-      names(df_mechdistro) <- tolower(names(df_mechdistro)) 
+    df_mechdistro <- rename_all(df_mechdistro, tolower)
   
   #cleanup PSNUs (dups & clusters)
     source(file.path(scripts, "05_datapack_officialnames.R"))
@@ -52,6 +52,7 @@
       
 #  ^^^^^^ REMOVE ABOVE ^^^^^^
   
+  
 ## MECH DISTRIBUTION ---------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
       
@@ -79,7 +80,6 @@
       
       
       
-      
 ## CLEAN UP -------------------------------------------------------------------------------------------------
   
   #keep just one dedup
@@ -89,25 +89,52 @@
     df_mechdistro <- bind_rows(df_mechdistro, df_dedups)  
       rm(df_dedups)
       
-    # drop fy*
-    df_mechdistro <- df_mechdistro %>% 
-      select(-contains("fy2")) %>% 
-      mutate(mechanismid = as.character(mechanismid)) %>% 
-      rename_at(vars(hts_tst:vmmc_circ), funs(paste("val",.,sep = "_")))
-    
   #aggregate up to psnu level
     df_mechdistro <- df_mechdistro %>% 
+      mutate(mechanismid = as.character(mechanismid), 
+             coarsedisaggregate = as.character(coarsedisaggregate)) %>% #shouldn't be numeric
+      select(-contains("fy2")) %>% #only want "new" variables
+      rename_if(is_numeric, funs(paste("D",.,"fy19", sep = "_"))) %>% #rename with common stub
       group_by(operatingunit, psnu, psnuuid, indicatortype, mechanismid) %>%
-      summarise(vars(isnum), funs(sum(., na.rm = TRUE)))
+      summarise_if(is_numeric, funs(sum(., na.rm = TRUE))) %>% #summarize all numeric (new) variables
+      ungroup
+
       
+## CREATE DISTRIBUTION -------------------------------------------------------------------------------------------------
+    
+  #reshape
+    df_mechdistro <- df_mechdistro %>% 
+      gather(ind, val, starts_with("D_")) %>%
+      filter(val!=0)
+
+  #PSNU totals for each variable
+    df_psnutot <- df_mechdistro %>% 
+      group_by(psnuuid, indicatortype, ind) %>% #at psnu level, mechanismid removed
+      summarise_at(vars(val), funs(sum(.))) %>% #summarize all numeric (new) variables
+      ungroup %>% 
+      rename(tot = val)
+    
+    df_mechdistro <- full_join(df_mechdistro, df_psnutot, by = c("psnuuid", "indicatortype", "ind")) #merge onto df_mechdistro
+      rm(df_psnutot)
       
-      
-      
-      
-      
-      
-      
-      
-      
+  #create distribution - IM's variable share of PSNU total      
+    df_mechdistro <- df_mechdistro %>% 
+      mutate(distro = val/tot) %>% 
+      select(-val, -tot) %>%
+    
+  #reshape wide
+      spread(ind, distro) %>%
+  
+  #clean up for export
+      mutate(placeholder = NA) %>% 
+      select(operatingunit, psnuuid, psnu, placeholder, mechanismid, indicatortype, starts_with("D_")) %>% 
+      arrange(operatingunit, psnu, mechanismid, indicatortype)
+
+ 
+
+## EXPORT -----------------------------------------------------------------------------------------------------  
+    
+    write_csv(df_mechdistro, file.path(output, "Global_AllocbyIM.csv"))
+      rm(df_mechdistro, cleanup_mechs, cleanup_snus, cluster_snus)
     
   
