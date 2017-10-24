@@ -15,6 +15,11 @@
 #folders
 TempOutput/*
 Output/*
+OtherInfo/*
+CompletedDataPacks/*
+TemplateGeneration/*
+Theme/*
+Feedback/*
 
 # Windows image file caches
 Thumbs.db
