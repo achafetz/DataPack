@@ -54,7 +54,7 @@
 ## EXPORT -----------------------------------------------------------------------------------------------------  
    
     #export 
-      write_csv(df_keyindtbl, file.path(output, paste("Global_KeyTrends.csv", sep="")))
+      write_csv(df_keyindtbl, file.path(output, paste("Global_KeyTrends.csv", sep="")), na = "")
         rm(df_keyindtbl)
         file.remove(file.path(tempoutput, "append_temp.Rdata"))
         

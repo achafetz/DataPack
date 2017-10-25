@@ -219,6 +219,6 @@
       
 ## EXPORT -------------------------------------------------------------------------------------------------------
       
-  write_csv(df_indtbl, file.path(output, paste("Global_IndTbl.csv", sep="")))
+  write_csv(df_indtbl, file.path(output, paste("Global_IndTbl.csv", sep="")), na = "")
     rm(df_indtbl, priority_levels)
     

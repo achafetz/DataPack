@@ -134,7 +134,7 @@
 
 ## EXPORT -----------------------------------------------------------------------------------------------------  
     
-    write_csv(df_mechdistro, file.path(output, "Global_AllocbyIM.csv"))
+    write_csv(df_mechdistro, file.path(output, "Global_AllocbyIM.csv", na = ""))
       rm(df_mechdistro, cleanup_mechs, cleanup_snus, cluster_snus)
     
   

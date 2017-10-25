@@ -29,6 +29,6 @@
   
   ## EXPORT -----------------------------------------------------------------------------------------------------  
     
-    write_csv(df_mechlist, file.path(output, "Global_MechList.csv"))
+    write_csv(df_mechlist, file.path(output, "Global_MechList.csv"), na = "")
     rm(df_mechlist)
     
