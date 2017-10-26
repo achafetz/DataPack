@@ -3,13 +3,13 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 10/23
+##   Updated: 10/26
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
     # ICPI Fact View NAT_SUBNAT
     # ICPI Fact View PSNU
-    # 06_datapack_snu_adj.R
+    # 92_datapack_snu_adj.R
 
 
 ## NAT_SUBNAT --------------------------------------------------------------------------------------------------
@@ -35,7 +35,7 @@
       rm(df_mer, df_subnat)
     
     #cleanup PSNUs (dups & clusters)
-      source(file.path(scripts, "06_datapack_snu_adj.R"))
+      source(file.path(scripts, "92_datapack_snu_adj.R"))
       cleanup_snus(df_indtbl)
       cluster_snus(df_indtbl)
 

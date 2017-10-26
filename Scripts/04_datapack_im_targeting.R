@@ -3,13 +3,13 @@
 ##   Purpose: generate output for IM targeting in Data Pack
 ##   Adopted from COP17 Stata code
 ##   Date: October 19, 2017
-##   Updated: 10/19/17
+##   Updated: 10/26/17
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
     # ICPI Fact View PSNU_IM
-    # 05_datapack_officialnames.R
-    # 06_datapack_snu_adj.R
+    # 91_datapack_officialnames.R
+    # 92_datapack_snu_adj.R
 
 ## SETUP ---------------------------------------------------------------------------------------------------
 
@@ -18,10 +18,10 @@
     df_mechdistro <- rename_all(df_mechdistro, tolower)
   
   #cleanup PSNUs (dups & clusters)
-    source(file.path(scripts, "05_datapack_officialnames.R"))
+    source(file.path(scripts, "91_datapack_officialnames.R"))
       cleanup_mechs(df_mechdistro, rawdata)
       
-    source(file.path(scripts, "06_datapack_snu_adj.R"))
+    source(file.path(scripts, "92_datapack_snu_adj.R"))
       cleanup_snus(df_mechdistro)
       cluster_snus(df_mechdistro)
 
@@ -51,7 +51,10 @@
   df_mechdistro[df_mechdistro==0] <- NA
       
 #  ^^^^^^ REMOVE ABOVE ^^^^^^
-  
+
+## SAVE TEMP FILE -------------------------------------------------------------------------------------------------
+  #save temp file as starting point for 11_datapack_output_keyind
+  save(df_indtbl, file = file.path(tempoutput, "cleanim_temp.RData"))  
   
 ## MECH DISTRIBUTION ---------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)

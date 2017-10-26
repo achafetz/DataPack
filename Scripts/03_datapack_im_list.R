@@ -3,12 +3,12 @@
 ##   Purpose: output unique mechanism list
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 13, 2017
-##   Updated: 10/23/17
+##   Updated: 10/26/17
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
     # ICPI Fact View OU_IM
-    # 05_datapack_officialnames.R
+    # 91_datapack_officialnames.R
 
 
 ## MECH LIST ----------------------------------------------------------------------------------------------
@@ -19,7 +19,7 @@
   
   #update all partner and mech to offical names (based on FACTS Info)
   #cleanup PSNUs (dups & clusters)
-      source(file.path(scripts, "05_datapack_officialnames.R"))
+      source(file.path(scripts, "91_datapack_officialnames.R"))
       cleanup_mechs(df_mechlist, rawdata)
   
   #unique list of mechanisms
