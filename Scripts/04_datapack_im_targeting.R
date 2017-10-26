@@ -54,7 +54,7 @@
 
 ## SAVE TEMP FILE -------------------------------------------------------------------------------------------------
   #save temp file as starting point for 11_datapack_output_keyind
-  save(df_indtbl, file = file.path(tempoutput, "cleanim_temp.RData"))  
+  save(df_mechdistro, file = file.path(tempoutput, "cleanim_temp.RData"))  
   
 ## MECH DISTRIBUTION ---------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
