@@ -7,10 +7,21 @@
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
-# cleanim_temp.Rdata (04_datapack_im_targeting.R)
+# ICPI Fact View PSNU
 
 
 ## FILTER DATA ------------------------------------------------------------------------------------------------------    
 
-  #import data
-    load(file.path(tempoutput, "cleanim_temp.RData"), verbose = FALSE)
+# import
+  df_imalloc  <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_", datestamp, ".txt", sep=""))) %>% 
+    rename_all(tolower)
+  
+# remove indicators with no targets
+  t <- filter(df_imalloc, !indicator %in% c("EMR_SITE", "FPINT_SITE", "HRH_CURR", "HRH_PRE", "HRH_STAFF",
+                                        "LAB_PTCQI", "PMTCT_FO", "PMTCT_HEI_POS", "SC_STOCK"))
+
+  ind <- t %>% 
+    distinct(indicator) %>% 
+    arrange(indicator) %>% 
+    print(n=80)
+  
