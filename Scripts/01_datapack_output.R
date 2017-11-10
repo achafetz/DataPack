@@ -15,11 +15,10 @@
 ## NAT_SUBNAT --------------------------------------------------------------------------------------------------
 
   #import data
-    df_subnat <- read_tsv(file.path(fvdata, paste("ICPI_FactView_NAT_SUBNAT_", datestamp, ".txt", sep="")))
-    df_subnat <- rename_all(df_subnat, tolower)
+    df_subnat <- read_tsv(file.path(fvdata, paste("ICPI_FactView_NAT_SUBNAT_", datestamp, ".txt", sep=""))) %>% 
+        rename_all(df_subnat, tolower) %>% 
     
   #align nat_subnat names with what is in fact view
-    df_subnat <- df_subnat %>%
       rename(fy2015apr= fy2015q4, fy2016apr = fy2016, fy2017apr = fy2017)
     
 
@@ -42,17 +41,10 @@
       
 ## REMOVE BELOW  -------------------------------------------------------------------------------------------------
       
-      ## FOR TESTING ONLY ## REMOVE after FY17 APR becomes available ##
-      df_indtbl[is.na(df_indtbl)] <- 0
-      df_indtbl <- df_indtbl %>% 
-        mutate(fy2017apr = ifelse(indicator=="TX_CURR", fy2017q3, 
-                                  ifelse(indicator %in% c("KP_PREV","PP_PREV", "OVC_HIVSTAT", "OVC_SERV", 
-                                                          "TB_ART", "TB_STAT", "TX_TB", "GEND_GBV", "PMTCT_FO", 
-                                                          "TX_RET", "KP_MAT"), fy2017q2, 
-                                         fy2017q1 + fy2017q2 + fy2017q3)),
-               fy2018_targets = fy2017_targets * 1.5,
-               fy18snuprioritization = as.character(fy16snuprioritization))
-      df_indtbl[df_indtbl==0] <- NA
+    ## FOR TESTING ONLY ## REMOVE after FY17 APR becomes available ##
+      
+      source(file.path(scripts, "93_datapack_testingdata.R"))
+      testing_dummydata(df_indtbl)
       
 #  ^^^^^^ REMOVE ABOVE ^^^^^^
       

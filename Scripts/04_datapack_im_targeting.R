@@ -39,16 +39,9 @@
 ## REMOVE BELOW  -------------------------------------------------------------------------------------------------
       
   ## FOR TESTING ONLY ## REMOVE after FY17 APR becomes available ##
-  df_mechdistro[is.na(df_mechdistro)] <- 0
-  df_mechdistro <- df_mechdistro %>% 
-    mutate(fy2017apr = ifelse(indicator=="TX_CURR", fy2017q3, 
-                              ifelse(indicator %in% c("KP_PREV","PP_PREV", "OVC_HIVSTAT", "OVC_SERV", 
-                                                      "TB_ART", "TB_STAT", "TX_TB", "GEND_GBV", "PMTCT_FO", 
-                                                      "TX_RET", "KP_MAT"), fy2017q2, 
-                                     fy2017q1 + fy2017q2 + fy2017q3)),
-           fy2018_targets = fy2017_targets * 1.5,
-           fy18snuprioritization = as.character(fy16snuprioritization))
-  df_mechdistro[df_mechdistro==0] <- NA
+      
+      source(file.path(scripts, "93_datapack_testingdata.R"))
+      testing_dummydata(df_mechdistro)
       
 #  ^^^^^^ REMOVE ABOVE ^^^^^^
 

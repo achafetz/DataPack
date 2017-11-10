@@ -3,7 +3,7 @@
 ##   Purpose: generate disagg distribution for targeting
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 26, 2017
-##   Updated: 11/9/17 
+##   Updated: 11/10/17 
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -15,8 +15,6 @@
   # import
     df_imalloc  <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_", datestamp, ".txt", sep=""))) %>% 
       rename_all(tolower)
-    
-    df_imalloc <- df_factview
   
   #cleanup PSNUs (dups & clusters)
     source(file.path(scripts, "92_datapack_snu_adj.R"))
@@ -26,16 +24,9 @@
   ## REMOVE BELOW  -------------------------------------------------------------------------------------------------
   
   ## FOR TESTING ONLY ## REMOVE after FY17 APR becomes available ##
-  df_imalloc[is.na(df_imalloc)] <- 0
-  df_imalloc <- df_imalloc %>% 
-    mutate(fy2017apr = ifelse(indicator=="TX_CURR", fy2017q3, 
-                              ifelse(indicator %in% c("KP_PREV","PP_PREV", "OVC_HIVSTAT", "OVC_SERV", 
-                                                      "TB_ART", "TB_STAT", "TX_TB", "GEND_GBV", "PMTCT_FO", 
-                                                      "TX_RET", "KP_MAT"), fy2017q2, 
-                                     fy2017q1 + fy2017q2 + fy2017q3)),
-           fy2018_targets = fy2017_targets * 1.5,
-           fy18snuprioritization = as.character(fy16snuprioritization))
-  df_imalloc[df_imalloc==0] <- NA
+
+    source(file.path(scripts, "93_datapack_testingdata.R"))
+    testing_dummydata(df_imalloc)
   
   #  ^^^^^^ REMOVE ABOVE ^^^^^^
   
