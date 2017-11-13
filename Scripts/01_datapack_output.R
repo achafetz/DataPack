@@ -16,7 +16,8 @@
 
   #import data
     df_subnat <- read_tsv(file.path(fvdata, paste("ICPI_FactView_NAT_SUBNAT_", datestamp, ".txt", sep=""))) %>% 
-        rename_all(df_subnat, tolower) %>% 
+        rename_all(tolower) %>%
+        mutate(fy2017 = as.double(fy2017)) %>% 
     
   #align nat_subnat names with what is in fact view
       rename(fy2015apr= fy2015q4, fy2016apr = fy2016, fy2017apr = fy2017)
@@ -35,8 +36,8 @@
     
     #cleanup PSNUs (dups & clusters)
       source(file.path(scripts, "92_datapack_snu_adj.R"))
-      cleanup_snus(df_indtbl)
-      cluster_snus(df_indtbl)
+      df_indtbl <- cleanup_snus(df_indtbl)
+      df_indtbl <- cluster_snus(df_indtbl)
 
       
 ## REMOVE BELOW  -------------------------------------------------------------------------------------------------
@@ -44,7 +45,7 @@
     ## FOR TESTING ONLY ## REMOVE after FY17 APR becomes available ##
       
       source(file.path(scripts, "93_datapack_testingdata.R"))
-      testing_dummydata(df_indtbl)
+      df_indtbl <- testing_dummydata(df_indtbl)
       
 #  ^^^^^^ REMOVE ABOVE ^^^^^^
       
@@ -207,8 +208,8 @@
       ovc_serv_sp_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Social Protection" & numeratordenom=="N"), fy2018_targets, 0), 
       ovc_serv_oth_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"), fy2018_targets, 0), 
       plhivsubnat = ifelse((indicator=="PLHIV (SUBNAT)" & standardizeddisaggregate=="Total Numerator"), fy2017apr, 0), 
-      plhivsubnat,age/sex_u15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="<15"), fy2017apr, 0), 
-      plhivsubnat,age/sex_o15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="15+"), fy2017apr, 0), 
+      plhivsubnatagesex_u15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="<15"), fy2017apr, 0), 
+      plhivsubnatagesex_o15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="15+"), fy2017apr, 0), 
       pmtct_art_already = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
       pmtct_art_already_T = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2018_targets, 0), 
       pmtct_art_curr = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate %in% c("Life-long ART New", "Triple-drug ARV") & numeratordenom=="N"), fy2017apr, 0), 
@@ -260,12 +261,12 @@
       
       
 ## AGGREGATE TO PSNU LEVEL ----------------------------------------------------------------------------------------
-    #have to aggregate here; otherwise variable generation vector (next section) is too large to run
-    
+      
     df_indtbl <- df_indtbl %>%
+      select(-indicator:-fy2018_targets) %>% 
       group_by(operatingunit, snu1, snulist, psnuuid, priority_snu) %>%
-      summarize_at(vars(hts_tst:vmmc_circ_subnat), funs(sum(., na.rm=TRUE))) %>%
-      ungroup  %>%
+      summarise_if(is.numeric, funs(sum(., na.rm=TRUE))) %>%
+      ungroup %>% 
     
     #reorder columns
       select(operatingunit, psnuuid, snulist, snu1, priority_snu, hts_tst:vmmc_circ_subnat) %>%

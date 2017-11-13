@@ -3,7 +3,7 @@
 ##   Purpose: generate output for IM targeting in Data Pack
 ##   Adopted from COP17 Stata code
 ##   Date: October 19, 2017
-##   Updated: 10/26/17
+##   Updated: 11/13
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -14,16 +14,16 @@
 ## SETUP ---------------------------------------------------------------------------------------------------
 
   #import
-    df_mechdistro <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_IM_", datestamp, ".txt", sep="")))
-    df_mechdistro <- rename_all(df_mechdistro, tolower)
+    df_mechdistro <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_IM_", datestamp, ".txt", sep=""))) %>% 
+        rename_all(tolower)
   
   #cleanup PSNUs (dups & clusters)
     source(file.path(scripts, "91_datapack_officialnames.R"))
-      cleanup_mechs(df_mechdistro, rawdata)
+      df_mechdistro <-cleanup_mechs(df_mechdistro, rawdata)
       
     source(file.path(scripts, "92_datapack_snu_adj.R"))
-      cleanup_snus(df_mechdistro)
-      cluster_snus(df_mechdistro)
+      df_mechdistro <- cleanup_snus(df_mechdistro)
+      df_mechdistro <- cluster_snus(df_mechdistro)
 
 ## DEDUPLICATION -------------------------------------------------------------------------------------------
   #create a deduplication mechanism for every SNU

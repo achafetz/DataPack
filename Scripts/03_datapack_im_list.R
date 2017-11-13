@@ -3,7 +3,7 @@
 ##   Purpose: output unique mechanism list
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 13, 2017
-##   Updated: 10/26/17
+##   Updated: 11/13
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -20,7 +20,7 @@
   #update all partner and mech to offical names (based on FACTS Info)
   #cleanup PSNUs (dups & clusters)
       source(file.path(scripts, "91_datapack_officialnames.R"))
-      cleanup_mechs(df_mechlist, rawdata)
+      df_mechlist <- cleanup_mechs(df_mechlist, rawdata)
   
   #unique list of mechanisms
     df_mechlist <- df_mechlist %>%
