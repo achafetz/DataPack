@@ -40,8 +40,8 @@
       
   ## FOR TESTING ONLY ## REMOVE after FY17 APR becomes available ##
       
-      source(file.path(scripts, "93_datapack_testingdata.R"))
-      testing_dummydata(df_mechdistro)
+    source(file.path(scripts, "93_datapack_testingdata.R"))
+      df_mechdistro <- testing_dummydata(df_mechdistro)
       
 #  ^^^^^^ REMOVE ABOVE ^^^^^^
 
@@ -181,11 +181,11 @@
     df_mechdistro <- df_mechdistro %>% 
       mutate(mechanismid = as.character(mechanismid), 
              coarsedisaggregate = as.character(coarsedisaggregate)) %>% #shouldn't be numeric
-      select(-contains("fy2")) %>% #only want "new" variables
-      rename_if(is_numeric, funs(paste("D",.,"fy19", sep = "_"))) %>% #rename with common stub
+      select(-contains("fy2")) %>% #only want "new", mutated variables
+      rename_if(is.numeric, funs(paste("D",.,"fy19", sep = "_"))) %>% #rename with common stub
       group_by(operatingunit, psnu, psnuuid, indicatortype, mechanismid) %>%
-      summarise_if(is_numeric, funs(sum(., na.rm = TRUE))) %>% #summarize all numeric (new) variables
-      ungroup
+      summarise_if(is.numeric, funs(sum(., na.rm = TRUE))) %>% #summarize all numeric (new) variables
+      ungroup()
 
       
 ## CREATE DISTRIBUTION -------------------------------------------------------------------------------------------------
@@ -196,19 +196,20 @@
       filter(val!=0)
 
   #PSNU totals for each variable
-    df_psnutot <- df_mechdistro %>% 
+    df_mechdistro <- df_mechdistro %>% 
       group_by(psnuuid, indicatortype, ind) %>% #at psnu level, mechanismid removed
-      summarise_at(vars(val), funs(sum(.))) %>% #summarize all numeric (new) variables
-      ungroup %>% 
-      rename(tot = val)
+      mutate(total = sum(val)) %>%  #summarize psnu level total
+      summarise_at(vars(val), funs(sum(.))) %>% 
+      ungroup()
+    
     
     df_mechdistro <- full_join(df_mechdistro, df_psnutot, by = c("psnuuid", "indicatortype", "ind")) #merge onto df_mechdistro
       rm(df_psnutot)
       
   #create distribution - IM's variable share of PSNU total      
     df_mechdistro <- df_mechdistro %>% 
-      mutate(distro = val/tot) %>% 
-      select(-val, -tot) %>%
+      mutate(distro = val/total) %>% 
+      select(-val, -total) %>%
     
   #reshape wide
       spread(ind, distro) %>%
