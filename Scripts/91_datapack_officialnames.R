@@ -3,7 +3,7 @@
 ##   Purpose: identify official names from FACTSInfo
 ##   Adopted from COP17 Stata code/PPR 03_partnerreport_dashoardoutput
 ##   Date: Oct 13, 2017
-##   Updated: 10/20/17
+##   Updated: 11/14/17
 
 
 ## DEPENDENCIES -------------------------------------------------------------------------------------------------
@@ -47,14 +47,14 @@ cleanup_mechs <- function(df_to_clean, report_folder_path, report_start_year = 2
   	    spread(type, name) %>%
   	  
   	  #convert mechanism id to string for merging back onto main df
-  	    mutate(mechanismid = ifelse(!is.character(mechanismid), as.character(mechanismid), mechanismid)) %>%
+  	    mutate(mechanismid = as.character(mechanismid)) %>%
   	      
   	  #keep only names with mechid and renaming with _F to identify as from FACTS  
     	  select(mechanismid, implementingmechanismname, primepartner) %>%
     	  rename(implementingmechanismname_F = implementingmechanismname, primepartner_F = primepartner) 
   	    
     #match mechanism id type for compatible merge
-	    df_to_clean <- mutate(df_to_clean, mechanismid = ifelse(!is.character(mechanismid), as.character(mechanismid), mechanismid))
+	    df_to_clean <- mutate(df_to_clean, as.character(mechanismid))
   	   
     #merge in official names
     	df_to_clean <- left_join(df_to_clean, df_names, by="mechanismid")
