@@ -63,7 +63,7 @@
     
     df_indtbl <- df_indtbl %>%
       
-    #remove blank rows(and military)
+    #remove rows with no psnuuid attribution
       drop_na(psnuuid)  %>%
       
     #rename
