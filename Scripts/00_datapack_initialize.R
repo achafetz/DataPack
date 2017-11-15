@@ -2,12 +2,12 @@
 ##  A.Chafetz, USAID
 ##  Purpose: initialize packages, folder structure, and global file paths
 ##  Adapted from T. Essam, USAID [Stata]
-##  Updated: 10/19/17 
+##  Updated: 11/14/17 
 ##  https://github.com/achafetz/DataPack
 
 ## DEPENDENT PACKAGES -------------------------------------------------------------------------
   #load libraries 
-    pacman::p_load("readr", "dplyr", "tidyr", "tibble", "stringr", "forcats", "readxl", "RCurl", "rlist")
+    pacman::p_load("tidyverse", "readxl", "RCurl", "rlist")
 
 ## FILE PATHS ---------------------------------------------------------------------------------
   #must be run each time R project is opened
