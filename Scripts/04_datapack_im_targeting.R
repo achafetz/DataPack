@@ -30,7 +30,7 @@
   
   #collapse to unique list of psnus
     df_dedups <- df_mechdistro %>%
-        filter(is.na(typemilitary)) %>%
+        #filter(is.na(typemilitary)) %>%
         distinct(operatingunit, psnuuid, psnu) %>%
         filter(!is.na(psnuuid)) %>%
         mutate(DSD = "00000", TA = "00000") %>%
@@ -182,7 +182,7 @@
       mutate(mechanismid = as.character(mechanismid), 
              coarsedisaggregate = as.character(coarsedisaggregate)) %>% #shouldn't be numeric
       select(-contains("fy2")) %>% #only want "new", mutated variables
-      rename_if(is.numeric, funs(paste("D",.,"fy19", sep = "_"))) %>% #rename with common stub
+      rename_if(is.numeric, funs(paste("D",.,"pct", sep = "_"))) %>% #rename with common stub
       group_by(operatingunit, psnu, psnuuid, indicatortype, mechanismid) %>%
       summarise_if(is.numeric, funs(sum(., na.rm = TRUE))) %>% #summarize all numeric (new) variables
       ungroup()
@@ -217,7 +217,7 @@
 
 ## EXPORT -----------------------------------------------------------------------------------------------------  
     
-    write_csv(df_mechdistro, file.path(output, "Global_AllocbyIM.csv", na = ""))
+    write_csv(df_mechdistro, file.path(output, "Global_AllocbyIM.csv", sep=""), na = "")
       rm(df_mechdistro, cleanup_mechs, cleanup_snus, cluster_snus)
     
   
