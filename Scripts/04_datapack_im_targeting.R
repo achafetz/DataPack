@@ -199,16 +199,10 @@
     df_mechdistro <- df_mechdistro %>% 
       group_by(psnuuid, indicatortype, ind) %>% #at psnu level, mechanismid removed
       mutate(total = sum(val)) %>%  #summarize psnu level total
-      summarise_at(vars(val), funs(sum(.))) %>% 
-      ungroup()
-    
-    
-    df_mechdistro <- full_join(df_mechdistro, df_psnutot, by = c("psnuuid", "indicatortype", "ind")) #merge onto df_mechdistro
-      rm(df_psnutot)
+      ungroup() %>% 
       
   #create distribution - IM's variable share of PSNU total      
-    df_mechdistro <- df_mechdistro %>% 
-      mutate(distro = val/total) %>% 
+      mutate(distro = round(val/total, 3)) %>% 
       select(-val, -total) %>%
     
   #reshape wide
