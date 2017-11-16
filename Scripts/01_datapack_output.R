@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 11/7
+##   Updated: 11/16
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -95,14 +95,16 @@
       
 ## SAVE TEMP FILE -------------------------------------------------------------------------------------------------
     #save temp file as starting point for 02_datapack_output_keyind
-      save(df_indtbl, file = file.path(tempoutput, "append_temp.RData"))
+      #save(df_indtbl, file = file.path(tempoutput, "append_temp.RData"))
     
 ## GENERATE VARIABLES/COLUMNS -------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
-  # updated 11/13
+  # updated 11/16
     
     df_indtbl <- df_indtbl %>%
     mutate(
+      gend_gbv = ifelse((indicator=="GEND_GBV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
+      gend_gbv_T = ifelse((indicator=="GEND_GBV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
       hts_tst = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
       hts_tst_pos = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
       hts_tst_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate %in% c("Modality/AgeLessThanTen/Result", "Modality/AgeAboveTen/Sex/Result") & age %in% c("<01", "01-09", "10-14" ) & numeratordenom=="N"), fy2017apr, 0), 
@@ -119,8 +121,7 @@
       hts_tst_neg_vct_o15 = ifelse((indicator=="HTS_TST_NEG" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="VCT" & numeratordenom=="N"), fy2017apr, 0), 
       hts_tst_neg_tbclinic_o15 = ifelse((indicator=="HTS_TST_NEG" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="TBClinic" & numeratordenom=="N"), fy2017apr, 0), 
       hts_tst_neg_vmmc_o15 = ifelse((indicator=="HTS_TST_NEG" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="VMMC" & numeratordenom=="N"), fy2017apr, 0), 
-      hts_tst_neg_pediatric_o15 = ifelse((indicator=="HTS_TST_NEG" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="Pediatric" & numeratordenom=="N"), fy2017apr, 0), 
-      hts_tst_neg_malnutrition_o15 = ifelse((indicator=="HTS_TST_NEG" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="Malnutrition" & numeratordenom=="N"), fy2017apr, 0), 
+      hts_tst_neg_pmtctanc_o15 = ifelse((indicator=="HTS_TST_NEG" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="PMTCT ANC" & numeratordenom=="N"), fy2017apr, 0), 
       hts_tst_neg_otherpitc_o15 = ifelse((indicator=="HTS_TST_NEG" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="OtherPITC" & numeratordenom=="N"), fy2017apr, 0), 
       hts_tst_pos_indexmod_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="IndexMod" & numeratordenom=="N"), fy2017apr, 0), 
       hts_tst_pos_mobilemod_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="MobileMod" & numeratordenom=="N"), fy2017apr, 0), 
@@ -133,8 +134,7 @@
       hts_tst_pos_vct_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="VCT" & numeratordenom=="N"), fy2017apr, 0), 
       hts_tst_pos_tbclinic_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="TBClinic" & numeratordenom=="N"), fy2017apr, 0), 
       hts_tst_pos_vmmc_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="VMMC" & numeratordenom=="N"), fy2017apr, 0), 
-      hts_tst_pos_pediatric_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="Pediatric" & numeratordenom=="N"), fy2017apr, 0), 
-      hts_tst_pos_malnutrition_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="Malnutrition" & numeratordenom=="N"), fy2017apr, 0), 
+      hts_tst_pos_pmtctanc_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="PMTCT ANC" & numeratordenom=="N"), fy2017apr, 0), 
       hts_tst_pos_otherpitc_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age==">15" & modality=="OtherPITC" & numeratordenom=="N"), fy2017apr, 0), 
       hts_tst_spd_tot_pos_o15 = 0, 
       hts_tst_neg_indexmod_u15 = ifelse((indicator=="HTS_TST_NEG" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="IndexMod" & numeratordenom=="N"), fy2017apr, 0), 
@@ -198,6 +198,15 @@
       ovc_serv_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
       ovc_serv_u18 = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex") & age %in% c("<01", "01-09", "10-14", "15-17") & numeratordenom=="N"), fy2017apr, 0), 
       ovc_serv_u18_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex") & age %in% c("<01", "01-09", "10-14", "15-17") & numeratordenom=="N"), fy2018_targets, 0), 
+      ovc_serv_grad = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Program Status" & otherdisaggregate=="Beneficiaries Served Graduated" & numeratordenom=="N"), fy2017apr, 0), 
+      ovc_serv_active = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Program Status" & otherdisaggregate=="Beneficiaries Served Active" & numeratordenom=="N"), fy2017apr, 0), 
+      ovc_serv_exited = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Program Status" & otherdisaggregate=="Beneficiaries Served Exited without Graduation" & numeratordenom=="N"), fy2017apr, 0), 
+      ovc_serv_trans = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Program Status" & otherdisaggregate=="Beneficiaries Served Transferred" & numeratordenom=="N"), fy2017apr, 0), 
+      ovc_serv_edu = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Education Support" & numeratordenom=="N"), fy2017apr, 0), 
+      ovc_serv_care = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"), fy2017apr, 0), 
+      ovc_serv_econ = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"), fy2017apr, 0), 
+      ovc_serv_sp = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Social Protection" & numeratordenom=="N"), fy2017apr, 0), 
+      ovc_serv_oth = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"), fy2017apr, 0), 
       ovc_serv_grad_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Program Status" & otherdisaggregate=="Beneficiaries Served Graduated" & numeratordenom=="N"), fy2018_targets, 0), 
       ovc_serv_active_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Program Status" & otherdisaggregate=="Beneficiaries Served Active" & numeratordenom=="N"), fy2018_targets, 0), 
       ovc_serv_exited_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Program Status" & otherdisaggregate=="Beneficiaries Served Exited without Graduation" & numeratordenom=="N"), fy2018_targets, 0), 
@@ -207,9 +216,9 @@
       ovc_serv_econ_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"), fy2018_targets, 0), 
       ovc_serv_sp_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Social Protection" & numeratordenom=="N"), fy2018_targets, 0), 
       ovc_serv_oth_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"), fy2018_targets, 0), 
-      plhivsubnat = ifelse((indicator=="PLHIV (SUBNAT)" & standardizeddisaggregate=="Total Numerator"), fy2017apr, 0), 
-      plhivsubnatagesex_u15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="<15"), fy2017apr, 0), 
-      plhivsubnatagesex_o15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="15+"), fy2017apr, 0), 
+      plhiv = ifelse((indicator=="PLHIV (SUBNAT)" & standardizeddisaggregate=="Total Numerator"), fy2017apr, 0), 
+      plhiv_u15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="<15"), fy2017apr, 0), 
+      plhiv_o15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="15+"), fy2017apr, 0), 
       pmtct_art_already = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
       pmtct_art_already_T = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2018_targets, 0), 
       pmtct_art_curr = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate %in% c("Life-long ART New", "Triple-drug ARV") & numeratordenom=="N"), fy2017apr, 0), 
@@ -229,6 +238,8 @@
       pop_estsubnat,sex_m = ifelse((indicator=="POP_EST (SUBNAT, Sex)" & standardizeddisaggregate=="Total Numerator" & sex=="Male"), fy2017apr, 0), 
       pp_prev = ifelse((indicator=="PP_PREV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
       pp_prev_T = ifelse((indicator=="PP_PREV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
+      prep_new = ifelse((indicator=="PrEP_NEW" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
+      prep_new_T = ifelse((indicator=="PrEP_NEW" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
       tb_art_T = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
       tb_stat_D = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
       tb_stat_D_T = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2018_targets, 0), 
@@ -272,7 +283,7 @@
       select(operatingunit, psnuuid, snulist, snu1, priority_snu, hts_tst:vmmc_circ_subnat) %>%
     
     #sort by PLHIV
-      arrange(operatingunit, desc(plhivsubnat), snulist) 
+      arrange(operatingunit, desc(plhiv), snulist) 
       
 ## EXPORT -------------------------------------------------------------------------------------------------------
       
