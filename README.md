@@ -1,5 +1,5 @@
 
-### TO DO
+### PEPFAR COP Data Pack
 
 Release of Data Packs is planned for Janurary 2018. Historic Data Packs can be found on pepfar.net country pages.
 
