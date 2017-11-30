@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 11/16
+##   Updated: 11/29
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -43,8 +43,8 @@
       
     ## FOR TESTING ONLY ## REMOVE after FY17 APR becomes available ##
       
-      source(file.path(scripts, "93_datapack_testingdata.R"))
-      df_indtbl <- testing_dummydata(df_indtbl)
+     # source(file.path(scripts, "93_datapack_testingdata.R"))
+     # df_indtbl <- testing_dummydata(df_indtbl)
       
 #  ^^^^^^ REMOVE ABOVE ^^^^^^
       
@@ -53,7 +53,7 @@
     #have to aggregate here; otherwise variable generation vector (next section) is too large to run
       df_indtbl <- df_indtbl %>%
         filter(is.na(typemilitary)) %>% #remove military data (will only use placeholders in the data pack)
-        group_by(operatingunit, snu1, psnu, psnuuid, fy18snuprioritization, indicator, standardizeddisaggregate, 
+        group_by(operatingunit, snu1, psnu, psnuuid, fy17snuprioritization, indicator, standardizeddisaggregate, 
                  sex, age, resultstatus, otherdisaggregate, modality, numeratordenom) %>%
           summarize_at(vars(fy2015apr, fy2016apr, fy2017apr, fy2017_targets, fy2018_targets), funs(sum(., na.rm=TRUE))) %>%
           ungroup
@@ -67,7 +67,7 @@
       
     #rename
       rename(snulist = psnu, 
-             priority_snu = fy18snuprioritization)
+             priority_snu = fy17snuprioritization)
 
     #add military districts back in as row placeholder for country entry
       df_mil <- read_csv(file.path(rawdata, "COP18_mil_psnus.csv"))

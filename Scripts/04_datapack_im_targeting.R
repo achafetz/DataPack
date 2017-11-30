@@ -3,7 +3,7 @@
 ##   Purpose: generate output for IM targeting in Data Pack
 ##   Adopted from COP17 Stata code
 ##   Date: October 19, 2017
-##   Updated: 11/13
+##   Updated: 11/29
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -40,8 +40,8 @@
       
   ## FOR TESTING ONLY ## REMOVE after FY17 APR becomes available ##
       
-    source(file.path(scripts, "93_datapack_testingdata.R"))
-      df_mechdistro <- testing_dummydata(df_mechdistro)
+    # source(file.path(scripts, "93_datapack_testingdata.R"))
+     # df_mechdistro <- testing_dummydata(df_mechdistro)
       
 #  ^^^^^^ REMOVE ABOVE ^^^^^^
 

@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 10/19
+##   Updated: 11/29
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -17,7 +17,7 @@
         
     #filter
       df_keyindtbl <- df_indtbl %>%
-        filter((indicator %in% c("PLHIV (SUBNAT)", "HTS_TST", "HTS_TST_POS", "TB_ART", "TX_CURR", "TX_NEW",
+        filter((indicator %in% c("PLHIV", "HTS_TST", "HTS_TST_POS", "TB_ART", "TX_CURR", "TX_NEW",
                                  "VMMC_CIRC") & standardizeddisaggregate == "Total Numerator") |
                (indicator=="PMTCT_ART" & standardizeddisaggregate == "NewExistingArt")) %>%
         
