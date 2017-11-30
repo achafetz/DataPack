@@ -15,12 +15,11 @@
 ## NAT_SUBNAT --------------------------------------------------------------------------------------------------
 
   #import data
-    df_subnat <- read_tsv(file.path(fvdata, paste("ICPI_FactView_NAT_SUBNAT_", datestamp, ".txt", sep=""))) %>% 
+    df_subnat <- read_tsv(file.path(fvdata, paste("ICPI_FactView_NAT_SUBNAT_20171115_v1_2.txt", sep=""))) %>% 
         rename_all(tolower) %>%
-        mutate(fy2017 = as.double(fy2017)) %>% 
     
   #align nat_subnat names with what is in fact view
-      rename(fy2015apr= fy2015q4, fy2016apr = fy2016, fy2017apr = fy2017)
+      rename(fy2016apr = fy2016, fy2017apr = fy2017)
     
 
 ## MER - PSNUxIM ----------------------------------------------------------------------------------------------
@@ -216,9 +215,9 @@
       ovc_serv_econ_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"), fy2018_targets, 0), 
       ovc_serv_sp_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Social Protection" & numeratordenom=="N"), fy2018_targets, 0), 
       ovc_serv_oth_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"), fy2018_targets, 0), 
-      plhiv = ifelse((indicator=="PLHIV (SUBNAT)" & standardizeddisaggregate=="Total Numerator"), fy2017apr, 0), 
-      plhiv_u15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="<15"), fy2017apr, 0), 
-      plhiv_o15 = ifelse((indicator=="PLHIV (SUBNAT, Age/Sex)" & standardizeddisaggregate=="Age/Sex" & age=="15+"), fy2017apr, 0), 
+      plhiv = ifelse((indicator=="PLHIV" & standardizeddisaggregate=="Total Numerator"), fy2017apr, 0), 
+      plhiv_u15 = ifelse((indicator=="PLHIV" & standardizeddisaggregate=="Age/Sex" & age=="<15"), fy2017apr, 0), 
+      plhiv_o15 = ifelse((indicator=="PLHIV" & standardizeddisaggregate=="Age/Sex" & age=="15+"), fy2017apr, 0), 
       pmtct_art_already = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
       pmtct_art_already_T = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2018_targets, 0), 
       pmtct_art_curr = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate %in% c("Life-long ART New", "Triple-drug ARV") & numeratordenom=="N"), fy2017apr, 0), 
@@ -234,8 +233,8 @@
       pmtct_stat_pos = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Age/KnownNewResult" & resultstatus=="Positive" & numeratordenom=="N"), fy2017apr, 0), 
       pmtct_stat_yield = 0, 
       pmtct_stat_knownpos = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Age/KnownNewResult" & resultstatus=="Positive" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"), fy2017apr, 0), 
-      pop_estsubnat = ifelse((indicator=="POP_EST (SUBNAT)" & standardizeddisaggregate=="Total Numerator"), fy2017apr, 0), 
-      pop_estsubnat,sex_m = ifelse((indicator=="POP_EST (SUBNAT, Sex)" & standardizeddisaggregate=="Total Numerator" & sex=="Male"), fy2017apr, 0), 
+      pop_est = ifelse((indicator=="POP_EST" & standardizeddisaggregate=="Total Numerator"), fy2017apr, 0), 
+      pop_est_m = ifelse((indicator=="POP_EST" & standardizeddisaggregate=="Total Numerator" & sex=="Male"), fy2017apr, 0), 
       pp_prev = ifelse((indicator=="PP_PREV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
       pp_prev_T = ifelse((indicator=="PP_PREV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
       prep_new = ifelse((indicator=="PrEP_NEW" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
@@ -269,7 +268,6 @@
       vmmc_circ_T = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
       vmmc_circ_rng_T = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="Age" & age %in% c("15-19", "20-24", "25-29") & numeratordenom=="N"), fy2018_targets, 0), 
       vmmc_circ_subnat = ifelse((indicator=="VMMC_CIRC_SUBNAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0))
-      
       
       
 ## AGGREGATE TO PSNU LEVEL ----------------------------------------------------------------------------------------

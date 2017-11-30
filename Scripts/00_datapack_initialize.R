@@ -2,7 +2,7 @@
 ##  A.Chafetz, USAID
 ##  Purpose: initialize packages, folder structure, and global file paths
 ##  Adapted from T. Essam, USAID [Stata]
-##  Updated: 11/14/17 
+##  Updated: 11/28/17 
 ##  https://github.com/achafetz/DataPack
 
 ## DEPENDENT PACKAGES -------------------------------------------------------------------------
@@ -37,7 +37,7 @@
 ## DATES ---------------------------------------------------------------------------------------
     
   #define date for Fact View Files
-    datestamp <- "20170922_v2_1" #currently 3, needs to be updated with 4 when available
+    datestamp <- "20171115_v1_2" 
     
   #set today's date for saving
     date <-  format(Sys.Date(), format="%d%b%Y")
