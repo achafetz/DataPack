@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 11/29
+##   Updated: 11/30
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -19,7 +19,10 @@
         rename_all(tolower) %>%
     
   #align nat_subnat names with what is in fact view
-      rename(fy2016apr = fy2016, fy2017apr = fy2017)
+      rename(fy2016apr = fy2016, fy2017apr = fy2017) %>% 
+      
+  #add in standardized disaggegate as column since missing and that's what's used to generate new vars
+      mutate(standardizeddisaggregate = disaggregate)
     
 
 ## MER - PSNUxIM ----------------------------------------------------------------------------------------------
@@ -37,7 +40,7 @@
       source(file.path(scripts, "92_datapack_snu_adj.R"))
       df_indtbl <- cleanup_snus(df_indtbl)
       df_indtbl <- cluster_snus(df_indtbl)
-
+      rm(cleanup_snus, cluster_snus)
       
 ## REMOVE BELOW  -------------------------------------------------------------------------------------------------
       
@@ -94,11 +97,11 @@
       
 ## SAVE TEMP FILE -------------------------------------------------------------------------------------------------
     #save temp file as starting point for 02_datapack_output_keyind
-      #save(df_indtbl, file = file.path(tempoutput, "append_temp.RData"))
+      save(df_indtbl, file = file.path(tempoutput, "append_temp.RData"))
     
 ## GENERATE VARIABLES/COLUMNS -------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
-  # updated 11/17
+  # updated 11/29
     
     df_indtbl <- df_indtbl %>%
     mutate(
@@ -227,7 +230,7 @@
       pmtct_eid_pos_12mo = ifelse((indicator=="PMTCT_EID_POS_12MO" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
       pmtct_eid_yield = 0, 
       pmtct_stat_D = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
-      pmtct_stat_D_T = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2018_targets, 0), 
+      pmtct_stat_D_T = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Age" & numeratordenom=="D"), fy2018_targets, 0), 
       pmtct_stat = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
       pmtct_stat_T = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
       pmtct_stat_pos = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Age/KnownNewResult" & resultstatus=="Positive" & numeratordenom=="N"), fy2017apr, 0), 

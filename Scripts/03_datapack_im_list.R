@@ -3,7 +3,7 @@
 ##   Purpose: output unique mechanism list
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 13, 2017
-##   Updated: 11/29
+##   Updated: 11/30
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -30,5 +30,5 @@
   ## EXPORT -----------------------------------------------------------------------------------------------------  
     
     write_csv(df_mechlist, file.path(output, "Global_MechList.csv"), na = "")
-    rm(df_mechlist)
+    rm(df_mechlist, cleanup_mechs)
     
