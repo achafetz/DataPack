@@ -47,9 +47,15 @@
         
     #reshape with variables as column headers 
         spread(header, value) %>%
-        
+    
     #reorder
-        select(operatingunit, psnuuid, priority_snu, snulist, a_sp1:VMMC_CIRC_fy2018_targets)
+        select(operatingunit, psnuuid, priority_snu, snulist, a_sp1:VMMC_CIRC_fy2018_targets) %>%
+        
+    #sort by PLHIV
+        arrange(operatingunit, desc(PLHIV_fy2017apr), snulist) %>% 
+    
+    #remove all PLHIV (just included for sorting)
+        select(-starts_with("PLHIV"))
       
 ## EXPORT -----------------------------------------------------------------------------------------------------  
    
