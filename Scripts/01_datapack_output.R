@@ -41,16 +41,7 @@
       df_indtbl <- cleanup_snus(df_indtbl)
       df_indtbl <- cluster_snus(df_indtbl)
       rm(cleanup_snus, cluster_snus)
-      
-## REMOVE BELOW  -------------------------------------------------------------------------------------------------
-      
-    ## FOR TESTING ONLY ## REMOVE after FY17 APR becomes available ##
-      
-     # source(file.path(scripts, "93_datapack_testingdata.R"))
-     # df_indtbl <- testing_dummydata(df_indtbl)
-      
-#  ^^^^^^ REMOVE ABOVE ^^^^^^
-      
+
 ## AGGREGATE TO PNSU X DISAGGS LEVEL ------------------------------------------------------------------------------
     
     #have to aggregate here; otherwise variable generation vector (next section) is too large to run

@@ -38,15 +38,6 @@
         mutate(DSD = "00000", TA = "00000") %>%
         gather(indicatortype, mechanismid, DSD, TA)
 
-## REMOVE BELOW  -------------------------------------------------------------------------------------------------
-      
-  ## FOR TESTING ONLY ## REMOVE after FY17 APR becomes available ##
-      
-    # source(file.path(scripts, "93_datapack_testingdata.R"))
-     # df_mechdistro <- testing_dummydata(df_mechdistro)
-      
-#  ^^^^^^ REMOVE ABOVE ^^^^^^
-
 ## SAVE TEMP FILE -------------------------------------------------------------------------------------------------
   #save temp file as starting point for 11_datapack_output_keyind
   save(df_mechdistro, file = file.path(tempoutput, "cleanim_temp.RData"))  
