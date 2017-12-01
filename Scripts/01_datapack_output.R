@@ -97,11 +97,11 @@
       
 ## SAVE TEMP FILE -------------------------------------------------------------------------------------------------
     #save temp file as starting point for 02_datapack_output_keyind
-      save(df_indtbl, file = file.path(tempoutput, "append_temp.RData"))
+     #save(df_indtbl, file = file.path(tempoutput, "append_temp.RData"))
     
 ## GENERATE VARIABLES/COLUMNS -------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
-  # updated 11/29
+  # updated 11/30
     
     df_indtbl <- df_indtbl %>%
     mutate(
@@ -197,22 +197,22 @@
       kp_mat = ifelse((indicator=="KP_MAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
       kp_mat_T = ifelse((indicator=="KP_MAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
       ovc_serv = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
-      ovc_serv_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
+      ovc_serv_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="ProgramStatus" & numeratordenom=="N"), fy2018_targets, 0), 
       ovc_serv_u18 = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex") & age %in% c("<01", "01-09", "10-14", "15-17") & numeratordenom=="N"), fy2017apr, 0), 
       ovc_serv_u18_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex") & age %in% c("<01", "01-09", "10-14", "15-17") & numeratordenom=="N"), fy2018_targets, 0), 
-      ovc_serv_grad = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Program Status" & otherdisaggregate=="Beneficiaries Served Graduated" & numeratordenom=="N"), fy2017apr, 0), 
-      ovc_serv_active = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Program Status" & otherdisaggregate=="Beneficiaries Served Active" & numeratordenom=="N"), fy2017apr, 0), 
-      ovc_serv_exited = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Program Status" & otherdisaggregate=="Beneficiaries Served Exited without Graduation" & numeratordenom=="N"), fy2017apr, 0), 
-      ovc_serv_trans = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Program Status" & otherdisaggregate=="Beneficiaries Served Transferred" & numeratordenom=="N"), fy2017apr, 0), 
+      ovc_serv_grad = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="ProgramStatus" & otherdisaggregate=="Graduated" & numeratordenom=="N"), fy2017apr, 0), 
+      ovc_serv_active = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="ProgramStatus" & otherdisaggregate=="Active" & numeratordenom=="N"), fy2017apr, 0), 
+      ovc_serv_exited = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="ProgramStatus" & otherdisaggregate=="Exited without Graduation" & numeratordenom=="N"), fy2017apr, 0), 
+      ovc_serv_trans = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="ProgramStatus" & otherdisaggregate=="Transferred" & numeratordenom=="N"), fy2017apr, 0), 
       ovc_serv_edu = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Education Support" & numeratordenom=="N"), fy2017apr, 0), 
       ovc_serv_care = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"), fy2017apr, 0), 
       ovc_serv_econ = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"), fy2017apr, 0), 
       ovc_serv_sp = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Social Protection" & numeratordenom=="N"), fy2017apr, 0), 
       ovc_serv_oth = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Other Service Areas" & numeratordenom=="N"), fy2017apr, 0), 
-      ovc_serv_grad_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Program Status" & otherdisaggregate=="Beneficiaries Served Graduated" & numeratordenom=="N"), fy2018_targets, 0), 
-      ovc_serv_active_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Program Status" & otherdisaggregate=="Beneficiaries Served Active" & numeratordenom=="N"), fy2018_targets, 0), 
-      ovc_serv_exited_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Program Status" & otherdisaggregate=="Beneficiaries Served Exited without Graduation" & numeratordenom=="N"), fy2018_targets, 0), 
-      ovc_serv_trans_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Program Status" & otherdisaggregate=="Beneficiaries Served Transferred" & numeratordenom=="N"), fy2018_targets, 0), 
+      ovc_serv_grad_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="ProgramStatus" & otherdisaggregate=="Graduated" & numeratordenom=="N"), fy2018_targets, 0), 
+      ovc_serv_active_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="ProgramStatus" & otherdisaggregate=="Active" & numeratordenom=="N"), fy2018_targets, 0), 
+      ovc_serv_exited_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="ProgramStatus" & otherdisaggregate=="Exited without Graduation" & numeratordenom=="N"), fy2018_targets, 0), 
+      ovc_serv_trans_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="ProgramStatus" & otherdisaggregate=="Transferred" & numeratordenom=="N"), fy2018_targets, 0), 
       ovc_serv_edu_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Education Support" & numeratordenom=="N"), fy2018_targets, 0), 
       ovc_serv_care_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Parenting/Caregiver Programs" & numeratordenom=="N"), fy2018_targets, 0), 
       ovc_serv_econ_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Age/Sex/Service" & otherdisaggregate=="Economic Strengthening" & numeratordenom=="N"), fy2018_targets, 0), 
