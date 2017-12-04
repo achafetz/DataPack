@@ -3,7 +3,7 @@
 ##   Purpose: generate output for IM targeting in Data Pack
 ##   Adopted from COP17 Stata code
 ##   Date: October 19, 2017
-##   Updated: 11/30
+##   Updated: 12/4
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -197,6 +197,9 @@
   #create distribution - IM's variable share of PSNU total      
       mutate(distro = round(val/total, 3)) %>% 
       select(-val, -total) %>%
+  
+  #remove Inf created in distribution
+      filter(is.finite(distro)) %>% 
     
   #reshape wide
       spread(ind, distro) %>%
