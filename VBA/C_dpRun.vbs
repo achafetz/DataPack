@@ -933,11 +933,12 @@ Sub imTargeting()
     'setup/format IM distro tab
         Sheets("Allocation by SNUxIM").Activate
         LastRow = Range("C1").CurrentRegion.Rows.Count
-        Range(Cells(5, 7), Cells(LastRow, 24)).Select
+        colIND = WorksheetFunction.Match("FY19 Target Allocation", ActiveWorkbook.Sheets("Allocation by SNUxIM").Range("1:1"), 0)
+        Range(Cells(5, 7), Cells(colIND - 1, 116)).Select
         'format to hide zeros
         Selection.NumberFormat = "0%;-0%;;"
         LastColumn = Range("B2").CurrentRegion.Columns.Count 'TOFIX
-        Range(Cells(5, 25), Cells(LastRow, LastColumn)).Select
+        Range(Cells(5, colIND), Cells(LastRow, LastColumn)).Select
         Selection.NumberFormat = "#,##0;-#,##0;;"
         'add in formula to lookup prioritization
         Range(Cells(7, 4), Cells(LastRow, 4)).Select
@@ -948,9 +949,9 @@ Sub imTargeting()
         Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
         Application.DisplayAlerts = True
         'copy formulas down for target allocation
-        Range(Cells(7, 25), Cells(7, LastColumn)).Select
+        Range(Cells(7, colIND), Cells(7, LastColumn)).Select
         Selection.Copy
-        Range(Cells(8, 25), Cells(LastRow, LastColumn)).Select
+        Range(Cells(8, colIND), Cells(LastRow, LastColumn)).Select
         Selection.PasteSpecial Paste:=xlPasteFormulasAndNumberFormats
         Application.CutCopyMode = False
         'add total

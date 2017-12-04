@@ -3,7 +3,7 @@
 ##   Aaron Chafetz
 ##   Purpose: remove/combine duplicate SNUs with different UIDs & cluster SNUs
 ##   Date: January 12, 2017
-##   Updated: 10/18/17
+##   Updated: 12/4/17
 
 
 ##List of PSNUs that have the same name but different UIDs
@@ -113,9 +113,9 @@ cleanup_snus <- function(df) {
 
 cluster_snus <- function(df){
   # import cluster dataset
-    #df_cluster  <- read_csv(file.path(rawdata, "COP17Clusters.csv", sep=""))
-    gh <- getURL("https://raw.githubusercontent.com/achafetz/DataPack/master/RawData/COP17Clusters.csv")
-    df_cluster <- read.csv(text = gh)
+    df_cluster  <- read_csv(file.path(rawdata, "COP17Clusters.csv", sep=""))
+    #gh <- getURL("https://raw.githubusercontent.com/achafetz/DataPack/master/RawData/COP17Clusters.csv")
+    #df_cluster <- read.csv(text = gh)
   
   # remove duplicate data/headers
     df_cluster <- select(df_cluster, -operatingunit, -psnu, -fy17snuprioritization, -cluster_set:-cluster_date)
