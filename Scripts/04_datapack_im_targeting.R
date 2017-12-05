@@ -3,7 +3,7 @@
 ##   Purpose: generate output for IM targeting in Data Pack
 ##   Adopted from COP17 Stata code
 ##   Date: October 19, 2017
-##   Updated: 12/4
+##   Updated: 12/5
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -27,6 +27,7 @@
     
     rm(cleanup_mechs, cleanup_snus, cluster_snus)
     
+    
 ## DEDUPLICATION -------------------------------------------------------------------------------------------
   #create a deduplication mechanism for every SNU
   
@@ -38,9 +39,6 @@
         mutate(DSD = "00000", TA = "00000") %>%
         gather(indicatortype, mechanismid, DSD, TA)
 
-## SAVE TEMP FILE -------------------------------------------------------------------------------------------------
-  #save temp file as starting point for 11_datapack_output_keyind
-  #save(df_mechdistro, file = file.path(tempoutput, "cleanim_temp.RData"))  
   
 ## MECH DISTRIBUTION ---------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
