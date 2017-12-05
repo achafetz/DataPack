@@ -113,8 +113,8 @@ cleanup_snus <- function(df) {
 
 cluster_snus <- function(df){
   # import cluster dataset
-    df_cluster  <- read_csv(file.path(rawdata, "COP17Clusters.csv", sep=""))
-    #gh <- getURL("https://raw.githubusercontent.com/achafetz/DataPack/master/RawData/COP17Clusters.csv")
+    df_cluster  <- read_csv(file.path(rawdata, "COP18Clusters.csv", sep=""))
+    #gh <- getURL("https://raw.githubusercontent.com/achafetz/DataPack/master/RawData/COP18Clusters.csv")
     #df_cluster <- read.csv(text = gh)
   
   # remove duplicate data/headers
