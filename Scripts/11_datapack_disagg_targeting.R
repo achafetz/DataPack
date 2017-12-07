@@ -44,15 +44,27 @@
       ungroup() 
 
 
-## GENERATE VARIABLES/COLUMNS -------------------------------------------------------------------------------------
-    # output formulas created in Data Pack template (POPsubset sheet)
-    # updated 12/6
+## MAP VARIABLES -------------------------------------------------------------------------------------
+    # rather than use ifelse formulas, going to tag each unique variable combo with it's associated disagg tool variable
     
-  df_psnualloc <- df_psnualloc %>% 
-      mutate(
-       
-      )
+    #import disagg mapping table
+      df_disaggs <- read_tsv(file.path(rawdata, "disagg_ind_grps.txt")) %>% 
+    #remove rows where there are no associated MER indicators in FY17 (eg Tx_NEW Age/Sex 24-29 M)
+        filter(!is.na(standardizeddisaggregate))  %>% 
+    #remove columns that just identify information in the disagg tool
+        select(-dt_dataelementgrp, -dt_categoryoptioncombo)
 
+    #need to replace all the "NULL" in modality to NA in order to match disaggs & make it a character
+      df_psnualloc <- df_psnualloc %>% 
+          mutate(modality = ifelse(modality == "NULL", NA, modality),
+                 modality = as.character(modality))
+    
+    #check if there are variables from the disagg files that do not match with the PSNU allocation
+      #notjoined <- anti_join(df_disaggs, df_psnualloc)
+      
+    #map onto main PSNU allocation dataframe
+      df_psnualloc <- left_join(df_psnualloc, df_disaggs)
+        rm(df_disaggs)
       
  ## RESHAPE  ---------------------------------------------------------------------------------------    
   
@@ -90,9 +102,4 @@
         )
 
       
-      disaggs <- read_tsv(file.path(rawdata, "disagg_ind_grps.txt")) %>% 
-        filter(!is.na(standardizeddisaggregate))  %>% 
-        select(-dt_dataelementgrp, -dt_categoryoptioncombo)
-      
-      
-      test <- full_join(df_psnualloc, disaggs)
+     
