@@ -44,6 +44,7 @@ form for choosing the OUs and Data Pack products
         Public rng As Integer
         Public SelectedOpUnits
         Public sht As Variant
+        Public shtCount As Integer
         Public shtNames As Variant
         Public snu_unique As Integer
         Public spkGrp As SparklineGroup
@@ -870,6 +871,13 @@ Sub updateOutput()
 End Sub
 
 Sub saveFile()
+    'reset each view to beginning of sheet
+        shtCount = ActiveWorkbook.Worksheets.Count
+        For i = 2 To shtCount
+            Worksheets(i).Activate
+            Range("G2").Activate
+            Range("A1").Select
+        Next i
     'save
         Sheets("Home").Activate
         Range("X1").Select
