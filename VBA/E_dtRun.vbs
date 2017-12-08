@@ -3,9 +3,10 @@ Option Explicit
     Public compl_fldr As String
     Public distroWkbk As Workbook
     Public dtWkbk As Workbook
+    Public FirstRow
     Public fname_dp As String
     Public LastColumn As Integer
-    Public LastRow As Integer
+    Public LastRow
     Public mechlistWkbk As Workbook
     Public OpUnit As Object
     Public OpUnit_ns As String
@@ -18,6 +19,7 @@ Option Explicit
     Public rng As Integer
     Public SelectedOpUnits
     Public sht As Variant
+    Public shtCount As Integer
     Public shtNames As Variant
     Public tmplWkbk As Workbook
     Public tblName
@@ -48,7 +50,7 @@ Sub PopulateSiteDisaggTool()
         view = Sheets("POPref").Range("D11")
     'open and name all data files
         Application.DisplayAlerts = False
-        Workbooks.OpenText Filename:=pulls_fldr & "DisaggDistro.csv"
+        Workbooks.OpenText Filename:=pulls_fldr & "Global_DisaggDistro.csv"
         Set distroWkbk = ActiveWorkbook
         Workbooks.OpenText Filename:=pulls_fldr & "Global_DT_MechList.csv"
         Set mechlistWkbk = ActiveWorkbook
@@ -110,7 +112,7 @@ Sub fldrSetup()
                 path = Sheets("POPref").Range("D17").Value
             End If
         ' set folder directory
-            pulls_fldr = path & "DataPulls\"
+            pulls_fldr = path & "Output\"
             compl_fldr = path & "CompletedDataPacks\"
             theme_fldr = path & "Theme\"
         'set directory initially to the pulls folder
@@ -128,7 +130,7 @@ Sub Initialize()
         "PrEP_NEW Targets", "TB Alloc", "TB Targets", "TX_CURR Alloc", "TX_CURR Targets", _
         "TX_NEW Alloc", "TX_NEW Targets", "TX_PVLS Alloc", "TX_PVLS Targets", "TX_RET Alloc", _
         "TX_RET Targets", "TX_TB Alloc", "TX_TB Targets", "VMMC_CIRC Alloc", "VMMC_CIRC Targets", _
-        "All Ready Alloc Targets", "Historic Distro", "Follow on Mech List")).Copy
+        "All Ready Alloc Targets", "Follow on Mech List", "Historic Distro")).Copy
         Set dtWkbk = ActiveWorkbook
         ActiveWorkbook.Theme.ThemeColorScheme.Load (theme_fldr & "Adjacency.xml")
     'hard code update date into home tab & insert OU name
@@ -155,7 +157,7 @@ Sub getData()
         Selection.Copy
         dtWkbk.Activate
         Sheets("Historic Distro").Activate
-        Range("C3").Select
+        Range("B3").Select
         Selection.PasteSpecial Paste:=xlPasteValues
         Application.CutCopyMode = False
 
@@ -176,20 +178,20 @@ Sub psnuDistro()
         Selection.Copy
         dtWkbk.Activate
         shtNames = Array("GEND_GBV", "HTS_SELF", "OVC_SERV", _
-                "PMTCT", "PP_PREV Alloc", "PrEP_NE", "TB", "TX_CURR", _
+                "PMTCT", "PP_PREV", "PrEP_NEW", "TB", "TX_CURR", _
                 "TX_NEW", "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC")
         For Each sht In shtNames
-            Sheet(sht & " Alloc").Activate
+            Sheets(sht & " Alloc").Activate
             Range("C7").Select
             Selection.PasteSpecial Paste:=xlPasteValues
         Next sht
         Application.CutCopyMode = False
     'hard code site info & distro
         For Each sht In shtNames
-            Sheet(sht & " Alloc").Activate
-            LastRow = Range("C1").CurrentRegion.Rows.Count
+            Sheets(sht & " Alloc").Activate
+            LastRow = Range("C6").CurrentRegion.Rows.Count
             LastColumn = Range("C2").CurrentRegion.Columns.Count
-            Range(Cells(7, 3), Cells(LastRow, LastColumn)).Select
+            Range(Cells(7, 7), Cells(LastRow, LastColumn)).Select
             Selection.Copy
             Selection.PasteSpecial Paste:=xlPasteValues
             Application.CutCopyMode = False
@@ -229,17 +231,17 @@ Sub indDistro()
         Selection.Copy
         dtWkbk.Activate
         shtNames = Array("GEND_GBV", "HTS_SELF", "OVC_SERV", _
-                "PMTCT", "PP_PREV Alloc", "PrEP_NE", "TB", "TX_CURR", _
-                "TX_NEW", "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC")
+                "PMTCT", "PP_PREV", "PrEP_NEW", "TB", "TX_CURR", _
+                "TX_NEW", "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC", "All Ready Alloc")
         For Each sht In shtNames
-            Sheet(sht & " Targets").Activate
+            Sheets(sht & " Targets").Activate
             Range("C7").Select
             Selection.PasteSpecial Paste:=xlPasteValues
         Next sht
         Application.CutCopyMode = False
     'hard code site info & distro
         For Each sht In shtNames
-            Sheet(sht & " Targets").Activate
+            Sheets(sht & " Targets").Activate
             LastRow = Range("C1").CurrentRegion.Rows.Count
             LastColumn = Range("C2").CurrentRegion.Columns.Count
             Range(Cells(7, 3), Cells(LastRow, LastColumn)).Select
@@ -264,6 +266,7 @@ End Sub
 
 Sub saveFile()
     'reset each view to beginning of sheet
+    Dim i
         shtCount = ActiveWorkbook.Worksheets.Count
         For i = 2 To shtCount
             Worksheets(i).Activate
