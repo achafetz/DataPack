@@ -3,11 +3,12 @@
 ##   Purpose: generate disagg distribution for targeting
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 26, 2017
-##   Updated: 12/06/17 
+##   Updated: 12/08/17 
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
 # ICPI Fact View PSNU
+# list of all disagg indicators and denom groups (disagg_ind_grps.txt)
 
 
 ## IMPORT DATA ------------------------------------------------------------------------------------------------------    
