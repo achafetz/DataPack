@@ -122,6 +122,7 @@
   #keep relevant variables
     df_disaggdistro <- df_disaggdistro %>% 
       select(operatingunit:psnu, dt_ind_name, indicatortype, distro) %>% 
+      arrange(operatingunit, psnu, dt_ind_name, indicatortype) %>% 
   #remove indicators just used for denom calculation (ie not included/used in the disagg tool)
       filter(dt_ind_name != "not_used") 
   #convert to wide
