@@ -12,6 +12,10 @@
 ## OFFICIAL NAMES -------------------------------------------------------------------------------------------------
 
 cleanup_mechs <- function(df_to_clean, report_folder_path, report_start_year = 2014) {
+  
+  #needed packages
+    require(tidyverse, quietly = FALSE)
+    require(readxl, quietly = FALSE)
 
   #import official mech and partner names; source: FACTS Info
     df_names <- read_excel(Sys.glob(file.path(report_folder_path,"*Standard COP Matrix Report*.xls")), skip = 1)
