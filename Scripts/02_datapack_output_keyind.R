@@ -13,7 +13,7 @@
 ## FILTER DATA ------------------------------------------------------------------------------------------------------    
   
     #import data
-      load(file.path(tempoutput, "append_temp.Rdata"), verbose = FALSE)
+      df_indtbl <- readRDS(file.path(tempoutput, "append_temp.Rds"))
         
     #filter
       df_keyindtbl <- df_indtbl %>%

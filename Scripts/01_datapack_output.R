@@ -88,7 +88,7 @@
       
 ## SAVE TEMP FILE -------------------------------------------------------------------------------------------------
     #save temp file as starting point for 02_datapack_output_keyind
-     save(df_indtbl, file = file.path(tempoutput, "append_temp.RData"))
+     saveRDS(df_indtbl, file = file.path(tempoutput, "append_temp.RData"))
     
 ## GENERATE VARIABLES/COLUMNS -------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
