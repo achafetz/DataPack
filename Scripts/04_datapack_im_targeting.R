@@ -186,7 +186,7 @@
       gather(ind, val, starts_with("D_")) %>% 
 
   #PSNU totals for each variable to create distribution
-      group_by(psnuuid, indicatortype, ind) %>% #at psnu level, mechanismid removed
+      group_by(psnuuid, ind) %>% #at psnu level, mechanismid removed
       mutate(total = sum(val)) %>%  #summarize psnu level total
       ungroup() %>% 
       
@@ -239,6 +239,6 @@
 ## EXPORT -----------------------------------------------------------------------------------------------------  
     
     write_csv(df_mechdistro, file.path(output, "Global_AllocbyIM.csv", sep=""), na = "")
-      rm(df_mechdistro, cleanup_mechs, cleanup_snus, cluster_snus)
+      rm(df_mechdistro)
     
   
