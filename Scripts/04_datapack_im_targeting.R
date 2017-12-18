@@ -61,6 +61,8 @@
           pmtct_art_new = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART New" & numeratordenom=="N"), fy2017apr, 0), 
           pmtct_art_already = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
           pmtct_eid = ifelse((indicator=="PMTCT_EID" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
+          pmtct_eid_u02mo = ifelse((indicator=="PMTCT_EID" & standardizeddisaggregate=="Age/HIVStatus" & otherdisaggregate=="[months] 00-02" & numeratordenom=="N"), fy2017apr, 0), 
+          pmtct_eid_o02mo = ifelse((indicator=="PMTCT_EID" & standardizeddisaggregate=="Age/HIVStatus" & otherdisaggregate=="[months] 02-12" & numeratordenom=="N"), fy2017apr, 0), 
           tb_stat = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
           tb_art = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
           tb_prev_D = ifelse((indicator=="TB_PREV" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
@@ -157,7 +159,7 @@
           kp_mat = ifelse((indicator=="KP_MAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
           gend_gbv = ifelse((indicator=="GEND_GBV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
           prep_new = ifelse((indicator=="PrEP_NEW" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0))
-      
+    
       
 ## CLEAN UP -------------------------------------------------------------------------------------------------
   
@@ -212,7 +214,7 @@
       select(operatingunit, psnuuid, psnu, placeholder, mechanismid, indicatortype,
              D_tx_ret_D_pct, D_tx_ret_pct, D_tx_new_pct, D_tx_curr_pct, D_tx_pvls_D_pct, 
              D_pmtct_stat_D_pct, D_pmtct_stat_pct, D_pmtct_stat_newpos_pct, D_pmtct_stat_newneg_pct, D_pmtct_stat_known_pct, 
-             D_pmtct_art_pct, D_pmtct_art_new_pct, D_pmtct_art_already_pct, D_pmtct_eid_pct, D_tb_stat_pct, 
+             D_pmtct_art_pct, D_pmtct_art_new_pct, D_pmtct_art_already_pct, D_pmtct_eid_pct, D_pmtct_eid_u02mo_pct, D_pmtct_eid_o02mo_pct, D_tb_stat_pct, 
              D_tb_art_pct, D_tb_prev_D_pct, D_tb_prev_pct, D_tx_tb_D_pct, D_hts_tst_indexmod_o15_pct, 
              D_hts_tst_mobilemod_o15_pct, D_hts_tst_vctmod_o15_pct, D_hts_tst_othermod_o15_pct, D_hts_tst_index_o15_pct, D_hts_tst_sti_o15_pct, 
              D_hts_tst_inpat_o15_pct, D_hts_tst_emergency_o15_pct, D_hts_tst_vct_o15_pct, D_hts_tst_tbclinic_o15_pct, D_hts_tst_vmmc_o15_pct, 

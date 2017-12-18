@@ -13,10 +13,10 @@
 ## FILTER DATA ------------------------------------------------------------------------------------------------------    
   
     #import data
-      df_indtbl <- readRDS(file.path(tempoutput, "append_temp.Rds"))
+      df_keyindtbl <- readRDS(file.path(tempoutput, "append_temp.Rds"))
         
     #filter
-      df_keyindtbl <- df_indtbl %>%
+      df_keyindtbl <- df_keyindtbl %>%
         filter((indicator %in% c("PLHIV", "HTS_TST", "HTS_TST_POS", "TB_ART", "TX_CURR", "TX_NEW",
                                  "VMMC_CIRC") & standardizeddisaggregate == "Total Numerator") |
                (indicator=="PMTCT_ART" & standardizeddisaggregate == "NewExistingArt")) %>%
@@ -24,8 +24,7 @@
     #aggregate
         group_by(operatingunit, snulist, psnuuid, priority_snu, indicator) %>%
         summarise_at(vars(fy2015apr, fy2016apr, fy2017apr, fy2018_targets), funs(sum(., na.rm = TRUE)))
-      
-      rm(df_indtbl)
+
       
 ## RESHAPE ------------------------------------------------------------------------------------------------------ 
      
@@ -62,7 +61,7 @@
     #export 
       write_csv(df_keyindtbl, file.path(output, paste("Global_KeyTrends.csv", sep="")), na = "")
         rm(df_keyindtbl)
-        file.remove(file.path(tempoutput, "append_temp.Rdata"))
+        file.remove(file.path(tempoutput, "append_temp.Rds"))
         
       
       
