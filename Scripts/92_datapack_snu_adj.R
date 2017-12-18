@@ -39,8 +39,8 @@
 #   | Nigeria       | en Nsukka               | lC1wneS1GR5 | Delete (Duplicates) | Delete (Blank) |
 #   | Nigeria       | im Ngor Okpala          | vpCKW3gWNhV | Keep                | Keep           |
 #   | Nigeria       | im Ngor Okpala          | D47MUIzTapM | Delete (Duplicates) | Delete (Blank) |
-#   | Haiti         | Vallières               | RVzTHBO9fgR | N/A                 | Delete (Blank) |
-#   | Haiti         | Vallières               | ONUWhpgEbVk | N/A                 | Keep           |
+#   | Haiti         | Valli?res               | RVzTHBO9fgR | N/A                 | Delete (Blank) |
+#   | Haiti         | Valli?res               | ONUWhpgEbVk | N/A                 | Keep           |
 #   | India         | Chandigarh              | rdZgJxh6GA6 | N/A                 | No FY17 data   |
 #   | India         | Chandigarh              | eknq1Uf5JK6 | N/A                 | No FY17 data   |
 
@@ -84,23 +84,39 @@ cleanup_snus <- function(df) {
     
     ## SNU NAMING ISSUES ##
     # M. Melchior (1/21/17) - txt import issue with French names 
-    mutate( psnu = ifelse(psnuuid == "JVXPyu8T2fO", "Cap-Haïtien", psnu), 
-            psnu = ifelse(psnuuid == "XXuTiMjae3r", "Anse à Veau", psnu),
-            psnu = ifelse(psnuuid == "prA0IseYHWD", "Fort Liberté", psnu),
-            psnu = ifelse(psnuuid == "xBsmGxPgQaw", "Gonaïves", psnu),
-            psnu = ifelse(psnuuid == "fXIAya9MTsp", "Grande Rivière du Nord", psnu),
-            psnu = ifelse(psnuuid == "lqOb8ytz3VU", "Jérémie", psnu),
+    mutate( psnu = ifelse(psnuuid == "JVXPyu8T2fO", "Cap-Ha?tien", psnu), 
+            psnu = ifelse(psnuuid == "XXuTiMjae3r", "Anse ? Veau", psnu),
+            psnu = ifelse(psnuuid == "prA0IseYHWD", "Fort Libert?", psnu),
+            psnu = ifelse(psnuuid == "xBsmGxPgQaw", "Gona?ves", psnu),
+            psnu = ifelse(psnuuid == "fXIAya9MTsp", "Grande Rivi?re du Nord", psnu),
+            psnu = ifelse(psnuuid == "lqOb8ytz3VU", "J?r?mie", psnu),
             psnu = ifelse(psnuuid == "aIbf3wlRYB1", "La Gonave", psnu),
-            psnu = ifelse(psnuuid == "nbvAsGLaXdk", "Léogâne", psnu),
-            psnu = ifelse(psnuuid == "rrAWd6oORtj", "Limbé", psnu),
-            psnu = ifelse(psnuuid == "nbvAsGLaXdk", "Léogâne", psnu),
-            psnu = ifelse(psnuuid == "c0oeZEJ8qXk", "Môle Saint Nicolas", psnu),
-            psnu = ifelse(psnuuid == "Y0udgSlBzfb", "Miragoâne", psnu),
-            psnu = ifelse(psnuuid == "R2NsUDhdF8x", "Saint-Raphaël", psnu),
-            psnu = ifelse(psnuuid == "mLFKTGjlEg1", "Chardonniàres", psnu),
-            psnu = ifelse((psnuuid %in% c("ONUWhpgEbVk", "RVzTHBO9fgR")), "Vallières", psnu)
+            psnu = ifelse(psnuuid == "nbvAsGLaXdk", "L?og?ne", psnu),
+            psnu = ifelse(psnuuid == "rrAWd6oORtj", "Limb?", psnu),
+            psnu = ifelse(psnuuid == "nbvAsGLaXdk", "L?og?ne", psnu),
+            psnu = ifelse(psnuuid == "c0oeZEJ8qXk", "M?le Saint Nicolas", psnu),
+            psnu = ifelse(psnuuid == "Y0udgSlBzfb", "Mirago?ne", psnu),
+            psnu = ifelse(psnuuid == "R2NsUDhdF8x", "Saint-Rapha?l", psnu),
+            psnu = ifelse(psnuuid == "mLFKTGjlEg1", "Chardonni?res", psnu),
+            psnu = ifelse((psnuuid %in% c("ONUWhpgEbVk", "RVzTHBO9fgR")), "Valli?res", psnu)
     ) 
   
+    #rename prioritizations (due to spacing and to match last year)
+    priority_levels <- c("1 - Scale-Up: Saturation", "2 - Scale-Up: Aggressive", "4 - Sustained", "5 - Centrally Supported",
+                         "6 - Sustained: Commodities", "7 - Attained", "8 - Not PEPFAR Supported", "Mil", "NOT DEFINED")
+    df <- mutate(df, fy17snuprioritization = ifelse(is.na(fy17snuprioritization), "NOT DEFINED", fy17snuprioritization))
+    df$fy17snuprioritization <- parse_factor(df$fy17snuprioritization, priority_levels, include_na = TRUE) #convert to factor
+    
+    df <- df %>%
+      mutate(fy17snuprioritization = fct_recode(fy17snuprioritization,
+                                       "ScaleUp Sat"    =  "1 - Scale-Up: Saturation", 
+                                       "ScaleUp Agg"    =  "2 - Scale-Up: Aggressive", 
+                                       "Sustained"      =  "4 - Sustained", 
+                                       "Ctrl Supported" =  "5 - Centrally Supported",  
+                                       "Sustained Com"  =  "6 - Sustained: Commodities",
+                                       "Attained"       =  "7 - Attained",  
+                                       "Not Supported"  =  "8 - Not PEPFAR Supported"))
+    
 }
 
 
@@ -134,3 +150,6 @@ cluster_snus <- function(df){
       select(-cluster_psnu:-cluster_fy17snuprioritization)
   
 } 
+
+## SNUs Prioritizations ---------------------------------------------------------------------------------------
+
