@@ -22,8 +22,8 @@
       df_mechdistro <-cleanup_mechs(df_mechdistro, rawdata)
       
     source(file.path(scripts, "92_datapack_snu_adj.R"))
-      df_mechdistro <- cleanup_snus(df_mechdistro)
       df_mechdistro <- cluster_snus(df_mechdistro)
+      df_mechdistro <- cleanup_snus(df_mechdistro)
     
     rm(cleanup_mechs, cleanup_snus, cluster_snus)
     

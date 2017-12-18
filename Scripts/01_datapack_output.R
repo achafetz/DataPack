@@ -38,8 +38,8 @@
     
     #cleanup PSNUs (dups & clusters)
       source(file.path(scripts, "92_datapack_snu_adj.R"))
-      df_indtbl <- cleanup_snus(df_indtbl)
       df_indtbl <- cluster_snus(df_indtbl)
+      df_indtbl <- cleanup_snus(df_indtbl)
       rm(cleanup_snus, cluster_snus)
 
 ## AGGREGATE TO PNSU X DISAGGS LEVEL ------------------------------------------------------------------------------
