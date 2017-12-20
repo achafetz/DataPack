@@ -14,13 +14,14 @@
 ## IMPORT DATA ------------------------------------------------------------------------------------------------------    
 
   #import
-    df_disaggdistro  <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_", datestamp, ".txt", sep=""))) %>% 
-      rename_all(tolower)
+    df_disaggdistro  <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_", datestamp, ".txt", sep="")), 
+                                 col_types = cols(FY2017APR = col_double())) %>% 
+                        rename_all(tolower)
   
   #cleanup PSNUs (dups & clusters)
     source(file.path(scripts, "92_datapack_snu_adj.R"))
-    df_disaggdistro <- cleanup_snus(df_disaggdistro)
     df_disaggdistro <- cluster_snus(df_disaggdistro)
+    df_disaggdistro <- cleanup_snus(df_disaggdistro)
       rm(cleanup_snus, cluster_snus)
   
   #import disagg mapping table

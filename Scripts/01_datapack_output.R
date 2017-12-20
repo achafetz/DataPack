@@ -28,7 +28,8 @@
 ## MER - PSNUxIM ----------------------------------------------------------------------------------------------
     
   #import
-    df_mer  <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_", datestamp, ".txt", sep=""))) %>% 
+    df_mer  <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_", datestamp, ".txt", sep="")), 
+                        col_types = cols(FY2017APR = col_double())) %>% 
                 rename_all(tolower)
     
   

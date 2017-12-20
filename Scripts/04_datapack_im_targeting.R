@@ -14,8 +14,9 @@
 ## SETUP ---------------------------------------------------------------------------------------------------
 
   #import
-    df_mechdistro <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_IM_", datestamp, ".txt", sep=""))) %>% 
-        rename_all(tolower)
+    df_mechdistro <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_IM_", datestamp, ".txt", sep="")),
+                              col_types = cols(FY2017APR = col_double())) %>% 
+                     rename_all(tolower)
   
   #cleanup PSNUs (dups & clusters)
     source(file.path(scripts, "91_datapack_officialnames.R"))
