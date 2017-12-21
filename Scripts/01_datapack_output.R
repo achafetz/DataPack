@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 12/4
+##   Updated: 12/21
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -28,8 +28,9 @@
 ## MER - PSNUxIM ----------------------------------------------------------------------------------------------
     
   #import
-    df_mer  <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_", datestamp, ".txt", sep="")), 
-                        col_types = cols(FY2017APR = col_double())) %>% 
+    df_mer <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_", datestamp, ".txt", sep="")), 
+                        col_types = cols(FY2017APR = "d",
+                                         FY2018_TARGERTS = "d")) %>% 
                 rename_all(tolower)
     
   
@@ -45,6 +46,12 @@
 
 ## AGGREGATE TO PNSU X DISAGGS LEVEL ------------------------------------------------------------------------------
     
+    #TB adjustments - APR values should equal Q4, not sum Q2 and Q4
+      df_indtbl <- df_indtbl %>%
+        mutate(fy2017apr = ifelse((indicator %in% c("TX_TB", "TB_PREV") & 
+                                     standardizeddisaggregate %in% c("Total Numerator", "Total Denominator")), 
+                                  fy2017q4, fy2017apr))
+      
     #have to aggregate here; otherwise variable generation vector (next section) is too large to run
       df_indtbl <- df_indtbl %>%
         filter(is.na(typemilitary)) %>% #remove military data (will only use placeholders in the data pack)

@@ -3,7 +3,7 @@
 ##   Purpose: generate output for IM targeting in Data Pack
 ##   Adopted from COP17 Stata code
 ##   Date: October 19, 2017
-##   Updated: 12/5
+##   Updated: 12/21
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -15,7 +15,8 @@
 
   #import
     df_mechdistro <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_IM_", datestamp, ".txt", sep="")),
-                              col_types = cols(FY2017APR = col_double())) %>% 
+                              col_types = cols(FY2017APR = "d",
+                                               FY2018_TARGETS = "d")) %>% 
                      rename_all(tolower)
   
   #cleanup PSNUs (dups & clusters)
@@ -27,6 +28,12 @@
       df_mechdistro <- cleanup_snus(df_mechdistro)
     
     rm(cleanup_mechs, cleanup_snus, cluster_snus)
+    
+    #TB adjustments - APR values should equal Q4, not sum Q2 and Q4
+    df_mechdistro <- df_mechdistro %>%
+      mutate(fy2017apr = ifelse((indicator %in% c("TX_TB", "TB_PREV") & 
+                                   standardizeddisaggregate %in% c("Total Numerator", "Total Denominator")), 
+                                fy2017q4, fy2017apr))
     
     
 ## DEDUPLICATION -------------------------------------------------------------------------------------------
@@ -216,28 +223,29 @@
   #clean up for export (order must match columns in Allocation by SNUxIM)
       mutate(placeholder = NA) %>% 
       select(operatingunit, psnuuid, psnu, placeholder, mechanismid, indicatortype,
-             D_tx_ret_D_pct, D_tx_ret_pct, D_tx_new_pct, D_tx_curr_pct, D_tx_pvls_D_pct, 
-             D_pmtct_stat_D_pct, D_pmtct_stat_pct, D_pmtct_stat_newpos_pct, D_pmtct_stat_newneg_pct, D_pmtct_stat_known_pct, 
-             D_pmtct_art_pct, D_pmtct_art_new_pct, D_pmtct_art_already_pct, D_pmtct_eid_pct, D_pmtct_eid_u02mo_pct, D_pmtct_eid_o02mo_pct, D_tb_stat_pct, 
-             D_tb_art_pct, D_tb_prev_D_pct, D_tb_prev_pct, D_tx_tb_D_pct, D_hts_tst_indexmod_o15_pct, 
-             D_hts_tst_mobilemod_o15_pct, D_hts_tst_vctmod_o15_pct, D_hts_tst_othermod_o15_pct, D_hts_tst_index_o15_pct, D_hts_tst_sti_o15_pct, 
-             D_hts_tst_inpat_o15_pct, D_hts_tst_emergency_o15_pct, D_hts_tst_vct_o15_pct, D_hts_tst_tbclinic_o15_pct, D_hts_tst_vmmc_o15_pct, 
-             D_hts_tst_pmtctanc_o15_pct, D_hts_tst_otherpitc_o15_pct, D_hts_tst_pos_indexmod_o15_pct, D_hts_tst_pos_mobilemod_o15_pct, D_hts_tst_pos_vctmod_o15_pct, 
-             D_hts_tst_pos_othermod_o15_pct, D_hts_tst_pos_index_o15_pct, D_hts_tst_pos_sti_o15_pct, D_hts_tst_pos_inpat_o15_pct, D_hts_tst_pos_emergency_o15_pct, 
-             D_hts_tst_pos_vct_o15_pct, D_hts_tst_pos_tbclinic_o15_pct, D_hts_tst_pos_vmmc_o15_pct, D_hts_tst_pos_pmtctanc_o15_pct, D_hts_tst_pos_otherpitc_o15_pct, 
-             D_hts_tst_indexmod_u15_pct, D_hts_tst_mobilemod_u15_pct, D_hts_tst_vctmod_u15_pct, D_hts_tst_othermod_u15_pct, D_hts_tst_index_u15_pct, 
-             D_hts_tst_sti_u15_pct, D_hts_tst_inpat_u15_pct, D_hts_tst_emergency_u15_pct, D_hts_tst_vct_u15_pct, D_hts_tst_tbclinic_u15_pct, 
-             D_hts_tst_vmmc_u15_pct, D_hts_tst_pmtctanc_u15_pct, D_hts_tst_pediatric_u15_pct, D_hts_tst_malnutrition_u15_pct, D_hts_tst_otherpitc_u15_pct, 
-             D_hts_tst_pos_indexmod_u15_pct, D_hts_tst_pos_mobilemod_u15_pct, D_hts_tst_pos_vctmod_u15_pct, D_hts_tst_pos_othermod_u15_pct, D_hts_tst_pos_index_u15_pct, 
-             D_hts_tst_pos_sti_u15_pct, D_hts_tst_pos_inpat_u15_pct, D_hts_tst_pos_emergency_u15_pct, D_hts_tst_pos_vct_u15_pct, D_hts_tst_pos_tbclinic_u15_pct, 
-             D_hts_tst_pos_vmmc_u15_pct, D_hts_tst_pos_pmtctanc_u15_pct, D_hts_tst_pos_pediatric_u15_pct, D_hts_tst_pos_malnutrition_u15_pct, D_hts_tst_pos_otherpitc_u15_pct, 
-             D_hts_tst_keypop_pct, D_hts_self_pct, D_vmmc_circ_pct, D_ovc_serv_pct, D_ovc_serv_grad_pct, 
-             D_ovc_serv_active_pct, D_ovc_serv_exited_pct, D_ovc_serv_trans_pct, D_ovc_serv_u18_pct, D_ovc_hivstat_pct, 
-             D_ovc_serv_edu_pct, D_ovc_serv_care_pct, D_ovc_serv_econ_pct, D_ovc_serv_sp_pct, D_ovc_serv_oth_pct, 
-             D_kp_prev_msm_sw_D_pct, D_kp_prev_msm_sw_pct, D_kp_prev_msm_not_sw_D_pct, D_kp_prev_msm_not_sw_pct, D_kp_prev_tg_sw_D_pct, 
-             D_kp_prev_tg_sw_pct, D_kp_prev_tg_not_sw_D_pct, D_kp_prev_tg_not_sw_pct, D_kp_prev_fsw_D_pct, D_kp_prev_fsw_pct, 
-             D_kp_prev_pwid_m_D_pct, D_kp_prev_pwid_m_pct, D_kp_prev_pwid_f_D_pct, D_kp_prev_pwid_f_pct, D_kp_prev_prison_D_pct, 
-             D_kp_prev_prison_pct, D_pp_prev_pct, D_kp_mat_pct, D_gend_gbv_pct, D_prep_new_pct 
+             D_tx_ret_D_pct, D_tx_ret_u15_D_pct, D_tx_ret_pct, D_tx_ret_u15_pct, D_tx_new_pct, 
+             D_tx_new_u15_pct, D_tx_curr_pct, D_tx_curr_u15_pct, D_tx_pvls_D_pct, D_pmtct_stat_D_pct, 
+             D_pmtct_stat_pct, D_pmtct_stat_newpos_pct, D_pmtct_stat_newneg_pct, D_pmtct_stat_known_pct, D_pmtct_art_pct, 
+             D_pmtct_art_new_pct, D_pmtct_art_already_pct, D_pmtct_eid_pct, D_pmtct_eid_u2mo_pct, D_pmtct_eid_o2mo_pct, 
+             D_tb_stat_D_pct, D_tb_stat_pct, D_tb_stat_pos_pct, D_tb_art_pct, D_tx_tb_D_pct, 
+             D_tb_prev_D_pct, D_tb_prev_pct, D_hts_tst_indexmod_o15_pct, D_hts_tst_mobilemod_o15_pct, D_hts_tst_vctmod_o15_pct, 
+             D_hts_tst_othermod_o15_pct, D_hts_tst_index_o15_pct, D_hts_tst_sti_o15_pct, D_hts_tst_inpat_o15_pct, D_hts_tst_emergency_o15_pct, 
+             D_hts_tst_vct_o15_pct, D_hts_tst_tbclinic_o15_pct, D_hts_tst_vmmc_o15_pct, D_hts_tst_pmtctanc_o15_pct, D_hts_tst_otherpitc_o15_pct, 
+             D_hts_tst_pos_indexmod_o15_pct, D_hts_tst_pos_mobilemod_o15_pct, D_hts_tst_pos_vctmod_o15_pct, D_hts_tst_pos_othermod_o15_pct, D_hts_tst_pos_index_o15_pct, 
+             D_hts_tst_pos_sti_o15_pct, D_hts_tst_pos_inpat_o15_pct, D_hts_tst_pos_emergency_o15_pct, D_hts_tst_pos_vct_o15_pct, D_hts_tst_pos_tbclinic_o15_pct, 
+             D_hts_tst_pos_vmmc_o15_pct, D_hts_tst_pos_pmtctanc_o15_pct, D_hts_tst_pos_otherpitc_o15_pct, D_hts_tst_indexmod_u15_pct, D_hts_tst_mobilemod_u15_pct, 
+             D_hts_tst_vctmod_u15_pct, D_hts_tst_othermod_u15_pct, D_hts_tst_index_u15_pct, D_hts_tst_sti_u15_pct, D_hts_tst_inpat_u15_pct, 
+             D_hts_tst_emergency_u15_pct, D_hts_tst_vct_u15_pct, D_hts_tst_tbclinic_u15_pct, D_hts_tst_vmmc_u15_pct, D_hts_tst_pmtctanc_u15_pct, 
+             D_hts_tst_pediatric_u15_pct, D_hts_tst_malnutrition_u15_pct, D_hts_tst_otherpitc_u15_pct, D_hts_tst_pos_indexmod_u15_pct, D_hts_tst_pos_mobilemod_u15_pct, 
+             D_hts_tst_pos_vctmod_u15_pct, D_hts_tst_pos_othermod_u15_pct, D_hts_tst_pos_index_u15_pct, D_hts_tst_pos_sti_u15_pct, D_hts_tst_pos_inpat_u15_pct, 
+             D_hts_tst_pos_emergency_u15_pct, D_hts_tst_pos_vct_u15_pct, D_hts_tst_pos_tbclinic_u15_pct, D_hts_tst_pos_vmmc_u15_pct, D_hts_tst_pos_pmtctanc_u15_pct, 
+             D_hts_tst_pos_pediatric_u15_pct, D_hts_tst_pos_malnutrition_u15_pct, D_hts_tst_pos_otherpitc_u15_pct, D_hts_tst_keypop_pct, D_hts_self_pct, 
+             D_vmmc_circ_pct, D_ovc_serv_pct, D_ovc_serv_grad_pct, D_ovc_serv_active_pct, D_ovc_serv_u18_pct, 
+             D_ovc_hivstat_pct, D_ovc_serv_edu_pct, D_ovc_serv_care_pct, D_ovc_serv_sp_pct, D_ovc_serv_econ_pct, 
+             D_ovc_serv_oth_pct, D_kp_prev_msm_sw_D_pct, D_kp_prev_msm_sw_pct, D_kp_prev_msm_not_sw_D_pct, D_kp_prev_msm_not_sw_pct, 
+             D_kp_prev_tg_sw_D_pct, D_kp_prev_tg_sw_pct, D_kp_prev_tg_not_sw_D_pct, D_kp_prev_tg_not_sw_pct, D_kp_prev_fsw_D_pct, 
+             D_kp_prev_fsw_pct, D_kp_prev_pwid_m_D_pct, D_kp_prev_pwid_m_pct, D_kp_prev_pwid_f_D_pct, D_kp_prev_pwid_f_pct, 
+             D_kp_prev_prison_D_pct, D_kp_prev_prison_pct, D_pp_prev_pct, D_kp_mat_pct, D_gend_gbv_pct, D_prep_new_pct
              ) %>% 
       arrange(operatingunit, psnu, mechanismid, indicatortype)
 
