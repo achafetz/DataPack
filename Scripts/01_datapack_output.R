@@ -3,14 +3,13 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 12/21
+##   Updated: 12/22
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
     # ICPI Fact View NAT_SUBNAT
     # ICPI Fact View PSNU
     # 92_datapack_snu_adj.R
-    #test
 
 
 ## NAT_SUBNAT --------------------------------------------------------------------------------------------------
@@ -31,7 +30,7 @@
   #import
     df_mer <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_", datestamp, ".txt", sep="")), 
                         col_types = cols(FY2017APR = "d",
-                                         FY2018_TARGERTS = "d")) %>% 
+                                         FY2018_TARGETS = "d")) %>% 
                 rename_all(tolower)
     
   
@@ -86,7 +85,7 @@
     
 ## GENERATE VARIABLES/COLUMNS -------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
-  # updated 12/21
+  # updated 12/22
     
     df_indtbl <- df_indtbl %>%
     mutate(
@@ -228,6 +227,7 @@
       tb_stat_pos = ifelse((indicator=="TB_STAT_POS" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
       tb_stat_T = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
       tb_stat_yield = 0, 
+      tb_stat_knownpos = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Age/Sex/KnownNewPosNeg" & resultstatus=="Positive" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"), fy2017apr, 0), 
       tx_tb_D = ifelse((indicator=="TX_TB" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
       tx_tb_D_T = ifelse((indicator=="TX_TB" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2018_targets, 0), 
       tx_curr = ifelse((indicator=="TX_CURR" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
@@ -255,7 +255,6 @@
       vmmc_circ_T = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
       vmmc_circ_rng_T = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="Age" & age %in% c("15-19", "20-24", "25-29") & numeratordenom=="N"), fy2018_targets, 0), 
       vmmc_circ_subnat = ifelse((indicator=="VMMC_CIRC_SUBNAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0))
-      
       
       
 ## AGGREGATE TO PSNU LEVEL ----------------------------------------------------------------------------------------
