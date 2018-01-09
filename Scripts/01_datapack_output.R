@@ -50,7 +50,7 @@
     #have to aggregate here; otherwise variable generation vector (next section) is too large to run
       df_indtbl <- df_indtbl %>%
         filter(is.na(typemilitary)) %>% #remove military data (will only use placeholders in the data pack)
-        group_by(operatingunit, snu1, psnu, psnuuid, fy17snuprioritization, indicator, standardizeddisaggregate, 
+        group_by(operatingunit, snu1, psnu, psnuuid, currentsnuprioritization, indicator, standardizeddisaggregate, 
                  sex, age, resultstatus, otherdisaggregate, modality, numeratordenom) %>%
           summarize_at(vars(fy2015apr, fy2016apr, fy2017apr, fy2017_targets, fy2018_targets), funs(sum(., na.rm=TRUE))) %>%
           ungroup
@@ -64,7 +64,7 @@
       
     #rename
       rename(snulist = psnu, 
-             priority_snu = fy17snuprioritization)
+             priority_snu = currentsnuprioritization)
 
     #add military districts back in as row placeholder for country entry
       df_mil <- read_csv(file.path(rawdata, "COP18_mil_psnus.csv"))

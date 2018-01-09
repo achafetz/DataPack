@@ -14,7 +14,7 @@
 ## SETUP ---------------------------------------------------------------------------------------------------
 
   #import
-    df_mechdistro <- read_rds(file.path(fvdata, paste("ICPI_FactView_PSNU_IM_", datestamp, ".RDS")))
+    df_mechdistro <- read_rds(file.path(fvdata, paste0("ICPI_FactView_PSNU_IM_", datestamp, ".Rds")))
   
   #cleanup PSNUs (dups & clusters)
     source(file.path(scripts, "91_datapack_officialnames.R"))

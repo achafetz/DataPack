@@ -104,11 +104,11 @@ cleanup_snus <- function(df) {
     #rename prioritizations (due to spacing and to match last year)
     priority_levels <- c("1 - Scale-Up: Saturation", "2 - Scale-Up: Aggressive", "4 - Sustained", "5 - Centrally Supported",
                          "6 - Sustained: Commodities", "7 - Attained", "8 - Not PEPFAR Supported", "Mil", "NOT DEFINED")
-    df <- mutate(df, fy17snuprioritization = ifelse(is.na(fy17snuprioritization), "NOT DEFINED", fy17snuprioritization))
-    df$fy17snuprioritization <- parse_factor(df$fy17snuprioritization, priority_levels, include_na = TRUE) #convert to factor
+    df <- mutate(df, currentsnuprioritization = ifelse(is.na(currentsnuprioritization), "NOT DEFINED", currentsnuprioritization))
+    df$currentsnuprioritization <- parse_factor(df$currentsnuprioritization, priority_levels, include_na = TRUE) #convert to factor
     
     df <- df %>%
-      mutate(fy17snuprioritization = fct_recode(fy17snuprioritization,
+      mutate(currentsnuprioritization = fct_recode(currentsnuprioritization,
                                        "ScaleUp Sat"    =  "1 - Scale-Up: Saturation", 
                                        "ScaleUp Agg"    =  "2 - Scale-Up: Aggressive", 
                                        "Sustained"      =  "4 - Sustained", 
@@ -134,7 +134,7 @@ cluster_snus <- function(df){
     #df_cluster <- read.csv(text = gh)
   
   # remove duplicate data/headers
-    df_cluster <- select(df_cluster, -operatingunit, -psnu, -fy17snuprioritization, -cluster_set:-cluster_date)
+    df_cluster <- select(df_cluster, -operatingunit, -psnu, -currentsnuprioritization, -cluster_set:-cluster_date)
   
   # merge clusters onto factview
     df <- left_join(df, df_cluster, by = "psnuuid")
@@ -145,9 +145,9 @@ cluster_snus <- function(df){
         psnu = ifelse(is.na(cluster_psnu), psnu, cluster_psnu),
         snu1 = ifelse(is.na(cluster_snu1), snu1, cluster_snu1),
         psnuuid = ifelse(is.na(cluster_psnuuid), psnuuid, cluster_psnuuid),
-        fy17snuprioritization = ifelse(is.na(cluster_fy17snuprioritization), fy17snuprioritization, cluster_fy17snuprioritization)
+        currentsnuprioritization = ifelse(is.na(cluster_currentsnuprioritization), currentsnuprioritization, cluster_currentsnuprioritization)
       ) %>%
-      select(-cluster_psnu:-cluster_fy17snuprioritization)
+      select(-cluster_psnu:-cluster_currentsnuprioritization)
   
 } 
 
