@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 12/22
+##   Updated: 1/9
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -15,8 +15,7 @@
 ## NAT_SUBNAT --------------------------------------------------------------------------------------------------
 
   #import data
-    df_subnat <- read_tsv(file.path(fvdata, paste("ICPI_FactView_NAT_SUBNAT_20171115_v1_2.txt", sep=""))) %>% 
-        rename_all(tolower) %>%
+    df_subnat <- read_rds(file.path(fvdata, paste0("ICPI_FactView_NAT_SUBNAT_", datestamp, ".RDS"))) %>% 
     
   #align nat_subnat names with what is in fact view
       rename(fy2016apr = fy2016, fy2017apr = fy2017) %>% 
@@ -28,11 +27,7 @@
 ## MER - PSNUxIM ----------------------------------------------------------------------------------------------
     
   #import
-    df_mer <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_", datestamp, ".txt", sep="")), 
-                        col_types = cols(FY2017APR = "d",
-                                         FY2018_TARGETS = "d")) %>% 
-                rename_all(tolower)
-    
+    df_mer <- read_rds(file.path(fvdata, paste0("ICPI_FactView_PSNU_", datestamp, ".RDS"))) 
   
 ## APPEND -----------------------------------------------------------------------------------------------------
     df_indtbl <- bind_rows(df_mer, df_subnat)
@@ -85,7 +80,7 @@
     
 ## GENERATE VARIABLES/COLUMNS -------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
-  # updated 12/22
+  # updated 1/9
     
     df_indtbl <- df_indtbl %>%
     mutate(
@@ -273,6 +268,6 @@
       
 ## EXPORT -------------------------------------------------------------------------------------------------------
       
-  write_csv(df_indtbl, file.path(output, paste("Global_IndTbl.csv", sep="")), na = "")
+  write_csv(df_indtbl, file.path(output, "Global_IndTbl.csv"), na = "")
     rm(df_indtbl)
     

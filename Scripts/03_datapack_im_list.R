@@ -3,7 +3,7 @@
 ##   Purpose: output unique mechanism list
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 13, 2017
-##   Updated: 11/30
+##   Updated: 1/9
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -14,8 +14,7 @@
 ## MECH LIST ----------------------------------------------------------------------------------------------
     
   #import
-    df_mechlist  <- read_tsv(file.path(fvdata, paste("ICPI_FactView_OU_IM_20171115_v1_1.txt", sep=""))) %>% 
-        rename_all(tolower) 
+    df_mechlist  <- read_rds(file.path(fvdata, paste0("ICPI_FactView_OU_IM_", datestamp, ".RDS"))) %>% 
   
   #update all partner and mech to offical names (based on FACTS Info)
   #cleanup PSNUs (dups & clusters)

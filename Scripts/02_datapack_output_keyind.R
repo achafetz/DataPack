@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 11/29
+##   Updated: 1/9
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -13,9 +13,9 @@
 ## FILTER DATA ------------------------------------------------------------------------------------------------------    
   
     #import data
-      df_keyindtbl <- readRDS(file.path(tempoutput, "append_temp.Rds"))
+      df_keyindtbl <- read_rds(file.path(tempoutput, "append_temp.Rds"))
         
-    #filter
+    #filterread_rds()
       df_keyindtbl <- df_keyindtbl %>%
         filter((indicator %in% c("PLHIV", "HTS_TST", "HTS_TST_POS", "TB_ART", "TX_CURR", "TX_NEW",
                                  "VMMC_CIRC") & standardizeddisaggregate == "Total Numerator") |
@@ -59,7 +59,7 @@
 ## EXPORT -----------------------------------------------------------------------------------------------------  
    
     #export 
-      write_csv(df_keyindtbl, file.path(output, paste("Global_KeyTrends.csv", sep="")), na = "")
+      write_csv(df_keyindtbl, file.path(output, "Global_KeyTrends.csv"), na = "")
         rm(df_keyindtbl)
         file.remove(file.path(tempoutput, "append_temp.Rds"))
         

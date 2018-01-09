@@ -3,7 +3,7 @@
 ##   Purpose: generate output for IM targeting in Data Pack
 ##   Adopted from COP17 Stata code
 ##   Date: October 19, 2017
-##   Updated: 1/2/18
+##   Updated: 1/9
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -14,10 +14,7 @@
 ## SETUP ---------------------------------------------------------------------------------------------------
 
   #import
-    df_mechdistro <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_IM_", datestamp, ".txt", sep="")),
-                              col_types = cols(FY2017APR = "d",
-                                               FY2018_TARGETS = "d")) %>% 
-                     rename_all(tolower)
+    df_mechdistro <- read_rds(file.path(fvdata, paste("ICPI_FactView_PSNU_IM_", datestamp, ".RDS")))
   
   #cleanup PSNUs (dups & clusters)
     source(file.path(scripts, "91_datapack_officialnames.R"))
@@ -50,7 +47,7 @@
   
 ## MECH DISTRIBUTION ---------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
-  # updated 01/02
+  # updated 01/09
       
       ## TESTING, NOT FINAL DATA --> Need to figure out all final targets and what non-Total Numerators are included
       df_mechdistro <- df_mechdistro %>%
