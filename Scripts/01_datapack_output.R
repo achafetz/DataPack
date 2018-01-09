@@ -18,7 +18,8 @@
     df_subnat <- read_rds(file.path(fvdata, paste0("ICPI_FactView_NAT_SUBNAT_", datestamp, ".RDS"))) %>% 
     
   #align nat_subnat names with what is in fact view
-      rename(fy2016apr = fy2016, fy2017apr = fy2017) %>% 
+      rename(fy2016apr = fy2016, fy2017apr = fy2017,
+             currentsnuprioritization = fy17snuprioritization) %>% 
       
   #add in standardized disaggegate as column since missing and that's what's used to generate new vars
       mutate(standardizeddisaggregate = disaggregate)
@@ -46,6 +47,20 @@
         mutate(fy2017apr = ifelse((indicator %in% c("TX_TB", "TB_PREV") & 
                                      standardizeddisaggregate %in% c("Total Numerator", "Total Denominator")), 
                                   fy2017q4, fy2017apr))
+    #OVC Total Numerator Creation
+      df_ovc <- df_indtbl %>% 
+        #total numerator = sum of all program status -> filter
+        filter(indicator=="OVC_SERV" & standardizeddisaggregate == "ProgramStatus") %>% 
+        #group up to OUxIMxType level & summarize (will need to change grouping for different datasets)
+        group_by(operatingunit, mechanismid, indicator, numeratordenom, indicatortype) %>% 
+        summarize_at(vars(fy2017apr), funs(sum(., na.rm = TRUE))) %>% 
+        ungroup() %>% 
+        #add standardized disagg
+        add_column(standardizeddisaggregate = "Total Numerator", .before = "numeratordenom")
+      
+        #add total numerator onto OUxIM
+        df_indtbl <- bind_rows(df_indtbl, df_ovc) 
+        rm(df_ovc)
       
     #have to aggregate here; otherwise variable generation vector (next section) is too large to run
       df_indtbl <- df_indtbl %>%

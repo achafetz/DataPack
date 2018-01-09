@@ -32,6 +32,21 @@
                                    standardizeddisaggregate %in% c("Total Numerator", "Total Denominator")), 
                                 fy2017q4, fy2017apr))
     
+    #OVC Total Numerator Creation
+      df_ovc <- df_mechdistro %>% 
+        #total numerator = sum of all program status -> filter
+        filter(indicator=="OVC_SERV" & standardizeddisaggregate == "ProgramStatus") %>% 
+        #group up to OUxIMxType level & summarize (will need to change grouping for different datasets)
+        group_by(operatingunit, mechanismid, indicator, numeratordenom, indicatortype) %>% 
+        summarize_at(vars(fy2017apr), funs(sum(., na.rm = TRUE))) %>% 
+        ungroup() %>% 
+        #add standardized disagg
+        add_column(standardizeddisaggregate = "Total Numerator", .before = "numeratordenom")
+      
+        #add total numerator onto OUxIM
+        df_mechdistro <- bind_rows(df_mechdistro, df_ovc) 
+          rm(df_ovc)  
+    
     
 ## DEDUPLICATION -------------------------------------------------------------------------------------------
   #create a deduplication mechanism for every SNU
