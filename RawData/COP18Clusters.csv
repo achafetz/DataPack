@@ -1,0 +1,260 @@
+operatingunit,psnu,psnuuid,currentsnuprioritization,cluster_psnu,cluster_snu1,cluster_psnuuid,cluster_currentsnuprioritization,cluster_set,cluster_submitter,cluster_date
+Botswana,Gaborone District,VB7am4futjm,2 - Scale-Up: Aggressive,Greater Gabarone Cluster,[Clustered],VB7am4futjm,2 - Scale-Up: Aggressive,1,J. Rofenbender,1/9/2017
+Botswana,Kgatleng District,yNcvm7JYBfi,2 - Scale-Up: Aggressive,Greater Gabarone Cluster,[Clustered],VB7am4futjm,2 - Scale-Up: Aggressive,1,J. Rofenbender,1/9/2017
+Botswana,Kweneng East District,Uz8LWtC0vYF,2 - Scale-Up: Aggressive,Greater Gabarone Cluster,[Clustered],VB7am4futjm,2 - Scale-Up: Aggressive,1,J. Rofenbender,1/9/2017
+Botswana,South East District,YksWHI1yLuv,2 - Scale-Up: Aggressive,Greater Gabarone Cluster,[Clustered],VB7am4futjm,2 - Scale-Up: Aggressive,1,J. Rofenbender,1/9/2017
+Botswana,Francistown District,h1CepDrLWib,4 - Sustained,Greater Francistown Cluster,[Clustered],h1CepDrLWib,4 - Sustained,1,J. Rofenbender,1/9/2017
+Botswana,North East District,nszh0FzynAQ,4 - Sustained,Greater Francistown Cluster,[Clustered],h1CepDrLWib,4 - Sustained,1,J. Rofenbender,1/9/2017
+Botswana,Tutume District,gchw5PMi4N2,4 - Sustained,Greater Francistown Cluster,[Clustered],h1CepDrLWib,4 - Sustained,1,J. Rofenbender,1/9/2017
+Cameroon,Djoungolo,vewKgey8sOW,1 - Scale-Up: Saturation,Yaounde Cluster,[Clustered],GvTDrgjcU6R,[NOT DEFINED],1,S.Ally,1/17/2017
+Cameroon,Nkolndongo,YuCzvkHV2X5,4 - Sustained,Yaounde Cluster,[Clustered],GvTDrgjcU6R,[NOT DEFINED],1,S.Ally,1/17/2017
+Cameroon,Biyem Assi,gOaZeiwAoCD,4 - Sustained,Yaounde Cluster,[Clustered],GvTDrgjcU6R,[NOT DEFINED],1,S.Ally,1/17/2017
+Cameroon,Cite Verte,NG7DU8YJlw7,4 - Sustained,Yaounde Cluster,[Clustered],GvTDrgjcU6R,[NOT DEFINED],1,S.Ally,1/17/2017
+Cameroon,Efoulan,JQIkiENA6nM,4 - Sustained,Yaounde Cluster,[Clustered],GvTDrgjcU6R,[NOT DEFINED],1,S.Ally,1/17/2017
+Cameroon,Deido,wE76sY8tY19,2 - Scale-Up: Aggressive,Doula Cluster,[Clustered],vewKgey8sOW,[NOT DEFINED],1,S.Ally,1/17/2017
+Cameroon,Cite de Palmiers,rjDWLPMhaY0,4 - Sustained,Doula Cluster,[Clustered],vewKgey8sOW,[NOT DEFINED],1,S.Ally,1/17/2017
+Cameroon,Nylon,AW764lDxjdr,4 - Sustained,Doula Cluster,[Clustered],vewKgey8sOW,[NOT DEFINED],1,S.Ally,1/17/2017
+Cameroon,Bonnassama,dWexWkTwCVe,4 - Sustained,Doula Cluster,[Clustered],vewKgey8sOW,[NOT DEFINED],1,S.Ally,1/17/2017
+Cameroon,New Bell,k7lIVnxWbm7,4 - Sustained,Doula Cluster,[Clustered],vewKgey8sOW,[NOT DEFINED],1,S.Ally,1/17/2017
+Cameroon,Logbaba,ZGqUbMqrxSK,4 - Sustained,Doula Cluster,[Clustered],vewKgey8sOW,[NOT DEFINED],1,S.Ally,1/17/2017
+Cameroon,Mbangue,bIoxP4GA2JE,4 - Sustained,Doula Cluster,[Clustered],vewKgey8sOW,[NOT DEFINED],1,S.Ally,1/17/2017
+Democratic Republic of the Congo,Bandalungwa,Ml7XhDDDSxr,4 - Sustained,Kinshasa Sustained Cluster,[NOT DEFINED],Ml7XhDDDSxr,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Binza-Meteo,hmiqnsA1RHG,4 - Sustained,Kinshasa Sustained Cluster,[NOT DEFINED],Ml7XhDDDSxr,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Binza-Ozone,PBd3TB3n1Df,4 - Sustained,Kinshasa Sustained Cluster,[NOT DEFINED],Ml7XhDDDSxr,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kinshasa,hKlzgWdCBWT,4 - Sustained,Kinshasa Sustained Cluster,[NOT DEFINED],Ml7XhDDDSxr,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Limete,grhcb3NRDtA,4 - Sustained,Kinshasa Sustained Cluster,[NOT DEFINED],Ml7XhDDDSxr,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Lingwala,u380fHid3Gr,4 - Sustained,Kinshasa Sustained Cluster,[NOT DEFINED],Ml7XhDDDSxr,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Matete,X8eXmYHQXAB,4 - Sustained,Kinshasa Sustained Cluster,[NOT DEFINED],Ml7XhDDDSxr,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Mont-Ngafula 1,WoBCQgvIkTL,4 - Sustained,Kinshasa Sustained Cluster,[NOT DEFINED],Ml7XhDDDSxr,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Ngaba,ZJ1ngXCyNVm,4 - Sustained,Kinshasa Sustained Cluster,[NOT DEFINED],Ml7XhDDDSxr,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Nsele,UsUtCapznDy,4 - Sustained,Kinshasa Sustained Cluster,[NOT DEFINED],Ml7XhDDDSxr,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kambove,mj8vc80DZnW,4 - Sustained,Haut-Katanga Sustained,[NOT DEFINED],mj8vc80DZnW,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kapolowe,iBIl1QevIrG,4 - Sustained,Haut-Katanga Sustained,[NOT DEFINED],mj8vc80DZnW,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kasenga,KtqjtVhTZdP,4 - Sustained,Haut-Katanga Sustained,[NOT DEFINED],mj8vc80DZnW,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kashobwe,abCVuLIqXPM,4 - Sustained,Haut-Katanga Sustained,[NOT DEFINED],mj8vc80DZnW,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kikula,jf7kv5ZPbM2,4 - Sustained,Haut-Katanga Sustained,[NOT DEFINED],mj8vc80DZnW,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kilwa,mLfokzGSDJb,4 - Sustained,Haut-Katanga Sustained,[NOT DEFINED],mj8vc80DZnW,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kipushi,pCODWiMvHX4,4 - Sustained,Haut-Katanga Sustained,[NOT DEFINED],mj8vc80DZnW,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Likasi,PgK6EwJ52Ji,4 - Sustained,Haut-Katanga Sustained,[NOT DEFINED],mj8vc80DZnW,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Mufunga-Sampwe,sDKxk72Fmkh,4 - Sustained,Haut-Katanga Sustained,[NOT DEFINED],mj8vc80DZnW,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Panda,ItLFN5k82Cs,4 - Sustained,Haut-Katanga Sustained,[NOT DEFINED],mj8vc80DZnW,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Pweto,HklkyYEG7Gv,4 - Sustained,Haut-Katanga Sustained,[NOT DEFINED],mj8vc80DZnW,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Sakania,kloe3J4FH0k,4 - Sustained,Haut-Katanga Sustained,[NOT DEFINED],mj8vc80DZnW,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Bunkeya,APlUXrGE7PQ,4 - Sustained,Lualaba Sustained,[NOT DEFINED],APlUXrGE7PQ,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Dilala,I3BZ5GynF7z,4 - Sustained,Lualaba Sustained,[NOT DEFINED],APlUXrGE7PQ,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Fungurume,XBz3SeLhTR5,4 - Sustained,Lualaba Sustained,[NOT DEFINED],APlUXrGE7PQ,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kanzenze,tFPzF1PdQYD,4 - Sustained,Lualaba Sustained,[NOT DEFINED],APlUXrGE7PQ,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Lualaba,nkk4fjd9ncb,4 - Sustained,Lualaba Sustained,[NOT DEFINED],APlUXrGE7PQ,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Lubudi,hZxBqL2oyE4,4 - Sustained,Lualaba Sustained,[NOT DEFINED],APlUXrGE7PQ,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Manika,snMVrjxxOz3,4 - Sustained,Lualaba Sustained,[NOT DEFINED],APlUXrGE7PQ,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Mutshatsha,udJcP2om689,4 - Sustained,Lualaba Sustained,[NOT DEFINED],APlUXrGE7PQ,4 - Sustained,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kikimi,aeMCpJ3cC3w,1 - Scale-Up: Saturation,Kinshasa Saturation Cluster,[NOT DEFINED],aeMCpJ3cC3w,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kimbanseke,IIWUbCKztLZ,1 - Scale-Up: Saturation,Kinshasa Saturation Cluster,[NOT DEFINED],aeMCpJ3cC3w,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kingabwa,EaCSG0WmNZV,1 - Scale-Up: Saturation,Kinshasa Saturation Cluster,[NOT DEFINED],aeMCpJ3cC3w,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kingasani,xnp6C0QwBUj,1 - Scale-Up: Saturation,Kinshasa Saturation Cluster,[NOT DEFINED],aeMCpJ3cC3w,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Masina 1,BQPR0UCqFyz,1 - Scale-Up: Saturation,Kinshasa Saturation Cluster,[NOT DEFINED],aeMCpJ3cC3w,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Masina 2,UQu4xUTufWE,1 - Scale-Up: Saturation,Kinshasa Saturation Cluster,[NOT DEFINED],aeMCpJ3cC3w,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Ndjili,ho0Fg1MrqMi,1 - Scale-Up: Saturation,Kinshasa Saturation Cluster,[NOT DEFINED],aeMCpJ3cC3w,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kafubu,z6HL5QkdXaU,1 - Scale-Up: Saturation,Lubumbashi Saturation Cluster ,[NOT DEFINED],z6HL5QkdXaU,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kamalondo,X0CYKb13qOd,1 - Scale-Up: Saturation,Lubumbashi Saturation Cluster ,[NOT DEFINED],z6HL5QkdXaU,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kampemba,a5jLbEaqXQH,1 - Scale-Up: Saturation,Lubumbashi Saturation Cluster ,[NOT DEFINED],z6HL5QkdXaU,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Katuba,BJwJiJ0aein,1 - Scale-Up: Saturation,Lubumbashi Saturation Cluster ,[NOT DEFINED],z6HL5QkdXaU,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kenya,orZLnojDCbO,1 - Scale-Up: Saturation,Lubumbashi Saturation Cluster ,[NOT DEFINED],z6HL5QkdXaU,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Kisanga,Y6quIOmXjd1,1 - Scale-Up: Saturation,Lubumbashi Saturation Cluster ,[NOT DEFINED],z6HL5QkdXaU,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Lubumbashi,Ob5urm65M2B,1 - Scale-Up: Saturation,Lubumbashi Saturation Cluster ,[NOT DEFINED],z6HL5QkdXaU,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Mumbunda,RxH0BNkxRaX,1 - Scale-Up: Saturation,Lubumbashi Saturation Cluster ,[NOT DEFINED],z6HL5QkdXaU,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Rwashi,JlGVapzhvz3,1 - Scale-Up: Saturation,Lubumbashi Saturation Cluster ,[NOT DEFINED],z6HL5QkdXaU,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Democratic Republic of the Congo,Tshamilemba,OWrW8UtHRQf,1 - Scale-Up: Saturation,Lubumbashi Saturation Cluster ,[NOT DEFINED],z6HL5QkdXaU,1 - Scale-Up: Saturation,1,L.Tally,1/25/2017
+Haiti,Port-au-Prince,C4PnwquCK8U,1 - Scale-Up: Saturation,Greater Port-au-Prince Cluster,[Clustered],C4PnwquCK8U,1 - Scale-Up: Saturation,1,M. Melchior,1/12/2017
+Haiti,Croix-Desbouquets,X1q3hSFTVw4,1 - Scale-Up: Saturation,Greater Port-au-Prince Cluster,[Clustered],C4PnwquCK8U,1 - Scale-Up: Saturation,1,M. Melchior,1/12/2017
+Haiti,L??og??ne,nbvAsGLaXdk,1 - Scale-Up: Saturation,Greater Port-au-Prince Cluster,[Clustered],C4PnwquCK8U,1 - Scale-Up: Saturation,1,M. Melchior,1/12/2017
+Mozambique,Kamavota,OSrBvFsAtYz,1 - Scale-Up: Saturation,Maputo City Cluster,[Clustered],OSrBvFsAtYz,1 - Scale-Up: Saturation,1,C.Hill,1/17/2017
+Mozambique,Kamaxakeni,IYDPRaPGDFu,1 - Scale-Up: Saturation,Maputo City Cluster,[Clustered],OSrBvFsAtYz,1 - Scale-Up: Saturation,1,C.Hill,1/17/2017
+Mozambique,Kampfumu,oMVRVkQ4d6Q,1 - Scale-Up: Saturation,Maputo City Cluster,[Clustered],OSrBvFsAtYz,1 - Scale-Up: Saturation,1,C.Hill,1/17/2017
+Mozambique,Kamubukwana,itceRrMEAiB,1 - Scale-Up: Saturation,Maputo City Cluster,[Clustered],OSrBvFsAtYz,1 - Scale-Up: Saturation,1,C.Hill,1/17/2017
+Mozambique,Kanyaka,TiaX55M0Ca2,1 - Scale-Up: Saturation,Maputo City Cluster,[Clustered],OSrBvFsAtYz,1 - Scale-Up: Saturation,1,C.Hill,1/17/2017
+Mozambique,Katembe,xHmtcBy8x0o,1 - Scale-Up: Saturation,Maputo City Cluster,[Clustered],OSrBvFsAtYz,1 - Scale-Up: Saturation,1,C.Hill,1/17/2017
+Mozambique,Nlhamankulu,Pw3doHDr3sw,1 - Scale-Up: Saturation,Maputo City Cluster,[Clustered],OSrBvFsAtYz,1 - Scale-Up: Saturation,1,C.Hill,1/17/2017
+Namibia,Oshakati,NUNNhuEIKSi,1 - Scale-Up: Saturation,Oshakati-Ondangwa Cluster,[Clustered],NUNNhuEIKSi,[NOT DEFINED],1,A.Wolkin,2/3/2017
+Namibia,Ondangwa,na0001,na,Oshakati-Ondangwa Cluster,[Clustered],NUNNhuEIKSi,[NOT DEFINED],1,A.Wolkin,2/3/2017
+Namibia,Okahao,BOeHH7hRtfF,1 - Scale-Up: Saturation,Okahao-Tsandia Cluster,[Clustered],BOeHH7hRtfF,[NOT DEFINED],1,A.Wolkin,2/3/2017
+Namibia,Tsandi,F4beFAJLYBP,2 - Scale-Up: Aggressive,Okahao-Tsandia Cluster,[Clustered],BOeHH7hRtfF,[NOT DEFINED],1,A.Wolkin,2/3/2017
+Namibia,Rosh Pinah,na0002,na,Rosh Pinah-!Nami#nus Cluster,[Clustered],XXXXXXX,[NOT DEFINED],1,A.Wolkin,2/3/2017
+Namibia,!Nami#nus,na0003,na,Rosh Pinah-!Nami#nus Cluster,[Clustered],XXXXXXX,[NOT DEFINED],1,A.Wolkin,2/3/2017
+Namibia,Engela,e1a8dK5TE6S,2 - Scale-Up: Aggressive,Engela-Eenhana-Okongo Cluster,[Clustered],e1a8dK5TE6S,[NOT DEFINED],1,A.Wolkin,2/3/2017
+Namibia,Eenhana,S1IBLD18mtu,2 - Scale-Up: Aggressive,Engela-Eenhana-Okongo Cluster,[Clustered],e1a8dK5TE6S,[NOT DEFINED],1,A.Wolkin,2/3/2017
+Namibia,Okongo,vnMTivFAdYZ,4 - Sustained,Engela-Eenhana-Okongo Cluster,[Clustered],e1a8dK5TE6S,[NOT DEFINED],1,A.Wolkin,2/3/2017
+Uganda,Wakiso District,U5duvbj7rlb,2 - Scale-Up: Aggressive,Kampala Cluster,[Clustered],U5duvbj7rlb,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Kampala District,VZF9UFmohwY,1 - Scale-Up: Saturation,Kampala Cluster,[Clustered],U5duvbj7rlb,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Mukono District,ofADu4tfYGx,2 - Scale-Up: Aggressive,Kampala Cluster,[Clustered],U5duvbj7rlb,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Mbarara District,qBnATrM2yWb,1 - Scale-Up: Saturation,Mbarara Cluster,[Clustered],qBnATrM2yWb,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Kiruhura District,z2Hf7UvjJGf,2 - Scale-Up: Aggressive,Mbarara Cluster,[Clustered],qBnATrM2yWb,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Sheema District,AUQrr5i5UwN,1 - Scale-Up: Saturation,Mbarara Cluster,[Clustered],qBnATrM2yWb,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Buhweju District,CRf8LcPIIol,4 - Sustained,Mbarara Cluster,[Clustered],qBnATrM2yWb,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Ibanda District,PNg9TjYhMHF,2 - Scale-Up: Aggressive,Mbarara Cluster,[Clustered],qBnATrM2yWb,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Ntungamo District,AuSNxhrQO7b,2 - Scale-Up: Aggressive,Mbarara Cluster,[Clustered],qBnATrM2yWb,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Bushenyi District,cb9SBT9Dkul,1 - Scale-Up: Saturation,Mbarara Cluster,[Clustered],qBnATrM2yWb,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Mitooma District,oWQXNhdnVWe,2 - Scale-Up: Aggressive,Mbarara Cluster,[Clustered],qBnATrM2yWb,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Rubirizi District,wCtC32IBgsy,4 - Sustained,Mbarara Cluster,[Clustered],qBnATrM2yWb,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Rukungiri District,SUzUiosYLZd,1 - Scale-Up: Saturation,Mbarara Cluster,[Clustered],qBnATrM2yWb,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Kanungu District,BZK6tOqdyJK,2 - Scale-Up: Aggressive,Mbarara Cluster,[Clustered],qBnATrM2yWb,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Kabarole District,ONYuNfx7Zx8,1 - Scale-Up: Saturation,Kabarole Cluster,[Clustered],ONYuNfx7Zx8,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Kyenjojo District,uzmvGujZv2K,2 - Scale-Up: Aggressive,Kabarole Cluster,[Clustered],ONYuNfx7Zx8,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Kamwenge District,oSleoOgcMmJ,2 - Scale-Up: Aggressive,Kabarole Cluster,[Clustered],ONYuNfx7Zx8,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Ntoroko District,H2TYawpBDO9,2 - Scale-Up: Aggressive,Kabarole Cluster,[Clustered],ONYuNfx7Zx8,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Gulu District,tMliWxidVmG,1 - Scale-Up: Saturation,Gulu Cluster,[Clustered],tMliWxidVmG,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Nwoya District,vd1oDNwAfsr,4 - Sustained,Gulu Cluster,[Clustered],tMliWxidVmG,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Lamwo District,vG7S9jJp8I1,4 - Sustained,Gulu Cluster,[Clustered],tMliWxidVmG,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Pader District,jwkn9GjFWAw,5 - Centrally Supported,Gulu Cluster,[Clustered],tMliWxidVmG,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Amuru District,LehfgDTxQgE,4 - Sustained,Gulu Cluster,[Clustered],tMliWxidVmG,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Masaka District,GgXE4SpT2qg,1 - Scale-Up: Saturation,Masaka Cluster,[Clustered],GgXE4SpT2qg,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Rakai District,wrwOewzkKXu,2 - Scale-Up: Aggressive,Masaka Cluster,[Clustered],GgXE4SpT2qg,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Lwengo District,lUwH3eBWnc8,2 - Scale-Up: Aggressive,Masaka Cluster,[Clustered],GgXE4SpT2qg,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Lyantonde District,U0X3FFbxLG6,1 - Scale-Up: Saturation,Masaka Cluster,[Clustered],GgXE4SpT2qg,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Sembabule District,tpymemEYnck,2 - Scale-Up: Aggressive,Masaka Cluster,[Clustered],GgXE4SpT2qg,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Bukomansimbi District,ZqIdMKJYNyc,1 - Scale-Up: Saturation,Masaka Cluster,[Clustered],GgXE4SpT2qg,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Kalungu District,NnAkN5yfxOs,1 - Scale-Up: Saturation,Masaka Cluster,[Clustered],GgXE4SpT2qg,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Kabale District,lEMyFfXc5fI,1 - Scale-Up: Saturation,Kabale Cluster,[Clustered],lEMyFfXc5fI,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Kisoro District,CrULNvqXGDj,4 - Sustained,Kabale Cluster,[Clustered],lEMyFfXc5fI,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Soroti District,yCVI5WlzkF0,1 - Scale-Up: Saturation,Soroti Cluster,[Clustered],yCVI5WlzkF0,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Amuria District,kyxzmUPEuDx,4 - Sustained,Soroti Cluster,[Clustered],yCVI5WlzkF0,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Kaberamaido District,hcORKLsjQcP,4 - Sustained,Soroti Cluster,[Clustered],yCVI5WlzkF0,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Serere District,aaBbWMyFu8Q,4 - Sustained,Soroti Cluster,[Clustered],yCVI5WlzkF0,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Ngora District,zBtTOW32g52,4 - Sustained,Soroti Cluster,[Clustered],yCVI5WlzkF0,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Katakwi District,AUY4rGf5rCC,2 - Scale-Up: Aggressive,Soroti Cluster,[Clustered],yCVI5WlzkF0,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Lira District,sVmb2FInHpI,1 - Scale-Up: Saturation,Lira Cluster,[Clustered],sVmb2FInHpI,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Kole District,sOvyWDakEpr,2 - Scale-Up: Aggressive,Lira Cluster,[Clustered],sVmb2FInHpI,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Otuke District,bliiq8a0ZMa,4 - Sustained,Lira Cluster,[Clustered],sVmb2FInHpI,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Alebtong District,D6upnSGqMuH,4 - Sustained,Lira Cluster,[Clustered],sVmb2FInHpI,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Dokolo District,G7b1qt8AWXX,1 - Scale-Up: Saturation,Lira Cluster,[Clustered],sVmb2FInHpI,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Amolatar District,goAaVw5euIo,4 - Sustained,Lira Cluster,[Clustered],sVmb2FInHpI,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Uganda,Apac District,HDDanYisp0p,2 - Scale-Up: Aggressive,Lira Cluster,[Clustered],sVmb2FInHpI,[NOT DEFINED],1,N.Solehdin,1/23/2017
+Tanzania,Arusha CC,kUikmXEZjNy,1 - Scale-Up: Saturation,Arusha-Meru_Monduli Cluster,[Clustered],kUikmXEZjNy,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Arusha DC,QL3f2eyizTy,2 - Scale-Up: Aggressive,Arusha-Meru_Monduli Cluster,[Clustered],kUikmXEZjNy,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Meru DC,IvFsAvEMGoN,2 - Scale-Up: Aggressive,Arusha-Meru_Monduli Cluster,[Clustered],kUikmXEZjNy,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Monduli DC,GWyu5TpbqZR,4 - Sustained,Arusha-Meru_Monduli Cluster,[Clustered],kUikmXEZjNy,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Bagamoyo DC,mKdOqXYiqyN,2 - Scale-Up: Aggressive,Dar es Salaam-Bagamoyo-Kisarawe-Kibaha-Mkuranga Cluster,[Clustered],mKdOqXYiqyN,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Ilala MC,X084f2qVlrB,1 - Scale-Up: Saturation,Dar es Salaam-Bagamoyo-Kisarawe-Kibaha-Mkuranga Cluster,[Clustered],mKdOqXYiqyN,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Kibaha DC,nFummeSIBwK,4 - Sustained,Dar es Salaam-Bagamoyo-Kisarawe-Kibaha-Mkuranga Cluster,[Clustered],mKdOqXYiqyN,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Kibaha TC,v4aut8CAD4C,1 - Scale-Up: Saturation,Dar es Salaam-Bagamoyo-Kisarawe-Kibaha-Mkuranga Cluster,[Clustered],mKdOqXYiqyN,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Kinondoni MC,YyHBXHmKukB,1 - Scale-Up: Saturation,Dar es Salaam-Bagamoyo-Kisarawe-Kibaha-Mkuranga Cluster,[Clustered],mKdOqXYiqyN,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Kisarawe DC,orLfqj8fpz8,4 - Sustained,Dar es Salaam-Bagamoyo-Kisarawe-Kibaha-Mkuranga Cluster,[Clustered],mKdOqXYiqyN,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Mkuranga DC,vDynT512Lhs,2 - Scale-Up: Aggressive,Dar es Salaam-Bagamoyo-Kisarawe-Kibaha-Mkuranga Cluster,[Clustered],mKdOqXYiqyN,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Temeke MC,rtBnaP4CaLe,1 - Scale-Up: Saturation,Dar es Salaam-Bagamoyo-Kisarawe-Kibaha-Mkuranga Cluster,[Clustered],mKdOqXYiqyN,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Bahi DC,dgdbOACMjkJ,4 - Sustained,Dodoma_Bahi_Chamwino-Manyoni Cluster,[Clustered],dgdbOACMjkJ,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Chamwino DC,YLCO37nNRDr,4 - Sustained,Dodoma_Bahi_Chamwino-Manyoni Cluster,[Clustered],dgdbOACMjkJ,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Dodoma MC,shxU5hXKkXr,1 - Scale-Up: Saturation,Dodoma_Bahi_Chamwino-Manyoni Cluster,[Clustered],dgdbOACMjkJ,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Kiteto DC,RtqbS8T7AuT,4 - Sustained,Dodoma_Bahi_Chamwino-Manyoni Cluster,[Clustered],dgdbOACMjkJ,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Manyoni DC,PiaL7RCM0h7,2 - Scale-Up: Aggressive,Dodoma_Bahi_Chamwino-Manyoni Cluster,[Clustered],dgdbOACMjkJ,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Geita DC,bVUktvRBkSC,1 - Scale-Up: Saturation,Geita Cluster,[Clustered],bVUktvRBkSC,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Geita TC,uvOa3vSlS16,4 - Sustained,Geita Cluster,[Clustered],bVUktvRBkSC,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Handeni DC,InbAnWjLxj7,4 - Sustained,Handeni-Kilindi Cluster,[Clustered],InbAnWjLxj7,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Handeni TC,rs5toMaD5ty,4 - Sustained,Handeni-Kilindi Cluster,[Clustered],InbAnWjLxj7,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Kilindi DC,pUY6xNexMCp,4 - Sustained,Handeni-Kilindi Cluster,[Clustered],InbAnWjLxj7,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Iringa DC,SxuWL8y7s0h,2 - Scale-Up: Aggressive,Iringa-Kilolo Cluster,[Clustered],SxuWL8y7s0h,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Iringa MC,uHbIOtn8uNS,1 - Scale-Up: Saturation,Iringa-Kilolo Cluster,[Clustered],SxuWL8y7s0h,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Kilolo DC,HeFt4nH6lFL,2 - Scale-Up: Aggressive,Iringa-Kilolo Cluster,[Clustered],SxuWL8y7s0h,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Kahama TC,yOhFCpn5sYb,1 - Scale-Up: Saturation,Kahama Cluster,[Clustered],yOhFCpn5sYb,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Msalala DC,IEMuUwn38il,2 - Scale-Up: Aggressive,Kahama Cluster,[Clustered],yOhFCpn5sYb,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Ushetu DC,zU1Wnw8m86P,2 - Scale-Up: Aggressive,Kahama Cluster,[Clustered],yOhFCpn5sYb,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Kasulu DC,rw6jhJfCbOz,4 - Sustained,Kasulu Cluster,[Clustered],rw6jhJfCbOz,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Kasulu TC,NcKPF2NzcgG,4 - Sustained,Kasulu Cluster,[Clustered],rw6jhJfCbOz,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Kigoma DC,RltHtwb3yOs,4 - Sustained,Kigoma Cluster,[Clustered],RltHtwb3yOs,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Kigoma Ujiji MC,G08ogemsYzp,2 - Scale-Up: Aggressive,Kigoma Cluster,[Clustered],RltHtwb3yOs,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Korogwe DC,SBBOHilirRD,4 - Sustained,Korogwe Cluster,[Clustered],SBBOHilirRD,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Korogwe TC,qLs3Wo6g1N7,4 - Sustained,Korogwe Cluster,[Clustered],SBBOHilirRD,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Kyerwa DC,j8AIF1TBisq,4 - Sustained,Kyerwa-Missenyi Cluster,[Clustered],j8AIF1TBisq,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Missenyi DC,xA6NDbxZAgx,2 - Scale-Up: Aggressive,Kyerwa-Missenyi Cluster,[Clustered],j8AIF1TBisq,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Bumbuli DC,Q888YZfi0NN,4 - Sustained,Lushoto Cluster,[Clustered],Q888YZfi0NN,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Lushoto DC,sHvr0FGWAUI,4 - Sustained,Lushoto Cluster,[Clustered],Q888YZfi0NN,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Masasi DC,HjesRNKUP8l,1 - Scale-Up: Saturation,Masasi Cluster,[Clustered],HjesRNKUP8l,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Masasi TC,WSV5n7c6bgj,4 - Sustained,Masasi Cluster,[Clustered],HjesRNKUP8l,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Nanyumbu DC,L7ammFxiV2i,4 - Sustained,Masasi Cluster,[Clustered],HjesRNKUP8l,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Busokelo DC,WpCOOhK9N1f,4 - Sustained,Mbeya Cluster,[Clustered],WpCOOhK9N1f,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Mbarali DC,olUCraJY2gF,1 - Scale-Up: Saturation,Mbeya Cluster,[Clustered],WpCOOhK9N1f,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Mbeya CC,D3hgNLc7wl6,1 - Scale-Up: Saturation,Mbeya Cluster,[Clustered],WpCOOhK9N1f,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Mbeya DC,tXYiT9KX7zA,1 - Scale-Up: Saturation,Mbeya Cluster,[Clustered],WpCOOhK9N1f,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Rungwe DC,u6JIzCOdBJ6,1 - Scale-Up: Saturation,Mbeya Cluster,[Clustered],WpCOOhK9N1f,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Morogoro DC,JTjAenidfVN,4 - Sustained,Morogoro Cluster,[Clustered],JTjAenidfVN,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Morogoro MC,XtlpVAd1gll,1 - Scale-Up: Saturation,Morogoro Cluster,[Clustered],JTjAenidfVN,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Mvomero DC,jR3z7M5rpa1,2 - Scale-Up: Aggressive,Morogoro Cluster,[Clustered],JTjAenidfVN,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Hai DC,bVxRDDk5dhV,4 - Sustained,Moshi-Hai_Siha_Mwanga Cluster,[Clustered],bVxRDDk5dhV,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Moshi DC,AilOhUXA8aG,2 - Scale-Up: Aggressive,Moshi-Hai_Siha_Mwanga Cluster,[Clustered],bVxRDDk5dhV,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Moshi MC,CbnpwmuwDpe,1 - Scale-Up: Saturation,Moshi-Hai_Siha_Mwanga Cluster,[Clustered],bVxRDDk5dhV,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Mwanga DC,feWqlZZmIFa,4 - Sustained,Moshi-Hai_Siha_Mwanga Cluster,[Clustered],bVxRDDk5dhV,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Siha DC,RKfeX87U7lA,4 - Sustained,Moshi-Hai_Siha_Mwanga Cluster,[Clustered],bVxRDDk5dhV,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Mpanda DC,vAuW6hf6KGW,4 - Sustained,Mpanda Cluster,[Clustered],vAuW6hf6KGW,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Mpanda TC,sHTZH3Q9xlL,2 - Scale-Up: Aggressive,Mpanda Cluster,[Clustered],vAuW6hf6KGW,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Mtwara DC,UUsTAU2gBGi,4 - Sustained,Mtwara Cluster,[Clustered],UUsTAU2gBGi,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Mtwara Mikindani MC,umEnbNJtWtC,4 - Sustained,Mtwara Cluster,[Clustered],UUsTAU2gBGi,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Nanyumba TC,bLRYxtb8oKx,4 - Sustained,Mtwara Cluster,[Clustered],UUsTAU2gBGi,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Mafinga TC,cdSO66LSlGQ,4 - Sustained,Mufindi Cluster,[Clustered],cdSO66LSlGQ,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Mufindi DC,AaejvOngJzv,1 - Scale-Up: Saturation,Mufindi Cluster,[Clustered],cdSO66LSlGQ,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Bunda DC,hZ6LXLhUGaP,1 - Scale-Up: Saturation,Musoma Cluster,[Clustered],hZ6LXLhUGaP,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Butiama DC,QAY9qFSQvjg,4 - Sustained,Musoma Cluster,[Clustered],hZ6LXLhUGaP,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Musoma DC,o8ekD6KEXWC,4 - Sustained,Musoma Cluster,[Clustered],hZ6LXLhUGaP,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Musoma MC,tWkfmVn0jNf,4 - Sustained,Musoma Cluster,[Clustered],hZ6LXLhUGaP,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Ilemela MC,Knm8JL1QpjL,2 - Scale-Up: Aggressive,Mwanza Cluster,[Clustered],Knm8JL1QpjL,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Nyamagana MC,RxbRsCG8uH4,1 - Scale-Up: Saturation,Mwanza Cluster,[Clustered],Knm8JL1QpjL,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Sengerema DC,if4TkLUE35J,2 - Scale-Up: Aggressive,Mwanza Cluster,[Clustered],Knm8JL1QpjL,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Ukerewe DC,cHzpHbKk60d,4 - Sustained,Mwanza Cluster,[Clustered],Knm8JL1QpjL,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Makambako TC,vBmzQj5y81A,1 - Scale-Up: Saturation,Njombe Cluster,[Clustered],vBmzQj5y81A,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Njombe DC,zLJGUZcLjAt,2 - Scale-Up: Aggressive,Njombe Cluster,[Clustered],vBmzQj5y81A,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Njombe TC,egae42w1g2E,1 - Scale-Up: Saturation,Njombe Cluster,[Clustered],vBmzQj5y81A,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Wanging'ombe DC,YLzPUD9clds,2 - Scale-Up: Aggressive,Njombe Cluster,[Clustered],vBmzQj5y81A,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Igunga DC,ggKkQlp4zmd,1 - Scale-Up: Saturation,Nzega Cluster,[Clustered],ggKkQlp4zmd,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Nzega DC,OaWlcFCzUIo,1 - Scale-Up: Saturation,Nzega Cluster,[Clustered],ggKkQlp4zmd,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Nzega TC,p12xvi2DKUD,4 - Sustained,Nzega Cluster,[Clustered],ggKkQlp4zmd,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Chake Chake,Iy2ohDSmZYT,4 - Sustained,Pemba Cluster,[Clustered],Iy2ohDSmZYT,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Wete,CtMgY8VZogi,4 - Sustained,Pemba Cluster,[Clustered],Iy2ohDSmZYT,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Kishapu DC,uWLJVNg0Cxm,1 - Scale-Up: Saturation,Shinyanga Cluster,[Clustered],uWLJVNg0Cxm,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Shinyanga DC,aW2XJGy2NZk,2 - Scale-Up: Aggressive,Shinyanga Cluster,[Clustered],uWLJVNg0Cxm,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Shinyanga MC,NLaq6KMNwa4,1 - Scale-Up: Saturation,Shinyanga Cluster,[Clustered],uWLJVNg0Cxm,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Hanang DC,AEQ2u8KCBcz,4 - Sustained,Singida-Hanang-Ikungi Cluster,[Clustered],AEQ2u8KCBcz,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Ikungi DC,pcW8gGVrMpY,4 - Sustained,Singida-Hanang-Ikungi Cluster,[Clustered],AEQ2u8KCBcz,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Singida DC,aG6kXOW4ihG,4 - Sustained,Singida-Hanang-Ikungi Cluster,[Clustered],AEQ2u8KCBcz,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Singida MC,EbUvkxSPwEL,4 - Sustained,Singida-Hanang-Ikungi Cluster,[Clustered],AEQ2u8KCBcz,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Namtumbo DC,cRUzcZywrbr,4 - Sustained,Songea-Namtumbo Cluster,[Clustered],cRUzcZywrbr,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Songea DC,ZuIC9W3V9Er,2 - Scale-Up: Aggressive,Songea-Namtumbo Cluster,[Clustered],cRUzcZywrbr,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Songea MC,RbzqqawWFey,1 - Scale-Up: Saturation,Songea-Namtumbo Cluster,[Clustered],cRUzcZywrbr,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Tabora MC,PFrXwIUcE6K,2 - Scale-Up: Aggressive,Tabora-Uyui Cluster,[Clustered],PFrXwIUcE6K,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Uyui DC,BG5sXQyiGAc,2 - Scale-Up: Aggressive,Tabora-Uyui Cluster,[Clustered],PFrXwIUcE6K,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Mkinga DC,sGtdmRkxjoq,4 - Sustained,Tanga-Pangani-Muheza-Mkinga Cluster,[Clustered],sGtdmRkxjoq,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Muheza DC,TGM4xs5LMyc,4 - Sustained,Tanga-Pangani-Muheza-Mkinga Cluster,[Clustered],sGtdmRkxjoq,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Pangani DC,kSQrEY8a2Ka,4 - Sustained,Tanga-Pangani-Muheza-Mkinga Cluster,[Clustered],sGtdmRkxjoq,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Tanga CC,JEao7mAIwRc,1 - Scale-Up: Saturation,Tanga-Pangani-Muheza-Mkinga Cluster,[Clustered],sGtdmRkxjoq,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Tarime DC,gdCBbSRSOyW,4 - Sustained,Tarime Cluster,[Clustered],gdCBbSRSOyW,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Tarime TC,kFtnGYFsmaV,4 - Sustained,Tarime Cluster,[Clustered],gdCBbSRSOyW,4 - Sustained,1,N.Solehdin,1/17/2017
+Tanzania,Kaskazini A,Exl9pUAc44P,4 - Sustained,Unguja/Zanziba Cluster,[Clustered],Exl9pUAc44P,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Magharibi,lg7nWpRVX85,4 - Sustained,Unguja/Zanziba Cluster,[Clustered],Exl9pUAc44P,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Tanzania,Mjini,KOlqevxMjvo,2 - Scale-Up: Aggressive,Unguja/Zanziba Cluster,[Clustered],Exl9pUAc44P,[NOT DEFINED],1,N.Solehdin,1/17/2017
+Rwanda,Kayonza,FvIvxTjfIYv,,East,h420jGWIrGG,h420jGWIrGG,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Gatsibo,t322Y1Ega8t,,East,h420jGWIrGG,h420jGWIrGG,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Rwamagana,LAqkN1BOIZt,,East,h420jGWIrGG,h420jGWIrGG,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Nyagatare,Y05lBO2eOvv,,East,h420jGWIrGG,h420jGWIrGG,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Bugesera,x34m8BI6gR6,,East,h420jGWIrGG,h420jGWIrGG,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Kirehe,QLjf0UY4SXv,,East,h420jGWIrGG,h420jGWIrGG,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Ngoma,d4A13IVOEAA,,East,h420jGWIrGG,h420jGWIrGG,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Gasabo,DNl04xA5EHw,,Kigali City,tuBMCugGRaW,tuBMCugGRaW,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Nyarugenge,jTVZDjqTZMd,,Kigali City,tuBMCugGRaW,tuBMCugGRaW,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Kicukiro,GFHwILhoJZm,,Kigali City,tuBMCugGRaW,tuBMCugGRaW,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Gicumbi,yXSoIp3pm8h,,North,ywrW3s6hdK0,ywrW3s6hdK0,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Musanze,GnnUDzkZG5J,,North,ywrW3s6hdK0,ywrW3s6hdK0,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Rulindo,JJkULcSPd8f,,North,ywrW3s6hdK0,ywrW3s6hdK0,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Gakenke,mI9FRITv8sx,,North,ywrW3s6hdK0,ywrW3s6hdK0,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Burera,Gp3wiTjSpXt,,North,ywrW3s6hdK0,ywrW3s6hdK0,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Ruhango,PFs18sbpNbl,,South,Bx71ekAkh9C,Bx71ekAkh9C,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Huye,jSmIAmJPziA,,South,Bx71ekAkh9C,Bx71ekAkh9C,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Muhanga,JxLYPWKiJKM,,South,Bx71ekAkh9C,Bx71ekAkh9C,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Nyamagabe,PIa2bvV6I4Z,,South,Bx71ekAkh9C,Bx71ekAkh9C,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Nyanza,t1yFBKpeJ3g,,South,Bx71ekAkh9C,Bx71ekAkh9C,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Gisagara,N7QewyoSyOm,,South,Bx71ekAkh9C,Bx71ekAkh9C,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Kamonyi,iDEedbBwnh8,,South,Bx71ekAkh9C,Bx71ekAkh9C,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Nyaruguru,MM9eEsWLFws,,South,Bx71ekAkh9C,Bx71ekAkh9C,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Nyamasheke,ADKjeDl9Ehr,,West,aoTnpGNer6B,aoTnpGNer6B,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Rubavu,bur2q3ac5Ai,,West,aoTnpGNer6B,aoTnpGNer6B,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Rusizi,LkRSrPeoBg4,,West,aoTnpGNer6B,aoTnpGNer6B,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Karongi,LwFQculiO5N,,West,aoTnpGNer6B,aoTnpGNer6B,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Nyabihu,NqejNYmb0MV,,West,aoTnpGNer6B,aoTnpGNer6B,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Rutsiro,Stih03rHJbz,,West,aoTnpGNer6B,aoTnpGNer6B,[NOT DEFINED],1,A.Radin,3/9/2017
+Rwanda,Ngororero,wMb9hDBe7wL,,West,aoTnpGNer6B,aoTnpGNer6B,[NOT DEFINED],1,A.Radin,3/9/2017
