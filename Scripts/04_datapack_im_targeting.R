@@ -37,7 +37,7 @@
         #total numerator = sum of all program status -> filter
         filter(indicator=="OVC_SERV" & standardizeddisaggregate == "ProgramStatus") %>% 
         #group up to OUxIMxType level & summarize (will need to change grouping for different datasets)
-        group_by(operatingunit, mechanismid, indicator, numeratordenom, indicatortype) %>% 
+        group_by(operatingunit, psnu, psnuuid, indicatortype, mechanismid, numeratordenom) %>% 
         summarize_at(vars(fy2017apr), funs(sum(., na.rm = TRUE))) %>% 
         ungroup() %>% 
         #add standardized disagg

@@ -40,7 +40,7 @@
       df_indtbl <- cleanup_snus(df_indtbl)
       rm(cleanup_snus, cluster_snus)
 
-## AGGREGATE TO PNSU X DISAGGS LEVEL ------------------------------------------------------------------------------
+## AGGREGATE TO PSNU X DISAGGS LEVEL ------------------------------------------------------------------------------
     
     #TB adjustments - APR values should equal Q4, not sum Q2 and Q4
       df_indtbl <- df_indtbl %>%
@@ -52,7 +52,7 @@
         #total numerator = sum of all program status -> filter
         filter(indicator=="OVC_SERV" & standardizeddisaggregate == "ProgramStatus") %>% 
         #group up to OUxIMxType level & summarize (will need to change grouping for different datasets)
-        group_by(operatingunit, mechanismid, indicator, numeratordenom, indicatortype) %>% 
+        group_by(operatingunit, snu1, psnu, psnuuid, currentsnuprioritization, indicator, numeratordenom) %>% 
         summarize_at(vars(fy2017apr), funs(sum(., na.rm = TRUE))) %>% 
         ungroup() %>% 
         #add standardized disagg
