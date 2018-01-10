@@ -358,7 +358,7 @@ Sub yieldFormulas()
                 rcNUM = 1 - Application.WorksheetFunction.CountIf(Range("4:4"), "hts_tst_pos_*_u15") - 1
                 Cells(5, colIND).FormulaR1C1 = "=SUM(RC[" & rcNUM & "]:RC[-1])"
             Else
-                Cells(5, colIND).FormulaR1C1 = "=IFERROR(RC[" & rcNUM & "]/ RC[" & rcDEN & "],"""")"
+                Cells(5, colIND).FormulaR1C1 = "=IFERROR(RC[" & rcNUM & "]/ RC[" & rcDEN & "],0)"
             End If
             If (IND <> "hts_tst_spd_tot_pos_o15" And IND <> "hts_tst_spd_tot_pos_u15") Then Cells(5, colIND).NumberFormat = "0.0%"
             Cells(5, colIND).Copy
@@ -942,7 +942,7 @@ Sub imTargeting()
         Sheets("Allocation by SNUxIM").Activate
         LastRow = Range("C1").CurrentRegion.Rows.Count
         colIND = WorksheetFunction.Match("FY19 Target Allocation", ActiveWorkbook.Sheets("Allocation by SNUxIM").Range("1:1"), 0)
-        Range(Cells(5, 7), Cells(colIND - 1, 116)).Select
+        Range(Cells(5, 7), Cells(LastRow, colIND - 1)).Select
         'format to hide zeros
         Selection.NumberFormat = "0%;-0%;;"
         LastColumn = Range("B2").CurrentRegion.Columns.Count 'TOFIX
