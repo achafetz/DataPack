@@ -3,7 +3,7 @@
 ##   Purpose: generate output for IM targeting in Data Pack
 ##   Adopted from COP17 Stata code
 ##   Date: October 19, 2017
-##   Updated: 1/9
+##   Updated: 1/10
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -94,6 +94,7 @@
           tx_tb_D = ifelse((indicator=="TX_TB" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
           tb_prev_D = ifelse((indicator=="TB_PREV" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
           tb_prev = ifelse((indicator=="TB_PREV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
+          hts_tst_pos_vmmc = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & modality=="VMMC" & numeratordenom=="N"), fy2017apr, 0), 
           hts_tst_pmtctanc = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & modality=="PMTCT ANC" & numeratordenom=="N"), fy2017apr, 0), 
           hts_tst_tbclinic = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & modality=="TBClinic" & numeratordenom=="N"), fy2017apr, 0), 
           hts_tst_vmmc = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & modality=="VMMC" & numeratordenom=="N"), fy2017apr, 0), 
@@ -175,6 +176,7 @@
           kp_mat = ifelse((indicator=="KP_MAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
           gend_gbv = ifelse((indicator=="GEND_GBV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
           prep_new = ifelse((indicator=="PrEP_NEW" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0))
+          
     
     
     
@@ -234,7 +236,7 @@
              D_pmtct_stat_pct, D_pmtct_stat_newpos_pct, D_pmtct_stat_newneg_pct, D_pmtct_stat_known_pct, D_pmtct_art_pct, 
              D_pmtct_art_new_pct, D_pmtct_art_already_pct, D_pmtct_eid_pct, D_pmtct_eid_u2mo_pct, D_pmtct_eid_o2mo_pct, 
              D_tb_stat_D_pct, D_tb_stat_pct, D_tb_stat_pos_pct, D_tb_art_pct, D_tx_tb_D_pct, 
-             D_tb_prev_D_pct, D_tb_prev_pct, D_hts_tst_pmtctanc_pct, D_hts_tst_tbclinic_pct, D_hts_tst_vmmc_pct, 
+             D_tb_prev_D_pct, D_tb_prev_pct, D_hts_tst_pos_vmmc_pct, D_hts_tst_pmtctanc_pct, D_hts_tst_tbclinic_pct, D_hts_tst_vmmc_pct, 
              D_hts_tst_indexmod_o15_pct, D_hts_tst_mobilemod_o15_pct, D_hts_tst_vctmod_o15_pct, D_hts_tst_othermod_o15_pct, D_hts_tst_index_o15_pct, 
              D_hts_tst_sti_o15_pct, D_hts_tst_inpat_o15_pct, D_hts_tst_emergency_o15_pct, D_hts_tst_vct_o15_pct, D_hts_tst_otherpitc_o15_pct, 
              D_hts_tst_pos_indexmod_o15_pct, D_hts_tst_pos_mobilemod_o15_pct, D_hts_tst_pos_vctmod_o15_pct, D_hts_tst_pos_othermod_o15_pct, D_hts_tst_pos_index_o15_pct, 
