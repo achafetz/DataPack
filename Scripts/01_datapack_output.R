@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 1/9
+##   Updated: 1/10
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -52,7 +52,7 @@
         #total numerator = sum of all program status -> filter
         filter(indicator=="OVC_SERV" & standardizeddisaggregate == "ProgramStatus") %>% 
         #group up to OUxIMxType level & summarize (will need to change grouping for different datasets)
-        group_by(operatingunit, snu1, psnu, psnuuid, currentsnuprioritization, indicator, numeratordenom) %>% 
+        group_by(operatingunit, snu1, psnu, psnuuid, currentsnuprioritization, typemilitary, indicator, numeratordenom) %>% 
         summarize_at(vars(fy2017apr), funs(sum(., na.rm = TRUE))) %>% 
         ungroup() %>% 
         #add standardized disagg
