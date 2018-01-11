@@ -62,7 +62,7 @@
   
 ## MECH DISTRIBUTION ---------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
-  # updated 01/09
+  # updated 01/10
       
       ## TESTING, NOT FINAL DATA --> Need to figure out all final targets and what non-Total Numerators are included
       df_mechdistro <- df_mechdistro %>%
@@ -89,8 +89,12 @@
           pmtct_eid_o2mo = ifelse((indicator=="PMTCT_EID" & standardizeddisaggregate=="Age/HIVStatus" & otherdisaggregate=="[months] 02-12" & numeratordenom=="N"), fy2017apr, 0), 
           tb_stat_D = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
           tb_stat = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
-          tb_stat_pos = ifelse((indicator=="TB_STAT_POS" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
+          tb_stat_newpos = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Age/Sex/KnownNewPosNeg" & resultstatus=="Positive" & otherdisaggregate=="Newly Identified" & numeratordenom=="N"), fy2017apr, 0), 
+          tb_stat_newneg = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Age/Sex/KnownNewPosNeg" & resultstatus=="Negative" & otherdisaggregate=="Newly Identified" & numeratordenom=="N"), fy2017apr, 0), 
+          tb_stat_known = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Age/Sex/KnownNewPosNeg" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"), fy2017apr, 0), 
           tb_art = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
+          tb_art_new = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART New" & numeratordenom=="N"), fy2017apr, 0), 
+          tb_art_already = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
           tx_tb_D = ifelse((indicator=="TX_TB" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
           tb_prev_D = ifelse((indicator=="TB_PREV" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
           tb_prev = ifelse((indicator=="TB_PREV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
@@ -178,8 +182,6 @@
           prep_new = ifelse((indicator=="PrEP_NEW" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0))
           
     
-    
-    
 ## CLEAN UP -------------------------------------------------------------------------------------------------
   
   #keep just one dedup
@@ -235,8 +237,9 @@
              D_tx_new_u15_pct, D_tx_curr_pct, D_tx_curr_u15_pct, D_tx_pvls_D_pct, D_pmtct_stat_D_pct, 
              D_pmtct_stat_pct, D_pmtct_stat_newpos_pct, D_pmtct_stat_newneg_pct, D_pmtct_stat_known_pct, D_pmtct_art_pct, 
              D_pmtct_art_new_pct, D_pmtct_art_already_pct, D_pmtct_eid_pct, D_pmtct_eid_u2mo_pct, D_pmtct_eid_o2mo_pct, 
-             D_tb_stat_D_pct, D_tb_stat_pct, D_tb_stat_pos_pct, D_tb_art_pct, D_tx_tb_D_pct, 
-             D_tb_prev_D_pct, D_tb_prev_pct, D_hts_tst_pos_vmmc_pct, D_hts_tst_pmtctanc_pct, D_hts_tst_tbclinic_pct, D_hts_tst_vmmc_pct, 
+             D_tb_stat_D_pct, D_tb_stat_pct, D_tb_stat_newpos_pct, D_tb_stat_newneg_pct, D_tb_stat_known_pct, 
+             D_tb_art_pct, D_tb_art_new_pct, D_tb_art_already_pct, D_tx_tb_D_pct, D_tb_prev_D_pct, 
+             D_tb_prev_pct, D_hts_tst_pos_vmmc_pct, D_hts_tst_pmtctanc_pct, D_hts_tst_tbclinic_pct, D_hts_tst_vmmc_pct, 
              D_hts_tst_indexmod_o15_pct, D_hts_tst_mobilemod_o15_pct, D_hts_tst_vctmod_o15_pct, D_hts_tst_othermod_o15_pct, D_hts_tst_index_o15_pct, 
              D_hts_tst_sti_o15_pct, D_hts_tst_inpat_o15_pct, D_hts_tst_emergency_o15_pct, D_hts_tst_vct_o15_pct, D_hts_tst_otherpitc_o15_pct, 
              D_hts_tst_pos_indexmod_o15_pct, D_hts_tst_pos_mobilemod_o15_pct, D_hts_tst_pos_vctmod_o15_pct, D_hts_tst_pos_othermod_o15_pct, D_hts_tst_pos_index_o15_pct, 
@@ -246,13 +249,13 @@
              D_hts_tst_malnutrition_u15_pct, D_hts_tst_otherpitc_u15_pct, D_hts_tst_pos_indexmod_u15_pct, D_hts_tst_pos_mobilemod_u15_pct, D_hts_tst_pos_vctmod_u15_pct, 
              D_hts_tst_pos_othermod_u15_pct, D_hts_tst_pos_index_u15_pct, D_hts_tst_pos_sti_u15_pct, D_hts_tst_pos_inpat_u15_pct, D_hts_tst_pos_emergency_u15_pct, 
              D_hts_tst_pos_vct_u15_pct, D_hts_tst_pos_pediatric_u15_pct, D_hts_tst_pos_malnutrition_u15_pct, D_hts_tst_pos_otherpitc_u15_pct, D_hts_tst_keypop_pct, 
-             D_hts_self_pct, D_vmmc_circ_pct, D_ovc_serv_pct, D_ovc_serv_grad_pct, D_ovc_serv_active_pct, 
-             D_ovc_serv_u18_pct, D_ovc_hivstat_pct, D_ovc_serv_edu_pct, D_ovc_serv_care_pct, D_ovc_serv_sp_pct, 
-             D_ovc_serv_econ_pct, D_ovc_serv_oth_pct, D_kp_prev_msm_sw_D_pct, D_kp_prev_msm_sw_pct, D_kp_prev_msm_not_sw_D_pct, 
-             D_kp_prev_msm_not_sw_pct, D_kp_prev_tg_sw_D_pct, D_kp_prev_tg_sw_pct, D_kp_prev_tg_not_sw_D_pct, D_kp_prev_tg_not_sw_pct, 
-             D_kp_prev_fsw_D_pct, D_kp_prev_fsw_pct, D_kp_prev_pwid_m_D_pct, D_kp_prev_pwid_m_pct, D_kp_prev_pwid_f_D_pct, 
-             D_kp_prev_pwid_f_pct, D_kp_prev_prison_D_pct, D_kp_prev_prison_pct, D_pp_prev_pct, D_kp_mat_pct, 
-             D_gend_gbv_pct, D_prep_new_pct
+             D_hts_self_pct, D_vmmc_circ_pct, D_vmmc_circ_1529_pct, D_ovc_serv_pct, D_ovc_serv_grad_pct, 
+             D_ovc_serv_active_pct, D_ovc_serv_u18_pct, D_ovc_hivstat_pct, D_ovc_serv_edu_pct, D_ovc_serv_care_pct, 
+             D_ovc_serv_sp_pct, D_ovc_serv_econ_pct, D_ovc_serv_oth_pct, D_kp_prev_msm_sw_D_pct, D_kp_prev_msm_sw_pct, 
+             D_kp_prev_msm_not_sw_D_pct, D_kp_prev_msm_not_sw_pct, D_kp_prev_tg_sw_D_pct, D_kp_prev_tg_sw_pct, D_kp_prev_tg_not_sw_D_pct, 
+             D_kp_prev_tg_not_sw_pct, D_kp_prev_fsw_D_pct, D_kp_prev_fsw_pct, D_kp_prev_pwid_m_D_pct, D_kp_prev_pwid_m_pct, 
+             D_kp_prev_pwid_f_D_pct, D_kp_prev_pwid_f_pct, D_kp_prev_prison_D_pct, D_kp_prev_prison_pct, D_pp_prev_pct, 
+             D_kp_mat_pct, D_gend_gbv_pct, D_prep_new_pct
              ) %>% 
       arrange(operatingunit, psnu, mechanismid, indicatortype)
 
