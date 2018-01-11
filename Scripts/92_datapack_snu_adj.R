@@ -84,21 +84,21 @@ cleanup_snus <- function(df) {
     
     ## SNU NAMING ISSUES ##
     # M. Melchior (1/21/17) - txt import issue with French names 
-    mutate( psnu = ifelse(psnuuid == "JVXPyu8T2fO", "Cap-Ha?tien", psnu), 
-            psnu = ifelse(psnuuid == "XXuTiMjae3r", "Anse ? Veau", psnu),
-            psnu = ifelse(psnuuid == "prA0IseYHWD", "Fort Libert?", psnu),
-            psnu = ifelse(psnuuid == "xBsmGxPgQaw", "Gona?ves", psnu),
-            psnu = ifelse(psnuuid == "fXIAya9MTsp", "Grande Rivi?re du Nord", psnu),
-            psnu = ifelse(psnuuid == "lqOb8ytz3VU", "J?r?mie", psnu),
+    mutate( psnu = ifelse(psnuuid == "JVXPyu8T2fO", "Cap-Haïtien", psnu), 
+            psnu = ifelse(psnuuid == "XXuTiMjae3r", "Anse à Veau", psnu),
+            psnu = ifelse(psnuuid == "prA0IseYHWD", "Fort Liberté", psnu),
+            psnu = ifelse(psnuuid == "xBsmGxPgQaw", "Gonaïves", psnu),
+            psnu = ifelse(psnuuid == "fXIAya9MTsp", "Grande Rivière du Nord", psnu),
+            psnu = ifelse(psnuuid == "lqOb8ytz3VU", "Jérémie", psnu),
             psnu = ifelse(psnuuid == "aIbf3wlRYB1", "La Gonave", psnu),
-            psnu = ifelse(psnuuid == "nbvAsGLaXdk", "L?og?ne", psnu),
-            psnu = ifelse(psnuuid == "rrAWd6oORtj", "Limb?", psnu),
-            psnu = ifelse(psnuuid == "nbvAsGLaXdk", "L?og?ne", psnu),
-            psnu = ifelse(psnuuid == "c0oeZEJ8qXk", "M?le Saint Nicolas", psnu),
-            psnu = ifelse(psnuuid == "Y0udgSlBzfb", "Mirago?ne", psnu),
-            psnu = ifelse(psnuuid == "R2NsUDhdF8x", "Saint-Rapha?l", psnu),
-            psnu = ifelse(psnuuid == "mLFKTGjlEg1", "Chardonni?res", psnu),
-            psnu = ifelse((psnuuid %in% c("ONUWhpgEbVk", "RVzTHBO9fgR")), "Valli?res", psnu)
+            psnu = ifelse(psnuuid == "nbvAsGLaXdk", "Léogâne", psnu),
+            psnu = ifelse(psnuuid == "rrAWd6oORtj", "Limbé", psnu),
+            psnu = ifelse(psnuuid == "nbvAsGLaXdk", "Léogâne", psnu),
+            psnu = ifelse(psnuuid == "c0oeZEJ8qXk", "Môle Saint Nicolas", psnu),
+            psnu = ifelse(psnuuid == "Y0udgSlBzfb", "Miragoâne", psnu),
+            psnu = ifelse(psnuuid == "R2NsUDhdF8x", "Saint-Raphaël", psnu),
+            psnu = ifelse(psnuuid == "mLFKTGjlEg1", "Chardonniàres", psnu),
+            psnu = ifelse((psnuuid %in% c("ONUWhpgEbVk", "RVzTHBO9fgR")), "Vallières", psnu)
     ) 
   
     #rename prioritizations (due to spacing and to match last year)
