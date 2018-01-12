@@ -1,6 +1,6 @@
 ## Data Pack Indicators
 
-Indicators & dissagregate pairing used to created aggregated PSNU indicators in the data Pack
+Indicators & dissagregate pairing used to created aggregated PSNU indicators in the DATIM Indicator Tab of the Data Pack
 updated: Jan 12, 2018
 
 
