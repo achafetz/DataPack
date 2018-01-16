@@ -2,7 +2,7 @@
 ##   A.Chafetz, USAID
 ##   Purpose: output unique mechanism list and PSNU list
 ##   Date: Dec 8, 2017
-##   Updated: 
+##   Updated: 1/16/18
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -13,16 +13,15 @@
 ## SETUP  ----------------------------------------------------------------------------------------------
 
   #import
-    df_factview  <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_IM_", datestamp, ".txt", sep=""))) %>% 
-      rename_all(tolower) 
+    df_factview  <- read_rds(file.path(fvdata, paste0("ICPI_FactView_PSNU_IM_", datestamp, ".RDS")))
     
   #cleanup PSNUs (dups & clusters)
     source(file.path(scripts, "91_datapack_officialnames.R"))
     df_factview <- cleanup_mechs(df_factview, rawdata)
       
     source(file.path(scripts, "92_datapack_snu_adj.R"))
-      df_factview <- cleanup_snus(df_factview)
-      df_factview <- cluster_snus(df_factview)
+    df_factview <- cluster_snus(df_factview)
+    df_factview <- cleanup_snus(df_factview)
     
     rm(cleanup_mechs, cleanup_snus, cluster_snus)
   
@@ -35,8 +34,8 @@
                               "PMTCT_ART", "PMTCT_EID", "PMTCT_STAT", "PP_PREV","PrEP_NEW", "TB_ART", "TB_PREV", 
                               "TB_STAT", "TX_CURR","TX_NEW", "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC")) %>% 
       filter(mechanismid>1) %>% #remove dedups 
-      distinct(operatingunit, psnuuid, psnu, fy17snuprioritization, mechanismid, implementingmechanismname, indicatortype) %>% 
-      select(operatingunit, psnuuid, psnu, fy17snuprioritization, mechanismid, implementingmechanismname, indicatortype) %>% 
+      distinct(operatingunit, psnuuid, psnu, currentsnuprioritization, mechanismid, implementingmechanismname, indicatortype) %>% 
+      select(operatingunit, psnuuid, psnu, currentsnuprioritization, mechanismid, implementingmechanismname, indicatortype) %>% 
       arrange(operatingunit, psnu, mechanismid, indicatortype)
     
 
@@ -49,8 +48,8 @@
     
     #unique list of PSNUs
     df_psnulist <- df_mechlist %>%
-      distinct(operatingunit, psnuuid, psnu, fy17snuprioritization, indicatortype) %>% 
-      select(operatingunit, psnuuid, psnu, fy17snuprioritization, indicatortype) %>% 
+      distinct(operatingunit, psnuuid, psnu, currentsnuprioritization, indicatortype) %>% 
+      select(operatingunit, psnuuid, psnu, currentsnuprioritization, indicatortype) %>% 
       arrange(operatingunit, psnu, indicatortype)
 
     

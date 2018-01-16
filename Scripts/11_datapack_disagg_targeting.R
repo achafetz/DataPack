@@ -3,7 +3,7 @@
 ##   Purpose: generate disagg distribution for targeting
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 26, 2017
-##   Updated: 12/09/17 
+##   Updated: 1/16/18 
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -14,9 +14,7 @@
 ## IMPORT DATA ------------------------------------------------------------------------------------------------------    
 
   #import
-    df_disaggdistro  <- read_tsv(file.path(fvdata, paste("ICPI_FactView_PSNU_", datestamp, ".txt", sep="")), 
-                                 col_types = cols(FY2017APR = col_double())) %>% 
-                        rename_all(tolower)
+    df_disaggdistro <- read_rds(file.path(fvdata, paste0("ICPI_FactView_PSNU_", datestamp, ".RDS")))
   
   #cleanup PSNUs (dups & clusters)
     source(file.path(scripts, "92_datapack_snu_adj.R"))
@@ -25,7 +23,7 @@
       rm(cleanup_snus, cluster_snus)
   
   #import disagg mapping table
-    df_disaggs <- read_tsv(file.path(rawdata, "disagg_ind_grps.txt")) %>% 
+    df_disaggs <- read_csv(file.path(rawdata, "disagg_ind_grps.txt")) %>% 
       filter(!is.na(standardizeddisaggregate))  %>% #remove rows where there are no associated MER indicators in FY17 (eg Tx_NEW Age/Sex 24-29 M)
       select(-dt_dataelementgrp, -dt_categoryoptioncombo) #remove columns that just identify information in the disagg tool
   
@@ -35,7 +33,6 @@
     lst_inds <- unique(df_disaggs$indicator)
     lst_disaggs <- unique(df_disaggs$standardizeddisaggregate)
     
-  
   #limit to indicators with targets for COP18 (no MCAD disaggs)
     df_disaggdistro <- df_disaggdistro %>% 
       filter(indicator %in% lst_inds, standardizeddisaggregate %in% lst_disaggs,
@@ -43,7 +40,9 @@
              !is.na(fy2017apr), 
              fy2017apr!=0) %>% 
   #limit to just key variables
-      select(operatingunit, psnuuid, psnu, fy17snuprioritization, indicator:indicatortype, standardizeddisaggregate, age:modality, fy2017apr) %>% 
+      select(operatingunit, psnuuid, psnu, currentsnuprioritization, indicator:indicatortype, standardizeddisaggregate, age:modality, fy2017apr) %>% 
+  #convert snu prioritizations from factor to character    
+      mutate(currentsnuprioritization = as.character(currentsnuprioritization)) %>% 
     
   #aggregate to psnu x disagg [type] level to have one line per obs
       group_by_if(is.character) %>%
@@ -105,7 +104,7 @@
       summarise_at(vars(fy2017apr), funs(sum(.))) %>% 
       ungroup
       
-  #create a group denomiator
+  #create a group denominator
     df_disaggdistro <- df_disaggdistro %>% 
         group_by(operatingunit, psnuuid, psnu, indicator, grouping, indicatortype) %>% 
         mutate(grp_denom = sum(fy2017apr)) %>% 
@@ -122,7 +121,7 @@
 
   #keep relevant variables
     df_disaggdistro <- df_disaggdistro %>% 
-      select(operatingunit:psnu, dt_ind_name, indicatortype, distro) %>% 
+      select(operatingunit, psnu, psnuuid, dt_ind_name, indicatortype, distro) %>% 
       arrange(operatingunit, psnu, dt_ind_name, indicatortype) %>% 
   #remove indicators just used for denom calculation (ie not included/used in the disagg tool)
       filter(dt_ind_name != "not_used") 
