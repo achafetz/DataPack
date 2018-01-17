@@ -34,8 +34,8 @@
                               "PMTCT_ART", "PMTCT_EID", "PMTCT_STAT", "PP_PREV","PrEP_NEW", "TB_ART", "TB_PREV", 
                               "TB_STAT", "TX_CURR","TX_NEW", "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC")) %>% 
       filter(mechanismid>1) %>% #remove dedups 
-      distinct(operatingunit, psnuuid, psnu, currentsnuprioritization, mechanismid, implementingmechanismname, indicatortype) %>% 
-      select(operatingunit, psnuuid, psnu, currentsnuprioritization, mechanismid, implementingmechanismname, indicatortype) %>% 
+      distinct(operatingunit, psnu, psnuuid, currentsnuprioritization, mechanismid, implementingmechanismname, indicatortype) %>% 
+      select(operatingunit, psnu, psnuuid, currentsnuprioritization, mechanismid, implementingmechanismname, indicatortype) %>% 
       arrange(operatingunit, psnu, mechanismid, indicatortype)
     
 
@@ -48,8 +48,8 @@
     
     #unique list of PSNUs
     df_psnulist <- df_mechlist %>%
-      distinct(operatingunit, psnuuid, psnu, currentsnuprioritization, indicatortype) %>% 
-      select(operatingunit, psnuuid, psnu, currentsnuprioritization, indicatortype) %>% 
+      distinct(operatingunit, psnu, psnuuid, currentsnuprioritization, indicatortype) %>% 
+      select(operatingunit, psnu, psnuuid, currentsnuprioritization, indicatortype) %>% 
       arrange(operatingunit, psnu, indicatortype)
 
     

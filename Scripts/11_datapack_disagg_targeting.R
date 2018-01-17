@@ -25,8 +25,9 @@
   #import disagg mapping table
     df_disaggs <- read_csv(file.path(rawdata, "disagg_ind_grps.txt")) %>% 
       filter(!is.na(standardizeddisaggregate))  %>% #remove rows where there are no associated MER indicators in FY17 (eg Tx_NEW Age/Sex 24-29 M)
-      select(-dt_dataelementgrp, -dt_categoryoptioncombo) #remove columns that just identify information in the disagg tool
-  
+      select(-dt_categoryoptioncombo) %>%  #remove columns that just identify information in the disagg tool
+      rename(grouping = dt_dataelementgrp)
+    
 ## SUBSET DATA OF INTEREST  ---------------------------------------------------------------------------------------  
   
   #identify which indicators and disaggs to filter by to reduce file size we're working with
@@ -78,21 +79,21 @@
   #create a disagg group as the denominator for the allocation share
   #default = standardizeddisaggregate (+ psnuuid +indicator + indicatortype + numeratordenom)
   #need to create unique groups where data pack creates multiple targets (eg TX_CURR <15 & TX_CURR)
-    df_disaggdistro <- df_disaggdistro %>%   
-      filter(!otherdisaggregate %in% c("Unknown Sex", "Known at Entry  Unknown Sex", "Newly Identified  Unknown Sex", 
-                                      "Undocumented Test Indication Unknown Sex", "Routine Unknown Sex")) %>% #remove any unknown sex from group
-      mutate(grouping = standardizeddisaggregate,
-             grouping = ifelse(indicator == "OVC_SERV" & standardizeddisaggregate == "Age/Sex/Service", paste(standardizeddisaggregate, otherdisaggregate, sep = " - "), grouping),
-             grouping = ifelse(indicator == "OVC_SERV" & (standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex")) & (age %in% c("<01", "01-09", "10-14", "15-17")), paste(standardizeddisaggregate, "<18", sep = " - "), grouping),
-             grouping = ifelse(indicator == "OVC_SERV" & standardizeddisaggregate == "AgeAboveTen/Sex" & (age %in% c("18-24", "25+")), paste(standardizeddisaggregate, "18+", sep = " - "), grouping),
-             grouping = ifelse(indicator == "PMTCT_STAT" & standardizeddisaggregate == "Age/KnownNewResult", paste(standardizeddisaggregate, " - ", otherdisaggregate, resultstatus, sep = " "), grouping),
-             grouping = ifelse(indicator == "TB_STAT" & standardizeddisaggregate == "Age/Sex/KnownNewPosNeg", paste(standardizeddisaggregate, " - ", otherdisaggregate, resultstatus, sep = " "), grouping),
-             grouping = ifelse((indicator %in% c("TX_CURR", "TX_NEW")) & (standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex")) & (age %in% c("<01", "01-09", "10-14")), paste(standardizeddisaggregate, "<15", sep = " - "), grouping),
-             grouping = ifelse((indicator %in% c("TX_CURR", "TX_NEW")) & standardizeddisaggregate=="AgeAboveTen/Sex" & (age %in% c("15-19", "20-24", "25-49", "50+")), paste(standardizeddisaggregate, "15+", sep = " - "), grouping),
-             grouping = ifelse(indicator == "TX_RET" & standardizeddisaggregate == "AgeAboveTen/Sex" & (age %in% c("15-19", "20-24", "25-49", "50+")), paste(standardizeddisaggregate, "- 15+", sep = ""), grouping),
-             grouping = ifelse(indicator == "VMMC_CIRC" & standardizeddisaggregate == "Age" & (age %in% c("15-19", "20-24", "25-29")), paste(standardizeddisaggregate, "Primary", sep = " - "), grouping),
-             grouping = ifelse(indicator == "VMMC_CIRC" & standardizeddisaggregate == "Age" & (age %in% c("[months] 00-02", "02 months - 09 years", "10-14", "50+")), paste(standardizeddisaggregate, "Other", sep = " - "), grouping)
-      )
+    # df_disaggdistro <- df_disaggdistro %>%   
+    #   filter(!otherdisaggregate %in% c("Unknown Sex", "Known at Entry  Unknown Sex", "Newly Identified  Unknown Sex", 
+    #                                   "Undocumented Test Indication Unknown Sex", "Routine Unknown Sex")) %>% #remove any unknown sex from group
+    #   mutate(grouping = standardizeddisaggregate,
+    #          grouping = ifelse(indicator == "OVC_SERV" & standardizeddisaggregate == "Age/Sex/Service", paste(standardizeddisaggregate, otherdisaggregate, sep = " - "), grouping),
+    #          grouping = ifelse(indicator == "OVC_SERV" & (standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex")) & (age %in% c("<01", "01-09", "10-14", "15-17")), paste(standardizeddisaggregate, "<18", sep = " - "), grouping),
+    #          grouping = ifelse(indicator == "OVC_SERV" & standardizeddisaggregate == "AgeAboveTen/Sex" & (age %in% c("18-24", "25+")), paste(standardizeddisaggregate, "18+", sep = " - "), grouping),
+    #          grouping = ifelse(indicator == "PMTCT_STAT" & standardizeddisaggregate == "Age/KnownNewResult", paste(standardizeddisaggregate, " - ", otherdisaggregate, resultstatus, sep = " "), grouping),
+    #          grouping = ifelse(indicator == "TB_STAT" & standardizeddisaggregate == "Age/Sex/KnownNewPosNeg", paste(standardizeddisaggregate, " - ", otherdisaggregate, resultstatus, sep = " "), grouping),
+    #          grouping = ifelse((indicator %in% c("TX_CURR", "TX_NEW")) & (standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex")) & (age %in% c("<01", "01-09", "10-14")), paste(standardizeddisaggregate, "<15", sep = " - "), grouping),
+    #          grouping = ifelse((indicator %in% c("TX_CURR", "TX_NEW")) & standardizeddisaggregate=="AgeAboveTen/Sex" & (age %in% c("15-19", "20-24", "25-49", "50+")), paste(standardizeddisaggregate, "15+", sep = " - "), grouping),
+    #          grouping = ifelse(indicator == "TX_RET" & standardizeddisaggregate == "AgeAboveTen/Sex" & (age %in% c("15-19", "20-24", "25-49", "50+")), paste(standardizeddisaggregate, "- 15+", sep = ""), grouping),
+    #          grouping = ifelse(indicator == "VMMC_CIRC" & standardizeddisaggregate == "Age" & (age %in% c("15-19", "20-24", "25-29")), paste(standardizeddisaggregate, "Primary", sep = " - "), grouping),
+    #          grouping = ifelse(indicator == "VMMC_CIRC" & standardizeddisaggregate == "Age" & (age %in% c("[months] 00-02", "02 months - 09 years", "10-14", "50+")), paste(standardizeddisaggregate, "Other", sep = " - "), grouping)
+    #   )
         
         
 ## AGGREGATE GROUPS  ---------------------------------------------------------------------------------------         
