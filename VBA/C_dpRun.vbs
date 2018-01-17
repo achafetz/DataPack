@@ -104,7 +104,7 @@ Sub PopulateDataPack()
         Call getData
         Call formatTable
         Call yieldFormulas
-        Call commentCluster
+        'Call commentCluster
         Call setupSNUs
         Call setupHTSDistro
         Call extraNamedRanges
@@ -560,7 +560,7 @@ End Sub
 Sub setupHTSDistro()
     'add SNU list to HTS distro tab
         Sheets("HTS Target Calculation").Activate
-        Range(Cells(5, 3), Cells(LastRow, 3)).FormulaR1C1 = "='DATIM Indicator Table'!RC"
+        Range(Cells(5, 3), Cells(LastRow, 4)).FormulaR1C1 = "='DATIM Indicator Table'!RC"
         Range(Cells(4, 3), Cells(LastRow, 3)).Select
         Application.DisplayAlerts = False
         Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
@@ -568,7 +568,7 @@ Sub setupHTSDistro()
         Columns("C:C").ColumnWidth = 20.75
     'add total for ART to HTS distro tab
         Sheets("HTS Target Calculation").Activate
-        For i = 6 To 11
+        For i = 7 To 12
             Cells(5, i).FormulaR1C1 = "=SUBTOTAL(109, R[2]C:R[" & LastRow - 5 & "]C)"
         Next i
 
@@ -602,9 +602,9 @@ Sub lookupsumFormulas()
             Sheets(sht).Select
             LastColumn = Sheets(sht).Range("C2").CurrentRegion.Columns.Count
             Range(Cells(7, 4), Cells(7, LastColumn)).Select
-            If sht = "SNU Targets" Then
-                Selection.Replace what:="$21", Replacement:="$" & LastRow
-            End If
+            'If sht = "SNU Targets" Then
+                'Selection.Replace what:="$21", Replacement:="$" & LastRow
+            'End If
             Selection.Copy
             Range(Cells(8, 4), Cells(LastRow, LastColumn)).Select
             Selection.PasteSpecial Paste:=xlPasteFormulasAndNumberFormats
@@ -619,6 +619,8 @@ Sub lookupsumFormulas()
             LastColumn = Sheets(sht).Range("A2").CurrentRegion.Columns.Count
             If sht = "Target Calculation" Then
                 FirstColumn = 6
+            ElseIf sht = "HTS Target Calculation" Then
+                FirstColumn = 7
             Else
                 FirstColumn = 4
             End If
@@ -773,7 +775,7 @@ Sub showChanges()
             Sheets(sht).Select
             Range("C5").Select
             If sht = "HTS Target Calculation" Then
-                Union(Range(Cells(5, 15), Cells(LastRow, 55)), Range(Cells(5, 59), Cells(LastRow, LastColumn))).Select
+                Union(Range(Cells(5, 16), Cells(LastRow, 47)), Range(Cells(5, 51), Cells(LastRow, LastColumn))).Select
             Else
                 Range(Cells(5, 4), Cells(LastRow, LastColumn)).Select
             End If
@@ -781,8 +783,8 @@ Sub showChanges()
                 With Selection
                     .Activate
                     If sht = "HTS Target Calculation" Then
-                        .FormatConditions.Add xlExpression, Formula1:="=O5<>dupHTSTargetCalc!O5"
-                        .FormatConditions.Add xlExpression, Formula1:="=BE5<>dupHTSTargetCalc!BE5"
+                        .FormatConditions.Add xlExpression, Formula1:="=P5<>dupHTSTargetCalc!P5"
+                        .FormatConditions.Add xlExpression, Formula1:="=AY5<>dupHTSTargetCalc!AY5"
                     End If
                     If sht = "DATIM Indicator Table" Then .FormatConditions.Add xlExpression, Formula1:="=D5<>dupIndicatorTable!D5"
                     .FormatConditions(2).Interior.ThemeColor = xlThemeColorAccent3
