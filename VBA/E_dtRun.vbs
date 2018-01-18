@@ -239,16 +239,8 @@ Sub indDistro()
             Selection.PasteSpecial Paste:=xlPasteValues
         Next sht
         Application.CutCopyMode = False
-    'hard code site info & distro
+    'add colored bar to right
         For Each sht In shtNames
-            Sheets(sht & " Targets").Activate
-            LastRow = Range("C1").CurrentRegion.Rows.Count
-            LastColumn = Range("C2").CurrentRegion.Columns.Count
-            Range(Cells(7, 3), Cells(LastRow, LastColumn)).Select
-            Selection.Copy
-            Selection.PasteSpecial Paste:=xlPasteValues
-            Application.CutCopyMode = False
-            'add colored bar to right
             Range(Cells(5, 1), Cells(LastRow, 1)).Select
             With Selection.Interior
                 .Pattern = xlSolid
@@ -284,6 +276,10 @@ Sub saveFile()
         If view = "No" Then
             dtWkbk.Close
         End If
+    'close data files
+        distroWkbk.Close
+        mechlistWkbk.Close
+        psnulistWkbk.Close
 
         Application.DisplayAlerts = True
 End Sub
@@ -309,7 +305,7 @@ data pack and its supplementary files"
         FolderName = OUcompl_fldr
 
         strDate = VBA.Format(Now, "yyyy.mm.dd")
-        FileNameZip = DefPath & OpUnit_ns & "SiteTool" & strDate & ".zip"
+        FileNameZip = DefPath & OpUnit_ns & "DisaggTool" & strDate & ".zip"
 
     'Create empty Zip File
         NewZip (FileNameZip)
