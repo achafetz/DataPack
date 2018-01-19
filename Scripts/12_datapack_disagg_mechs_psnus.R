@@ -36,7 +36,8 @@
       filter(mechanismid>1) %>% #remove dedups 
       distinct(operatingunit, psnu, psnuuid, currentsnuprioritization, mechanismid, implementingmechanismname, indicatortype) %>% 
       select(operatingunit, psnu, psnuuid, currentsnuprioritization, mechanismid, implementingmechanismname, indicatortype) %>% 
-      arrange(operatingunit, psnu, mechanismid, indicatortype)
+      arrange(operatingunit, psnu, mechanismid, indicatortype) %>%
+      mutate(psnu_type = paste(psnu, indicatortype, sep = " "))
     
 
 ## EXPORT -----------------------------------------------------------------------------------------------------  
@@ -48,8 +49,8 @@
     
     #unique list of PSNUs
     df_psnulist <- df_mechlist %>%
-      distinct(operatingunit, psnu, psnuuid, currentsnuprioritization, indicatortype) %>% 
-      select(operatingunit, psnu, psnuuid, currentsnuprioritization, indicatortype) %>% 
+      distinct(operatingunit, psnu, psnuuid, currentsnuprioritization, indicatortype, psnu_type) %>% 
+      select(operatingunit, psnu, psnuuid, currentsnuprioritization, indicatortype, psnu_type) %>% 
       arrange(operatingunit, psnu, indicatortype)
 
     
