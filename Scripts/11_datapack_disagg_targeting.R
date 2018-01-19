@@ -126,10 +126,11 @@
   #remove indicators just used for denom calculation (ie not included/used in the disagg tool)
       filter(dt_ind_name != "not_used") 
   #convert to wide
-      #spread(dt_ind_name, distro)
+    df_disaggdistro <- df_disaggdistro %>% 
+      spread(dt_ind_name, distro)
   
   #export
-    write_csv(df_disaggdistro, file.path(output, paste("Global_DisaggDistro.csv", sep="")), na = "")
+    write_csv(df_disaggdistro, file.path(output, paste("Global_DT_DisaggDistro.csv", sep="")), na = "")
       rm(df_disaggdistro)
 
      
