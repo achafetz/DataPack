@@ -200,18 +200,26 @@ End Sub
 
 Sub distroFormulas()
 
-    'add in allocation lookup formula to the first line of every allocation tab (has to occur after distro table is created)
+    'add in allocation & target lookup formulas to the first line of every tab (allocation distro has to occur after distro table is created)
         shtNames = Array("GEND_GBV", "OVC_SERV", _
                 "PMTCT", "PP_PREV", "PrEP_NEW", "TB_STAT", _
                 "TB_ART", "TB_PREV", "TX_CURR", "TX_NEW", _
                 "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC")
         For Each sht In shtNames
             Sheets(sht).Activate
+            'allocation formula
             colIND_start = WorksheetFunction.Match("ALLOCATION", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
             colIND_end = WorksheetFunction.Match("DP TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
             Range(Cells(7, colIND_start), Cells(7, colIND_end)).Select
             Selection.FormulaR1C1 = "=IFERROR(INDEX(distro[#Data], MATCH([@[psnu_type]],distro[psnu_type],0),MATCH(R6C[0],distro[#Headers],0)),0)"
+            'target formula
+            colIND_start = WorksheetFunction.Match("DP TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
+            colIND_end = WorksheetFunction.Match("DISAGGREGATE TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
+            Range(Cells(7, colIND_start), Cells(7, colIND_end)).Select
+            Selection.FormulaR1C1 = "=IFERROR(INDEX(targets[#Data],MATCH([@[psnu_type]]&"" ""&[@mechid],targets[psnu_type_mechid],0),MATCH(R6C[0],targets[#Headers],0)),0)"
+
         Next sht
+
 
 End Sub
 
