@@ -1,12 +1,17 @@
 Option Explicit
 
     Public compl_fldr As String
+    Dim colIND_start
+    Dim colIND_end
+    Public distroTable As ListObject
     Public distroWkbk As Workbook
     Public dtWkbk As Workbook
     Public FirstRow
     Public fname_dp As String
     Public LastColumn As Integer
+    Public LastColumnMech As Integer
     Public LastRow
+    Public LastRowMech
     Public mechlistWkbk As Workbook
     Public OpUnit As Object
     Public OpUnit_ns As String
@@ -26,6 +31,8 @@ Option Explicit
     Public view As String
 
 
+
+
 Sub loadform()
     'prompt for form to load to choose OUs to run
     frmRunSel.Show
@@ -36,7 +43,6 @@ End Sub
 Sub PopulateSiteDisaggTool()
     'turn off screen updating
         Application.ScreenUpdating = False
-
         Debug.Print Application.ScreenUpdating
     'establish OUs on ref sheet
         Sheets("POPref").Activate
@@ -50,12 +56,11 @@ Sub PopulateSiteDisaggTool()
         view = Sheets("POPref").Range("D11")
     'open and name all data files
         Application.DisplayAlerts = False
-        Workbooks.OpenText Filename:=pulls_fldr & "Global_DisaggDistro.csv"
+        Workbooks.OpenText Filename:=pulls_fldr & "Global_DT_DisaggDistro.csv"
         Set distroWkbk = ActiveWorkbook
         Workbooks.OpenText Filename:=pulls_fldr & "Global_DT_MechList.csv"
         Set mechlistWkbk = ActiveWorkbook
-        Workbooks.OpenText Filename:=pulls_fldr & "Global_DT_PSNUList.csv"
-        Set psnulistWkbk = ActiveWorkbook
+
         Application.DisplayAlerts = True
         tmplWkbk.Activate
 
@@ -72,7 +77,7 @@ Sub PopulateSiteDisaggTool()
         'run through all subs
         Call Initialize
         Call getData
-        Call psnuDistro
+        Call distroFormulas
         Call indDistro
         Call saveFile
 
@@ -122,22 +127,34 @@ End Sub
 Sub Initialize()
     'snu & site level for OU
         tmplWkbk.Sheets("POPref").Activate
-    'create datapack file for OU (copy sheets over to new book)
+    'create datapack file for OU (copy sheets over to new book one at a time)
         tmplWkbk.Activate
-        Sheets(Array("Home", "Allocation by SNUxIM", "GEND_GBV Alloc", "GEND_GBV Targets", _
-        "HTS_SELF Alloc", "HTS_SELF Targets", "OVC_SERV Alloc", "OVC_SERV Targets", _
-        "PMTCT Alloc", "PMTCT Targets", "PP_PREV Alloc", "PP_PREV Targets", "PrEP_NEW Alloc", _
-        "PrEP_NEW Targets", "TB Alloc", "TB Targets", "TX_CURR Alloc", "TX_CURR Targets", _
-        "TX_NEW Alloc", "TX_NEW Targets", "TX_PVLS Alloc", "TX_PVLS Targets", "TX_RET Alloc", _
-        "TX_RET Targets", "TX_TB Alloc", "TX_TB Targets", "VMMC_CIRC Alloc", "VMMC_CIRC Targets", _
-        "All Ready Alloc Targets", "Follow on Mech List", "Historic Distro")).Copy
+        Sheets("Home").Copy
         Set dtWkbk = ActiveWorkbook
+        shtNames = Array("Allocation by SNUxIM", _
+                "GEND_GBV", "HTS_SELF", "OVC_SERV", _
+                "PMTCT", "PP_PREV", "PrEP_NEW", "TB_STAT", _
+                "TB_ART", "TB_PREV", "TX_CURR", "TX_NEW", _
+                "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC", _
+                "Already Alloc Targets", "IMPATT Table", _
+                "Follow on Mech List", "HistoricDistro")
+         shtCount = 1
+         For Each sht In shtNames
+            tmplWkbk.Activate
+            Sheets(sht).Copy After:=dtWkbk.Sheets(shtCount)
+            shtCount = shtCount + 1
+         Next sht
+    'add the data pack theme
+        dtWkbk.Activate
         ActiveWorkbook.Theme.ThemeColorScheme.Load (theme_fldr & "Adjacency.xml")
     'hard code update date into home tab & insert OU name
+        Sheets("Home").Activate
         Sheets("Home").Range("N1").Select
         Range("N1").Copy
         Selection.PasteSpecial Paste:=xlPasteValues
         Range("O1").Value = OpUnit
+        Range("N4").Copy
+        Selection.PasteSpecial Paste:=xlPasteValues
         Range("AA1").Select
 
 End Sub
@@ -147,100 +164,106 @@ Sub getData()
     'make sure file with data is activate
         distroWkbk.Activate
     ' find the last column & row
-        LastColumn = Range("A1").CurrentRegion.Columns.Count
+        LastColumn = Range("A1").CurrentRegion.Columns.count
     'find first and last row of OU
         FirstRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1")).Row
         LastRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1"), searchdirection:=xlPrevious).Row
+    'copy over headers & paste in Data Pack
+        Range(Cells(1, 2), Cells(1, LastColumn)).Select
+        Selection.Copy
+        dtWkbk.Activate
+        Sheets("HistoricDistro").Activate
+        Range("A1").Select
+        Selection.PasteSpecial Paste:=xlPasteValues
+        Application.CutCopyMode = False
     'select OU data from global file to copy to data pack
+        distroWkbk.Activate
         Range(Cells(FirstRow, 2), Cells(LastRow, LastColumn)).Select
     'copy the data and paste in the data pack
         Selection.Copy
         dtWkbk.Activate
-        Sheets("Historic Distro").Activate
-        Range("B3").Select
+        Sheets("HistoricDistro").Activate
+        Range("A2").Select
         Selection.PasteSpecial Paste:=xlPasteValues
         Application.CutCopyMode = False
+    'convert into a table
+        LastRow = Range("A1").CurrentRegion.Rows.count
+        Range(Cells(1, 1), Cells(LastRow, LastColumn)).Select
+        Set distroTable = ActiveSheet.ListObjects.Add(xlSrcRange, Selection, , xlYes)
+        Range("A1").Select
+    'rename table
+        With ActiveSheet
+            .ListObjects(1).Name = "distro"
+        End With
 
 End Sub
 
-Sub psnuDistro()
+Sub distroFormulas()
 
-    'activate PSNU list
-        psnulistWkbk.Activate
-    ' find the last column & row
-        LastColumn = Range("A1").CurrentRegion.Columns.Count
-    'find first and last row of OU
-        FirstRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1")).Row
-        LastRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1"), searchdirection:=xlPrevious).Row
-    'select OU data from global file to copy to data pack
-        Range(Cells(FirstRow, 2), Cells(LastRow, LastColumn)).Select
-    'copy the PSNU lists and paste in the disagg tool's allocation tabs
-        Selection.Copy
-        dtWkbk.Activate
-        shtNames = Array("GEND_GBV", "HTS_SELF", "OVC_SERV", _
-                "PMTCT", "PP_PREV", "PrEP_NEW", "TB", "TX_CURR", _
-                "TX_NEW", "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC")
+    'add in allocation lookup formula to the first line of every allocation tab (has to occur after distro table is created)
+        shtNames = Array("GEND_GBV", "OVC_SERV", _
+                "PMTCT", "PP_PREV", "PrEP_NEW", "TB_STAT", _
+                "TB_ART", "TB_PREV", "TX_CURR", "TX_NEW", _
+                "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC")
         For Each sht In shtNames
-            Sheets(sht & " Alloc").Activate
-            Range("C7").Select
-            Selection.PasteSpecial Paste:=xlPasteValues
+            Sheets(sht).Activate
+            colIND_start = WorksheetFunction.Match("ALLOCATION", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
+            colIND_end = WorksheetFunction.Match("DP TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
+            Range(Cells(7, colIND_start), Cells(7, colIND_end)).Select
+            Selection.FormulaR1C1 = "=IFERROR(INDEX(distro[#Data], MATCH([@[psnu_type]],distro[psnu_type],0),MATCH(R6C[0],distro[#Headers],0)),0)"
         Next sht
-        Application.CutCopyMode = False
-    'hard code site info & distro
-        For Each sht In shtNames
-            Sheets(sht & " Alloc").Activate
-            LastRow = Range("C6").CurrentRegion.Rows.Count
-            LastColumn = Range("C2").CurrentRegion.Columns.Count
-            Range(Cells(7, 7), Cells(LastRow, LastColumn)).Select
-            Selection.Copy
-            Selection.PasteSpecial Paste:=xlPasteValues
-            Application.CutCopyMode = False
-            'add colored bar to right
-            Range(Cells(5, 1), Cells(LastRow, 1)).Select
-            With Selection.Interior
-                .Pattern = xlSolid
-                .PatternColorIndex = xlAutomatic
-                .ThemeColor = xlThemeColorAccent4
-                .TintAndShade = 0.399975585192419
-            End With
-
-            Cells(1, 7).Select
-
-        Next sht
-
-
-    'delete distribution tab
-        Application.DisplayAlerts = False
-        Sheets("Historic Distro").Delete
-        Application.DisplayAlerts = True
 
 End Sub
+
+
 
 Sub indDistro()
 
     'activate mech list
         mechlistWkbk.Activate
     ' find the last column & row
-        LastColumn = Range("A1").CurrentRegion.Columns.Count
+        LastColumn = Range("A1").CurrentRegion.Columns.count
     'find first and last row of OU
         FirstRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1")).Row
         LastRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1"), searchdirection:=xlPrevious).Row
     'select OU data from global file to copy to data pack
         Range(Cells(FirstRow, 2), Cells(LastRow, LastColumn)).Select
-    'copy the mech lists and paste in the disagg tool's allocation tabs
+    'copy the mech lists and paste in the disagg tool
         Selection.Copy
         dtWkbk.Activate
+        Sheets.Add After:=Sheets(Sheets.count)
+        ActiveSheet.Name = "MechList"
+        Range("A1").Select
+        Selection.PasteSpecial Paste:=xlPasteValues
+        Application.CutCopyMode = False
+    'define range
+        LastColumnMech = Range("A1").CurrentRegion.Columns.count
+        LastRowMech = Range("A1").CurrentRegion.Rows.count
+        LastRow = LastRowMech + 6
+    'copy mech lists into each tab
         shtNames = Array("GEND_GBV", "HTS_SELF", "OVC_SERV", _
-                "PMTCT", "PP_PREV", "PrEP_NEW", "TB", "TX_CURR", _
-                "TX_NEW", "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC", "All Ready Alloc")
+                "PMTCT", "PP_PREV", "PrEP_NEW", "TB_STAT", _
+                "TB_ART", "TB_PREV", "TX_CURR", "TX_NEW", _
+                "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC", _
+                "Already Alloc Targets")
         For Each sht In shtNames
-            Sheets(sht & " Targets").Activate
+            Sheets("MechList").Activate
+            Range(Cells(1, 1), Cells(LastRowMech, LastColumnMech)).Select
+            Selection.Copy
+            Sheets(sht).Activate
             Range("C7").Select
             Selection.PasteSpecial Paste:=xlPasteValues
-        Next sht
-        Application.CutCopyMode = False
-    'add colored bar to right
-        For Each sht In shtNames
+            Application.CutCopyMode = False
+
+            If sht <> "Already Alloc Targets" Then
+                colIND_start = WorksheetFunction.Match("ALLOCATION", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
+                colIND_end = WorksheetFunction.Match("DP TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
+                Range(Cells(7, colIND_start), Cells(LastRow, colIND_end)).Select
+                Selection.Copy
+                Selection.PasteSpecial Paste:=xlPasteValues
+                Application.CutCopyMode = False
+            End If
+
             Range(Cells(5, 1), Cells(LastRow, 1)).Select
             With Selection.Interior
                 .Pattern = xlSolid
@@ -250,8 +273,8 @@ Sub indDistro()
             End With
 
             Cells(1, 7).Select
-
         Next sht
+
 
 
 End Sub
@@ -259,12 +282,18 @@ End Sub
 Sub saveFile()
     'reset each view to beginning of sheet
     Dim i
-        shtCount = ActiveWorkbook.Worksheets.Count
+        shtCount = ActiveWorkbook.Worksheets.count
         For i = 2 To shtCount
             Worksheets(i).Activate
             Range("H2").Activate
             Range("A1").Select
         Next i
+
+    'delete distribution tab
+        Application.DisplayAlerts = False
+        Sheets("HistoricDistro", "MechList").Delete
+        Application.DisplayAlerts = True
+
     'save
         Sheets("Home").Activate
         Range("X1").Select
@@ -316,8 +345,8 @@ data pack and its supplementary files"
 
     'Keep script waiting until Compressing is done
         On Error Resume Next
-        Do Until oApp.Namespace(FileNameZip).items.Count = _
-           oApp.Namespace(FolderName).items.Count
+        Do Until oApp.Namespace(FileNameZip).items.count = _
+           oApp.Namespace(FolderName).items.count
             Application.Wait (Now + TimeValue("0:00:01"))
         Loop
         On Error GoTo 0

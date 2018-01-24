@@ -560,7 +560,7 @@ End Sub
 Sub setupHTSDistro()
     'add SNU list to HTS distro tab
         Sheets("HTS Target Calculation").Activate
-        Range(Cells(5, 3), Cells(LastRow, 4)).FormulaR1C1 = "='DATIM Indicator Table'!RC"
+        Range(Cells(5, 3), Cells(LastRow, 3)).FormulaR1C1 = "='DATIM Indicator Table'!RC"
         Range(Cells(4, 3), Cells(LastRow, 3)).Select
         Application.DisplayAlerts = False
         Selection.CreateNames Top:=True, Left:=False, Bottom:=False, Right:=False
@@ -663,9 +663,9 @@ Sub sparkTrends()
             IND = Cells(2, i).Value
             Range(Cells(7, i), Cells(LastRow, i)).Select
             If IND = "hts_need" Or IND = "hts_pos" Then
-                Selection.Formula = "=IFERROR(INDEX(" & IND & ",MATCH(snu_trend,snu_hts,0)),"""")"
+                Selection.Formula = "=IFERROR(INDEX(hts_need,MATCH(snu_trend,snu_hts,0))+INDEX(hts_tst_pmtctanc_fy19,MATCH(snu_trend,snu,0))+INDEX(hts_tst_tbclinic_fy19,MATCH(snu_trend,snu,0))+INDEX(hts_tst_vmmc_fy19,MATCH(snu_trend,snu,0)),"""")"
             Else
-                Selection.Formula = "=IFERROR(INDEX(" & IND & ",MATCH(snu_trend,snu,0)),"""")"
+                Selection.Formula = "IFERROR(INDEX(hts_pos,MATCH(snu_trend,snu_hts,0))+INDEX(hts_tst_pos_vmmc_fy19,MATCH(snu_trend,snu,0))+INDEX(tb_stat_newpos_fy19,MATCH(snu_trend,snu,0))+INDEX(pmtct_stat_newpos_fy19,MATCH(snu_trend,snu,0)),"""")"
             End If
             i = i + 6
         Next i
