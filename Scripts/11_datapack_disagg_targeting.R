@@ -3,7 +3,7 @@
 ##   Purpose: generate disagg distribution for targeting
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 26, 2017
-##   Updated: 1/19/18 
+##   Updated: 1/24/18 
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -23,7 +23,7 @@
       rm(cleanup_snus, cluster_snus)
   
   #import disagg mapping table
-    df_disaggs <- read_csv(file.path(rawdata, "disagg_ind_grps.txt")) %>% 
+    df_disaggs <- read_tsv(file.path(rawdata, "disagg_ind_grps.txt")) %>% 
       filter(!is.na(standardizeddisaggregate))  %>% #remove rows where there are no associated MER indicators in FY17 (eg Tx_NEW Age/Sex 24-29 M)
       select(-dt_dataelementgrp, -dt_categoryoptioncombo)  #remove columns that just identify information in the disagg tool
     
@@ -118,10 +118,12 @@
                
     
 ## EXPORT  --------------------------------------------------------------------------------------- 
-
-  #keep relevant variables
+    
+  #add in concatenated variable for Excel lookup
     df_disaggdistro <- df_disaggdistro %>% 
-      select(operatingunit, psnu, psnuuid, dt_ind_name, indicatortype, distro) %>% 
+      mutate(psnu_type = paste(psnu, indicatortype, sep = " ")) %>%  
+  #keep relevant variables
+      select(operatingunit, psnu, psnuuid, dt_ind_name, indicatortype, psnu_type, distro) %>% 
       arrange(operatingunit, psnu, dt_ind_name, indicatortype) %>% 
   #remove indicators just used for denom calculation (ie not included/used in the disagg tool)
       filter(dt_ind_name != "not_used") 
