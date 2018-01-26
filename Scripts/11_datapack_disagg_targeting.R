@@ -3,7 +3,7 @@
 ##   Purpose: generate disagg distribution for targeting
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 26, 2017
-##   Updated: 1/24/18 
+##   Updated: 1/26/18 
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -26,6 +26,15 @@
     df_disaggs <- read_tsv(file.path(rawdata, "disagg_ind_grps.txt")) %>% 
       filter(!is.na(standardizeddisaggregate))  %>% #remove rows where there are no associated MER indicators in FY17 (eg Tx_NEW Age/Sex 24-29 M)
       select(-dt_dataelementgrp, -dt_categoryoptioncombo)  #remove columns that just identify information in the disagg tool
+  
+  #import HTS disagg mapping table
+    df_disaggs_HTS <- read_tsv(file.path(rawdata, "disagg_ind_grps_HTS.txt")) %>% 
+      filter(!is.na(standardizeddisaggregate))  %>% #remove rows where there are no associated MER disaggs in FY17 (eg Tx_NEW Age/Sex 24-29 M)
+      select(-dt_dataelementgrp, -dt_categoryoptioncombo)  #remove columns that just identify information in the disagg tool
+      
+  #append disaggs for 1 df to merge onto fact view
+    df_disaggs <- bind_rows(df_disaggs, df_disaggs_HTS)
+      rm(df_disaggs_HTS)
     
 ## SUBSET DATA OF INTEREST  ---------------------------------------------------------------------------------------  
   
@@ -69,7 +78,7 @@
     df_disaggdistro <- left_join(df_disaggdistro, df_disaggs)
       rm(df_disaggs)
     
-  #replace missing dt_ind with "none"
+  #replace missing dt_ind_name with "none"
     df_disaggdistro <- df_disaggdistro %>% 
       mutate(dt_ind_name = if_else(is.na(dt_ind_name), "not_used", dt_ind_name))
 
@@ -81,7 +90,8 @@
     df_disaggdistro <- df_disaggdistro %>%
       filter(!otherdisaggregate %in% c("Unknown Sex", "Known at Entry  Unknown Sex", "Newly Identified  Unknown Sex",
                                       "Undocumented Test Indication Unknown Sex", "Routine Unknown Sex")) %>% #remove any unknown sex from group
-      mutate(standardizeddisaggregate = ifelse((standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex")), "Age/Sex", standardizeddisaggregate)) %>%  #avoid issues of two groups for <15 (AgeLessThanTen & AgeAboveTen/Sex)
+      mutate(standardizeddisaggregate = ifelse((standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex")), "Age/Sex", standardizeddisaggregate),
+             standardizeddisaggregate = ifelse((standardizeddisaggregate %in% c("Modality/AgeAboveTen/Sex/Result", "Modality/AgeLessThanTen/Result")), "Age/Sex/Result", standardizeddisaggregate)) %>%  #avoid issues of two groups for <15 (AgeLessThanTen & AgeAboveTen/Sex)
       mutate(grouping = standardizeddisaggregate,
              grouping = ifelse(indicator == "OVC_SERV" & standardizeddisaggregate == "Age/Sex/Service", paste(standardizeddisaggregate, otherdisaggregate, sep = " - "), grouping),
              grouping = ifelse(indicator == "OVC_SERV" & standardizeddisaggregate == "Age/Sex" & (age %in% c("<01", "01-09", "10-14", "15-17")), paste(standardizeddisaggregate, "<18", sep = " - "), grouping),
@@ -92,7 +102,9 @@
              grouping = ifelse((indicator %in% c("TX_CURR", "TX_NEW")) & standardizeddisaggregate=="Age/Sex" & (age %in% c("15-19", "20-24", "25-49", "50+")), paste(standardizeddisaggregate, "15+", sep = " - "), grouping),
              grouping = ifelse(indicator == "TX_RET" & standardizeddisaggregate == "Age/Sex" & (age %in% c("15-19", "20-24", "25-49", "50+")), paste(standardizeddisaggregate, "- 15+", sep = ""), grouping),
              grouping = ifelse(indicator == "VMMC_CIRC" & standardizeddisaggregate == "Age" & (age %in% c("15-19", "20-24", "25-29")), paste(standardizeddisaggregate, "Primary", sep = " - "), grouping),
-             grouping = ifelse(indicator == "VMMC_CIRC" & standardizeddisaggregate == "Age" & (age %in% c("[months] 00-02", "02 months - 09 years", "10-14", "50+")), paste(standardizeddisaggregate, "Other", sep = " - "), grouping)
+             grouping = ifelse(indicator == "VMMC_CIRC" & standardizeddisaggregate == "Age" & (age %in% c("[months] 00-02", "02 months - 09 years", "10-14", "50+")), paste(standardizeddisaggregate, "Other", sep = " - "), grouping),
+             grouping = ifelse(indicator == "HTS_TST" & standardizeddisaggregate == "Age/Sex/Result" & (age %in% c("<01", "01-09", "10-14", "15-17")), paste(modality, "<15", resultstatus, sep = ", "), grouping),
+             grouping = ifelse(indicator == "HTS_TST" & standardizeddisaggregate == "Age/Sex/Result" & (age %in% c("15-19", "20-24", "25-49", "50+")), paste(modality, "15+", resultstatus, sep = ", "), grouping)
       )
         
 ## AGGREGATE GROUPS  ---------------------------------------------------------------------------------------         
@@ -110,29 +122,42 @@
         mutate(grp_denom = sum(fy2017apr)) %>% 
         ungroup
         
-## CALCULATE DISTRIBUTION  -----------------------------------------------------------------------  
+## CALCULATE DISTRIBUTION  ----------------------------------------------------------------------  
 
   #divide indicator totals by denoms to get the distribution
     df_disaggdistro <- df_disaggdistro %>% 
       mutate(distro = round(fy2017apr/grp_denom, 3))
                
     
-## EXPORT  --------------------------------------------------------------------------------------- 
+## CLEAN ----------------------------------------------------------------------------------------
     
   #add in concatenated variable for Excel lookup
     df_disaggdistro <- df_disaggdistro %>% 
       mutate(psnu_type = paste(psnu, indicatortype, sep = " ")) %>%  
+  
   #keep relevant variables
       select(operatingunit, psnu, psnuuid, dt_ind_name, indicatortype, psnu_type, distro) %>% 
       arrange(operatingunit, psnu, dt_ind_name, indicatortype) %>% 
-  #remove indicators just used for denom calculation (ie not included/used in the disagg tool)
-      filter(dt_ind_name != "not_used") 
-  #convert to wide
+      
+   #remove indicators just used for denom calculation (ie not included/used in the disagg tool)
+      filter(dt_ind_name != "not_used")
+  
+  #convert to wide (reshape for excel lookup and file size)
     df_disaggdistro <- df_disaggdistro %>% 
       spread(dt_ind_name, distro)
-  
-  #export
-    write_csv(df_disaggdistro, file.path(output, paste("Global_DT_DisaggDistro.csv", sep="")), na = "")
-      rm(df_disaggdistro)
+
+## EXPORT TWO DATASETS  -------------------------------------------------------------------------
+    
+    #normal, non-HTS dataset
+      df_disaggdistro %>% 
+        select_at(vars(-starts_with("A_hts_tst"))) %>% 
+        write_csv(file.path(output, paste("Global_DT_DisaggDistro.csv", sep="")), na = "")
+    
+    #HTS only dataset
+      df_disaggdistro %>% 
+        select_at(vars(operatingunit, psnu, psnuuid, indicatortype, psnu_type, starts_with("A_hts_tst"))) %>% 
+        write_csv(file.path(output, paste("Global_DT_DisaggDistro_HTS.csv", sep="")), na = "")
+    
+    rm(df_disaggdistro)
 
      
