@@ -59,12 +59,10 @@ Sub PopulateSiteDisaggTool()
         view = Sheets("POPref").Range("D11")
     'open and name all data files
         Application.DisplayAlerts = False
-        Workbooks.OpenText Filename:=pulls_fldr & "Global_DT_DisaggDistro.csv"
+        Workbooks.OpenText Filename:=pulls_fldr & "Global_DT_DisaggDistro_HTS.csv"
         Set distroWkbk = ActiveWorkbook
         Workbooks.OpenText Filename:=pulls_fldr & "Global_DT_MechList.csv"
         Set mechlistWkbk = ActiveWorkbook
-        Workbooks.OpenText Filename:=pulls_fldr & "Global_DT_PSNUList.csv"
-        Set psnulistWkbk = ActiveWorkbook
 
         Application.DisplayAlerts = True
         tmplWkbk.Activate
@@ -82,7 +80,6 @@ Sub PopulateSiteDisaggTool()
         'run through all subs
         Call Initialize
         Call getData
-        Call getPSNUs
         Call distroFormulas
         Call indDistro
         Call saveFile
@@ -97,7 +94,6 @@ Sub PopulateSiteDisaggTool()
     'close data files
         distroWkbk.Close
         mechlistWkbk.Close
-        psnulistWkbk.Close
 
 
 End Sub
@@ -140,12 +136,11 @@ Sub Initialize()
         tmplWkbk.Activate
         Sheets("Home").Copy
         Set dtWkbk = ActiveWorkbook
-        shtNames = Array("Allocation by SNUxIM", _
-                "GEND_GBV", "HTS_SELF", "OVC_SERV", _
-                "PMTCT", "PP_PREV", "PrEP_NEW", "TB_STAT", _
-                "TB_ART", "TB_PREV", "TX_CURR", "TX_NEW", _
-                "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC", _
-                "Already Alloc Targets", "IMPATT Table", "Follow on Mech List")
+        shtNames = Array("Allocation by SNUxIM", "IndexMod", "MobileMod", _
+                         "VCTMod", "OtherMod", "Index", "STI", _
+                         "Inpat", "Emergency", "VCT", "VMMC", _
+                         "TBClinic", "PMTCTANC", "PediatricServices", _
+                         "Malnutrition", "OtherPITC", "KeyPop")
          shtCount = 1
          For Each sht In shtNames
             tmplWkbk.Activate
@@ -161,9 +156,8 @@ Sub Initialize()
         Range("N1").Copy
         Selection.PasteSpecial Paste:=xlPasteValues
         Range("O1").Value = OpUnit
-        Range("O4").Copy
+        Range("N4").Copy
         Selection.PasteSpecial Paste:=xlPasteValues
-        Application.CutCopyMode = False
         Range("AA1").Select
 
 End Sub
@@ -172,7 +166,7 @@ Sub getData()
 
     'make sure file with data is activate
         distroWkbk.Activate
-    ' find the last column & row
+    'find the last column & row
         LastColumn = Range("A1").CurrentRegion.Columns.count
     'find first and last row of OU
         FirstRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1")).Row
@@ -209,76 +203,48 @@ Sub getData()
 End Sub
 
 
-Sub getPSNUs()
-
-    'make sure file with data is activate
-        psnulistWkbk.Activate
-    ' find the last column & row
-        LastColumn = Range("A1").CurrentRegion.Columns.count
-    'find first and last row of OU
-        FirstRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1")).Row
-        LastRow = Range("A:A").Find(what:=OpUnit, After:=Range("A1"), searchdirection:=xlPrevious).Row
-    'select OU data from global file to copy to data pack
-        Range(Cells(FirstRow, 2), Cells(LastRow, LastColumn)).Select
-    'copy the data and paste in the data pack
-        Selection.Copy
-        dtWkbk.Activate
-        Sheets("IMPATT Table").Activate
-        Range("C7").Select
-        Selection.PasteSpecial Paste:=xlPasteValues
-        Application.CutCopyMode = False
-
-End Sub
-
 
 Sub distroFormulas()
 
     'add in allocation & target lookup formulas to the first line of every tab (allocation distro has to occur after distro table is created)
-        shtNames = Array("GEND_GBV", "OVC_SERV", _
-                "PMTCT", "PP_PREV", "PrEP_NEW", "TB_STAT", _
-                "TB_ART", "TB_PREV", "TX_CURR", "TX_NEW", _
-                "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC")
+        shtNames = Array("IndexMod", "MobileMod", _
+                         "VCTMod", "OtherMod", "Index", "STI", _
+                         "Inpat", "Emergency", "VCT", "VMMC", _
+                         "TBClinic", "PMTCTANC", "PediatricServices", _
+                         "Malnutrition", "OtherPITC", "KeyPop")
         For Each sht In shtNames
             Sheets(sht).Activate
             'allocation formula
-            colIND_start = WorksheetFunction.Match("ALLOCATION", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
-            colIND_end = WorksheetFunction.Match("DP TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
-            Range(Cells(7, colIND_start), Cells(7, colIND_end)).Select
-            Selection.FormulaR1C1 = "=IFERROR(INDEX(distro[#Data], MATCH([@[psnu_type]],distro[psnu_type],0),MATCH(R6C[0],distro[#Headers],0)),0)"
+            If sht <> "Emergency" And sht <> "STI" And sht <> "PediatricServices" And sht <> "Malnutrition" Then
+                colIND_start = WorksheetFunction.Match("ALLOCATION", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
+                colIND_end = WorksheetFunction.Match("DP TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
+                Range(Cells(7, colIND_start), Cells(7, colIND_end)).Select
+                Selection.FormulaR1C1 = "=IFERROR(INDEX(distro[#Data], MATCH([@[psnu_type]],distro[psnu_type],0),MATCH(R6C[0],distro[#Headers],0)),0)"
+            End If
             'target formula
             colIND_start = WorksheetFunction.Match("DP TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
             colIND_end = WorksheetFunction.Match("DISAGGREGATE TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
             Range(Cells(7, colIND_start), Cells(7, colIND_end)).Select
             Selection.FormulaR1C1 = "=IFERROR(INDEX(targets[#Data],MATCH([@[psnu_type]]&"" ""&[@mechid],targets[psnu_type_mechid],0),MATCH(R6C[0],targets[#Headers],0)),0)"
+            'formulas for pseudo numerators (eg TX_RET 15+ = TX_RET - TX_RET <15)
+            If sht <> "KeyPop" Then
+                Sheets(sht).Activate
+                colIND = WorksheetFunction.Match("DP TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
+                Cells(7, colIND + 2).FormulaR1C1 = "=RC[-2] - RC[-1]"
+                If sht <> "VMMC" And sht <> "TBClinic" And sht <> "PMTCTANC" Then
+                    Cells(7, colIND + 4).FormulaR1C1 = "=RC[-2] - RC[-1]"
+                End If
+            End If
         Next sht
 
-    'target formula for already allocated
-        Sheets("Already Alloc Targets").Activate
-        LastColumn = Range("C1").CurrentRegion.Columns.count
-        Range(Cells(7, 10), Cells(7, LastColumn)).Select
-        Selection.FormulaR1C1 = "=IFERROR(INDEX(targets[#Data],MATCH([@[psnu_type]]&"" ""&[@mechid],targets[psnu_type_mechid],0),MATCH(R6C[0],targets[#Headers],0)),0)"
+'        shtNames = Array("PediatricServices", "Malnutrition")
+'        For Each sht In shtNames
+'            colIND_start = WorksheetFunction.Match("DP TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
+'            Range(Cells(7, colIND_start), Cells(7, colIND_start + 1)).Select
+'            Selection.FormulaR1C1 = "=IFERROR(INDEX(targets[#Data],MATCH([@[psnu_type]]&"" ""&[@mechid],targets[psnu_type_mechid],0),MATCH(R6C[0],targets[#Headers],0)),0)"
+'            Cells(7, colIND + 3).FormulaR1C1 = "=RC[-2] - RC[-1]"
+'        Next sht
 
-     'formulas for pseudo numerators (eg TX_RET 15+ = TX_RET - TX_RET <15)
-        INDnames = Array("D_ovc_serv_o18_fy19", "D_tx_curr_o15_fy19", "D_tx_new_o15_fy19", _
-                        "D_tx_ret_o15_D_fy19", "D_tx_ret_o15_fy19", "D_vmmc_circ_othage_fy19")
-        For Each IND In INDnames
-            If IND = "D_ovc_serv_o18_fy19" Then
-                sht = "OVC_SERV"
-            ElseIf IND = "D_tx_curr_o15_fy19" Then
-                sht = "TX_CURR"
-            ElseIf IND = "D_tx_new_o15_fy19" Then
-                sht = "TX_NEW"
-            ElseIf IND = "D_vmmc_circ_othage_fy19" Then
-                sht = "VMMC_CIRC"
-            Else
-                sht = "TX_RET"
-            End If
-
-            Sheets(sht).Activate
-            colIND = WorksheetFunction.Match(IND, ActiveWorkbook.Sheets(sht).Range("6:6"), 0)
-            Cells(7, colIND).FormulaR1C1 = "=RC[-2] - RC[-1]"
-
-        Next IND
 
 End Sub
 
@@ -304,15 +270,16 @@ Sub indDistro()
         Selection.PasteSpecial Paste:=xlPasteValues
         Application.CutCopyMode = False
     'define range
+        Range("A1").Select
         LastColumnMech = Range("A1").CurrentRegion.Columns.count
         LastRowMech = Range("A1").CurrentRegion.Rows.count
-        LastRow = Range("C7").CurrentRegion.Rows.count + 5
+        LastRow = LastRowMech + 6
     'copy mech lists into each tab
-        shtNames = Array("GEND_GBV", "HTS_SELF", "OVC_SERV", _
-                "PMTCT", "PP_PREV", "PrEP_NEW", "TB_STAT", _
-                "TB_ART", "TB_PREV", "TX_CURR", "TX_NEW", _
-                "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC", _
-                "Already Alloc Targets")
+        shtNames = Array("IndexMod", "MobileMod", _
+                         "VCTMod", "OtherMod", "Index", "STI", _
+                         "Inpat", "Emergency", "VCT", "VMMC", _
+                         "TBClinic", "PMTCTANC", "PediatricServices", _
+                         "Malnutrition", "OtherPITC", "KeyPop")
         For Each sht In shtNames
             'copy mech list into each tab, formula will copy down in for whole table
             Sheets("MechList").Activate
@@ -323,17 +290,15 @@ Sub indDistro()
             Selection.PasteSpecial Paste:=xlPasteValues
             Application.CutCopyMode = False
             'hard copy allocation lookups to cells (no need to have dynamic lookup at this point)
-            If sht <> "Already Alloc Targets" Then
+            If sht <> "PediatricServices" And sht <> "Malnutrition" And sht <> "KeyPop" Then
                 colIND_start = WorksheetFunction.Match("ALLOCATION", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
                 colIND_end = WorksheetFunction.Match("DP TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
                 Range(Cells(7, colIND_start), Cells(LastRow, colIND_end)).Select
-                Selection.NumberFormat = "0%;-0%;;"
                 Selection.Copy
                 Selection.PasteSpecial Paste:=xlPasteValues
                 Application.CutCopyMode = False
             End If
             'add left colored border bar in column A
-
             Range(Cells(5, 1), Cells(LastRow, 1)).Select
             With Selection.Interior
                 .Pattern = xlSolid
@@ -342,7 +307,7 @@ Sub indDistro()
                 .TintAndShade = 0.399975585192419
             End With
 
-            Cells(1, 10).Select
+            Cells(1, 7).Select
         Next sht
 
 
@@ -367,7 +332,7 @@ Sub saveFile()
     'save
         Sheets("Home").Activate
         Range("X1").Select
-        fname_dp = OUcompl_fldr & OpUnit_ns & "COP18DisaggTool" & "v" & VBA.Format(Now, "yyyy.mm.dd") & ".xlsx"
+        fname_dp = OUcompl_fldr & OpUnit_ns & "COP18DisaggTool_HTS" & "v" & VBA.Format(Now, "yyyy.mm.dd") & ".xlsx"
         Application.DisplayAlerts = False
         ActiveWorkbook.SaveAs fname_dp
 

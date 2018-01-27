@@ -97,7 +97,6 @@
              grouping = ifelse(indicator == "OVC_SERV" & standardizeddisaggregate == "Age/Sex" & (age %in% c("<01", "01-09", "10-14", "15-17")), paste(standardizeddisaggregate, "<18", sep = " - "), grouping),
              grouping = ifelse(indicator == "OVC_SERV" & standardizeddisaggregate == "Age/Sex" & (age %in% c("18-24", "25+")), paste(standardizeddisaggregate, "18+", sep = " - "), grouping),
              grouping = ifelse(indicator == "PMTCT_STAT" & standardizeddisaggregate == "Age/KnownNewResult", paste(standardizeddisaggregate, " - ", otherdisaggregate, resultstatus, sep = " "), grouping),
-             grouping = ifelse(indicator == "TB_STAT" & standardizeddisaggregate == "Age/Sex/KnownNewPosNeg", paste(standardizeddisaggregate, " - ", otherdisaggregate, resultstatus, sep = " "), grouping),
              grouping = ifelse((indicator %in% c("TX_CURR", "TX_NEW")) & standardizeddisaggregate=="Age/Sex" & (age %in% c("<01", "01-09", "10-14")), paste(standardizeddisaggregate, "<15", sep = " - "), grouping),
              grouping = ifelse((indicator %in% c("TX_CURR", "TX_NEW")) & standardizeddisaggregate=="Age/Sex" & (age %in% c("15-19", "20-24", "25-49", "50+")), paste(standardizeddisaggregate, "15+", sep = " - "), grouping),
              grouping = ifelse(indicator == "TX_RET" & standardizeddisaggregate == "Age/Sex" & (age %in% c("15-19", "20-24", "25-49", "50+")), paste(standardizeddisaggregate, "- 15+", sep = ""), grouping),
