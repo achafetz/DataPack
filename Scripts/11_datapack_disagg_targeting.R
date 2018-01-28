@@ -3,12 +3,12 @@
 ##   Purpose: generate disagg distribution for targeting
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 26, 2017
-##   Updated: 1/26/18 
+##   Updated: 1/28/18 
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
 # ICPI Fact View PSNU
-# list of all disagg indicators and denom groups (disagg_ind_grps.txt)
+# Disagg Tool Templates (or latest RawData/disagg_ind_grps.txt) to draw on for disagg mapping
 
 
 ## IMPORT DATA ------------------------------------------------------------------------------------------------------    
@@ -23,14 +23,16 @@
       rm(cleanup_snus, cluster_snus)
   
   #import disagg mapping table
-    df_disaggs <- read_tsv(file.path(rawdata, "disagg_ind_grps.txt")) %>% 
+    df_disaggs <- read_excel(Sys.glob(file.path(templategeneration,"COP18DisaggToolTemplate v*.xlsm")), sheet = "POPsubset", col_names = TRUE) %>% 
       filter(!is.na(standardizeddisaggregate))  %>% #remove rows where there are no associated MER indicators in FY17 (eg Tx_NEW Age/Sex 24-29 M)
-      select(-dt_dataelementgrp, -dt_categoryoptioncombo)  #remove columns that just identify information in the disagg tool
+      select(-dt_dataelementgrp, -dt_categoryoptioncombo) %>%  #remove columns that just identify information in the disagg tool
+      write_tsv(file.path(rawdata, "disagg_ind_grps.txt"), na = "") #document 
   
   #import HTS disagg mapping table
-    df_disaggs_HTS <- read_tsv(file.path(rawdata, "disagg_ind_grps_HTS.txt")) %>% 
+    df_disaggs_HTS <- read_excel(Sys.glob(file.path(templategeneration,"COP18DisaggToolTemplate_HTS v*.xlsm")), sheet = "POPsubset", col_names = TRUE) %>%
       filter(!is.na(standardizeddisaggregate))  %>% #remove rows where there are no associated MER disaggs in FY17 (eg Tx_NEW Age/Sex 24-29 M)
-      select(-dt_dataelementgrp, -dt_categoryoptioncombo)  #remove columns that just identify information in the disagg tool
+      select(-dt_dataelementgrp, -dt_categoryoptioncombo) %>%  #remove columns that just identify information in the disagg tool
+      write_tsv(file.path(rawdata, "disagg_ind_grps.txt"), na = "") #document 
       
   #append disaggs for 1 df to merge onto fact view
     df_disaggs <- bind_rows(df_disaggs, df_disaggs_HTS)
