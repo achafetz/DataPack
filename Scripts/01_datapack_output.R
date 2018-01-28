@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 1/12
+##   Updated: 1/28
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -95,7 +95,7 @@
 
 ## GENERATE VARIABLES/COLUMNS -------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
-  # updated 1/12
+  # updated 1/28
   
     df_indtbl <- df_indtbl %>%
       mutate(
@@ -266,6 +266,7 @@
         vmmc_circ_T = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
         vmmc_circ_rng_T = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="Age" & age %in% c("15-19", "20-24", "25-29") & numeratordenom=="N"), fy2018_targets, 0), 
         vmmc_circ_subnat = ifelse((indicator=="VMMC_CIRC_SUBNAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0))
+    
   
 
 ## AGGREGATE TO PSNU LEVEL ----------------------------------------------------------------------------------------
