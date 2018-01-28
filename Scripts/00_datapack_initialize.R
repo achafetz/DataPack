@@ -2,7 +2,7 @@
 ##  A.Chafetz, USAID
 ##  Purpose: initialize packages, folder structure, and global file paths
 ##  Adapted from T. Essam, USAID [Stata]
-##  Updated: 11/28/17 
+##  Updated: 1/28/18 
 ##  https://github.com/achafetz/DataPack
 
 ## DEPENDENT PACKAGES -------------------------------------------------------------------------
@@ -23,7 +23,7 @@
 
   #Run initially to set up folder structure
   #Choose your folders to createa and and stored as values
-    folderlist <- c("RawData", "TempOutput", "Output", "Scripts")
+    folderlist <- c("RawData", "TempOutput", "Output", "Scripts", "TemplateGeneration", "Documents")
     for (f in folderlist){
       dir.create(file.path(projectpath, pfolder, f), showWarnings = FALSE)
       assign(tolower(f), file.path(projectpath, pfolder, f,"/"))
