@@ -1,232 +1,215 @@
 indicator	standardizeddisaggregate	sex	age	resultstatus	otherdisaggregate	modality	numeratordenom	dt_ind_name
-GEND_GBV	Age/Sex/ViolenceType	Female	<10		Physical and/or Emotional Violence		N	A_gend_gbv_u10_f_pev
-GEND_GBV	Age/Sex/ViolenceType	Female	<10		Sexual Violence (Post-Rape Care)		N	A_gend_gbv_u10_f_sv
-GEND_GBV	Age/Sex/ViolenceType	Male	<10		Physical and/or Emotional Violence		N	A_gend_gbv_u10_m_pev
-GEND_GBV	Age/Sex/ViolenceType	Male	<10		Sexual Violence (Post-Rape Care)		N	A_gend_gbv_u10_m_sv
-GEND_GBV	Age/Sex/ViolenceType	Female	10-14		Physical and/or Emotional Violence		N	A_gend_gbv_1014_f_pev
-GEND_GBV	Age/Sex/ViolenceType	Female	10-14		Sexual Violence (Post-Rape Care)		N	A_gend_gbv_1014_f_sv
-GEND_GBV	Age/Sex/ViolenceType	Male	10-14		Physical and/or Emotional Violence		N	A_gend_gbv_1014_m_pev
-GEND_GBV	Age/Sex/ViolenceType	Male	10-14		Sexual Violence (Post-Rape Care)		N	A_gend_gbv_1014_m_sv
-GEND_GBV	Age/Sex/ViolenceType	Female	15-19		Physical and/or Emotional Violence		N	A_gend_gbv_1519_f_pev
-GEND_GBV	Age/Sex/ViolenceType	Female	15-19		Sexual Violence (Post-Rape Care)		N	A_gend_gbv_1519_f_sv
-GEND_GBV	Age/Sex/ViolenceType	Male	15-19		Physical and/or Emotional Violence		N	A_gend_gbv_1519_m_pev
-GEND_GBV	Age/Sex/ViolenceType	Male	15-19		Sexual Violence (Post-Rape Care)		N	A_gend_gbv_1519_m_sv
-GEND_GBV	Age/Sex/ViolenceType	Female	20-24		Physical and/or Emotional Violence		N	A_gend_gbv_2024_f_pev
-GEND_GBV	Age/Sex/ViolenceType	Female	20-24		Sexual Violence (Post-Rape Care)		N	A_gend_gbv_2024_f_sv
-GEND_GBV	Age/Sex/ViolenceType	Male	20-24		Physical and/or Emotional Violence		N	A_gend_gbv_2024_m_pev
-GEND_GBV	Age/Sex/ViolenceType	Male	20-24		Sexual Violence (Post-Rape Care)		N	A_gend_gbv_2024_m_sv
-GEND_GBV	Age/Sex/ViolenceType	Female	50+		Physical and/or Emotional Violence		N	A_gend_gbv_o50_f_pev
-GEND_GBV	Age/Sex/ViolenceType	Female	50+		Sexual Violence (Post-Rape Care)		N	A_gend_gbv_o50_f_sv
-GEND_GBV	Age/Sex/ViolenceType	Male	50+		Physical and/or Emotional Violence		N	A_gend_gbv_o50_m_pev
-GEND_GBV	Age/Sex/ViolenceType	Male	50+		Sexual Violence (Post-Rape Care)		N	A_gend_gbv_o50_m_sv
-OVC_SERV	AgeLessThanTen		<01				N	A_ovc_serv_u1_unk
-OVC_SERV	AgeLessThanTen		01-09				N	A_ovc_serv_0109_unk
-OVC_SERV	AgeAboveTen/Sex	Female	10-14				N	A_ovc_serv_1014_f
-OVC_SERV	AgeAboveTen/Sex	Male	10-14				N	A_ovc_serv_1014_m
-OVC_SERV	AgeAboveTen/Sex	Female	15-17				N	A_ovc_serv_1517_f
-OVC_SERV	AgeAboveTen/Sex	Male	15-17				N	A_ovc_serv_1517_m
-OVC_SERV	AgeAboveTen/Sex	Female	18-24				N	A_ovc_serv_1824_f
-OVC_SERV	AgeAboveTen/Sex	Male	18-24				N	A_ovc_serv_1824_m
-OVC_SERV	AgeAboveTen/Sex	Female	25+				N	A_ovc_serv_o25_f
-OVC_SERV	AgeAboveTen/Sex	Male	25+				N	A_ovc_serv_o25_m
-OVC_SERV	Age/Sex/Service	Female	10-14		Economic Strengthening		N	A_ovc_serv_1014_f_econ
-OVC_SERV	Age/Sex/Service	Male	10-14		Economic Strengthening		N	A_ovc_serv_1014_m_econ
-OVC_SERV	Age/Sex/Service	Female	15-17		Economic Strengthening		N	A_ovc_serv_1517_f_econ
-OVC_SERV	Age/Sex/Service	Male	15-17		Economic Strengthening		N	A_ovc_serv_1517_m_econ
-OVC_SERV	Age/Sex/Service	Female	18-24		Economic Strengthening		N	A_ovc_serv_1824_f_econ
-OVC_SERV	Age/Sex/Service	Male	18-24		Economic Strengthening		N	A_ovc_serv_1824_m_econ
-OVC_SERV	Age/Sex/Service	Female	25+		Economic Strengthening		N	A_ovc_serv_o25_f_econ
-OVC_SERV	Age/Sex/Service	Male	25+		Economic Strengthening		N	A_ovc_serv_o25_m_econ
-OVC_SERV	Age/Sex/Service	Female	10-14		Education Support		N	A_ovc_serv_1014_f_edu
-OVC_SERV	Age/Sex/Service	Male	10-14		Education Support		N	A_ovc_serv_1014_m_edu
-OVC_SERV	Age/Sex/Service	Female	15-17		Education Support		N	A_ovc_serv_1517_f_edu
-OVC_SERV	Age/Sex/Service	Male	15-17		Education Support		N	A_ovc_serv_1517_m_edu
-OVC_SERV	Age/Sex/Service	Female	18-24		Education Support		N	A_ovc_serv_1824_f_edu
-OVC_SERV	Age/Sex/Service	Male	18-24		Education Support		N	A_ovc_serv_1824_m_edu
-OVC_SERV	Age/Sex/Service	Female	25+		Education Support		N	A_ovc_serv_o25_f_edu
-OVC_SERV	Age/Sex/Service	Male	25+		Education Support		N	A_ovc_serv_o25_m_edu
-OVC_SERV	Age/Sex/Service	Female	10-14		Other Service Areas		N	A_ovc_serv_1014_f_oth
-OVC_SERV	Age/Sex/Service	Male	10-14		Other Service Areas		N	A_ovc_serv_1014_m_oth
-OVC_SERV	Age/Sex/Service	Female	15-17		Other Service Areas		N	A_ovc_serv_1517_f_oth
-OVC_SERV	Age/Sex/Service	Male	15-17		Other Service Areas		N	A_ovc_serv_1517_m_oth
-OVC_SERV	Age/Sex/Service	Female	18-24		Other Service Areas		N	A_ovc_serv_1824_f_oth
-OVC_SERV	Age/Sex/Service	Male	18-24		Other Service Areas		N	A_ovc_serv_1824_m_oth
-OVC_SERV	Age/Sex/Service	Female	25+		Other Service Areas		N	A_ovc_serv_o25_f_oth
-OVC_SERV	Age/Sex/Service	Male	25+		Other Service Areas		N	A_ovc_serv_o25_m_oth
-OVC_SERV	Age/Sex/Service	Female	10-14		Parenting/Caregiver Programs		N	A_ovc_serv_1014_f_care
-OVC_SERV	Age/Sex/Service	Male	10-14		Parenting/Caregiver Programs		N	A_ovc_serv_1014_m_care
-OVC_SERV	Age/Sex/Service	Female	15-17		Parenting/Caregiver Programs		N	A_ovc_serv_1517_f_care
-OVC_SERV	Age/Sex/Service	Male	15-17		Parenting/Caregiver Programs		N	A_ovc_serv_1517_m_care
-OVC_SERV	Age/Sex/Service	Female	18-24		Parenting/Caregiver Programs		N	A_ovc_serv_1824_f_care
-OVC_SERV	Age/Sex/Service	Male	18-24		Parenting/Caregiver Programs		N	A_ovc_serv_1824_m_care
-OVC_SERV	Age/Sex/Service	Female	25+		Parenting/Caregiver Programs		N	A_ovc_serv_o25_f_care
-OVC_SERV	Age/Sex/Service	Male	25+		Parenting/Caregiver Programs		N	A_ovc_serv_o25_m_care
-OVC_SERV	Age/Sex/Service	Female	10-14		Social Protection		N	A_ovc_serv_1014_f_sp
-OVC_SERV	Age/Sex/Service	Male	10-14		Social Protection		N	A_ovc_serv_1014_m_sp
-OVC_SERV	Age/Sex/Service	Female	15-17		Social Protection		N	A_ovc_serv_1517_f_sp
-OVC_SERV	Age/Sex/Service	Male	15-17		Social Protection		N	A_ovc_serv_1517_m_sp
-OVC_SERV	Age/Sex/Service	Female	18-24		Social Protection		N	A_ovc_serv_1824_f_sp
-OVC_SERV	Age/Sex/Service	Male	18-24		Social Protection		N	A_ovc_serv_1824_m_sp
-OVC_SERV	Age/Sex/Service	Female	25+		Social Protection		N	A_ovc_serv_o25_f_sp
-OVC_SERV	Age/Sex/Service	Male	25+		Social Protection		N	A_ovc_serv_o25_m_sp
-PMTCT_EID	Age/HIVStatus		<2 months	Negative			N	A_pmtct_eid_u02
-PMTCT_EID	Age/HIVStatus		<2 months	Positive			N	A_pmtct_eid_u02
-PMTCT_EID	Age/HIVStatus		<2 months	Unknown			N	A_pmtct_eid_u02
-PMTCT_EID	Age/HIVStatus		[months] 02-12	Negative			N	A_pmtct_eid_0212mo
-PMTCT_EID	Age/HIVStatus		[months] 02-12	Positive			N	A_pmtct_eid_0212mo
-PMTCT_EID	Age/HIVStatus		[months] 02-12	Unknown			N	A_pmtct_eid_0212mo
-PMTCT_STAT	Age		<10				D	A_pmtct_stat_D_u10_f
-PMTCT_STAT	Age		10-14				D	A_pmtct_stat_D_1014_f
-PMTCT_STAT	Age		15-19				D	A_pmtct_stat_D_1519_f
-PMTCT_STAT	Age		20-24				D	A_pmtct_stat_D_2024_f
-PMTCT_STAT	Age		50+				D	A_pmtct_stat_D_o50_f
-PMTCT_STAT	Age/KnownNewResult		<10	Positive	Known at Entry		N	A_pmtct_stat_u10_f_known
-PMTCT_STAT	Age/KnownNewResult		10-14	Positive	Known at Entry		N	A_pmtct_stat_1014_f_known
-PMTCT_STAT	Age/KnownNewResult		15-19	Positive	Known at Entry		N	A_pmtct_stat_1519_f_known
-PMTCT_STAT	Age/KnownNewResult		20-24	Positive	Known at Entry		N	A_pmtct_stat_2024_f_known
-PMTCT_STAT	Age/KnownNewResult		50+	Positive	Known at Entry		N	A_pmtct_stat_o50_f_known
-PMTCT_STAT	Age/KnownNewResult		<10	Negative	Newly Identified		N	A_pmtct_stat_u10_f_newneg
-PMTCT_STAT	Age/KnownNewResult		10-14	Negative	Newly Identified		N	A_pmtct_stat_1014_f_newneg
-PMTCT_STAT	Age/KnownNewResult		15-19	Negative	Newly Identified		N	A_pmtct_stat_1519_f_newneg
-PMTCT_STAT	Age/KnownNewResult		20-24	Negative	Newly Identified		N	A_pmtct_stat_2024_f_newneg
-PMTCT_STAT	Age/KnownNewResult		25-49	Negative	Newly Identified		N	A_pmtct_stat_2529_f_newneg
-PMTCT_STAT	Age/KnownNewResult		50+	Negative	Newly Identified		N	A_pmtct_stat_o50_f_newneg
-PMTCT_STAT	Age/KnownNewResult		<10	Positive	Newly Identified		N	A_pmtct_stat_u10_f_newpos
-PMTCT_STAT	Age/KnownNewResult		10-14	Positive	Newly Identified		N	A_pmtct_stat_1014_f_newpos
-PMTCT_STAT	Age/KnownNewResult		15-19	Positive	Newly Identified		N	A_pmtct_stat_1519_f_newpos
-PMTCT_STAT	Age/KnownNewResult		20-24	Positive	Newly Identified		N	A_pmtct_stat_2024_f_newpos
-PMTCT_STAT	Age/KnownNewResult		25-49	Positive	Newly Identified		N	A_pmtct_stat_2529_f_newpos
-PMTCT_STAT	Age/KnownNewResult		50+	Positive	Newly Identified		N	A_pmtct_stat_o50_f_newpos
-PP_PREV	Age/Sex	Female	10-14				N	A_pp_prev_1014_f
-PP_PREV	Age/Sex	Male	10-14				N	A_pp_prev_1014_m
-PP_PREV	Age/Sex	Female	15-19				N	A_pp_prev_1519_f
-PP_PREV	Age/Sex	Male	15-19				N	A_pp_prev_1519_m
-PP_PREV	Age/Sex	Female	20-24				N	A_pp_prev_2024_f
-PP_PREV	Age/Sex	Male	20-24				N	A_pp_prev_2024_m
-PP_PREV	Age/Sex	Female	50+				N	A_pp_prev_o50_f
-PP_PREV	Age/Sex	Male	50+				N	A_pp_prev_o50_m
-PrEP_NEW	Age/Sex	Female	15-19				N	A_prep_new_1519_f
-PrEP_NEW	Age/Sex	Male	15-19				N	A_prep_new_1519_m
-PrEP_NEW	Age/Sex	Female	20-24				N	A_prep_new_2024_f
-PrEP_NEW	Age/Sex	Male	20-24				N	A_prep_new_2024_m
-PrEP_NEW	Age/Sex	Female	25-49				N	A_prep_new_2529_f
-PrEP_NEW	Age/Sex	Male	25-49				N	A_prep_new_2529_m
-PrEP_NEW	Age/Sex	Female	50+				N	A_prep_new_o50_f
-PrEP_NEW	Age/Sex	Male	50+				N	A_prep_new_o50_m
-PrEP_NEW	KeyPopAbr				FSW		N	A_prep_new_fsw
-PrEP_NEW	KeyPopAbr				MSM		N	A_prep_new_msm
-PrEP_NEW	KeyPopAbr				TG		N	A_prep_new_tg
-TB_STAT	Age/Sex/KnownNewPosNeg	Female	<15	Positive	Known at Entry		N	A_tb_stat_u15_f
-TB_STAT	Age/Sex/KnownNewPosNeg	Male	<15	Positive	Known at Entry		N	A_tb_stat_u15_m
-TB_STAT	Age/Sex/KnownNewPosNeg	Female	15+	Positive	Known at Entry		N	A_tb_stat_o15_f
-TB_STAT	Age/Sex/KnownNewPosNeg	Male	15+	Positive	Known at Entry		N	A_tb_stat_o15_m
-TB_STAT	Age/Sex/KnownNewPosNeg	Female	<15	Positive	Newly Identified		N	A_tb_stat_u15_f
-TB_STAT	Age/Sex/KnownNewPosNeg	Male	<15	Positive	Newly Identified		N	A_tb_stat_u15_m
-TB_STAT	Age/Sex/KnownNewPosNeg	Female	15+	Positive	Newly Identified		N	A_tb_stat_o15_f
-TB_STAT	Age/Sex/KnownNewPosNeg	Male	15+	Positive	Newly Identified		N	A_tb_stat_o15_m
-TB_STAT	Age/Sex/KnownNewPosNeg	Female	<15	Negative	Newly Identified		N	A_tb_stat_u15_f
-TB_STAT	Age/Sex/KnownNewPosNeg	Male	<15	Negative	Newly Identified		N	A_tb_stat_u15_m
-TB_STAT	Age/Sex/KnownNewPosNeg	Female	15+	Negative	Newly Identified		N	A_tb_stat_o15_f
-TB_STAT	Age/Sex/KnownNewPosNeg	Male	15+	Negative	Newly Identified		N	A_tb_stat_o15_m
-TB_ART	AgeAboveTen/Sex	Female	15-19				N	A_tb_art_o15_f_pos
-TB_ART	AgeAboveTen/Sex	Female	20-24				N	A_tb_art_o15_f_pos
-TB_ART	AgeAboveTen/Sex	Female	25-49				N	A_tb_art_o15_f_pos
-TB_ART	AgeAboveTen/Sex	Female	50+				N	A_tb_art_o15_f_pos
-TB_ART	AgeAboveTen/Sex	Male	15-19				N	A_tb_art_o15_m_pos
-TB_ART	AgeAboveTen/Sex	Male	20-24				N	A_tb_art_o15_m_pos
-TB_ART	AgeAboveTen/Sex	Male	25-49				N	A_tb_art_o15_m_pos
-TB_ART	AgeAboveTen/Sex	Male	50+				N	A_tb_art_o15_m_pos
-TB_ART	NewExistingArt				Life-long ART Already		N	A_tb_art_already
-TB_ART	NewExistingArt				Life-long ART New		N	A_tb_art_new
-TB_PREV	Aggregated Age/Sex	Female	<15				D	A_tb_prev_D_u15_f_pos
-TB_PREV	Aggregated Age/Sex	Male	<15				D	A_tb_prev_D_u15_m_pos
-TB_PREV	Aggregated Age/Sex	Female	15+				D	A_tb_prev_D_o15_f_pos
-TB_PREV	Aggregated Age/Sex	Male	15+				D	A_tb_prev_D_o15_m_pos
-TB_PREV	Aggregated Age/Sex	Female	<15				N	A_tb_prev_u15_f_pos
-TB_PREV	Aggregated Age/Sex	Male	<15				N	A_tb_prev_u15_m_pos
-TB_PREV	Aggregated Age/Sex	Female	15+				N	A_tb_prev_o15_f_pos
-TB_PREV	Aggregated Age/Sex	Male	15+				N	A_tb_prev_o15_m_pos
-TX_CURR	AgeLessThanTen		<01				N	A_tx_curr_u1_unk_pos
-TX_CURR	AgeLessThanTen		01-09				N	A_tx_curr_0109_unk_pos
-TX_CURR	AgeAboveTen/Sex	Female	10-14				N	A_tx_curr_1014_f_pos
-TX_CURR	AgeAboveTen/Sex	Male	10-14				N	A_tx_curr_1014_m_pos
-TX_CURR	AgeAboveTen/Sex	Female	15-19				N	A_tx_curr_1519_f_pos
-TX_CURR	AgeAboveTen/Sex	Male	15-19				N	A_tx_curr_1519_m_pos
-TX_CURR	AgeAboveTen/Sex	Female	20-24				N	A_tx_curr_2024_f_pos
-TX_CURR	AgeAboveTen/Sex	Male	20-24				N	A_tx_curr_2024_m_pos
-TX_CURR	AgeAboveTen/Sex	Female	50+				N	A_tx_curr_o50_f_pos
-TX_CURR	AgeAboveTen/Sex	Male	50+				N	A_tx_curr_o50_m_pos
-TX_NEW	AgeLessThanTen		<01				N	A_tx_new_u01_unk_pos
-TX_NEW	AgeLessThanTen		01-09				N	A_tx_new_1014_f_pos
-TX_NEW	AgeAboveTen/Sex	Female	10-14				N	A_tx_new_0109_unk_pos
-TX_NEW	AgeAboveTen/Sex	Male	10-14				N	A_tx_new_1014_m_pos
-TX_NEW	AgeAboveTen/Sex	Female	15-19				N	A_tx_new_1519_f_pos
-TX_NEW	AgeAboveTen/Sex	Male	15-19				N	A_tx_new_1519_m_pos
-TX_NEW	AgeAboveTen/Sex	Female	20-24				N	A_tx_new_2024_f_pos
-TX_NEW	AgeAboveTen/Sex	Male	20-24				N	A_tx_new_2024_m_pos
-TX_NEW	AgeAboveTen/Sex	Female	50+				N	A_tx_new_o50_f_pos
-TX_NEW	AgeAboveTen/Sex	Male	50+				N	A_tx_new_o50_m_pos
-TX_NEW	KeyPop				FSW		N	A_tx_new_fsw_pos
-TX_NEW	KeyPop				MSM		N	A_tx_new_msm_pos
-TX_NEW	KeyPop				People in prisons and other enclosed settings		N	A_tx_new_prison_pos
-TX_NEW	KeyPop				PWID		N	A_tx_new_pwid_pos
-TX_NEW	KeyPop				TG		N	A_tx_new_tg_pos
-TX_NEW	Preg/Feeding				Breastfeeding		N	A_tx_new_bf_pos
-TX_NEW	Preg/Feeding				Pregnant		N	A_tx_new_preg_pos
-TX_PVLS	Aggregated Age/Sex/Indication	Female	<15		Routine		D	A_tx_pvls_D_u15_f_rtn
-TX_PVLS	Aggregated Age/Sex/Indication	Female	<15		Targeted		D	A_tx_pvls_D_u15_f_targeted
-TX_PVLS	Aggregated Age/Sex/Indication	Female	<15		Undocumented Test Indication		D	A_tx_pvls_D_u15_f_undoctest
-TX_PVLS	Aggregated Age/Sex/Indication	Male	<15		Routine		D	A_tx_pvls_D_u15_m_rtn
-TX_PVLS	Aggregated Age/Sex/Indication	Male	<15		Targeted		D	A_tx_pvls_D_u15_m_targeted
-TX_PVLS	Aggregated Age/Sex/Indication	Male	<15		Undocumented Test Indication		D	A_tx_pvls_D_u15_m_undoctest
-TX_PVLS	Aggregated Age/Sex/Indication	Female	15+		Routine		D	A_tx_pvls_D_o15_f_rtn
-TX_PVLS	Aggregated Age/Sex/Indication	Female	15+		Targeted		D	A_tx_pvls_D_o15_f_targeted
-TX_PVLS	Aggregated Age/Sex/Indication	Female	15+		Undocumented Test Indication		D	A_tx_pvls_D_o15_f_undoctest
-TX_PVLS	Aggregated Age/Sex/Indication	Male	15+		Routine		D	A_tx_pvls_D_o15_m_rtn
-TX_PVLS	Aggregated Age/Sex/Indication	Male	15+		Targeted		D	A_tx_pvls_D_o15_m_targeted
-TX_PVLS	Aggregated Age/Sex/Indication	Male	15+		Undocumented Test Indication		D	A_tx_pvls_D_o15_m_undoctest
-TX_PVLS	PregBF/Indication				Breastfeeding Routine		D	A_tx_pvls_D_bf_rtn_pos
-TX_PVLS	PregBF/Indication				Breastfeeding Targeted		D	A_tx_pvls_D_bf_targeted_pos
-TX_PVLS	PregBF/Indication				Breastfeeding Undocumented Test Indication		D	A_tx_pvls_D_bf_undoctest_pos
-TX_PVLS	PregBF/Indication				Pregnant Routine		D	A_tx_pvls_D_preg_rtn_pos
-TX_PVLS	PregBF/Indication				Pregnant Targeted		D	A_tx_pvls_D_preg_targeted_pos
-TX_PVLS	PregBF/Indication				Pregnant Undocumented Test Indication		D	A_tx_pvls_D_preg_undoctest_pos
-TX_PVLS	RoutineTargeted				Routine		D	A_tx_pvls_D_rtn_pos
-TX_PVLS	RoutineTargeted				Targeted		D	A_tx_pvls_D_targeted_pos
-TX_PVLS	RoutineTargeted				Undocumented Test Indication		D	A_tx_pvls_D_undoctest_pos
-TX_RET	AgeAboveTen/Sex	Female	15-19				D	A_tx_ret_D_o15_f_pos
-TX_RET	AgeAboveTen/Sex	Male	15-19				D	A_tx_ret_D_o15_m_pos
-TX_RET	AgeAboveTen/Sex	Female	20-24				D	A_tx_ret_D_o15_f_pos
-TX_RET	AgeAboveTen/Sex	Male	20-24				D	A_tx_ret_D_o15_m_pos
-TX_RET	AgeAboveTen/Sex	Female	25-49				D	A_tx_ret_D_o15_f_pos
-TX_RET	AgeAboveTen/Sex	Male	25-49				D	A_tx_ret_D_o15_m_pos
-TX_RET	AgeAboveTen/Sex	Female	50+				D	A_tx_ret_D_o15_f_pos
-TX_RET	AgeAboveTen/Sex	Male	50+				D	A_tx_ret_D_o15_m_pos
-TX_RET	Preg/Feeding				Breastfeeding		D	A_tx_ret_D_bf_pos
-TX_RET	Preg/Feeding				Pregnant		D	A_tx_ret_D_preg_pos
-TX_RET	AgeAboveTen/Sex	Female	15-19				N	A_tx_ret_o15_f_pos
-TX_RET	AgeAboveTen/Sex	Male	15-19				N	A_tx_ret_o15_m_pos
-TX_RET	AgeAboveTen/Sex	Female	20-24				N	A_tx_ret_o15_f_pos
-TX_RET	AgeAboveTen/Sex	Male	20-24				N	A_tx_ret_o15_m_pos
-TX_RET	AgeAboveTen/Sex	Female	25-49				N	A_tx_ret_o15_f_pos
-TX_RET	AgeAboveTen/Sex	Male	25-49				N	A_tx_ret_o15_m_pos
-TX_RET	AgeAboveTen/Sex	Female	50+				N	A_tx_ret_o15_f_pos
-TX_RET	AgeAboveTen/Sex	Male	50+				N	A_tx_ret_o15_m_pos
-TX_RET	Preg/Feeding				Breastfeeding		N	A_tx_ret_bf_pos
-TX_RET	Preg/Feeding				Pregnant		N	A_tx_ret_preg_pos
-TX_TB	Aggregated Age/Sex	Female	<15				D	A_tx_tb_D_u15_f_pos
-TX_TB	Aggregated Age/Sex	Male	<15				D	A_tx_tb_D_u15_m_pos
-TX_TB	Aggregated Age/Sex	Female	15+				D	A_tx_tb_D_o15_f_pos
-TX_TB	Aggregated Age/Sex	Male	15+				D	A_tx_tb_D_o15_m_pos
-TX_TB	TB Test Type				Other		D	A_tx_tb_D_oth_pos
-TX_TB	TB Test Type				Smear		D	A_tx_tb_D_smear_pos
-TX_TB	TB Test Type				Xpert		D	A_tx_tb_D_xpert_pos
-VMMC_CIRC	Age		15-19				N	A_vmmc_circ_1519_m
-VMMC_CIRC	Age		20-24				N	A_vmmc_circ_2024_m
-VMMC_CIRC	Age		25-29				N	A_vmmc_circ_2529_m
-VMMC_CIRC	Age		<2 months				N	A_vmmc_circ_u02mo_m
-VMMC_CIRC	Age		02 months - 09 years				N	A_vmmc_circ_02mo9_m
-VMMC_CIRC	Age		10-14				N	A_vmmc_circ_1014_m
-VMMC_CIRC	Age		50+				N	A_vmmc_circ_o50_m
-VMMC_CIRC	Technique				Device based		N	A_vmmc_circ_device_m
-VMMC_CIRC	Technique				Surgical Technique		N	A_vmmc_circ_surg_m
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Positive		IndexMod	N	A_hts_tst_indexmod_u1_unk_pos
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Positive		IndexMod	N	A_hts_tst_indexmod_0109_unk_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Positive		IndexMod	N	A_hts_tst_indexmod_1014_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Positive		IndexMod	N	A_hts_tst_indexmod_1014_m_pos
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Negative		IndexMod	N	A_hts_tst_indexmod_u1_unk_neg
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Negative		IndexMod	N	A_hts_tst_indexmod_0109_unk_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Negative		IndexMod	N	A_hts_tst_indexmod_1014_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Negative		IndexMod	N	A_hts_tst_indexmod_1014_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Positive		IndexMod	N	A_hts_tst_indexmod_1519_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Positive		IndexMod	N	A_hts_tst_indexmod_1519_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Positive		IndexMod	N	A_hts_tst_indexmod_2024_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Positive		IndexMod	N	A_hts_tst_indexmod_2024_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Positive		IndexMod	N	A_hts_tst_indexmod_o50_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Positive		IndexMod	N	A_hts_tst_indexmod_o50_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Negative		IndexMod	N	A_hts_tst_indexmod_1519_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Negative		IndexMod	N	A_hts_tst_indexmod_1519_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Negative		IndexMod	N	A_hts_tst_indexmod_2024_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Negative		IndexMod	N	A_hts_tst_indexmod_2024_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Negative		IndexMod	N	A_hts_tst_indexmod_o50_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Negative		IndexMod	N	A_hts_tst_indexmod_o50_m_neg
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Positive		MobileMod	N	A_hts_tst_mobilemod_u1_unk_pos
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Positive		MobileMod	N	A_hts_tst_mobilemod_0109_unk_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Positive		MobileMod	N	A_hts_tst_mobilemod_1014_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Positive		MobileMod	N	A_hts_tst_mobilemod_1014_m_pos
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Negative		MobileMod	N	A_hts_tst_mobilemod_u1_unk_neg
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Negative		MobileMod	N	A_hts_tst_mobilemod_0109_unk_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Negative		MobileMod	N	A_hts_tst_mobilemod_1014_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Negative		MobileMod	N	A_hts_tst_mobilemod_1014_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Positive		MobileMod	N	A_hts_tst_mobilemod_1519_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Positive		MobileMod	N	A_hts_tst_mobilemod_1519_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Positive		MobileMod	N	A_hts_tst_mobilemod_2024_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Positive		MobileMod	N	A_hts_tst_mobilemod_2024_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Positive		MobileMod	N	A_hts_tst_mobilemod_o50_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Positive		MobileMod	N	A_hts_tst_mobilemod_o50_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Negative		MobileMod	N	A_hts_tst_mobilemod_1519_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Negative		MobileMod	N	A_hts_tst_mobilemod_1519_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Negative		MobileMod	N	A_hts_tst_mobilemod_2024_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Negative		MobileMod	N	A_hts_tst_mobilemod_2024_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Negative		MobileMod	N	A_hts_tst_mobilemod_o50_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Negative		MobileMod	N	A_hts_tst_mobilemod_o50_m_neg
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Positive		VCTMod	N	A_hts_tst_vctmod_u1_unk_pos
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Positive		VCTMod	N	A_hts_tst_vctmod_0109_unk_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Positive		VCTMod	N	A_hts_tst_vctmod_1014_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Positive		VCTMod	N	A_hts_tst_vctmod_1014_m_pos
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Negative		VCTMod	N	A_hts_tst_vctmod_u1_unk_neg
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Negative		VCTMod	N	A_hts_tst_vctmod_0109_unk_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Negative		VCTMod	N	A_hts_tst_vctmod_1014_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Negative		VCTMod	N	A_hts_tst_vctmod_1014_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Positive		VCTMod	N	A_hts_tst_vctmod_1519_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Positive		VCTMod	N	A_hts_tst_vctmod_1519_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Positive		VCTMod	N	A_hts_tst_vctmod_2024_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Positive		VCTMod	N	A_hts_tst_vctmod_2024_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Positive		VCTMod	N	A_hts_tst_vctmod_o50_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Positive		VCTMod	N	A_hts_tst_vctmod_o50_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Negative		VCTMod	N	A_hts_tst_vctmod_1519_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Negative		VCTMod	N	A_hts_tst_vctmod_1519_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Negative		VCTMod	N	A_hts_tst_vctmod_2024_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Negative		VCTMod	N	A_hts_tst_vctmod_2024_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Negative		VCTMod	N	A_hts_tst_vctmod_o50_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Negative		VCTMod	N	A_hts_tst_vctmod_o50_m_neg
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Positive		OtherMod	N	A_hts_tst_othermod_u1_unk_pos
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Positive		OtherMod	N	A_hts_tst_othermod_0109_unk_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Positive		OtherMod	N	A_hts_tst_othermod_1014_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Positive		OtherMod	N	A_hts_tst_othermod_1014_m_pos
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Negative		OtherMod	N	A_hts_tst_othermod_u1_unk_neg
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Negative		OtherMod	N	A_hts_tst_othermod_0109_unk_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Negative		OtherMod	N	A_hts_tst_othermod_1014_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Negative		OtherMod	N	A_hts_tst_othermod_1014_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Positive		OtherMod	N	A_hts_tst_othermod_1519_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Positive		OtherMod	N	A_hts_tst_othermod_1519_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Positive		OtherMod	N	A_hts_tst_othermod_2024_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Positive		OtherMod	N	A_hts_tst_othermod_2024_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Positive		OtherMod	N	A_hts_tst_othermod_o50_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Positive		OtherMod	N	A_hts_tst_othermod_o50_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Negative		OtherMod	N	A_hts_tst_othermod_1519_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Negative		OtherMod	N	A_hts_tst_othermod_1519_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Negative		OtherMod	N	A_hts_tst_othermod_2024_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Negative		OtherMod	N	A_hts_tst_othermod_2024_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Negative		OtherMod	N	A_hts_tst_othermod_o50_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Negative		OtherMod	N	A_hts_tst_othermod_o50_m_neg
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Positive		Index	N	A_hts_tst_index_u1_unk_pos
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Positive		Index	N	A_hts_tst_index_0109_unk_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Positive		Index	N	A_hts_tst_index_1014_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Positive		Index	N	A_hts_tst_index_1014_m_pos
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Negative		Index	N	A_hts_tst_index_u1_unk_neg
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Negative		Index	N	A_hts_tst_index_0109_unk_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Negative		Index	N	A_hts_tst_index_1014_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Negative		Index	N	A_hts_tst_index_1014_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Positive		Index	N	A_hts_tst_index_1519_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Positive		Index	N	A_hts_tst_index_1519_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Positive		Index	N	A_hts_tst_index_2024_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Positive		Index	N	A_hts_tst_index_2024_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Positive		Index	N	A_hts_tst_index_o50_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Positive		Index	N	A_hts_tst_index_o50_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Negative		Index	N	A_hts_tst_index_1519_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Negative		Index	N	A_hts_tst_index_1519_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Negative		Index	N	A_hts_tst_index_2024_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Negative		Index	N	A_hts_tst_index_2024_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Negative		Index	N	A_hts_tst_index_o50_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Negative		Index	N	A_hts_tst_index_o50_m_neg
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Positive		Inpat	N	A_hts_tst_inpat_u1_unk_pos
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Positive		Inpat	N	A_hts_tst_inpat_0109_unk_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Positive		Inpat	N	A_hts_tst_inpat_1014_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Positive		Inpat	N	A_hts_tst_inpat_1014_m_pos
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Negative		Inpat	N	A_hts_tst_inpat_u1_unk_neg
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Negative		Inpat	N	A_hts_tst_inpat_0109_unk_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Negative		Inpat	N	A_hts_tst_inpat_1014_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Negative		Inpat	N	A_hts_tst_inpat_1014_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Positive		Inpat	N	A_hts_tst_inpat_1519_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Positive		Inpat	N	A_hts_tst_inpat_1519_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Positive		Inpat	N	A_hts_tst_inpat_2024_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Positive		Inpat	N	A_hts_tst_inpat_2024_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Positive		Inpat	N	A_hts_tst_inpat_o50_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Positive		Inpat	N	A_hts_tst_inpat_o50_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Negative		Inpat	N	A_hts_tst_inpat_1519_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Negative		Inpat	N	A_hts_tst_inpat_1519_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Negative		Inpat	N	A_hts_tst_inpat_2024_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Negative		Inpat	N	A_hts_tst_inpat_2024_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Negative		Inpat	N	A_hts_tst_inpat_o50_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Negative		Inpat	N	A_hts_tst_inpat_o50_m_neg
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Positive		VCT	N	A_hts_tst_vct_u1_unk_pos
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Positive		VCT	N	A_hts_tst_vct_0109_unk_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Positive		VCT	N	A_hts_tst_vct_1014_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Positive		VCT	N	A_hts_tst_vct_1014_m_pos
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Negative		VCT	N	A_hts_tst_vct_u1_unk_neg
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Negative		VCT	N	A_hts_tst_vct_0109_unk_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Negative		VCT	N	A_hts_tst_vct_1014_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Negative		VCT	N	A_hts_tst_vct_1014_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Positive		VCT	N	A_hts_tst_vct_1519_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Positive		VCT	N	A_hts_tst_vct_1519_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Positive		VCT	N	A_hts_tst_vct_2024_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Positive		VCT	N	A_hts_tst_vct_2024_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Positive		VCT	N	A_hts_tst_vct_o50_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Positive		VCT	N	A_hts_tst_vct_o50_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Negative		VCT	N	A_hts_tst_vct_1519_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Negative		VCT	N	A_hts_tst_vct_1519_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Negative		VCT	N	A_hts_tst_vct_2024_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Negative		VCT	N	A_hts_tst_vct_2024_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Negative		VCT	N	A_hts_tst_vct_o50_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Negative		VCT	N	A_hts_tst_vct_o50_m_neg
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Positive		OtherPITC	N	A_hts_tst_otherpitc_u1_unk_pos
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Positive		OtherPITC	N	A_hts_tst_otherpitc_0109_unk_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Positive		OtherPITC	N	A_hts_tst_otherpitc_1014_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Positive		OtherPITC	N	A_hts_tst_otherpitc_1014_m_pos
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Negative		OtherPITC	N	A_hts_tst_otherpitc_u1_unk_neg
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Negative		OtherPITC	N	A_hts_tst_otherpitc_0109_unk_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Negative		OtherPITC	N	A_hts_tst_otherpitc_1014_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Negative		OtherPITC	N	A_hts_tst_otherpitc_1014_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Positive		OtherPITC	N	A_hts_tst_otherpitc_1519_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Positive		OtherPITC	N	A_hts_tst_otherpitc_1519_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Positive		OtherPITC	N	A_hts_tst_otherpitc_2024_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Positive		OtherPITC	N	A_hts_tst_otherpitc_2024_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Positive		OtherPITC	N	A_hts_tst_otherpitc_o50_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Positive		OtherPITC	N	A_hts_tst_otherpitc_o50_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Negative		OtherPITC	N	A_hts_tst_otherpitc_1519_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Negative		OtherPITC	N	A_hts_tst_otherpitc_1519_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Negative		OtherPITC	N	A_hts_tst_otherpitc_2024_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Negative		OtherPITC	N	A_hts_tst_otherpitc_2024_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Negative		OtherPITC	N	A_hts_tst_otherpitc_o50_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Negative		OtherPITC	N	A_hts_tst_otherpitc_o50_m_neg
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Positive		TBClinic	N	A_hts_tst_tbclinic_u1_unk_pos
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Positive		TBClinic	N	A_hts_tst_tbclinic_0109_unk_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Positive		TBClinic	N	A_hts_tst_tbclinic_1014_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Positive		TBClinic	N	A_hts_tst_tbclinic_1014_m_pos
+HTS_TST	Modality/AgeLessThanTen/Result		<01	Negative		TBClinic	N	A_hts_tst_tbclinic_u1_unk_neg
+HTS_TST	Modality/AgeLessThanTen/Result		01-09	Negative		TBClinic	N	A_hts_tst_tbclinic_0109_unk_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Negative		TBClinic	N	A_hts_tst_tbclinic_1014_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Negative		TBClinic	N	A_hts_tst_tbclinic_1014_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Positive		TBClinic	N	A_hts_tst_tbclinic_1519_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Positive		TBClinic	N	A_hts_tst_tbclinic_1519_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Positive		TBClinic	N	A_hts_tst_tbclinic_2024_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Positive		TBClinic	N	A_hts_tst_tbclinic_2024_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Positive		TBClinic	N	A_hts_tst_tbclinic_o50_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Positive		TBClinic	N	A_hts_tst_tbclinic_o50_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Negative		TBClinic	N	A_hts_tst_tbclinic_1519_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Negative		TBClinic	N	A_hts_tst_tbclinic_1519_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Negative		TBClinic	N	A_hts_tst_tbclinic_2024_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Negative		TBClinic	N	A_hts_tst_tbclinic_2024_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Negative		TBClinic	N	A_hts_tst_tbclinic_o50_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Negative		TBClinic	N	A_hts_tst_tbclinic_o50_m_neg
+HTS_TST	Modality/AgeLessThanTen/Result	Male	<01	Positive		VMMC	N	A_hts_tst_vmmc_u1_m_pos
+HTS_TST	Modality/AgeLessThanTen/Result	Male	01-09	Positive		VMMC	N	A_hts_tst_vmmc_0109_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Positive		VMMC	N	A_hts_tst_vmmc_1014_m_pos
+HTS_TST	Modality/AgeLessThanTen/Result	Male	<01	Negative		VMMC	N	A_hts_tst_vmmc_u1_m_neg
+HTS_TST	Modality/AgeLessThanTen/Result	Male	01-09	Negative		VMMC	N	A_hts_tst_vmmc_0109_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Negative		VMMC	N	A_hts_tst_vmmc_1014_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Positive		VMMC	N	A_hts_tst_vmmc_1519_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Positive		VMMC	N	A_hts_tst_vmmc_2024_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Positive		VMMC	N	A_hts_tst_vmmc_o50_m_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Negative		VMMC	N	A_hts_tst_vmmc_1519_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Negative		VMMC	N	A_hts_tst_vmmc_2024_m_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Negative		VMMC	N	A_hts_tst_vmmc_o50_m_neg
+HTS_TST	Modality/AgeLessThanTen/Result	Female	<01	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_u1_f_pos
+HTS_TST	Modality/AgeLessThanTen/Result	Female	01-09	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_0109_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_1014_f_pos
+HTS_TST	Modality/AgeLessThanTen/Result	Female	<01	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_u1_f_neg
+HTS_TST	Modality/AgeLessThanTen/Result	Female	01-09	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_0109_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_1014_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_1519_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_2024_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_o50_f_pos
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_1519_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_2024_f_neg
+HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_o50_f_neg
+HTS_TST	KeyPop/Result			Positive	FSW	KeyPop	N	A_hts_tst_keypop_fsw_pos
+HTS_TST	KeyPop/Result			Positive	MSM	KeyPop	N	A_hts_tst_keypop_msm_pos
+HTS_TST	KeyPop/Result			Positive	People in prisons and other enclosed settings	KeyPop	N	A_hts_tst_keypop_prison_pos
+HTS_TST	KeyPop/Result			Positive	PWID	KeyPop	N	A_hts_tst_keypop_pwid_pos
+HTS_TST	KeyPop/Result			Positive	TG	KeyPop	N	A_hts_tst_keypop_tg_pos
+HTS_TST	KeyPop/Result			Negative	FSW	KeyPop	N	A_hts_tst_keypop_fsw_neg
+HTS_TST	KeyPop/Result			Negative	MSM	KeyPop	N	A_hts_tst_keypop_msm_neg
+HTS_TST	KeyPop/Result			Negative	People in prisons and other enclosed settings	KeyPop	N	A_hts_tst_keypop_prison_neg
+HTS_TST	KeyPop/Result			Negative	PWID	KeyPop	N	A_hts_tst_keypop_pwid_neg
+HTS_TST	KeyPop/Result			Negative	TG	KeyPop	N	A_hts_tst_keypop_tg_neg
