@@ -1,16 +1,8 @@
 #data files
-*.csv
-*.xls
-*.xlsx
-*.xlsm
-*.dta
-*.txt
-*.Rdata
+
 
 #documents and other files
-*.pdf
-*.zip
-*.docx
+
 
 #folders
 TempOutput/*
@@ -18,7 +10,6 @@ Output/*
 OtherInfo/*
 CompletedDataPacks/*
 TemplateGeneration/*
-Theme/*
 Feedback/*
 
 # Windows image file caches

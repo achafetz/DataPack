@@ -1,0 +1,114 @@
+Data Pack Indicator Title,Data Pack Indicator Name,indicator,standardizeddisaggregate,sex,age,resultstatus,otherdisaggregate,modality,numeratorDenom,resulttarget,category
+TX_RET (Denom.),tx_ret_D,TX_RET,Total Denominator,,,,,,D,RESULT,
+TX_RET <15 (Denom.),tx_ret_u15_D,TX_RET,"""AgeLessThanTen"", ""AgeAboveTen/Sex""",,"""<01"", ""01-09"", ""10-14""",,,,D,RESULT,u15
+TX_RET,tx_ret,TX_RET,Total Numerator,,,,,,N,RESULT,
+TX_RET <15,tx_ret_u15,TX_RET,"""AgeLessThanTen"", ""AgeAboveTen/Sex""",,"""<01"", ""01-09"", ""10-14""",,,,N,RESULT,u15
+TX_NEW,tx_new,TX_NEW,Total Numerator,,,,,,N,RESULT,
+TX_NEW <15,tx_new_u15,TX_NEW,MostCompleteAgeDisagg,,<15,,,,N,RESULT,u15
+TX_CURR,tx_curr,TX_CURR,Total Numerator,,,,,,N,RESULT,
+TX_CURR <15,tx_curr_u15,TX_CURR,MostCompleteAgeDisagg,,<15,,,,N,RESULT,u15
+TX_PVLS (Denom.),tx_pvls_D,TX_PVLS,Total Denominator,,,,,,D,RESULT,
+PMTCT_STAT (Denom.),pmtct_stat_D,PMTCT_STAT,Total Denominator,,,,,,D,RESULT,
+PMTCT_STAT,pmtct_stat,PMTCT_STAT,Total Numerator,,,,,,N,RESULT,
+PMTCT_STAT New Positive,pmtct_stat_newpos,PMTCT_STAT,Age/KnownNewResult,,,Positive,Newly Identified,,N,RESULT,newpos
+PMTCT_STAT New Negative,pmtct_stat_newneg,PMTCT_STAT,Age/KnownNewResult,,,Negative,Newly Identified,,N,RESULT,newneg
+PMTCT_STAT Know at Entry Positive,pmtct_stat_known,PMTCT_STAT,Age/KnownNewResult,,,,Known at Entry,,N,RESULT,known
+PMTCT_ART,pmtct_art,PMTCT_ART,Total Numerator,,,,,,N,RESULT,
+PMTCT_ ART Disagg Number of Pregnant Women Newly Initiated on ART,pmtct_art_new,PMTCT_ART,NewExistingArt,,,,Life-long ART New,,N,RESULT,new
+PMTCT_ART Disagg Number of pregnant women already on ART before pregnancy,pmtct_art_already,PMTCT_ART,NewExistingArt,,,,Life-long ART Already,,N,RESULT,already
+PMTCT_EID,pmtct_eid,PMTCT_EID,Total Numerator,,,,,,N,RESULT,
+PMTCT_EID <02 months,pmtct_eid_u2mo,PMTCT_EID,Age/HIVStatus,,,,[months] 00-02,,N,RESULT,u2mo
+PMTCT_EID 02-12 months,pmtct_eid_o2mo,PMTCT_EID,Age/HIVStatus,,,,[months] 02-12,,N,RESULT,o2mo
+TB_STAT (Denom.),tb_stat_D,TB_STAT,Total Denominator,,,,,,D,RESULT,
+TB_STAT,tb_stat,TB_STAT,Total Numerator,,,,,,N,RESULT,
+TB_STAT New Positive,tb_stat_newpos,TB_STAT,Age/Sex/KnownNewPosNeg,,,Positive,Newly Identified,,N,RESULT,newpos
+TB_STAT New Negative,tb_stat_newneg,TB_STAT,Age/Sex/KnownNewPosNeg,,,Negative,Newly Identified,,N,RESULT,newneg
+TB_STAT Known Positive at Entry,tb_stat_known,TB_STAT,Age/Sex/KnownNewPosNeg,,,,Known at Entry,,N,RESULT,known
+TB_ART,tb_art,TB_ART,Total Numerator,,,,,,N,RESULT,
+TB_ART Newly Initiatved on ART,tb_art_new,TB_ART,NewExistingArt,,,,Life-long ART New,,N,RESULT,new
+TB_ART Already on ART,tb_art_already,TB_ART,NewExistingArt,,,,Life-long ART Already,,N,RESULT,already
+TX_TB (Denom.),tx_tb_D,TX_TB,Total Denominator,,,,,,D,RESULT,
+TB_PREV (Denom.),tb_prev_D,TB_PREV,Total Denominator,,,,,,D,RESULT,
+TB_PREV,tb_prev,TB_PREV,Total Numerator,,,,,,N,RESULT,
+HTS_TST_POS: VMMC,hts_tst_pos_vmmc,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,,,,VMMC,N,RESULT,vmmc
+HTS_TST: PMTCT ANC,hts_tst_pmtctanc,HTS_TST,Modality/MostCompleteAgeDisagg,,,,,PMTCT ANC,N,RESULT,pmtctanc
+HTS_TST: Tuberculosis,hts_tst_tbclinic,HTS_TST,Modality/MostCompleteAgeDisagg,,,,,TBClinic,N,RESULT,tbclinic
+HTS_TST: TVMMC,hts_tst_vmmc,HTS_TST,Modality/MostCompleteAgeDisagg,,,,,VMMC,N,RESULT,vmmc
+HTS_TST 15+: Index Testing Community,hts_tst_indexmod_o15,HTS_TST,Modality/MostCompleteAgeDisagg,,15+,,,IndexMod,N,RESULT,indexmod_o15
+HTS_TST 15+: Mobile Testing Community,hts_tst_mobilemod_o15,HTS_TST,Modality/MostCompleteAgeDisagg,,15+,,,MobileMod,N,RESULT,mobilemod_o15
+HTS_TST 15+: VCT Community,hts_tst_vctmod_o15,HTS_TST,Modality/MostCompleteAgeDisagg,,15+,,,VCTMod,N,RESULT,vctmod_o15
+HTS_TST 15+: Other Community,hts_tst_othermod_o15,HTS_TST,Modality/MostCompleteAgeDisagg,,15+,,,OtherMod,N,RESULT,othermod_o15
+HTS_TST 15+: Index Testing,hts_tst_index_o15,HTS_TST,Modality/MostCompleteAgeDisagg,,15+,,,Index,N,RESULT,index_o15
+HTS_TST 15+: STI,hts_tst_sti_o15,HTS_TST,Modality/MostCompleteAgeDisagg,,15+,,,STI,N,RESULT,sti_o15
+HTS_TST 15+: Inpatient,hts_tst_inpat_o15,HTS_TST,Modality/MostCompleteAgeDisagg,,15+,,,Inpat,N,RESULT,inpat_o15
+HTS_TST 15+: Emergency,hts_tst_emergency_o15,HTS_TST,Modality/MostCompleteAgeDisagg,,15+,,,Emergency,N,RESULT,emergency_o15
+HTS_TST 15+: Voluntary Counseling & Testing co-located,hts_tst_vct_o15,HTS_TST,Modality/MostCompleteAgeDisagg,,15+,,,VCT,N,RESULT,vct_o15
+HTS_TST 15+: Other Facility,hts_tst_otherpitc_o15,HTS_TST,Modality/MostCompleteAgeDisagg,,15+,,,OtherPITC,N,RESULT,otherpitc_o15
+HTS_POS 15+: Index Testing Community,hts_tst_pos_indexmod_o15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,15+,,,IndexMod,N,RESULT,indexmod_o15
+HTS_POS 15+: Mobile Testing Community,hts_tst_pos_mobilemod_o15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,15+,,,MobileMod,N,RESULT,mobilemod_o15
+HTS_POS 15+: VCT Community,hts_tst_pos_vctmod_o15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,15+,,,VCTMod,N,RESULT,vctmod_o15
+HTS_POS 15+: Other Community,hts_tst_pos_othermod_o15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,15+,,,OtherMod,N,RESULT,othermod_o15
+HTS_POS 15+: Index Testing,hts_tst_pos_index_o15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,15+,,,Index,N,RESULT,index_o15
+HTS_POS 15+: STI,hts_tst_pos_sti_o15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,15+,,,STI,N,RESULT,sti_o15
+HTS_POS 15+: Inpatient,hts_tst_pos_inpat_o15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,15+,,,Inpat,N,RESULT,inpat_o15
+HTS_POS 15+: Emergency,hts_tst_pos_emergency_o15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,15+,,,Emergency,N,RESULT,emergency_o15
+HTS_POS 15+: Voluntary Counseling & Testing co-located,hts_tst_pos_vct_o15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,15+,,,VCT,N,RESULT,vct_o15
+HTS_POS 15+: Other Facility,hts_tst_pos_otherpitc_o15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,15+,,,OtherPITC,N,RESULT,otherpitc_o15
+HTS_TST <15: Index Testing Community,hts_tst_indexmod_u15,HTS_TST,Modality/MostCompleteAgeDisagg,,<15,,,IndexMod,N,RESULT,indexmod_u15
+HTS_TST <15: Mobile Testing Community,hts_tst_mobilemod_u15,HTS_TST,Modality/MostCompleteAgeDisagg,,<15,,,MobileMod,N,RESULT,mobilemod_u15
+HTS_TST <15: VCT Community,hts_tst_vctmod_u15,HTS_TST,Modality/MostCompleteAgeDisagg,,<15,,,VCTMod,N,RESULT,vctmod_u15
+HTS_TST <15: Other Community,hts_tst_othermod_u15,HTS_TST,Modality/MostCompleteAgeDisagg,,<15,,,OtherMod,N,RESULT,othermod_u15
+HTS_TST <15: Index Testing,hts_tst_index_u15,HTS_TST,Modality/MostCompleteAgeDisagg,,<15,,,Index,N,RESULT,index_u15
+HTS_TST <15: STI,hts_tst_sti_u15,HTS_TST,Modality/MostCompleteAgeDisagg,,<15,,,STI,N,RESULT,sti_u15
+HTS_TST <15: Inpatient,hts_tst_inpat_u15,HTS_TST,Modality/MostCompleteAgeDisagg,,<15,,,Inpat,N,RESULT,inpat_u15
+HTS_TST <15: Emergency,hts_tst_emergency_u15,HTS_TST,Modality/MostCompleteAgeDisagg,,<15,,,Emergency,N,RESULT,emergency_u15
+HTS_TST <15: Voluntary Counseling & Testing co-located,hts_tst_vct_u15,HTS_TST,Modality/MostCompleteAgeDisagg,,<15,,,VCT,N,RESULT,vct_u15
+HTS_TST <05: Pediatric Clinic,hts_tst_pediatric_u05,HTS_TST,Modality/MostCompleteAgeDisagg,,<15,,,Pediatric,N,RESULT,pediatric_u05
+HTS_TST <05: Malnutrition Clinic,hts_tst_malnutrition_u05,HTS_TST,Modality/MostCompleteAgeDisagg,,<15,,,Malnutrition,N,RESULT,malnutrition_u05
+HTS_TST <15: Other Facility,hts_tst_otherpitc_u15,HTS_TST,Modality/MostCompleteAgeDisagg,,<15,,,OtherPITC,N,RESULT,otherpitc_u15
+HTS_POS <15: Index Testing Community,hts_tst_pos_indexmod_u15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,<15,,,IndexMod,N,RESULT,indexmod_u15
+HTS_POS <15: Mobile Testing Community,hts_tst_pos_mobilemod_u15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,<15,,,MobileMod,N,RESULT,mobilemod_u15
+HTS_POS <15: VCT Community,hts_tst_pos_vctmod_u15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,<15,,,VCTMod,N,RESULT,vctmod_u15
+HTS_POS <15: Other Community,hts_tst_pos_othermod_u15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,<15,,,OtherMod,N,RESULT,othermod_u15
+HTS_POS <15: Index Testing,hts_tst_pos_index_u15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,<15,,,Index,N,RESULT,index_u15
+HTS_POS <15: STI,hts_tst_pos_sti_u15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,<15,,,STI,N,RESULT,sti_u15
+HTS_POS <15: Inpatient,hts_tst_pos_inpat_u15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,<15,,,Inpat,N,RESULT,inpat_u15
+HTS_POS <15: Emergency,hts_tst_pos_emergency_u15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,<15,,,Emergency,N,RESULT,emergency_u15
+HTS_POS <15: Voluntary Counseling & Testing co-located,hts_tst_pos_vct_u15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,<15,,,VCT,N,RESULT,vct_u15
+HTS_POS <05: Pediatric Clinic,hts_tst_pos_pediatric_u05,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,<15,,,Pediatric,N,RESULT,pediatric_u05
+HTS_POS <05: Malnutrition Clinic,hts_tst_pos_malnutrition_u05,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,<15,,,Malnutrition,N,RESULT,malnutrition_u05
+HTS_POS <15: Other Facility,hts_tst_pos_otherpitc_u15,HTS_TST_POS,Modality/MostCompleteAgeDisagg,,<15,,,OtherPITC,N,RESULT,otherpitc_u15
+HTS_TST Key Populations,hts_tst_keypop,HTS_TST,KeyPop/Result,,,,,,N,RESULT,keypop
+HTS_SELF,hts_self,HTS_SELF,Total Numerator,,,,,,N,RESULT,
+VMMC_CIRC,vmmc_circ,VMMC_CIRC,Total Numerator,,,,,,N,RESULT,
+VMMC_CIRC 15-29,vmmc_circ_1529,VMMC_CIRC,Age,,"""10-14"", ""15-19"", ""20-24""",,,,N,RESULT,1529
+OVC_SERV,ovc_serv,OVC_SERV,Total Numerator,,,,,,N,RESULT,
+OVC_SERV Graduated,ovc_serv_grad,OVC_SERV,Program Status,,,,Graduated,,N,RESULT,grad
+OVC_SERV Active,ovc_serv_active,OVC_SERV,Program Status,,,,Active,,N,RESULT,active
+OVC_SERV <18,ovc_serv_u18,OVC_SERV,"""AgeLessThanTen"", ""AgeAboveTen/Sex""",,"""<01"", ""01-09"", ""10-14"", ""15-17""",,,,N,RESULT,u18
+OVC_HIVSTAT,ovc_hivstat,OVC_HIVSTAT,Total Numerator,,,,,,N,RESULT,
+OVC_SERV Education Support [DREAMS],ovc_serv_edu,OVC_SERV,Age/Sex/Service,,,,Education Support,,N,RESULT,edu
+OVC_SERV Parenting/Caregiver Support [DREAMS],ovc_serv_care,OVC_SERV,Age/Sex/Service,,,,Parenting/Caregiver Programs,,N,RESULT,care
+OVC_SERV Social Protection[DREAMS],ovc_serv_sp,OVC_SERV,Age/Sex/Service,,,,Social Protection,,N,RESULT,sp
+OVC_SERV Econ.Strengthening [DREAMS],ovc_serv_econ,OVC_SERV,Age/Sex/Service,,,,Economic Strengthening,,N,RESULT,econ
+OVC_SERV Other Service [DREAMS],ovc_serv_oth,OVC_SERV,Age/Sex/Service,,,,Other Service Areas,,N,RESULT,oth
+KP_PREV MSM SW (Denom.),kp_prev_msm_sw_D,KP_PREV,KeyPop,,,,MSM SW,,D,RESULT,msm_sw
+KP_PREV MSM SW,kp_prev_msm_sw,KP_PREV,KeyPop,,,,MSM SW,,N,RESULT,msm_sw
+KP_PREV MSM not SW (Denom.),kp_prev_msm_not_sw_D,KP_PREV,KeyPop,,,,MSM not SW,,D,RESULT,msm_not_sw
+KP_PREV MSM not SW,kp_prev_msm_not_sw,KP_PREV,KeyPop,,,,MSM not SW,,N,RESULT,msm_not_sw
+KP_PREV TG SW (Denom.),kp_prev_tg_sw_D,KP_PREV,KeyPop,,,,TG SW,,D,RESULT,tg_sw
+KP_PREV TG SW,kp_prev_tg_sw,KP_PREV,KeyPop,,,,TG SW,,N,RESULT,tg_sw
+KP_PREV TG not SW (Denom.),kp_prev_tg_not_sw_D,KP_PREV,KeyPop,,,,TG not SW,,D,RESULT,tg_not_sw
+KP_PREV TG not SW,kp_prev_tg_not_sw,KP_PREV,KeyPop,,,,TG not SW,,N,RESULT,tg_not_sw
+KP_PREV FSW (Denom.),kp_prev_fsw_D,KP_PREV,KeyPop,,,,FSW,,D,RESULT,fsw
+KP_PREV FSW,kp_prev_fsw,KP_PREV,KeyPop,,,,FSW,,N,RESULT,fsw
+KP_PREV PWID Male (Denom.),kp_prev_pwid_m_D,KP_PREV,KeyPop,,,,Male PWID,,D,RESULT,pwid_m
+KP_PREV PWID Male,kp_prev_pwid_m,KP_PREV,KeyPop,,,,Male PWID,,N,RESULT,pwid_m
+KP_PREV PWID Female (Denom.),kp_prev_pwid_f_D,KP_PREV,KeyPop,,,,Female PWID,,D,RESULT,pwid_f
+KP_PREV PWID Female,kp_prev_pwid_f,KP_PREV,KeyPop,,,,Female PWID,,N,RESULT,pwid_f
+KP_PREV People in prisons & other closed settings (Denom.),kp_prev_prison_D,KP_PREV,KeyPop,,,,People in prisons and other enclosed settings,,D,RESULT,prison
+KP_PREV People in prisons & other closed settings,kp_prev_prison,KP_PREV,KeyPop,,,,People in prisons and other enclosed settings,,N,RESULT,prison
+PP_PREV,pp_prev,PP_PREV,KeyPop,,,,,,N,RESULT,
+KP_MAT,kp_mat,KP_MAT,Total Numerator,,,,,,N,RESULT,
+GEND_GBV,gend_gbv,GEND_GBV,Total Numerator,,,,,,N,RESULT,
+PrEP_NEW,prep_new,PrEP_NEW,Total Numerator,,,,,,N,RESULT,

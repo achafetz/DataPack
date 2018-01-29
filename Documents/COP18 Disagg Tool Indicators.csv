@@ -1,0 +1,374 @@
+Disagg Tool Indicator Title,Disagg Tool Indicator Name,indicator,standardizeddisaggregate,sex,age,resultstatus,otherdisaggregate,modality,numeratordenom
+"<10, Female, Physical and/or Emotional Violence",A_gend_gbv_u10_f_pev,GEND_GBV,Age/Sex/ViolenceType,Female,<10,,Physical and/or Emotional Violence,,N
+"<10, Female, Sexual Violence (Post-Rape Care)",A_gend_gbv_u10_f_sv,GEND_GBV,Age/Sex/ViolenceType,Female,<10,,Sexual Violence (Post-Rape Care),,N
+"<10, Male, Physical and/or Emotional Violence",A_gend_gbv_u10_m_pev,GEND_GBV,Age/Sex/ViolenceType,Male,<10,,Physical and/or Emotional Violence,,N
+"<10, Male, Sexual Violence (Post-Rape Care)",A_gend_gbv_u10_m_sv,GEND_GBV,Age/Sex/ViolenceType,Male,<10,,Sexual Violence (Post-Rape Care),,N
+"10-14, Female, Physical and/or Emotional Violence",A_gend_gbv_1014_f_pev,GEND_GBV,Age/Sex/ViolenceType,Female,10-14,,Physical and/or Emotional Violence,,N
+"10-14, Female, Sexual Violence (Post-Rape Care)",A_gend_gbv_1014_f_sv,GEND_GBV,Age/Sex/ViolenceType,Female,10-14,,Sexual Violence (Post-Rape Care),,N
+"10-14, Male, Physical and/or Emotional Violence",A_gend_gbv_1014_m_pev,GEND_GBV,Age/Sex/ViolenceType,Male,10-14,,Physical and/or Emotional Violence,,N
+"10-14, Male, Sexual Violence (Post-Rape Care)",A_gend_gbv_1014_m_sv,GEND_GBV,Age/Sex/ViolenceType,Male,10-14,,Sexual Violence (Post-Rape Care),,N
+"15-19, Female, Physical and/or Emotional Violence",A_gend_gbv_1519_f_pev,GEND_GBV,Age/Sex/ViolenceType,Female,15-19,,Physical and/or Emotional Violence,,N
+"15-19, Female, Sexual Violence (Post-Rape Care)",A_gend_gbv_1519_f_sv,GEND_GBV,Age/Sex/ViolenceType,Female,15-19,,Sexual Violence (Post-Rape Care),,N
+"15-19, Male, Physical and/or Emotional Violence",A_gend_gbv_1519_m_pev,GEND_GBV,Age/Sex/ViolenceType,Male,15-19,,Physical and/or Emotional Violence,,N
+"15-19, Male, Sexual Violence (Post-Rape Care)",A_gend_gbv_1519_m_sv,GEND_GBV,Age/Sex/ViolenceType,Male,15-19,,Sexual Violence (Post-Rape Care),,N
+"20-24, Female, Physical and/or Emotional Violence",A_gend_gbv_2024_f_pev,GEND_GBV,Age/Sex/ViolenceType,Female,20-24,,Physical and/or Emotional Violence,,N
+"20-24, Female, Sexual Violence (Post-Rape Care)",A_gend_gbv_2024_f_sv,GEND_GBV,Age/Sex/ViolenceType,Female,20-24,,Sexual Violence (Post-Rape Care),,N
+"20-24, Male, Physical and/or Emotional Violence",A_gend_gbv_2024_m_pev,GEND_GBV,Age/Sex/ViolenceType,Male,20-24,,Physical and/or Emotional Violence,,N
+"20-24, Male, Sexual Violence (Post-Rape Care)",A_gend_gbv_2024_m_sv,GEND_GBV,Age/Sex/ViolenceType,Male,20-24,,Sexual Violence (Post-Rape Care),,N
+"25-29, Female, Physical and/or Emotional Violence",A_gend_gbv_2529_f_pev,GEND_GBV,,,,,,,
+"25-29, Female, Sexual Violence (Post-Rape Care)",A_gend_gbv_2529_f_sv,GEND_GBV,,,,,,,
+"25-29, Male, Physical and/or Emotional Violence",A_gend_gbv_2529_m_pev,GEND_GBV,,,,,,,
+"25-29, Male, Sexual Violence (Post-Rape Care)",A_gend_gbv_2529_m_sv,GEND_GBV,,,,,,,
+"30-34, Female, Physical and/or Emotional Violence",A_gend_gbv_3034_f_pev,GEND_GBV,,,,,,,
+"30-34, Female, Sexual Violence (Post-Rape Care)",A_gend_gbv_3034_f_sv,GEND_GBV,,,,,,,
+"30-34, Male, Physical and/or Emotional Violence",A_gend_gbv_3034_m_pev,GEND_GBV,,,,,,,
+"30-34, Male, Sexual Violence (Post-Rape Care)",A_gend_gbv_3034_m_sv,GEND_GBV,,,,,,,
+"35-39, Female, Physical and/or Emotional Violence",A_gend_gbv_3539_f_pev,GEND_GBV,,,,,,,
+"35-39, Female, Sexual Violence (Post-Rape Care)",A_gend_gbv_3539_f_sv,GEND_GBV,,,,,,,
+"35-39, Male, Physical and/or Emotional Violence",A_gend_gbv_3539_m_pev,GEND_GBV,,,,,,,
+"35-39, Male, Sexual Violence (Post-Rape Care)",A_gend_gbv_3539_m_sv,GEND_GBV,,,,,,,
+"40-49, Female, Physical and/or Emotional Violence",A_gend_gbv_4049_f_pev,GEND_GBV,,,,,,,
+"40-49, Female, Sexual Violence (Post-Rape Care)",A_gend_gbv_4049_f_sv,GEND_GBV,,,,,,,
+"40-49, Male, Physical and/or Emotional Violence",A_gend_gbv_4049_m_pev,GEND_GBV,,,,,,,
+"40-49, Male, Sexual Violence (Post-Rape Care)",A_gend_gbv_4049_m_sv,GEND_GBV,,,,,,,
+"50+, Female, Physical and/or Emotional Violence",A_gend_gbv_o50_f_pev,GEND_GBV,Age/Sex/ViolenceType,Female,50+,,Physical and/or Emotional Violence,,N
+"50+, Female, Sexual Violence (Post-Rape Care)",A_gend_gbv_o50_f_sv,GEND_GBV,Age/Sex/ViolenceType,Female,50+,,Sexual Violence (Post-Rape Care),,N
+"50+, Male, Physical and/or Emotional Violence",A_gend_gbv_o50_m_pev,GEND_GBV,Age/Sex/ViolenceType,Male,50+,,Physical and/or Emotional Violence,,N
+"50+, Male, Sexual Violence (Post-Rape Care)",A_gend_gbv_o50_m_sv,GEND_GBV,Age/Sex/ViolenceType,Male,50+,,Sexual Violence (Post-Rape Care),,N
+PEP,A_gend_gbv_pep,GEND_GBV,,,,,,,
+"10-14, Female, Directly-Assisted",A_hts_self_1014_f_direct,HTS_SELF,,,,,,,
+"10-14, Female, Unassisted",A_hts_self_1014_f_unasst,HTS_SELF,,,,,,,
+"10-14, Male, Directly-Assisted",A_hts_self_1014_m_direct,HTS_SELF,,,,,,,
+"10-14, Male, Unassisted",A_hts_self_1014_m_unasst,HTS_SELF,,,,,,,
+"15-19, Female, Directly-Assisted",A_hts_self_1519_f_direct,HTS_SELF,,,,,,,
+"15-19, Female, Unassisted",A_hts_self_1519_f_unasst,HTS_SELF,,,,,,,
+"15-19, Male, Directly-Assisted",A_hts_self_1519_m_direct,HTS_SELF,,,,,,,
+"15-19, Male, Unassisted",A_hts_self_1519_m_unasst,HTS_SELF,,,,,,,
+"20-24, Female, Directly-Assisted",A_hts_self_2024_f_direct,HTS_SELF,,,,,,,
+"20-24, Female, Unassisted",A_hts_self_2024_f_unasst,HTS_SELF,,,,,,,
+"20-24, Male, Directly-Assisted",A_hts_self_2024_m_direct,HTS_SELF,,,,,,,
+"20-24, Male, Unassisted",A_hts_self_2024_m_unasst,HTS_SELF,,,,,,,
+"25-29, Female, Directly-Assisted",A_hts_self_2529_f_direct,HTS_SELF,,,,,,,
+"25-29, Female, Unassisted",A_hts_self_2529_f_unasst,HTS_SELF,,,,,,,
+"25-29, Male, Directly-Assisted",A_hts_self_2529_m_direct,HTS_SELF,,,,,,,
+"25-29, Male, Unassisted",A_hts_self_2529_m_unasst,HTS_SELF,,,,,,,
+"30-34, Female, Directly-Assisted",A_hts_self_3034_f_direct,HTS_SELF,,,,,,,
+"30-34, Female, Unassisted",A_hts_self_3034_f_unasst,HTS_SELF,,,,,,,
+"30-34, Male, Directly-Assisted",A_hts_self_3034_m_direct,HTS_SELF,,,,,,,
+"30-34, Male, Unassisted",A_hts_self_3034_m_unasst,HTS_SELF,,,,,,,
+"35-39, Female, Directly-Assisted",A_hts_self_3539_f_direct,HTS_SELF,,,,,,,
+"35-39, Female, Unassisted",A_hts_self_3539_f_unasst,HTS_SELF,,,,,,,
+"35-39, Male, Directly-Assisted",A_hts_self_3539_m_direct,HTS_SELF,,,,,,,
+"35-39, Male, Unassisted",A_hts_self_3539_m_unasst,HTS_SELF,,,,,,,
+"40-49, Female, Directly-Assisted",A_hts_self_4049_f_direct,HTS_SELF,,,,,,,
+"40-49, Female, Unassisted",A_hts_self_4049_f_unasst,HTS_SELF,,,,,,,
+"40-49, Male, Directly-Assisted",A_hts_self_4049_m_direct,HTS_SELF,,,,,,,
+"40-49, Male, Unassisted",A_hts_self_4049_m_unasst,HTS_SELF,,,,,,,
+"50+, Female, Directly-Assisted",A_hts_self_o50_f_direct,HTS_SELF,,,,,,,
+"50+, Female, Unassisted",A_hts_self_o50_f_unasst,HTS_SELF,,,,,,,
+"50+, Male, Directly-Assisted",A_hts_self_o50_m_direct,HTS_SELF,,,,,,,
+"50+, Male, Unassisted",A_hts_self_o50_m_unasst,HTS_SELF,,,,,,,
+Unassisted - Other,A_hts_self_unasst_oth,HTS_SELF,,,,,,,
+Unassisted - Self,A_hts_self_unasst_self,HTS_SELF,,,,,,,
+Unassisted - Sex Partner,A_hts_self_unasst_partner,HTS_SELF,,,,,,,
+"FSW, Directly-Assisted",A_hts_self_fsw_direct,HTS_SELF,,,,,,,
+"FSW, Unassisted",A_hts_self_fsw_unasst,HTS_SELF,,,,,,,
+"MSM, Directly-Assisted",A_hts_self_msm_direct,HTS_SELF,,,,,,,
+"MSM, Unassisted",A_hts_self_msm_unasst,HTS_SELF,,,,,,,
+"People in prisons and other enclosed settings, Directly-Assisted",A_hts_self_prison_direct,HTS_SELF,,,,,,,
+"People in prisons and other enclosed settings, Unassisted",A_hts_self_prison_unasst,HTS_SELF,,,,,,,
+"PWID, Directly-Assisted",A_hts_self_pwid_direct,HTS_SELF,,,,,,,
+"PWID, Unassisted",A_hts_self_pwid_unasst,HTS_SELF,,,,,,,
+"TG, Directly-Assisted",A_hts_self_tg_direct,HTS_SELF,,,,,,,
+"TG, Unassisted",A_hts_self_tg_unasst,HTS_SELF,,,,,,,
+"<1, Unknown Sex",A_ovc_serv_u1_unk,OVC_SERV,AgeLessThanTen,,<01,,,,N
+"1-9, Unknown Sex",A_ovc_serv_0109_unk,OVC_SERV,AgeLessThanTen,,01-09,,,,N
+"10-14, Female",A_ovc_serv_1014_f,OVC_SERV,AgeAboveTen/Sex,Female,10-14,,,,N
+"10-14, Male",A_ovc_serv_1014_m,OVC_SERV,AgeAboveTen/Sex,Male,10-14,,,,N
+"15-17, Female",A_ovc_serv_1517_f,OVC_SERV,AgeAboveTen/Sex,Female,15-17,,,,N
+"15-17, Male",A_ovc_serv_1517_m,OVC_SERV,AgeAboveTen/Sex,Male,15-17,,,,N
+"18-24, Female",A_ovc_serv_1824_f,OVC_SERV,AgeAboveTen/Sex,Female,18-24,,,,N
+"18-24, Male",A_ovc_serv_1824_m,OVC_SERV,AgeAboveTen/Sex,Male,18-24,,,,N
+"25+, Female",A_ovc_serv_o25_f,OVC_SERV,AgeAboveTen/Sex,Female,25+,,,,N
+"25+, Male",A_ovc_serv_o25_m,OVC_SERV,AgeAboveTen/Sex,Male,25+,,,,N
+"Economic Strengthening,  Unknown Sex, <1",A_ovc_serv_u1_unk_econ,OVC_SERV,,,,,,,
+"Economic Strengthening,  Unknown Sex, 1-9",A_ovc_serv_0109_unk_econ,OVC_SERV,,,,,,,
+"Economic Strengthening,  Female, 10-14",A_ovc_serv_1014_f_econ,OVC_SERV,Age/Sex/Service,Female,10-14,,Economic Strengthening,,N
+"Economic Strengthening,  Female, 15-17",A_ovc_serv_1014_m_econ,OVC_SERV,Age/Sex/Service,Male,10-14,,Economic Strengthening,,N
+"Economic Strengthening,  Female, 18-24",A_ovc_serv_1517_f_econ,OVC_SERV,Age/Sex/Service,Female,15-17,,Economic Strengthening,,N
+"Economic Strengthening,  Female, 25+",A_ovc_serv_1517_m_econ,OVC_SERV,Age/Sex/Service,Male,15-17,,Economic Strengthening,,N
+"Economic Strengthening,  Male, 10-14",A_ovc_serv_1824_f_econ,OVC_SERV,Age/Sex/Service,Female,18-24,,Economic Strengthening,,N
+"Economic Strengthening,  Male, 15-17",A_ovc_serv_1824_m_econ,OVC_SERV,Age/Sex/Service,Male,18-24,,Economic Strengthening,,N
+"Economic Strengthening,  Male, 18-24",A_ovc_serv_o25_f_econ,OVC_SERV,Age/Sex/Service,Female,25+,,Economic Strengthening,,N
+"Economic Strengthening,  Male, 25+",A_ovc_serv_o25_m_econ,OVC_SERV,Age/Sex/Service,Male,25+,,Economic Strengthening,,N
+"Education Support,  Unknown Sex, <1",A_ovc_serv_u1_unk_edu,OVC_SERV,,,,,,,
+"Education Support,  Unknown Sex, 1-9",A_ovc_serv_0109_unk_edu,OVC_SERV,,,,,,,
+"Education Support,  Female, 10-14",A_ovc_serv_1014_f_edu,OVC_SERV,Age/Sex/Service,Female,10-14,,Education Support,,N
+"Education Support,  Female, 15-17",A_ovc_serv_1014_m_edu,OVC_SERV,Age/Sex/Service,Male,10-14,,Education Support,,N
+"Education Support,  Female, 18-24",A_ovc_serv_1517_f_edu,OVC_SERV,Age/Sex/Service,Female,15-17,,Education Support,,N
+"Education Support,  Female, 25+",A_ovc_serv_1517_m_edu,OVC_SERV,Age/Sex/Service,Male,15-17,,Education Support,,N
+"Education Support,  Male, 10-14",A_ovc_serv_1824_f_edu,OVC_SERV,Age/Sex/Service,Female,18-24,,Education Support,,N
+"Education Support,  Male, 15-17",A_ovc_serv_1824_m_edu,OVC_SERV,Age/Sex/Service,Male,18-24,,Education Support,,N
+"Education Support,  Male, 18-24",A_ovc_serv_o25_f_edu,OVC_SERV,Age/Sex/Service,Female,25+,,Education Support,,N
+"Education Support,  Male, 25+",A_ovc_serv_o25_m_edu,OVC_SERV,Age/Sex/Service,Male,25+,,Education Support,,N
+"Other Service Areas,  Unknown Sex, <1",A_ovc_serv_u1_unk_oth,OVC_SERV,,,,,,,
+"Other Service Areas,  Unknown Sex, 1-9",A_ovc_serv_0109_unk_oth,OVC_SERV,,,,,,,
+"Other Service Areas,  Female, 10-14",A_ovc_serv_1014_f_oth,OVC_SERV,Age/Sex/Service,Female,10-14,,Other Service Areas,,N
+"Other Service Areas,  Female, 15-17",A_ovc_serv_1014_m_oth,OVC_SERV,Age/Sex/Service,Male,10-14,,Other Service Areas,,N
+"Other Service Areas,  Female, 18-24",A_ovc_serv_1517_f_oth,OVC_SERV,Age/Sex/Service,Female,15-17,,Other Service Areas,,N
+"Other Service Areas,  Female, 25+",A_ovc_serv_1517_m_oth,OVC_SERV,Age/Sex/Service,Male,15-17,,Other Service Areas,,N
+"Other Service Areas,  Male, 10-14",A_ovc_serv_1824_f_oth,OVC_SERV,Age/Sex/Service,Female,18-24,,Other Service Areas,,N
+"Other Service Areas,  Male, 15-17",A_ovc_serv_1824_m_oth,OVC_SERV,Age/Sex/Service,Male,18-24,,Other Service Areas,,N
+"Other Service Areas,  Male, 18-24",A_ovc_serv_o25_f_oth,OVC_SERV,Age/Sex/Service,Female,25+,,Other Service Areas,,N
+"Other Service Areas,  Male, 25+",A_ovc_serv_o25_m_oth,OVC_SERV,Age/Sex/Service,Male,25+,,Other Service Areas,,N
+"Parenting/Caregiver Programs,  Unknown Sex, <1",A_ovc_serv_u1_unk_care,OVC_SERV,,,,,,,
+"Parenting/Caregiver Programs,  Unknown Sex, 1-9",A_ovc_serv_0109_unk_care,OVC_SERV,,,,,,,
+"Parenting/Caregiver Programs,  Female, 10-14",A_ovc_serv_1014_f_care,OVC_SERV,Age/Sex/Service,Female,10-14,,Parenting/Caregiver Programs,,N
+"Parenting/Caregiver Programs,  Female, 15-17",A_ovc_serv_1014_m_care,OVC_SERV,Age/Sex/Service,Male,10-14,,Parenting/Caregiver Programs,,N
+"Parenting/Caregiver Programs,  Female, 18-24",A_ovc_serv_1517_f_care,OVC_SERV,Age/Sex/Service,Female,15-17,,Parenting/Caregiver Programs,,N
+"Parenting/Caregiver Programs,  Female, 25+",A_ovc_serv_1517_m_care,OVC_SERV,Age/Sex/Service,Male,15-17,,Parenting/Caregiver Programs,,N
+"Parenting/Caregiver Programs,  Male, 10-14",A_ovc_serv_1824_f_care,OVC_SERV,Age/Sex/Service,Female,18-24,,Parenting/Caregiver Programs,,N
+"Parenting/Caregiver Programs,  Male, 15-17",A_ovc_serv_1824_m_care,OVC_SERV,Age/Sex/Service,Male,18-24,,Parenting/Caregiver Programs,,N
+"Parenting/Caregiver Programs,  Male, 18-24",A_ovc_serv_o25_f_care,OVC_SERV,Age/Sex/Service,Female,25+,,Parenting/Caregiver Programs,,N
+"Parenting/Caregiver Programs,  Male, 25+",A_ovc_serv_o25_m_care,OVC_SERV,Age/Sex/Service,Male,25+,,Parenting/Caregiver Programs,,N
+"Social Protection,  Unknown Sex, <1",A_ovc_serv_u1_unk_sp,OVC_SERV,,,,,,,
+"Social Protection,  Unknown Sex, 1-9",A_ovc_serv_0109_unk_sp,OVC_SERV,,,,,,,
+"Social Protection,  Female, 10-14",A_ovc_serv_1014_f_sp,OVC_SERV,Age/Sex/Service,Female,10-14,,Social Protection,,N
+"Social Protection,  Female, 15-17",A_ovc_serv_1014_m_sp,OVC_SERV,Age/Sex/Service,Male,10-14,,Social Protection,,N
+"Social Protection,  Female, 18-24",A_ovc_serv_1517_f_sp,OVC_SERV,Age/Sex/Service,Female,15-17,,Social Protection,,N
+"Social Protection,  Female, 25+",A_ovc_serv_1517_m_sp,OVC_SERV,Age/Sex/Service,Male,15-17,,Social Protection,,N
+"Social Protection,  Male, 10-14",A_ovc_serv_1824_f_sp,OVC_SERV,Age/Sex/Service,Female,18-24,,Social Protection,,N
+"Social Protection,  Male, 15-17",A_ovc_serv_1824_m_sp,OVC_SERV,Age/Sex/Service,Male,18-24,,Social Protection,,N
+"Social Protection,  Male, 18-24",A_ovc_serv_o25_f_sp,OVC_SERV,Age/Sex/Service,Female,25+,,Social Protection,,N
+"Social Protection,  Male, 25+",A_ovc_serv_o25_m_sp,OVC_SERV,Age/Sex/Service,Male,25+,,Social Protection,,N
+≤2 months,A_pmtct_eid_u02,PMTCT_EID,Age/HIVStatus,,<2 months,Negative,,,N
+≤2 months,A_pmtct_eid_u02,PMTCT_EID,Age/HIVStatus,,<2 months,Positive,,,N
+≤2 months,A_pmtct_eid_u02,PMTCT_EID,Age/HIVStatus,,<2 months,Unknown,,,N
+2-12 months,A_pmtct_eid_0212mo,PMTCT_EID,Age/HIVStatus,,[months] 02-12,Negative,,,N
+2-12 months,A_pmtct_eid_0212mo,PMTCT_EID,Age/HIVStatus,,[months] 02-12,Positive,,,N
+2-12 months,A_pmtct_eid_0212mo,PMTCT_EID,Age/HIVStatus,,[months] 02-12,Unknown,,,N
+"<10, Female",A_pmtct_stat_D_u10_f,PMTCT_STAT,Age,,<10,,,,D
+"10-14, Female",A_pmtct_stat_D_1014_f,PMTCT_STAT,Age,,10-14,,,,D
+"15-19, Female",A_pmtct_stat_D_1519_f,PMTCT_STAT,Age,,15-19,,,,D
+"20-24, Female",A_pmtct_stat_D_2024_f,PMTCT_STAT,Age,,20-24,,,,D
+"25-29, Female",A_pmtct_stat_D_2529_f,PMTCT_STAT,,,,,,,
+"30-34, Female",A_pmtct_stat_D_3034_f,PMTCT_STAT,,,,,,,
+"35-39, Female",A_pmtct_stat_D_3539_f,PMTCT_STAT,,,,,,,
+"40-49, Female",A_pmtct_stat_D_4049_f,PMTCT_STAT,,,,,,,
+"50+, Female",A_pmtct_stat_D_o50_f,PMTCT_STAT,Age,,50+,,,,D
+"Known at Entry Positive,  Female, <10",A_pmtct_stat_u10_f_known,PMTCT_STAT,Age/KnownNewResult,,<10,Positive,Known at Entry,,N
+"Known at Entry Positive,  Female, 10-14",A_pmtct_stat_1014_f_known,PMTCT_STAT,Age/KnownNewResult,,10-14,Positive,Known at Entry,,N
+"Known at Entry Positive,  Female, 15-19",A_pmtct_stat_1519_f_known,PMTCT_STAT,Age/KnownNewResult,,15-19,Positive,Known at Entry,,N
+"Known at Entry Positive,  Female, 20-24",A_pmtct_stat_2024_f_known,PMTCT_STAT,Age/KnownNewResult,,20-24,Positive,Known at Entry,,N
+"Known at Entry Positive,  Female, 25-29",A_pmtct_stat_2529_f_known,PMTCT_STAT,,,,,,,
+"Known at Entry Positive,  Female, 30-34",A_pmtct_stat_3034_f_known,PMTCT_STAT,,,,,,,
+"Known at Entry Positive,  Female, 35-39",A_pmtct_stat_3539_f_known,PMTCT_STAT,,,,,,,
+"Known at Entry Positive,  Female, 40-49",A_pmtct_stat_4049_f_known,PMTCT_STAT,,,,,,,
+"Known at Entry Positive,  Female, 50+",A_pmtct_stat_o50_f_known,PMTCT_STAT,Age/KnownNewResult,,50+,Positive,Known at Entry,,N
+"Newly Identified Negative,  Female, <10",A_pmtct_stat_u10_f_newneg,PMTCT_STAT,Age/KnownNewResult,,<10,Negative,Newly Identified,,N
+"Newly Identified Negative,  Female, 10-14",A_pmtct_stat_1014_f_newneg,PMTCT_STAT,Age/KnownNewResult,,10-14,Negative,Newly Identified,,N
+"Newly Identified Negative,  Female, 15-19",A_pmtct_stat_1519_f_newneg,PMTCT_STAT,Age/KnownNewResult,,15-19,Negative,Newly Identified,,N
+"Newly Identified Negative,  Female, 20-24",A_pmtct_stat_2024_f_newneg,PMTCT_STAT,Age/KnownNewResult,,20-24,Negative,Newly Identified,,N
+"Newly Identified Negative,  Female, 25-29",A_pmtct_stat_2529_f_newneg,PMTCT_STAT,Age/KnownNewResult,,25-49,Negative,Newly Identified,,N
+"Newly Identified Negative,  Female, 30-34",A_pmtct_stat_3034_f_newneg,PMTCT_STAT,,,,,,,
+"Newly Identified Negative,  Female, 35-39",A_pmtct_stat_3539_f_newneg,PMTCT_STAT,,,,,,,
+"Newly Identified Negative,  Female, 40-49",A_pmtct_stat_4049_f_newneg,PMTCT_STAT,,,,,,,
+"Newly Identified Negative,  Female, 50+",A_pmtct_stat_o50_f_newneg,PMTCT_STAT,Age/KnownNewResult,,50+,Negative,Newly Identified,,N
+"Newly Identified Positive,  Female, <10",A_pmtct_stat_u10_f_newpos,PMTCT_STAT,Age/KnownNewResult,,<10,Positive,Newly Identified,,N
+"Newly Identified Positive,  Female, 10-14",A_pmtct_stat_1014_f_newpos,PMTCT_STAT,Age/KnownNewResult,,10-14,Positive,Newly Identified,,N
+"Newly Identified Positive,  Female, 15-19",A_pmtct_stat_1519_f_newpos,PMTCT_STAT,Age/KnownNewResult,,15-19,Positive,Newly Identified,,N
+"Newly Identified Positive,  Female, 20-24",A_pmtct_stat_2024_f_newpos,PMTCT_STAT,Age/KnownNewResult,,20-24,Positive,Newly Identified,,N
+"Newly Identified Positive,  Female, 25-29",A_pmtct_stat_2529_f_newpos,PMTCT_STAT,Age/KnownNewResult,,25-49,Positive,Newly Identified,,N
+"Newly Identified Positive,  Female, 30-34",A_pmtct_stat_3034_f_newpos,PMTCT_STAT,,,,,,,
+"Newly Identified Positive,  Female, 35-39",A_pmtct_stat_3539_f_newpos,PMTCT_STAT,,,,,,,
+"Newly Identified Positive,  Female, 40-49",A_pmtct_stat_4049_f_newpos,PMTCT_STAT,,,,,,,
+"Newly Identified Positive,  Female, 50+",A_pmtct_stat_o50_f_newpos,PMTCT_STAT,Age/KnownNewResult,,50+,Positive,Newly Identified,,N
+"10-14, Female",A_pp_prev_1014_f,PP_PREV,Age/Sex,Female,10-14,,,,N
+"10-14, Male",A_pp_prev_1014_m,PP_PREV,Age/Sex,Male,10-14,,,,N
+"15-19, Female",A_pp_prev_1519_f,PP_PREV,Age/Sex,Female,15-19,,,,N
+"15-19, Male",A_pp_prev_1519_m,PP_PREV,Age/Sex,Male,15-19,,,,N
+"20-24, Female",A_pp_prev_2024_f,PP_PREV,Age/Sex,Female,20-24,,,,N
+"20-24, Male",A_pp_prev_2024_m,PP_PREV,Age/Sex,Male,20-24,,,,N
+"25-29, Female",A_pp_prev_2529_f,PP_PREV,,,,,,,
+"25-29, Male",A_pp_prev_2529_m,PP_PREV,,,,,,,
+"30-34, Female",A_pp_prev_3034_f,PP_PREV,,,,,,,
+"30-34, Male",A_pp_prev_3034_m,PP_PREV,,,,,,,
+"35-39, Female",A_pp_prev_3539_f,PP_PREV,,,,,,,
+"35-39, Male",A_pp_prev_3539_m,PP_PREV,,,,,,,
+"40-49, Female",A_pp_prev_4049_f,PP_PREV,,,,,,,
+"40-49, Male",A_pp_prev_4049_m,PP_PREV,,,,,,,
+"50+, Female",A_pp_prev_o50_f,PP_PREV,Age/Sex,Female,50+,,,,N
+"50+, Male",A_pp_prev_o50_m,PP_PREV,Age/Sex,Male,50+,,,,N
+"15-19, Female",A_prep_new_1519_f,PrEP_NEW,Age/Sex,Female,15-19,,,,N
+"15-19, Male",A_prep_new_1519_m,PrEP_NEW,Age/Sex,Male,15-19,,,,N
+"20-24, Female",A_prep_new_2024_f,PrEP_NEW,Age/Sex,Female,20-24,,,,N
+"20-24, Male",A_prep_new_2024_m,PrEP_NEW,Age/Sex,Male,20-24,,,,N
+"25-29, Female",A_prep_new_2529_f,PrEP_NEW,Age/Sex,Female,25-49,,,,N
+"25-29, Male",A_prep_new_2529_m,PrEP_NEW,Age/Sex,Male,25-49,,,,N
+"30-34, Female",A_prep_new_3034_f,PrEP_NEW,,,,,,,
+"30-34, Male",A_prep_new_3034_m,PrEP_NEW,,,,,,,
+"35-39, Female",A_prep_new_3539_f,PrEP_NEW,,,,,,,
+"35-39, Male",A_prep_new_3539_m,PrEP_NEW,,,,,,,
+"40-49, Female",A_prep_new_4049_f,PrEP_NEW,,,,,,,
+"40-49, Male",A_prep_new_4049_m,PrEP_NEW,,,,,,,
+"50+, Female",A_prep_new_o50_f,PrEP_NEW,Age/Sex,Female,50+,,,,N
+"50+, Male",A_prep_new_o50_m,PrEP_NEW,Age/Sex,Male,50+,,,,N
+FSW,A_prep_new_fsw,PrEP_NEW,KeyPopAbr,,,,FSW,,N
+MSM,A_prep_new_msm,PrEP_NEW,KeyPopAbr,,,,MSM,,N
+Other Key Populations,A_prep_new_oth_kp,PrEP_NEW,,,,,,,
+TG,A_prep_new_tg,PrEP_NEW,KeyPopAbr,,,,TG,,N
+"<15, Female, Positive",A_tb_stat_u15_f,TB_STAT,Age/Sex/KnownNewPosNeg,Female,<15,Positive,Known at Entry,,N
+"<15, Male, Positive",A_tb_stat_u15_m,TB_STAT,Age/Sex/KnownNewPosNeg,Male,<15,Positive,Known at Entry,,N
+"15+, Female, Positive",A_tb_stat_o15_f,TB_STAT,Age/Sex/KnownNewPosNeg,Female,15+,Positive,Known at Entry,,N
+"15+, Male, Positive",A_tb_stat_o15_m,TB_STAT,Age/Sex/KnownNewPosNeg,Male,15+,Positive,Known at Entry,,N
+"<15, Female, Positive",A_tb_stat_u15_f,TB_STAT,Age/Sex/KnownNewPosNeg,Female,<15,Positive,Newly Identified,,N
+"<15, Male, Positive",A_tb_stat_u15_m,TB_STAT,Age/Sex/KnownNewPosNeg,Male,<15,Positive,Newly Identified,,N
+"15+, Female, Positive",A_tb_stat_o15_f,TB_STAT,Age/Sex/KnownNewPosNeg,Female,15+,Positive,Newly Identified,,N
+"15+, Male, Positive",A_tb_stat_o15_m,TB_STAT,Age/Sex/KnownNewPosNeg,Male,15+,Positive,Newly Identified,,N
+"<15, Female, Positive",A_tb_stat_u15_f,TB_STAT,Age/Sex/KnownNewPosNeg,Female,<15,Negative,Newly Identified,,N
+"<15, Male, Positive",A_tb_stat_u15_m,TB_STAT,Age/Sex/KnownNewPosNeg,Male,<15,Negative,Newly Identified,,N
+"15+, Female, Positive",A_tb_stat_o15_f,TB_STAT,Age/Sex/KnownNewPosNeg,Female,15+,Negative,Newly Identified,,N
+"15+, Male, Positive",A_tb_stat_o15_m,TB_STAT,Age/Sex/KnownNewPosNeg,Male,15+,Negative,Newly Identified,,N
+"<15, Female, Positive",A_tb_art_u15_f_pos,TB_ART,,,,,,,N
+"<15, Female, Positive",A_tb_art_u15_f_pos,TB_ART,,,,,,,N
+"<15, Female, Positive",A_tb_art_u15_f_pos,TB_ART,,,,,,,N
+"<15, Male, Positive",A_tb_art_u15_m_pos,TB_ART,,,,,,,N
+"<15, Male, Positive",A_tb_art_u15_m_pos,TB_ART,,,,,,,N
+"<15, Male, Positive",A_tb_art_u15_m_pos,TB_ART,,,,,,,N
+"15+, Female, Positive",A_tb_art_o15_f_pos,TB_ART,AgeAboveTen/Sex,Female,15-19,,,,N
+"15+, Female, Positive",A_tb_art_o15_f_pos,TB_ART,AgeAboveTen/Sex,Female,20-24,,,,N
+"15+, Female, Positive",A_tb_art_o15_f_pos,TB_ART,AgeAboveTen/Sex,Female,25-49,,,,N
+"15+, Female, Positive",A_tb_art_o15_f_pos,TB_ART,AgeAboveTen/Sex,Female,50+,,,,N
+"15+, Male, Positive",A_tb_art_o15_m_pos,TB_ART,AgeAboveTen/Sex,Male,15-19,,,,N
+"15+, Male, Positive",A_tb_art_o15_m_pos,TB_ART,AgeAboveTen/Sex,Male,20-24,,,,N
+"15+, Male, Positive",A_tb_art_o15_m_pos,TB_ART,AgeAboveTen/Sex,Male,25-49,,,,N
+"15+, Male, Positive",A_tb_art_o15_m_pos,TB_ART,AgeAboveTen/Sex,Male,50+,,,,N
+Life-long ART Already,A_tb_art_already,TB_ART,NewExistingArt,,,,Life-long ART Already,,N
+Life-long ART New,A_tb_art_new,TB_ART,NewExistingArt,,,,Life-long ART New,,N
+"<15, Female, Positive",A_tb_prev_D_u15_f_pos,TB_PREV,Aggregated Age/Sex,Female,<15,,,,D
+"<15, Male, Positive",A_tb_prev_D_u15_m_pos,TB_PREV,Aggregated Age/Sex,Male,<15,,,,D
+"15+, Female, Positive",A_tb_prev_D_o15_f_pos,TB_PREV,Aggregated Age/Sex,Female,15+,,,,D
+"15+, Male, Positive",A_tb_prev_D_o15_m_pos,TB_PREV,Aggregated Age/Sex,Male,15+,,,,D
+"Alternative TPT Regimen, Life-long ART, Already, Positive",A_tb_prev_D_alt_tpt_life_already_pos,TB_PREV,,,,,,,
+"IPT, Life-long ART, Already, Positive",A_tb_prev_D_ipt_life_already_pos,TB_PREV,,,,,,,
+"Alternative TPT Regimen, Life-long ART, New, Positive",A_tb_prev_D_alt_tpt_life_new_pos,TB_PREV,,,,,,,
+"IPT, Life-long ART, New, Positive",A_tb_prev_D_ipt_life_new_pos,TB_PREV,,,,,,,
+"<15, Female, Positive",A_tb_prev_u15_f_pos,TB_PREV,Aggregated Age/Sex,Female,<15,,,,N
+"<15, Male, Positive",A_tb_prev_u15_m_pos,TB_PREV,Aggregated Age/Sex,Male,<15,,,,N
+"15+, Female, Positive",A_tb_prev_o15_f_pos,TB_PREV,Aggregated Age/Sex,Female,15+,,,,N
+"15+, Male, Positive",A_tb_prev_o15_m_pos,TB_PREV,Aggregated Age/Sex,Male,15+,,,,N
+"Alternative TPT Regimen, Life-long ART, Already, Positive",A_tb_prev_alt_tpt_life_already_pos,TB_PREV,,,,,,,
+"IPT, Life-long ART, Already, Positive",A_tb_prev_ipt_life_already_pos,TB_PREV,,,,,,,
+"Alternative TPT Regimen, Life-long ART, New, Positive",A_tb_prev_alt_tpt_life_new_pos,TB_PREV,,,,,,,
+"IPT, Life-long ART, New, Positive",A_tb_prev_ipt_life_new_pos,TB_PREV,,,,,,,
+"<1, Unknown Sex, Positive",A_tx_curr_u1_unk_pos,TX_CURR,AgeLessThanTen,,<01,,,,N
+"1-9, Unknown Sex, Positive",A_tx_curr_0109_unk_pos,TX_CURR,AgeLessThanTen,,01-09,,,,N
+"10-14, Female, Positive",A_tx_curr_1014_f_pos,TX_CURR,AgeAboveTen/Sex,Female,10-14,,,,N
+"10-14, Male, Positive",A_tx_curr_1014_m_pos,TX_CURR,AgeAboveTen/Sex,Male,10-14,,,,N
+"15-19, Female, Positive",A_tx_curr_1519_f_pos,TX_CURR,AgeAboveTen/Sex,Female,15-19,,,,N
+"15-19, Male, Positive",A_tx_curr_1519_m_pos,TX_CURR,AgeAboveTen/Sex,Male,15-19,,,,N
+"20-24, Female, Positive",A_tx_curr_2024_f_pos,TX_CURR,AgeAboveTen/Sex,Female,20-24,,,,N
+"20-24, Male, Positive",A_tx_curr_2024_m_pos,TX_CURR,AgeAboveTen/Sex,Male,20-24,,,,N
+"25-29, Female, Positive",A_tx_curr_2529_f_pos,TX_CURR,,,,,,,
+"25-29, Male, Positive",A_tx_curr_2529_m_pos,TX_CURR,,,,,,,
+"30-34, Female, Positive",A_tx_curr_3034_f_pos,TX_CURR,,,,,,,
+"30-34, Male, Positive",A_tx_curr_3034_m_pos,TX_CURR,,,,,,,
+"35-39, Female, Positive",A_tx_curr_3539_f_pos,TX_CURR,,,,,,,
+"35-39, Male, Positive",A_tx_curr_3539_m_pos,TX_CURR,,,,,,,
+"40-49, Female, Positive",A_tx_curr_4049_f_pos,TX_CURR,,,,,,,
+"40-49, Male, Positive",A_tx_curr_4049_m_pos,TX_CURR,,,,,,,
+"50+, Female, Positive",A_tx_curr_o50_f_pos,TX_CURR,AgeAboveTen/Sex,Female,50+,,,,N
+"50+, Male, Positive",A_tx_curr_o50_m_pos,TX_CURR,AgeAboveTen/Sex,Male,50+,,,,N
+"<1, Unknown Sex, Positive",A_tx_new_u01_unk_pos,TX_NEW,AgeLessThanTen,,<01,,,,N
+"1-9, Unknown Sex, Positive",A_tx_new_1014_f_pos,TX_NEW,AgeLessThanTen,,01-09,,,,N
+"10-14, Female, Positive",A_tx_new_0109_unk_pos,TX_NEW,AgeAboveTen/Sex,Female,10-14,,,,N
+"10-14, Male, Positive",A_tx_new_1014_m_pos,TX_NEW,AgeAboveTen/Sex,Male,10-14,,,,N
+"15-19, Female, Positive",A_tx_new_1519_f_pos,TX_NEW,AgeAboveTen/Sex,Female,15-19,,,,N
+"15-19, Male, Positive",A_tx_new_1519_m_pos,TX_NEW,AgeAboveTen/Sex,Male,15-19,,,,N
+"20-24, Female, Positive",A_tx_new_2024_f_pos,TX_NEW,AgeAboveTen/Sex,Female,20-24,,,,N
+"20-24, Male, Positive",A_tx_new_2024_m_pos,TX_NEW,AgeAboveTen/Sex,Male,20-24,,,,N
+"25-29, Female, Positive",A_tx_new_2529_f_pos,TX_NEW,,,,,,,
+"25-29, Male, Positive",A_tx_new_2529_m_pos,TX_NEW,,,,,,,
+"30-34, Female, Positive",A_tx_new_3034_f_pos,TX_NEW,,,,,,,
+"30-34, Male, Positive",A_tx_new_3034_m_pos,TX_NEW,,,,,,,
+"35-39, Female, Positive",A_tx_new_3539_f_pos,TX_NEW,,,,,,,
+"35-39, Male, Positive",A_tx_new_3539_m_pos,TX_NEW,,,,,,,
+"40-49, Female, Positive",A_tx_new_4049_f_pos,TX_NEW,,,,,,,
+"40-49, Male, Positive",A_tx_new_4049_m_pos,TX_NEW,,,,,,,
+"50+, Female, Positive",A_tx_new_o50_f_pos,TX_NEW,AgeAboveTen/Sex,Female,50+,,,,N
+"50+, Male, Positive",A_tx_new_o50_m_pos,TX_NEW,AgeAboveTen/Sex,Male,50+,,,,N
+"FSW, Positive",A_tx_new_fsw_pos,TX_NEW,KeyPop,,,,FSW,,N
+"MSM, Positive",A_tx_new_msm_pos,TX_NEW,KeyPop,,,,MSM,,N
+"People in prisons and other enclosed settings, Positive",A_tx_new_prison_pos,TX_NEW,KeyPop,,,,People in prisons and other enclosed settings,,N
+"PWID, Positive",A_tx_new_pwid_pos,TX_NEW,KeyPop,,,,PWID,,N
+"TG, Positive",A_tx_new_tg_pos,TX_NEW,KeyPop,,,,TG,,N
+"Breastfeeding, Positive",A_tx_new_bf_pos,TX_NEW,Preg/Feeding,,,,Breastfeeding,,N
+"Pregnant, Positive",A_tx_new_preg_pos,TX_NEW,Preg/Feeding,,,,Pregnant,,N
+"<15, Female, Routine",A_tx_pvls_D_u15_f_rtn,TX_PVLS,Aggregated Age/Sex/Indication,Female,<15,,Routine,,D
+"<15, Female, Targeted",A_tx_pvls_D_u15_f_targeted,TX_PVLS,Aggregated Age/Sex/Indication,Female,<15,,Targeted,,D
+"<15, Female, Undocumented Test Indication",A_tx_pvls_D_u15_f_undoctest,TX_PVLS,Aggregated Age/Sex/Indication,Female,<15,,Undocumented Test Indication,,D
+"<15, Male, Routine",A_tx_pvls_D_u15_m_rtn,TX_PVLS,Aggregated Age/Sex/Indication,Male,<15,,Routine,,D
+"<15, Male, Targeted",A_tx_pvls_D_u15_m_targeted,TX_PVLS,Aggregated Age/Sex/Indication,Male,<15,,Targeted,,D
+"<15, Male, Undocumented Test Indication",A_tx_pvls_D_u15_m_undoctest,TX_PVLS,Aggregated Age/Sex/Indication,Male,<15,,Undocumented Test Indication,,D
+"15+, Female, Routine",A_tx_pvls_D_o15_f_rtn,TX_PVLS,Aggregated Age/Sex/Indication,Female,15+,,Routine,,D
+"15+, Female, Targeted",A_tx_pvls_D_o15_f_targeted,TX_PVLS,Aggregated Age/Sex/Indication,Female,15+,,Targeted,,D
+"15+, Female, Undocumented Test Indication",A_tx_pvls_D_o15_f_undoctest,TX_PVLS,Aggregated Age/Sex/Indication,Female,15+,,Undocumented Test Indication,,D
+"15+, Male, Routine",A_tx_pvls_D_o15_m_rtn,TX_PVLS,Aggregated Age/Sex/Indication,Male,15+,,Routine,,D
+"15+, Male, Targeted",A_tx_pvls_D_o15_m_targeted,TX_PVLS,Aggregated Age/Sex/Indication,Male,15+,,Targeted,,D
+"15+, Male, Undocumented Test Indication",A_tx_pvls_D_o15_m_undoctest,TX_PVLS,Aggregated Age/Sex/Indication,Male,15+,,Undocumented Test Indication,,D
+"Breastfeeding, Routine, Positive",A_tx_pvls_D_bf_rtn_pos,TX_PVLS,PregBF/Indication,,,,Breastfeeding Routine,,D
+"Breastfeeding, Targeted, Positive",A_tx_pvls_D_bf_targeted_pos,TX_PVLS,PregBF/Indication,,,,Breastfeeding Targeted,,D
+"Breastfeeding, Undocumented Test Indication, Positive",A_tx_pvls_D_bf_undoctest_pos,TX_PVLS,PregBF/Indication,,,,Breastfeeding Undocumented Test Indication,,D
+"Pregnant, Routine, Positive",A_tx_pvls_D_preg_rtn_pos,TX_PVLS,PregBF/Indication,,,,Pregnant Routine,,D
+"Pregnant, Targeted, Positive",A_tx_pvls_D_preg_targeted_pos,TX_PVLS,PregBF/Indication,,,,Pregnant Targeted,,D
+"Pregnant, Undocumented Test Indication, Positive",A_tx_pvls_D_preg_undoctest_pos,TX_PVLS,PregBF/Indication,,,,Pregnant Undocumented Test Indication,,D
+"Routine, Positive",A_tx_pvls_D_rtn_pos,TX_PVLS,RoutineTargeted,,,,Routine,,D
+"Targeted, Positive",A_tx_pvls_D_targeted_pos,TX_PVLS,RoutineTargeted,,,,Targeted,,D
+"Undocumented Test Indication, Positive",A_tx_pvls_D_undoctest_pos,TX_PVLS,RoutineTargeted,,,,Undocumented Test Indication,,D
+"<15, Female, Positive",A_tx_ret_D_u15_f_pos,TX_RET,,,,,,,
+"<15, Male, Positive",A_tx_ret_D_u15_m_pos,TX_RET,,,,,,,
+"15+, Female, Positive",A_tx_ret_D_o15_f_pos,TX_RET,AgeAboveTen/Sex,Female,15-19,,,,D
+"15+, Male, Positive",A_tx_ret_D_o15_m_pos,TX_RET,AgeAboveTen/Sex,Male,15-19,,,,D
+"15+, Female, Positive",A_tx_ret_D_o15_f_pos,TX_RET,AgeAboveTen/Sex,Female,20-24,,,,D
+"15+, Male, Positive",A_tx_ret_D_o15_m_pos,TX_RET,AgeAboveTen/Sex,Male,20-24,,,,D
+"15+, Female, Positive",A_tx_ret_D_o15_f_pos,TX_RET,AgeAboveTen/Sex,Female,25-49,,,,D
+"15+, Male, Positive",A_tx_ret_D_o15_m_pos,TX_RET,AgeAboveTen/Sex,Male,25-49,,,,D
+"15+, Female, Positive",A_tx_ret_D_o15_f_pos,TX_RET,AgeAboveTen/Sex,Female,50+,,,,D
+"15+, Male, Positive",A_tx_ret_D_o15_m_pos,TX_RET,AgeAboveTen/Sex,Male,50+,,,,D
+"Breastfeeding, Positive",A_tx_ret_D_bf_pos,TX_RET,Preg/Feeding,,,,Breastfeeding,,D
+"Pregnant, Positive",A_tx_ret_D_preg_pos,TX_RET,Preg/Feeding,,,,Pregnant,,D
+"<15, Female, Positive",A_tx_ret_u15_f_pos,TX_RET,,,,,,,N
+"<15, Male, Positive",A_tx_ret_u15_m_pos,TX_RET,,,,,,,N
+"15+, Female, Positive",A_tx_ret_o15_f_pos,TX_RET,AgeAboveTen/Sex,Female,15-19,,,,N
+"15+, Male, Positive",A_tx_ret_o15_m_pos,TX_RET,AgeAboveTen/Sex,Male,15-19,,,,N
+"15+, Female, Positive",A_tx_ret_o15_f_pos,TX_RET,AgeAboveTen/Sex,Female,20-24,,,,N
+"15+, Male, Positive",A_tx_ret_o15_m_pos,TX_RET,AgeAboveTen/Sex,Male,20-24,,,,N
+"15+, Female, Positive",A_tx_ret_o15_f_pos,TX_RET,AgeAboveTen/Sex,Female,25-49,,,,N
+"15+, Male, Positive",A_tx_ret_o15_m_pos,TX_RET,AgeAboveTen/Sex,Male,25-49,,,,N
+"15+, Female, Positive",A_tx_ret_o15_f_pos,TX_RET,AgeAboveTen/Sex,Female,50+,,,,N
+"15+, Male, Positive",A_tx_ret_o15_m_pos,TX_RET,AgeAboveTen/Sex,Male,50+,,,,N
+"Breastfeeding, Positive",A_tx_ret_bf_pos,TX_RET,Preg/Feeding,,,,Breastfeeding,,N
+"Pregnant, Positive",A_tx_ret_preg_pos,TX_RET,Preg/Feeding,,,,Pregnant,,N
+"<15, Female, Positive",A_tx_tb_D_u15_f_pos,TX_TB,Aggregated Age/Sex,Female,<15,,,,D
+"<15, Male, Positive",A_tx_tb_D_u15_m_pos,TX_TB,Aggregated Age/Sex,Male,<15,,,,D
+"15+, Female, Positive",A_tx_tb_D_o15_f_pos,TX_TB,Aggregated Age/Sex,Female,15+,,,,D
+"15+, Male, Positive",A_tx_tb_D_o15_m_pos,TX_TB,Aggregated Age/Sex,Male,15+,,,,D
+"Other, Positive",A_tx_tb_D_oth_pos,TX_TB,TB Test Type,,,,Other,,D
+"Smear, Positive",A_tx_tb_D_smear_pos,TX_TB,TB Test Type,,,,Smear,,D
+"Xpert, Positive",A_tx_tb_D_xpert_pos,TX_TB,TB Test Type,,,,Xpert,,D
+"Life-long ART, Already, TB Screen - Negative, Positive",A_tx_tb_D_life_already_scrn_neg_pos,TX_TB,,,,,,,
+"Life-long ART, Already, TB Screen - Positive, Positive",A_tx_tb_D_life_already_scrn_pos_pos,TX_TB,,,,,,,
+"Life-long ART, New, TB Screen - Negative, Positive",A_tx_tb_D_life_new_scrn_neg_pos,TX_TB,,,,,,,
+"Life-long ART, New, TB Screen - Positive, Positive",A_tx_tb_D_life_new_scrn_pos_pos,TX_TB,,,,,,,
+"15-19, Male",A_vmmc_circ_1519_m,VMMC_CIRC,Age,,15-19,,,,N
+"20-24, Male",A_vmmc_circ_2024_m,VMMC_CIRC,Age,,20-24,,,,N
+"25-29, Male",A_vmmc_circ_2529_m,VMMC_CIRC,Age,,25-29,,,,N
+"< 2 months, Male",A_vmmc_circ_u02mo_m,VMMC_CIRC,Age,,<2 months,,,,N
+"2 months - 9 years, Male",A_vmmc_circ_02mo9_m,VMMC_CIRC,Age,,02 months - 09 years,,,,N
+"10-14, Male",A_vmmc_circ_1014_m,VMMC_CIRC,Age,,10-14,,,,N
+"30-34, Male",A_vmmc_circ_3034_m,VMMC_CIRC,,,,,,,
+"35-39, Male",A_vmmc_circ_3539_m,VMMC_CIRC,,,,,,,
+"40-49, Male",A_vmmc_circ_4049_m,VMMC_CIRC,,,,,,,
+"50+, Male",A_vmmc_circ_o50_m,VMMC_CIRC,Age,,50+,,,,N
+"Device based, Male",A_vmmc_circ_device_m,VMMC_CIRC,Technique,,,,Device based,,N
+"Surgical Technique, Male",A_vmmc_circ_surg_m,VMMC_CIRC,Technique,,,,Surgical Technique,,N
