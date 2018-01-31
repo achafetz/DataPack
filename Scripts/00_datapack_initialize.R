@@ -37,7 +37,7 @@
 ## DATES ---------------------------------------------------------------------------------------
     
   #define date for Fact View Files
-    datestamp <- "20171222_v2_1" 
+    datestamp <- "20171222_v2_2" 
     
   #set today's date for saving
     date <-  format(Sys.Date(), format="%d%b%Y")
