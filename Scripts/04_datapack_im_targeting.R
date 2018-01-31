@@ -3,7 +3,7 @@
 ##   Purpose: generate output for IM targeting in Data Pack
 ##   Adopted from COP17 Stata code
 ##   Date: October 19, 2017
-##   Updated: 1/28
+##   Updated: 1/29
 
 ## DEPENDENCIES
   # run 00_datapack_initialize.R
@@ -26,12 +26,6 @@
 
     rm(cleanup_mechs, cleanup_snus, cluster_snus)
 
-  # TB adjustments - APR values should equal Q4, not sum Q2 and Q4
-    df_mechdistro <- df_mechdistro %>%
-     mutate(fy2017apr = ifelse((indicator %in% c("TX_TB", "TB_PREV") & 
-                               standardizeddisaggregate %in% c("Total Numerator", "Total Denominator")), 
-                            fy2017q4, fy2017apr))
-
   #OVC Total Numerator Creation
     df_ovc <- df_mechdistro %>% 
       #total numerator = sum of all program status -> filter
@@ -42,11 +36,10 @@
       ungroup() %>% 
       #add standardized disagg
       add_column(standardizeddisaggregate = "Total Numerator", .before = "numeratordenom")
-
+    
   #add total numerator onto OUxIM
     df_mechdistro <- bind_rows(df_mechdistro, df_ovc) 
     rm(df_ovc)  
-
 
 ## DEDUPLICATION -------------------------------------------------------------------------------------------
 #create a deduplication mechanism for every SNU

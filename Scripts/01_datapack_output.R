@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 1/28
+##   Updated: 1/30
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -41,12 +41,7 @@
       rm(cleanup_snus, cluster_snus)
 
 ## AGGREGATE TO PSNU X DISAGGS LEVEL ------------------------------------------------------------------------------
-
-#TB adjustments - APR values should equal Q4, not sum Q2 and Q4
-    df_indtbl <- df_indtbl %>%
-      mutate(fy2017apr = ifelse((indicator %in% c("TX_TB", "TB_PREV") & 
-                               standardizeddisaggregate %in% c("Total Numerator", "Total Denominator")), 
-                            fy2017q4, fy2017apr))
+      
   #OVC Total Numerator Creation
     df_ovc <- df_indtbl %>% 
       #total numerator = sum of all program status -> filter
@@ -57,10 +52,10 @@
       ungroup() %>% 
       #add standardized disagg
       add_column(standardizeddisaggregate = "Total Numerator", .before = "numeratordenom")
-
+    
   #add total numerator onto OUxIM
-    df_indtbl <- bind_rows(df_indtbl, df_ovc) 
-    rm(df_ovc)
+      df_indtbl <- bind_rows(df_indtbl, df_ovc) 
+      rm(df_ovc)
 
   #have to aggregate here; otherwise variable generation vector (next section) is too large to run
     df_indtbl <- df_indtbl %>%
