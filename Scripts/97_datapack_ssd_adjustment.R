@@ -44,9 +44,10 @@ loc <- "~/ICPI/Data/"
     replace_na(list(fy2017q1 = 0, fy2017q2 = 0)) %>% 
     #take Q4 value for annual and semi annual indicators, sum quaterly ones
     mutate(fy2017apr = ifelse(indicator %in% c("GEND_GBV", "KP_MAT", "TX_PVLS", "TX_RET", 
-                                               "KP_PREV", "OVC_HIVSTAT", "OVC_SERV", "PP_PREV", 
+                                               "KP_PREV", "OVC_HIVSTAT", "PP_PREV", 
                                                "TB_ART", "TB_PREV", "TB_STAT", "TB_STAT_POS", "TX_TB"), fy2017q4, 
-                              fy2017q1 + fy2017q2 + fy2017q3 + fy2017q4)) %>% 
+                        ifelse(indicator == "OVC_SERV" & otherdisaggregate == "Active", fy2017q4),
+                                fy2017q1 + fy2017q2 + fy2017q3 + fy2017q4)) %>% 
     #reorder
     select(region:fy2017_targets, fy2017q1, fy2017q2, fy2017q3, fy2017q4, fy2017apr, fy2018_targets)
   
