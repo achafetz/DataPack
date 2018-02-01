@@ -3,9 +3,14 @@
 ##   Purpose: recreate South Sudan dataset to include Q1 and Q2 (missing in DATIm)
 ##   Date: Jan 31, 2017
 
+
+
 library(tidyverse)
 
+
+#file path
 loc <- "~/ICPI/Data/"
+
 
 #import normal Fact View PSNUxIM
   df_mer <- read_tsv(file.path(loc, "ICPI_FactView_PSNU_IM_20171222_v2_2.txt"),
@@ -33,9 +38,8 @@ loc <- "~/ICPI/Data/"
     #convert to character for merge
     mutate(mechanismid = as.character(mechanismid))
 
-
 #join FV and SSD provided datasets
-  df_new <- full_join(df_mer, df_ssd_psnuim) %>% 
+  df_ssd_psnuim <- full_join(df_mer, df_ssd_psnuim) %>% 
     #replace na's with 0's in order to add in mutate
     replace_na(list(fy2017q1 = 0, fy2017q2 = 0)) %>% 
     #take Q4 value for annual and semi annual indicators, sum quaterly ones
@@ -46,7 +50,6 @@ loc <- "~/ICPI/Data/"
     #reorder
     select(region:fy2017_targets, fy2017q1, fy2017q2, fy2017q3, fy2017q4, fy2017apr, fy2018_targets)
   
-
 #convert PSNUxIM to PSNU to append to Fact View
   df_ssd_psnu <- df_ssd_psnuim %>% 
     select(-mechanismuid:-implementingmechanismname) %>% 
