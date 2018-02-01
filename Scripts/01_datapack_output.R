@@ -15,7 +15,7 @@
 ## NAT_SUBNAT --------------------------------------------------------------------------------------------------
 
   #import data
-    df_subnat <- read_rds(file.path(fvdata, paste0("ICPI_FactView_NAT_SUBNAT_", datestamp, ".RDS"))) %>% 
+    df_subnat <- read_rds(file.path(fvdata, paste0("ICPI_FactView_NAT_SUBNAT_20171222_v2_1.RDS"))) %>% 
   
   #align nat_subnat names with what is in fact view
     rename(fy2016apr = fy2016, fy2017apr = fy2017,

@@ -14,7 +14,7 @@
 ## MECH LIST ----------------------------------------------------------------------------------------------
     
   #import
-    df_mechlist  <- read_rds(file.path(fvdata, paste0("ICPI_FactView_OU_IM_20171222_v2_1.RDS"))) 
+    df_mechlist  <- read_rds(file.path(fvdata, paste0("ICPI_FactView_OU_IM_", datestamp, ".RDS"))) 
   
   #update all partner and mech to offical names (based on FACTS Info)
   #cleanup PSNUs (dups & clusters)
