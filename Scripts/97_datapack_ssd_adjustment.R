@@ -55,13 +55,13 @@ loc <- "~/ICPI/Data/"
   df_ssd_psnu <- df_ssd_psnuim %>% 
     select(-mechanismuid:-implementingmechanismname) %>% 
     group_by_if(is.character) %>% 
-    summarize_at(vars(fy2017q1, fy2017q2), funs(sum(., na.rm = TRUE))) %>% 
+    summarize_at(vars(fy2017q1, fy2017q2), ~sum(., na.rm = TRUE)) %>% 
     ungroup 
 
 #convert PSNUxIM to OUxIm to append to FactView
   df_ssd_ouim <- df_ssd_psnuim %>% 
     select(-snu1:-typemilitary) %>% 
     group_by_if(is.character) %>% 
-    summarize_at(vars(fy2017q1, fy2017q2), funs(sum(., na.rm = TRUE))) %>% 
+    summarize_at(vars(fy2017q1, fy2017q2), ~sum(., na.rm = TRUE)) %>% 
     ungroup 
 
