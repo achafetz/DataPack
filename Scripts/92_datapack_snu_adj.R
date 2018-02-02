@@ -101,21 +101,45 @@ cleanup_snus <- function(df) {
             psnu = ifelse((psnuuid %in% c("ONUWhpgEbVk", "RVzTHBO9fgR")), "Vallières", psnu)
     ) 
   
-    #rename prioritizations (due to spacing and to match last year)
-    priority_levels <- c("1 - Scale-Up: Saturation", "2 - Scale-Up: Aggressive", "4 - Sustained", "5 - Centrally Supported",
-                         "6 - Sustained: Commodities", "7 - Attained", "8 - Not PEPFAR Supported", "Mil", "NOT DEFINED")
-    df <- mutate(df, currentsnuprioritization = ifelse(is.na(currentsnuprioritization), "NOT DEFINED", currentsnuprioritization))
-    df$currentsnuprioritization <- parse_factor(df$currentsnuprioritization, priority_levels, include_na = TRUE) #convert to factor
+    #fix issue of snus having mutliple prioritizations over time --> use FY17Q4 value, otherwise take NA
+    #create prioritization list if it doesn't exist already
+    if (!file.exists(file.path(rawdata, "COP18prioritizations.csv"))) {
+      df_priority <- df %>% 
+        #remove missing values (only keeping what is available in Q4)
+        filter(!is.na(fy2017q4), !is.na(psnuuid), !is.na(currentsnuprioritization)) %>%
+        #keep unique values of psnus and their prioritization
+        distinct(psnuuid, currentsnuprioritization) %>% 
+        #save to raw data for efficiency going forward
+        write_csv(file.path(rawdata, "COP18prioritizations.csv"))
+    } else {
+      df_priority <- read_csv(file.path(rawdata, "COP18prioritizations.csv"))  
+    }
     
-    df <- df %>%
-      mutate(currentsnuprioritization = fct_recode(currentsnuprioritization,
-                                       "ScaleUp Sat"    =  "1 - Scale-Up: Saturation", 
-                                       "ScaleUp Agg"    =  "2 - Scale-Up: Aggressive", 
-                                       "Sustained"      =  "4 - Sustained", 
-                                       "Ctrl Supported" =  "5 - Centrally Supported",  
-                                       "Sustained Com"  =  "6 - Sustained: Commodities",
-                                       "Attained"       =  "7 - Attained",  
-                                       "Not Supported"  =  "8 - Not PEPFAR Supported"))
+    #remove problematic prioritization
+    df <- df %>% 
+      select(-currentsnuprioritization)
+    
+    #merge q4 priority in and reorder
+    df <- left_join(df, df_priority) %>% 
+      select(region:psnuuid, currentsnuprioritization, everything())
+  
+    #rename prioritizations (due to spacing and to match last year)
+    df <- df %>% 
+      mutate(currentsnuprioritization = ifelse(is.na(currentsnuprioritization), "NOT DEFINED", currentsnuprioritization),
+             currentsnuprioritization = parse_factor(currentsnuprioritization, 
+                                                     levels = c("1 - Scale-Up: Saturation", "2 - Scale-Up: Aggressive", 
+                                                                "4 - Sustained", "5 - Centrally Supported", "6 - Sustained: Commodities", 
+                                                                "7 - Attained", "8 - Not PEPFAR Supported", "Mil", "NOT DEFINED"), 
+                                                     include_na = TRUE),
+             currentsnuprioritization = fct_recode(currentsnuprioritization,
+                                                   "ScaleUp Sat"    =  "1 - Scale-Up: Saturation", 
+                                                   "ScaleUp Agg"    =  "2 - Scale-Up: Aggressive", 
+                                                   "Sustained"      =  "4 - Sustained", 
+                                                   "Ctrl Supported" =  "5 - Centrally Supported",  
+                                                   "Sustained Com"  =  "6 - Sustained: Commodities",
+                                                   "Attained"       =  "7 - Attained",  
+                                                   "Not Supported"  =  "8 - Not PEPFAR Supported"))
+    
     
 }
 
