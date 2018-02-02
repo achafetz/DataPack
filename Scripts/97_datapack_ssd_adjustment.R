@@ -45,7 +45,7 @@ loc <- "~/ICPI/Data/"
     #reorder
     select(region:fy2017_targets, fy2017q1, fy2017q2, fy2017q3, fy2017q4, fy2017apr, fy2018_targets) %>% 
     #remove 0s
-    mutate_at(vars(starts_with("fy2017")), ~ifelse(. == 0, NA, . ))
+    mutate_at(vars(starts_with("fy2017")), ifelse(. == 0, NA, . ))
   
 #convert PSNUxIM to PSNU to append to Fact View
   df_ssd_psnu <- df_ssd_psnuim %>% 
