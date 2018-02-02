@@ -36,13 +36,16 @@ loc <- "~/ICPI/Data/"
 #join FV and SSD provided datasets
   df_ssd_psnuim <- full_join(df_mer, df_ssd_psnuim) %>% 
     #replace na's with 0's in order to add in mutate
-    replace_na(list(fy2017q1 = 0, fy2017q2 = 0)) %>% 
+    replace_na(list(fy2017q1 = 0, fy2017q2 = 0, fy2017q3 = 0, fy2017q4 = 0)) %>% 
     #take Q4 value for annual and semi annual indicators, sum quaterly ones
     mutate(fy2017apr = ifelse(((indicator %in% c("GEND_GBV", "KP_MAT", "TX_PVLS", "TX_RET", 
-                                               "OVC_HIVSTAT", "TB_PREV")) | (indicator == "OVC_SERV" & otherdisaggregate == "Active")), fy2017q4, 
-                                fy2017q1 + fy2017q2 + fy2017q3 + fy2017q4)) %>% 
+                                                 "OVC_HIVSTAT", "TB_PREV")) | 
+                                 (indicator == "OVC_SERV" & standardizeddisaggregate == "ProgramStatus"& otherdisaggregate == "Active")),
+                                fy2017q4, fy2017q1 + fy2017q2 + fy2017q3 + fy2017q4)) %>% 
     #reorder
-    select(region:fy2017_targets, fy2017q1, fy2017q2, fy2017q3, fy2017q4, fy2017apr, fy2018_targets)
+    select(region:fy2017_targets, fy2017q1, fy2017q2, fy2017q3, fy2017q4, fy2017apr, fy2018_targets) %>% 
+    #remove 0s
+    mutate_at(vars(starts_with("fy2017")), ~ifelse(. == 0, NA, . ))
   
 #convert PSNUxIM to PSNU to append to Fact View
   df_ssd_psnu <- df_ssd_psnuim %>% 
