@@ -6,6 +6,7 @@
 
 
 library(tidyverse)
+library(readxl)
 
 
 #file path
@@ -13,13 +14,7 @@ loc <- "~/ICPI/Data/"
 
 
 #import normal Fact View PSNUxIM
-  df_mer <- read_tsv(file.path(loc, "ICPI_FactView_PSNU_IM_20171222_v2_2.txt"),
-             col_types = cols(FY2015APR = "d",
-                              FY2016_TARGETS = "d",
-                              FY2016APR = "d",
-                              FY2017_TARGETS = "d",
-                              FY2017APR = "d",
-                              FY2018_TARGETS = "d")) %>%
+  df_mer <- read_rds("~/ICPI/Data/ICPI_FactView_PSNU_IM_20171222_v2_2.Rds") %>%
     #select just South Sudan
     filter(operatingunit == "South Sudan") %>% 
     #remove quarters with missing data
@@ -43,10 +38,8 @@ loc <- "~/ICPI/Data/"
     #replace na's with 0's in order to add in mutate
     replace_na(list(fy2017q1 = 0, fy2017q2 = 0)) %>% 
     #take Q4 value for annual and semi annual indicators, sum quaterly ones
-    mutate(fy2017apr = ifelse(indicator %in% c("GEND_GBV", "KP_MAT", "TX_PVLS", "TX_RET", 
-                                               "KP_PREV", "OVC_HIVSTAT", "PP_PREV", 
-                                               "TB_ART", "TB_PREV", "TB_STAT", "TB_STAT_POS", "TX_TB"), fy2017q4, 
-                        ifelse(indicator == "OVC_SERV" & otherdisaggregate == "Active", fy2017q4),
+    mutate(fy2017apr = ifelse(((indicator %in% c("GEND_GBV", "KP_MAT", "TX_PVLS", "TX_RET", 
+                                               "OVC_HIVSTAT", "TB_PREV")) | (indicator == "OVC_SERV" & otherdisaggregate == "Active")), fy2017q4, 
                                 fy2017q1 + fy2017q2 + fy2017q3 + fy2017q4)) %>% 
     #reorder
     select(region:fy2017_targets, fy2017q1, fy2017q2, fy2017q3, fy2017q4, fy2017apr, fy2018_targets)
@@ -64,4 +57,7 @@ loc <- "~/ICPI/Data/"
     group_by_if(is.character) %>% 
     summarize_at(vars(fy2017q1, fy2017q2), ~sum(., na.rm = TRUE)) %>% 
     ungroup 
+  
+
+write_tsv(df_ssd_psnuim, "~/GitHub/DataPack/TempOutput/df_ssd_psnuim.txt", na = "")
 
