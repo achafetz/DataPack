@@ -1,3 +1,4 @@
+
 Option Explicit
 
 Dim i As Integer
@@ -30,6 +31,8 @@ Private Sub cmdRun_Click()
     Dim chkZip
 
     Application.ScreenUpdating = False
+    'record start time
+        StartTime = Timer
     'clear Selected OUs in case of earlier error
         ActiveWorkbook.Sheets("POPref").Select
         Sheets("POPref").Range("F2:F37").ClearContents
@@ -64,7 +67,7 @@ Private Sub cmdRun_Click()
         Unload Me
 
    ' run change form code
-    Call PopulateDataPack
+    'Call PopulateSiteDisaggTool
 
    'clear selected OUs and view
        tmplWkbk1.Sheets("POPref").Activate
@@ -72,9 +75,10 @@ Private Sub cmdRun_Click()
 
    'end on toc
     Sheets("POPrun").Activate
-
+    'time elaspsed
+    SecondsElapsed = Round(Timer - StartTime, 2)
     Application.ScreenUpdating = True
-    MsgBox "New Data Packs Created!"
+    MsgBox "New Data Packs Created! Runtime: " & SecondsElapsed & " seconds", vbInformation
 
 End Sub
 
