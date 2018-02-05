@@ -10,57 +10,75 @@ library(readxl)
 
 
 #file path
-loc <- "~/ICPI/Data/"
+fvdata <- "~/ICPI/Data"
 
-
-#import normal Fact View PSNUxIM
-  df_mer <- read_rds("~/ICPI/Data/ICPI_FactView_PSNU_IM_20171222_v2_2.Rds") %>%
-    #select just South Sudan
-    filter(operatingunit == "South Sudan") %>% 
-    #remove quarters with missing data
-    select(-fy2017q1, -fy2017q2) %>% 
-    #covert to character for easier mutate later
-    mutate(mechanismid = as.character(mechanismid),
-           coarsedisaggregate = as.character(coarsedisaggregate))
 
 #import South Sudan's data
-  df_ssd_psnuim <- read_excel(file.path(loc, "SSudan PSNUxIM FactView Dec22V2.xlsx")) %>% 
-    rename_all(tolower) %>% 
-    #keep data only for quaters missing in FV dataset
-    select(region:ismcad, fy2017q1, fy2017q2) %>% 
-    #convert to integer for merge
-    mutate_at(vars(fy2017q1, fy2017q2), funs(as.integer(.))) %>% 
-    #convert to character for merge
-    mutate(mechanismid = as.character(mechanismid))
+  df_ssd_psnuim <- read_excel(file.path(fvdata, "SSudan PSNUxIM FactView Dec22V2.xlsx")) %>% 
+    rename_all(tolower) 
+  
+  df_ssd_psnuim %>% 
+    #convert to integer/double/character for merge
+    mutate_at(vars(contains("q")), ~ as.integer(.),
+              vars(contains("apr"), contains("targets")), ~ as.double(.),
+              vars(mehcanismid), ~ as.character(.)) 
+    glimpse()
 
-#join FV and SSD provided datasets
-  df_ssd_psnuim <- full_join(df_mer, df_ssd_psnuim) %>% 
-    #replace na's with 0's in order to add in mutate
-    replace_na(list(fy2017q1 = 0, fy2017q2 = 0, fy2017q3 = 0, fy2017q4 = 0)) %>% 
-    #take Q4 value for annual and semi annual indicators, sum quaterly ones
-    mutate(fy2017apr = ifelse(((indicator %in% c("GEND_GBV", "KP_MAT", "TX_PVLS", "TX_RET", 
-                                                 "OVC_HIVSTAT", "TB_PREV")) | 
-                                 (indicator == "OVC_SERV" & standardizeddisaggregate == "ProgramStatus"& otherdisaggregate == "Active")),
-                                fy2017q4, fy2017q1 + fy2017q2 + fy2017q3 + fy2017q4)) %>% 
-    #reorder
-    select(region:fy2017_targets, fy2017q1, fy2017q2, fy2017q3, fy2017q4, fy2017apr, fy2018_targets) %>% 
-    #remove 0s
-    mutate_at(vars(starts_with("fy2017")), ifelse(. == 0, NA, . ))
   
 #convert PSNUxIM to PSNU to append to Fact View
   df_ssd_psnu <- df_ssd_psnuim %>% 
-    select(-mechanismuid:-implementingmechanismname) %>% 
-    group_by_if(is.character) %>% 
-    summarize_at(vars(fy2017q1, fy2017q2), ~sum(., na.rm = TRUE)) %>% 
-    ungroup 
+    select(-mechanismuid:-implementingmechanismname)
 
 #convert PSNUxIM to OUxIm to append to FactView
   df_ssd_ouim <- df_ssd_psnuim %>% 
-    select(-snu1:-typemilitary) %>% 
-    group_by_if(is.character) %>% 
-    summarize_at(vars(fy2017q1, fy2017q2), ~sum(., na.rm = TRUE)) %>% 
-    ungroup 
+    select(-snu1:-typemilitary)
   
 
 write_tsv(df_ssd_psnuim, "~/GitHub/DataPack/TempOutput/df_ssd_psnuim.txt", na = "")
 
+
+## Check -----
+
+df_test <- df_ssd_psnuim %>% 
+  group_by(indicator, standardizeddisaggregate) %>% 
+  summarize_at(vars(contains("fy2017q"), fy2017apr), ~sum(., na.rm = TRUE)) %>% 
+  ungroup()
+
+write_csv(df_test, "C:/Users/achafetz/Downloads/ssd_apr.csv")  
+
+
+df_ssd_psnuim %>% 
+  filter(standardizeddisaggregate == "ProgramStatus") %>% 
+  group_by(indicator, otherdisaggregate) %>% 
+  summarize_at(vars(contains("fy2017q"), fy2017apr), ~sum(., na.rm = TRUE)) %>% 
+  ungroup()
+
+df_mer %>% 
+  filter(operatingunit == "South Sudan", standardizeddisaggregate == "ProgramStatus") %>% 
+  group_by(indicator, otherdisaggregate) %>% 
+  summarize_at(vars(contains("fy2017q"), fy2017apr), ~sum(., na.rm = TRUE)) %>% 
+  ungroup()
+
+
+read_excel(file.path(loc, "SSudan PSNUxIM FactView Dec22V2.xlsx")) %>% 
+  rename_all(tolower) %>% 
+  filter(operatingunit == "South Sudan", standardizeddisaggregate == "ProgramStatus") %>% 
+  group_by(indicator, otherdisaggregate) %>% 
+  summarize_at(vars(contains("fy2017q"), fy2017apr), ~sum(., na.rm = TRUE)) %>% 
+  ungroup()
+
+
+read_excel(file.path(loc, "SSudan PSNUxIM FactView Dec22V2.xlsx")) %>% 
+  rename_all(tolower) %>% 
+  group_by(indicator, standardizeddisaggregate) %>% 
+  summarize_at(vars(contains("fy2017q"), fy2017apr), ~sum(., na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  print(n = Inf)
+
+
+#import normal Fact View PSNUxIM
+df_mer <- read_rds("~/ICPI/Data/ICPI_FactView_PSNU_IM_20171222_v2_2.Rds") %>%
+  #select just South Sudan
+
+  
+t <-  bind_rows(df_mer, df_ssd_psnuim)
