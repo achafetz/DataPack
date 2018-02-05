@@ -9,13 +9,14 @@
 # run 00_datapack_initialize.R
 # ICPI Fact View NAT_SUBNAT
 # ICPI Fact View PSNU
+# South Sudan adjusted Fact View (out from 97_datapack_ssd_adjustment.R)
 # 92_datapack_snu_adj.R
 
 
 ## NAT_SUBNAT --------------------------------------------------------------------------------------------------
 
   #import data
-    df_subnat <- read_rds(file.path(fvdata, paste0("ICPI_FactView_NAT_SUBNAT_20171222_v2_1.RDS"))) %>% 
+    df_subnat <- read_rds(Sys.glob(file.path(fvdata, "ICPI_FactView_NAT_SUBNAT_*.Rds"))) %>% 
   
   #align nat_subnat names with what is in fact view
     rename(fy2016apr = fy2016, fy2017apr = fy2017,
@@ -28,7 +29,7 @@
 ## MER - PSNUxIM ----------------------------------------------------------------------------------------------
 
   #import
-    df_mer <- read_rds(file.path(fvdata, paste0("ICPI_FactView_PSNU_", datestamp, ".RDS"))) 
+    df_mer <- read_rds(Sys.glob(file.path(fvdata, "ICPI_FactView_PSNU_*.Rds")))
 
 ## APPEND -----------------------------------------------------------------------------------------------------
     df_indtbl <- bind_rows(df_mer, df_subnat)
