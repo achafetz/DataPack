@@ -3,7 +3,7 @@
 ##   Purpose: generate output for IM targeting in Data Pack
 ##   Adopted from COP17 Stata code
 ##   Date: October 19, 2017
-##   Updated: 1/29
+##   Updated: 2/05
 
 ## DEPENDENCIES
   # run 00_datapack_initialize.R
@@ -31,7 +31,7 @@
       #total numerator = sum of all program status -> filter
       filter(indicator=="OVC_SERV" & standardizeddisaggregate == "ProgramStatus") %>% 
       #group up to OUxIMxType level & summarize (will need to change grouping for different datasets)
-      group_by(operatingunit, psnu, psnuuid, indicatortype, mechanismid, numeratordenom) %>% 
+      group_by(operatingunit, snu1, psnu, psnuuid, currentsnuprioritization, typemilitary, indicator, numeratordenom) %>% 
       summarize_at(vars(fy2017apr), funs(sum(., na.rm = TRUE))) %>% 
       ungroup() %>% 
       #add standardized disagg
@@ -54,10 +54,9 @@
 
 
 ## MECH DISTRIBUTION ---------------------------------------------------------------------------------------
-# output formulas created in Data Pack template (POPsubset sheet)
-# updated 01/30
+# output formulas created in Data Pack template (POPsubsetIM sheet)
+# updated 02/05
 
-## TESTING, NOT FINAL DATA --> Need to figure out all final targets and what non-Total Numerators are included
     df_mechdistro <- df_mechdistro %>%
       mutate(
         tx_ret_D = ifelse((indicator=="TX_RET" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
@@ -91,7 +90,7 @@
         tx_tb_D = ifelse((indicator=="TX_TB" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
         tb_prev_D = ifelse((indicator=="TB_PREV" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
         tb_prev = ifelse((indicator=="TB_PREV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_vmmc = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & modality=="VMMC" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_vmmc = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & resultstatus=="Positive" & modality=="VMMC" & numeratordenom=="N"), fy2017apr, 0), 
         hts_tst_pmtctanc = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & modality=="PMTCT ANC" & numeratordenom=="N"), fy2017apr, 0), 
         hts_tst_tbclinic = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & modality=="TBClinic" & numeratordenom=="N"), fy2017apr, 0), 
         hts_tst_vmmc = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & modality=="VMMC" & numeratordenom=="N"), fy2017apr, 0), 
@@ -105,16 +104,16 @@
         hts_tst_emergency_o15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & modality=="Emergency" & numeratordenom=="N"), fy2017apr, 0), 
         hts_tst_vct_o15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & modality=="VCT" & numeratordenom=="N"), fy2017apr, 0), 
         hts_tst_otherpitc_o15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & modality=="OtherPITC" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_indexmod_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & modality=="IndexMod" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_mobilemod_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & modality=="MobileMod" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_vctmod_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & modality=="VCTMod" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_othermod_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & modality=="OtherMod" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_index_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & modality=="Index" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_sti_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & modality=="STI" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_inpat_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & modality=="Inpat" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_emergency_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & modality=="Emergency" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_vct_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & modality=="VCT" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_otherpitc_o15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & modality=="OtherPITC" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_indexmod_o15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & resultstatus=="Positive" & modality=="IndexMod" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_mobilemod_o15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & resultstatus=="Positive" & modality=="MobileMod" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_vctmod_o15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & resultstatus=="Positive" & modality=="VCTMod" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_othermod_o15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & resultstatus=="Positive" & modality=="OtherMod" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_index_o15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & resultstatus=="Positive" & modality=="Index" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_sti_o15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & resultstatus=="Positive" & modality=="STI" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_inpat_o15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & resultstatus=="Positive" & modality=="Inpat" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_emergency_o15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & resultstatus=="Positive" & modality=="Emergency" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_vct_o15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & resultstatus=="Positive" & modality=="VCT" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_otherpitc_o15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="15+" & resultstatus=="Positive" & modality=="OtherPITC" & numeratordenom=="N"), fy2017apr, 0), 
         hts_tst_indexmod_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="IndexMod" & numeratordenom=="N"), fy2017apr, 0), 
         hts_tst_mobilemod_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="MobileMod" & numeratordenom=="N"), fy2017apr, 0), 
         hts_tst_vctmod_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="VCTMod" & numeratordenom=="N"), fy2017apr, 0), 
@@ -124,21 +123,21 @@
         hts_tst_inpat_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="Inpat" & numeratordenom=="N"), fy2017apr, 0), 
         hts_tst_emergency_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="Emergency" & numeratordenom=="N"), fy2017apr, 0), 
         hts_tst_vct_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="VCT" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pediatric_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="Pediatric" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_malnutrition_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="Malnutrition" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pediatric_u05 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="Pediatric" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_malnutrition_u05 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="Malnutrition" & numeratordenom=="N"), fy2017apr, 0), 
         hts_tst_otherpitc_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="OtherPITC" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_indexmod_u15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="IndexMod" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_mobilemod_u15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="MobileMod" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_vctmod_u15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="VCTMod" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_othermod_u15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="OtherMod" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_index_u15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="Index" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_sti_u15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="STI" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_inpat_u15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="Inpat" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_emergency_u15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="Emergency" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_vct_u15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="VCT" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_pediatric_u15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="Pediatric" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_malnutrition_u15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="Malnutrition" & numeratordenom=="N"), fy2017apr, 0), 
-        hts_tst_pos_otherpitc_u15 = ifelse((indicator=="HTS_TST_POS" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & modality=="OtherPITC" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_indexmod_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & resultstatus=="Positive" & modality=="IndexMod" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_mobilemod_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & resultstatus=="Positive" & modality=="MobileMod" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_vctmod_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & resultstatus=="Positive" & modality=="VCTMod" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_othermod_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & resultstatus=="Positive" & modality=="OtherMod" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_index_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & resultstatus=="Positive" & modality=="Index" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_sti_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & resultstatus=="Positive" & modality=="STI" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_inpat_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & resultstatus=="Positive" & modality=="Inpat" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_emergency_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & resultstatus=="Positive" & modality=="Emergency" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_vct_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & resultstatus=="Positive" & modality=="VCT" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_pediatric_u05 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & resultstatus=="Positive" & modality=="Pediatric" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_malnutrition_u05 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & resultstatus=="Positive" & modality=="Malnutrition" & numeratordenom=="N"), fy2017apr, 0), 
+        hts_tst_pos_otherpitc_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & resultstatus=="Positive" & modality=="OtherPITC" & numeratordenom=="N"), fy2017apr, 0), 
         hts_tst_keypop = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="KeyPop/Result" & numeratordenom=="N"), fy2017apr, 0), 
         hts_self = ifelse((indicator=="HTS_SELF" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
         vmmc_circ = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
@@ -174,8 +173,6 @@
         gend_gbv = ifelse((indicator=="GEND_GBV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
         prep_new = ifelse((indicator=="PrEP_NEW" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0))
     
-    
-
 
 ## CLEAN UP -------------------------------------------------------------------------------------------------
 
