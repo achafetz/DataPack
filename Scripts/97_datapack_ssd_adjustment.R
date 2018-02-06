@@ -41,11 +41,16 @@ add_ssd_fv <- function(df, type) {
       ungroup() %>% 
       mutate(mechanismid = as.integer(mechanismid))
     }
+  #PSNUxIM should convert mech ID to int
+    if(type == "PSNUxIM"){
+      df <- df %>% 
+        mutate(mechanismid = as.integer(mechanismid))
+    }
 
 #remove old data except fy18_targets which are missing from fix
   df <- df  %>% 
     mutate_at(vars(fy2015q2:fy2017apr), ~ ifelse(df$operatingunit == "South Sudan", NA, .))
-  
+
 #append new data onto bottom of mer dataframe
   df <-  bind_rows(df, df_ssd)
 
