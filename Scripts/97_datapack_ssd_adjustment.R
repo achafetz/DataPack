@@ -1,84 +1,52 @@
 ##   Data Pack COP FY18
 ##   A.Chafetz, USAID
 ##   Purpose: recreate South Sudan dataset to include Q1 and Q2 (missing in DATIm)
-##   Date: Jan 31, 2017
+##   Date: 
+##   Updated: 2/6/18
 
+## DEPENDENCIES
+# run 00_datapack_initialize.R
+# South Sudan Updated PSNUxIM FactView dataset (contains Q1 + Q2)
 
-
-library(tidyverse)
-library(readxl)
-
-
-#file path
-fvdata <- "~/ICPI/Data"
-
-
-#import South Sudan's data
-  df_ssd_psnuim <- read_excel(file.path(fvdata, "SSudan PSNUxIM FactView Dec22V2.xlsx")) %>% 
-    rename_all(tolower) 
-  
-  df_ssd_psnuim %>% 
-    #convert to integer/double/character for merge
+add_ssd_fv <- function(df, type) {
+#import South Sudan's data (PSNUxIM)
+  df_ssd <- read_tsv(file.path(fvdata, "SSudan PSNUxIM FactView Dec22V2.txt"),
+                              col_types = cols(
+                                               FY2015APR = "d",
+                                               FY2016_TARGETS = "d",
+                                               FY2016APR = "d",
+                                               FY2017_TARGETS = "d",
+                                               FY2017APR = "d")) %>%
+    rename_all(tolower)  %>% 
+  #convert to integer/double/character for merge
     mutate_at(vars(contains("q")), ~ as.integer(.),
-              vars(contains("apr"), contains("targets")), ~ as.double(.),
-              vars(mehcanismid), ~ as.character(.)) 
-    glimpse()
+              vars(contains("apr"), contains("targets")), ~ as.double(.))
 
+  #convert PSNUxIM to PSNU to append to Fact View
+   if (type == "PSNU") {
+    df_ssd <- df_ssd %>% 
+      select(-mechanismuid:-implementingmechanismname) %>%
+      group_by_if(is.character) %>% 
+      summarise_if(is.numeric, ~ sum(., na.rm = TRUE)) %>% 
+      ungroup()
+    }
+
+  #convert PSNUxIM to OUxIm to append to FactView
+    if (type == "OUxIM") {
+    df_ssd <- df_ssd %>% 
+      select(-snu1:-typemilitary) %>% 
+      mutate(mechanismid = as.character(mechanismid)) %>% 
+      group_by_if(is.character) %>% 
+      summarise_if(is.numeric, ~ sum(., na.rm = TRUE)) %>% 
+      ungroup() %>% 
+      mutate(mechanismid = as.integer(mechanismid))
+    }
+
+#remove old data except fy18_targets which are missing from fix
+  df <- df  %>% 
+    mutate_at(vars(fy2015q2:fy2017apr), ~ ifelse(df$operatingunit == "South Sudan", NA, .))
   
-#convert PSNUxIM to PSNU to append to Fact View
-  df_ssd_psnu <- df_ssd_psnuim %>% 
-    select(-mechanismuid:-implementingmechanismname)
+#append new data onto bottom of mer dataframe
+  df <-  bind_rows(df, df_ssd)
 
-#convert PSNUxIM to OUxIm to append to FactView
-  df_ssd_ouim <- df_ssd_psnuim %>% 
-    select(-snu1:-typemilitary)
-  
-
-write_tsv(df_ssd_psnuim, "~/GitHub/DataPack/TempOutput/df_ssd_psnuim.txt", na = "")
-
-
-## Check -----
-
-df_test <- df_ssd_psnuim %>% 
-  group_by(indicator, standardizeddisaggregate) %>% 
-  summarize_at(vars(contains("fy2017q"), fy2017apr), ~sum(., na.rm = TRUE)) %>% 
-  ungroup()
-
-write_csv(df_test, "C:/Users/achafetz/Downloads/ssd_apr.csv")  
-
-
-df_ssd_psnuim %>% 
-  filter(standardizeddisaggregate == "ProgramStatus") %>% 
-  group_by(indicator, otherdisaggregate) %>% 
-  summarize_at(vars(contains("fy2017q"), fy2017apr), ~sum(., na.rm = TRUE)) %>% 
-  ungroup()
-
-df_mer %>% 
-  filter(operatingunit == "South Sudan", standardizeddisaggregate == "ProgramStatus") %>% 
-  group_by(indicator, otherdisaggregate) %>% 
-  summarize_at(vars(contains("fy2017q"), fy2017apr), ~sum(., na.rm = TRUE)) %>% 
-  ungroup()
-
-
-read_excel(file.path(loc, "SSudan PSNUxIM FactView Dec22V2.xlsx")) %>% 
-  rename_all(tolower) %>% 
-  filter(operatingunit == "South Sudan", standardizeddisaggregate == "ProgramStatus") %>% 
-  group_by(indicator, otherdisaggregate) %>% 
-  summarize_at(vars(contains("fy2017q"), fy2017apr), ~sum(., na.rm = TRUE)) %>% 
-  ungroup()
-
-
-read_excel(file.path(loc, "SSudan PSNUxIM FactView Dec22V2.xlsx")) %>% 
-  rename_all(tolower) %>% 
-  group_by(indicator, standardizeddisaggregate) %>% 
-  summarize_at(vars(contains("fy2017q"), fy2017apr), ~sum(., na.rm = TRUE)) %>% 
-  ungroup() %>% 
-  print(n = Inf)
-
-
-#import normal Fact View PSNUxIM
-df_mer <- read_rds("~/ICPI/Data/ICPI_FactView_PSNU_IM_20171222_v2_2.Rds") %>%
-  #select just South Sudan
-
-  
-t <-  bind_rows(df_mer, df_ssd_psnuim)
+}

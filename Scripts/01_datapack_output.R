@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 2/05
+##   Updated: 2/06
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -29,8 +29,14 @@
 ## MER - PSNUxIM ----------------------------------------------------------------------------------------------
 
   #import
-    df_mer <- read_rds(Sys.glob(file.path(fvdata, "ICPI_FactView_PSNU_*.Rds")))
-
+    df_mer <- read_rds(Sys.glob(file.path(fvdata, "ICPI_FactView_PSNU_2*.Rds")))
+  
+  #add South Sudan's data, missing from Q1+Q2 in regular Q4v2_2 FV
+    source(file.path(scripts, "97_datapack_ssd_adjustment.R"))
+    df_mer <- add_ssd_fv(df_mer, "PSNU")
+      rm(add_ssd_fv)
+      
+    
 ## APPEND -----------------------------------------------------------------------------------------------------
     df_indtbl <- bind_rows(df_mer, df_subnat)
         rm(df_mer, df_subnat)
