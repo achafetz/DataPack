@@ -65,3 +65,4 @@ TempOutput/append_temp.RData
 TemplateGeneration/~$COP18DisaggToolTemplate v2018.01.22.xlsm
 .Rproj.user
 .Rhistory
+*.Rhistory
