@@ -142,7 +142,7 @@ Sub Initialize()
         Set dtWkbk = ActiveWorkbook
         shtNames = Array("Allocation by SNUxIM", _
                 "GEND_GBV", "HTS_SELF", "OVC_SERV", _
-                "PMTCT", "PP_PREV", "PrEP_NEW", "TB_STAT", _
+                "PMTCT_STAT", "PP_PREV", "PrEP_NEW", "TB_STAT", _
                 "TB_ART", "TB_PREV", "TX_CURR", "TX_NEW", _
                 "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC", _
                 "Already Alloc Targets", "IMPATT Table", "Follow on Mech List")
@@ -210,6 +210,7 @@ End Sub
 
 
 Sub getPSNUs()
+    'setup table for prioritization and PLHIV (non-clustered) list
 
     'make sure file with data is activate
         psnulistWkbk.Activate
@@ -235,14 +236,14 @@ Sub distroFormulas()
 
     'add in allocation & target lookup formulas to the first line of every tab (allocation distro has to occur after distro table is created)
         shtNames = Array("GEND_GBV", "OVC_SERV", _
-                "PMTCT", "PP_PREV", "PrEP_NEW", "TB_STAT", _
+                "PMTCT_STAT", "PP_PREV", "PrEP_NEW", "TB_STAT", _
                 "TB_ART", "TB_PREV", "TX_CURR", "TX_NEW", _
                 "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC")
         For Each sht In shtNames
             Sheets(sht).Activate
             'allocation formula
             colIND_start = WorksheetFunction.Match("ALLOCATION", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
-            colIND_end = WorksheetFunction.Match("DP TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
+            colIND_end = WorksheetFunction.Match("CHECK", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
             Range(Cells(7, colIND_start), Cells(7, colIND_end)).Select
             Selection.FormulaR1C1 = "=IFERROR(INDEX(distro[#Data], MATCH([@[psnu_type]],distro[psnu_type],0),MATCH(R6C[0],distro[#Headers],0)),0)"
             'target formula
@@ -306,10 +307,10 @@ Sub indDistro()
     'define range
         LastColumnMech = Range("A1").CurrentRegion.Columns.count
         LastRowMech = Range("A1").CurrentRegion.Rows.count
-        LastRow = Range("C7").CurrentRegion.Rows.count + 5
+        LastRow = LastRowMech + 6
     'copy mech lists into each tab
         shtNames = Array("GEND_GBV", "HTS_SELF", "OVC_SERV", _
-                "PMTCT", "PP_PREV", "PrEP_NEW", "TB_STAT", _
+                "PMTCT_STAT", "PP_PREV", "PrEP_NEW", "TB_STAT", _
                 "TB_ART", "TB_PREV", "TX_CURR", "TX_NEW", _
                 "TX_PVLS", "TX_RET", "TX_TB", "VMMC_CIRC", _
                 "Already Alloc Targets")
@@ -325,7 +326,7 @@ Sub indDistro()
             'hard copy allocation lookups to cells (no need to have dynamic lookup at this point)
             If sht <> "Already Alloc Targets" Then
                 colIND_start = WorksheetFunction.Match("ALLOCATION", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
-                colIND_end = WorksheetFunction.Match("DP TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
+                colIND_end = WorksheetFunction.Match("CHECK", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
                 Range(Cells(7, colIND_start), Cells(LastRow, colIND_end)).Select
                 Selection.NumberFormat = "0%;-0%;;"
                 Selection.Copy
@@ -333,7 +334,6 @@ Sub indDistro()
                 Application.CutCopyMode = False
             End If
             'add left colored border bar in column A
-
             Range(Cells(5, 1), Cells(LastRow, 1)).Select
             With Selection.Interior
                 .Pattern = xlSolid
