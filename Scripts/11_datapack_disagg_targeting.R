@@ -117,14 +117,14 @@
   
   #aggregate indicators (multiple combos need to sum up (eg <15 = <01,01-09, 10-14) before dividing by denom)
     df_disaggdistro <- df_disaggdistro %>% 
-      select(operatingunit:psnu, indicator, dt_ind_name, grouping, indicatortype, fy2017apr) %>% 
+      select(operatingunit:psnu, indicator, dt_ind_name, grouping, numeratordenom, indicatortype, fy2017apr) %>% 
       group_by_if(is.character) %>% 
       summarise_at(vars(fy2017apr), funs(sum(.))) %>% 
       ungroup
       
   #create a group denominator
     df_disaggdistro <- df_disaggdistro %>% 
-        group_by(operatingunit, psnuuid, psnu, indicator, grouping, indicatortype) %>% 
+        group_by(operatingunit, psnuuid, psnu, indicator, grouping, numeratordenom, indicatortype) %>% 
         mutate(grp_denom = sum(fy2017apr)) %>% 
         ungroup
         
