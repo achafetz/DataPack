@@ -161,6 +161,7 @@ Sub Initialize()
         Range("N1").Copy
         Selection.PasteSpecial Paste:=xlPasteValues
         Range("O1").Value = OpUnit
+        Range("O4").Select
         Range("O4").Copy
         Selection.PasteSpecial Paste:=xlPasteValues
         Application.CutCopyMode = False

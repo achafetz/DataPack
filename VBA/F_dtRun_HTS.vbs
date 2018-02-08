@@ -156,7 +156,8 @@ Sub Initialize()
         Range("N1").Copy
         Selection.PasteSpecial Paste:=xlPasteValues
         Range("O1").Value = OpUnit
-        Range("N4").Copy
+        Range("O4").Select
+        Range("O4").Copy
         Selection.PasteSpecial Paste:=xlPasteValues
         Range("AA1").Select
 
@@ -217,7 +218,7 @@ Sub distroFormulas()
             'allocation formula
             If sht <> "Emergency" And sht <> "STI" And sht <> "PediatricServices" And sht <> "Malnutrition" Then
                 colIND_start = WorksheetFunction.Match("ALLOCATION", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
-                colIND_end = WorksheetFunction.Match("DP TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
+                colIND_end = WorksheetFunction.Match("CHECK", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
                 Range(Cells(7, colIND_start), Cells(7, colIND_end)).Select
                 Selection.FormulaR1C1 = "=IFERROR(INDEX(distro[#Data], MATCH([@[psnu_type]],distro[psnu_type],0),MATCH(R6C[0],distro[#Headers],0)),0)"
             End If
@@ -292,7 +293,7 @@ Sub indDistro()
             'hard copy allocation lookups to cells (no need to have dynamic lookup at this point)
             If sht <> "PediatricServices" And sht <> "Malnutrition" And sht <> "KeyPop" Then
                 colIND_start = WorksheetFunction.Match("ALLOCATION", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
-                colIND_end = WorksheetFunction.Match("DP TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
+                colIND_end = WorksheetFunction.Match("CHECK", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
                 Range(Cells(7, colIND_start), Cells(LastRow, colIND_end)).Select
                 Selection.Copy
                 Selection.PasteSpecial Paste:=xlPasteValues
