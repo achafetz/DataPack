@@ -3,7 +3,7 @@
 ##   Purpose: generate disagg distribution for targeting
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 26, 2017
-##   Updated: 1/28/18 
+##   Updated: 2/7/18 
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -16,6 +16,11 @@
   #import
     df_disaggdistro <- read_rds(file.path(fvdata, paste0("ICPI_FactView_PSNU_", datestamp, ".RDS")))
   
+  #add South Sudan's data, missing from Q1+Q2 in regular Q4v2_2 FV
+    source(file.path(scripts, "97_datapack_ssd_adjustment.R"))
+    df_disaggdistro <- add_ssd_fv(df_disaggdistro, "PSNU")
+    rm(add_ssd_fv)
+    
   #cleanup PSNUs (dups & clusters)
     source(file.path(scripts, "92_datapack_snu_adj.R"))
     df_disaggdistro <- cluster_snus(df_disaggdistro)

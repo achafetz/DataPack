@@ -2,7 +2,7 @@
 ##   A.Chafetz, USAID
 ##   Purpose: output unique mechanism list and PSNU list
 ##   Date: Dec 8, 2017
-##   Updated: 1/26/18
+##   Updated: 2/7/18
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -14,6 +14,11 @@
 
   #import
     df_mechlist  <- read_rds(file.path(fvdata, paste0("ICPI_FactView_PSNU_IM_", datestamp, ".RDS")))
+  
+  #add South Sudan's data, missing from Q1+Q2 in regular Q4v2_2 FV
+    source(file.path(scripts, "97_datapack_ssd_adjustment.R"))
+    df_mechlist <- add_ssd_fv(df_mechlist, "PSNUxIM")
+    rm(add_ssd_fv)
     
   #cleanup PSNUs (dups & clusters)
     source(file.path(scripts, "91_datapack_officialnames.R"))
@@ -47,7 +52,12 @@
     
   #import
     df_psnulist  <- read_rds(file.path(fvdata, paste0("ICPI_FactView_PSNU_", datestamp, ".RDS")))
-  
+      
+  #add South Sudan's data, missing from Q1+Q2 in regular Q4v2_2 FV
+      source(file.path(scripts, "97_datapack_ssd_adjustment.R"))
+      df_psnulist <- add_ssd_fv(df_psnulist, "PSNU")
+      rm(add_ssd_fv)
+      
   #unique list of PSNUs (non clusters for PLHIV import)
     df_psnulist <- df_psnulist %>%
       distinct(operatingunit, psnu, psnuuid) %>% 
