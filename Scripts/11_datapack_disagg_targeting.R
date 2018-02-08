@@ -110,8 +110,9 @@
              grouping = ifelse(indicator == "VMMC_CIRC" & standardizeddisaggregate == "Age" & (age %in% c("15-19", "20-24", "25-29")), paste(standardizeddisaggregate, "Primary", sep = " - "), grouping),
              grouping = ifelse(indicator == "VMMC_CIRC" & standardizeddisaggregate == "Age" & (age %in% c("[months] 00-02", "02 months - 09 years", "10-14", "50+")), paste(standardizeddisaggregate, "Other", sep = " - "), grouping),
              grouping = ifelse(indicator == "HTS_TST" & standardizeddisaggregate == "Age/Sex/Result" & (age %in% c("<01", "01-09", "10-14", "15-17")), paste(modality, "<15", resultstatus, sep = ", "), grouping),
-             grouping = ifelse(indicator == "HTS_TST" & standardizeddisaggregate == "Age/Sex/Result" & (age %in% c("15-19", "20-24", "25-49", "50+")), paste(modality, "15+", resultstatus, sep = ", "), grouping)
-      )
+             grouping = ifelse(indicator == "HTS_TST" & standardizeddisaggregate == "Age/Sex/Result" & (age %in% c("15-19", "20-24", "25-49", "50+")), paste(modality, "15+", resultstatus, sep = ", "), grouping),
+             grouping = ifelse(indicator == "HTS_TST" & standardizeddisaggregate == "Age/Sex/Result" & (modality %in% c("VMMC", "TBClinic", "PMTCT ANC")), paste(modality, resultstatus, sep = ", "), grouping)
+             )
         
 ## AGGREGATE GROUPS  ---------------------------------------------------------------------------------------         
   
