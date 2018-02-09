@@ -1,0 +1,17 @@
+indicator	standardizeddisaggregate	sex	age	resultstatus	otherdisaggregate	modality	numeratordenom	dt_ind_name
+GEND_GBV	PEP						N	A_gend_gbv_pep
+PrEP_NEW	KeyPopAbr				FSW		N	A_prep_new_fsw
+PrEP_NEW	KeyPopAbr				MSM		N	A_prep_new_msm
+PrEP_NEW	KeyPopAbr				TG		N	A_prep_new_tg
+TX_NEW	KeyPop				FSW		N	A_tx_new_fsw_pos
+TX_NEW	KeyPop				MSM		N	A_tx_new_msm_pos
+TX_NEW	KeyPop				People in prisons and other enclosed settings		N	A_tx_new_prison_pos
+TX_NEW	KeyPop				PWID		N	A_tx_new_pwid_pos
+TX_NEW	KeyPop				TG		N	A_tx_new_tg_pos
+TX_NEW	Preg/Feeding				Breastfeeding		N	A_tx_new_bf_pos
+TX_NEW	Preg/Feeding				Pregnant		N	A_tx_new_preg_pos
+TX_RET	Preg/Feeding				Breastfeeding		D	A_tx_ret_D_bf_pos
+TX_RET	Preg/Feeding				Pregnant		D	A_tx_ret_D_preg_pos
+TX_RET	Preg/Feeding				Breastfeeding		N	A_tx_ret_bf_pos
+TX_RET	Preg/Feeding				Pregnant		N	A_tx_ret_preg_pos
+TX_TB	Specimen Sent						D	A_tx_tb_D_sent_pos
