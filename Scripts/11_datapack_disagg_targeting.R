@@ -30,6 +30,7 @@
   #import disagg mapping table
     df_disaggs <- read_excel(Sys.glob(file.path(templategeneration,"COP18DisaggToolTemplate v*.xlsm")), sheet = "POPsubset", col_names = TRUE) %>% 
       filter(!is.na(standardizeddisaggregate))  %>% #remove rows where there are no associated MER indicators in FY17 (eg Tx_NEW Age/Sex 24-29 M)
+      mutate(modality = as.character(modality)) %>% 
       select(-dt_dataelementgrp, -dt_categoryoptioncombo) %>%  #remove columns that just identify information in the disagg tool
       write_tsv(file.path(rawdata, "disagg_ind_grps.txt"), na = "") #document 
   
@@ -144,7 +145,8 @@
     #replace grp_denom with total for alternative denoms
     df_disaggdistro <- df_disaggdistro %>% 
       mutate(grp_denom2 = ifelse(dt_ind_name %in% lst_alt_denom, total, grp_denom))
-
+    
+    rm(lst_alt_denom)
     
 ## CALCULATE DISTRIBUTION  ----------------------------------------------------------------------  
 
