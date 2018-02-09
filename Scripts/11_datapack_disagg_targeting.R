@@ -130,6 +130,7 @@
         group_by(operatingunit, psnuuid, psnu, indicator, grouping, numeratordenom, indicatortype) %>% 
         mutate(grp_denom = sum(fy2017apr)) %>% 
         ungroup
+    
   #create alternative denominator for indicators that won't sum to 100%, (eg TX_NEW KeyPop - what share is KeyPop Disagg of Total Num)
     #use max to create a new grp_denom var, assuming num/denom is greater than any disagg or not missing
     df_disaggdistro <- df_disaggdistro %>% 
@@ -144,7 +145,7 @@
                        "A_tx_ret_bf_pos", "A_tx_ret_preg_pos", "A_tx_tb_D_sent_pos")
     #replace grp_denom with total for alternative denoms
     df_disaggdistro <- df_disaggdistro %>% 
-      mutate(grp_denom2 = ifelse(dt_ind_name %in% lst_alt_denom, total, grp_denom))
+      mutate(grp_denom = ifelse(dt_ind_name %in% lst_alt_denom, total, grp_denom))
     
     rm(lst_alt_denom)
     
