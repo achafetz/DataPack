@@ -19,7 +19,6 @@ GEND_GBV	Age/Sex/ViolenceType	Female	50+		Physical and/or Emotional Violence		N	
 GEND_GBV	Age/Sex/ViolenceType	Female	50+		Sexual Violence (Post-Rape Care)		N	A_gend_gbv_o50_f_sv
 GEND_GBV	Age/Sex/ViolenceType	Male	50+		Physical and/or Emotional Violence		N	A_gend_gbv_o50_m_pev
 GEND_GBV	Age/Sex/ViolenceType	Male	50+		Sexual Violence (Post-Rape Care)		N	A_gend_gbv_o50_m_sv
-GEND_GBV	PEP						N	A_gend_gbv_pep
 OVC_SERV	AgeLessThanTen		<01				N	A_ovc_serv_u1_unk
 OVC_SERV	AgeLessThanTen		01-09				N	A_ovc_serv_0109_unk
 OVC_SERV	AgeAboveTen/Sex	Female	10-14				N	A_ovc_serv_1014_f
@@ -114,9 +113,6 @@ PrEP_NEW	Age/Sex	Female	25-49				N	A_prep_new_2529_f
 PrEP_NEW	Age/Sex	Male	25-49				N	A_prep_new_2529_m
 PrEP_NEW	Age/Sex	Female	50+				N	A_prep_new_o50_f
 PrEP_NEW	Age/Sex	Male	50+				N	A_prep_new_o50_m
-PrEP_NEW	KeyPopAbr				FSW		N	A_prep_new_fsw
-PrEP_NEW	KeyPopAbr				MSM		N	A_prep_new_msm
-PrEP_NEW	KeyPopAbr				TG		N	A_prep_new_tg
 TB_STAT	Aggregated Age/Sex	Female	<15				D	A_tb_stat_D_u15_f
 TB_STAT	Aggregated Age/Sex	Male	<15				D	A_tb_stat_D_u15_m
 TB_STAT	Aggregated Age/Sex	Female	15+				D	A_tb_stat_D_o15_f
