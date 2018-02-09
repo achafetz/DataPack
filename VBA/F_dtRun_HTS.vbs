@@ -291,7 +291,7 @@ Sub indDistro()
             Selection.PasteSpecial Paste:=xlPasteValues
             Application.CutCopyMode = False
             'hard copy allocation lookups to cells (no need to have dynamic lookup at this point)
-            If sht <> "PediatricServices" And sht <> "Malnutrition" And sht <> "KeyPop" Then
+            If sht <> "PediatricServices" And sht <> "Malnutrition" Then
                 colIND_start = WorksheetFunction.Match("ALLOCATION", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
                 colIND_end = WorksheetFunction.Match("CHECK", ActiveWorkbook.Sheets(sht).Range("1:1"), 0) - 1
                 Range(Cells(7, colIND_start), Cells(LastRow, colIND_end)).Select
