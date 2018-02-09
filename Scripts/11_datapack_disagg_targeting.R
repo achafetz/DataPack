@@ -3,7 +3,7 @@
 ##   Purpose: generate disagg distribution for targeting
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 26, 2017
-##   Updated: 2/7/18 
+##   Updated: 2/8/18 
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -133,7 +133,7 @@
 
   #divide indicator totals by denoms to get the distribution
     df_disaggdistro <- df_disaggdistro %>% 
-      mutate(distro = round(fy2017apr/grp_denom, 3))
+      mutate(distro = round(fy2017apr/grp_denom, 5))
                
     
 ## CLEAN ----------------------------------------------------------------------------------------
