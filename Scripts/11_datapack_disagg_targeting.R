@@ -15,7 +15,7 @@
 
   #import
     df_disaggdistro <- read_rds(file.path(fvdata, paste0("ICPI_FactView_PSNU_", datestamp, ".RDS")))
-  
+    
   #add South Sudan's data, missing from Q1+Q2 in regular Q4v2_2 FV
     source(file.path(scripts, "97_datapack_ssd_adjustment.R"))
     df_disaggdistro <- add_ssd_fv(df_disaggdistro, "PSNU")
@@ -34,14 +34,14 @@
       write_tsv(file.path(rawdata, "disagg_ind_grps.txt"), na = "") #document 
   
   #import HTS disagg mapping table
-    df_disaggs_HTS <- read_excel(Sys.glob(file.path(templategeneration,"COP18DisaggToolTemplate_HTS v*.xlsm")), sheet = "POPsubset", col_names = TRUE) %>%
+    df_disaggs_hts <- read_excel(Sys.glob(file.path(templategeneration,"COP18DisaggToolTemplate_HTS v*.xlsm")), sheet = "POPsubset", col_names = TRUE) %>%
       filter(!is.na(standardizeddisaggregate))  %>% #remove rows where there are no associated MER disaggs in FY17 (eg Tx_NEW Age/Sex 24-29 M)
       select(-dt_dataelementgrp, -dt_categoryoptioncombo) %>%  #remove columns that just identify information in the disagg tool
-      write_tsv(file.path(rawdata, "disagg_ind_grps.txt"), na = "") #document 
+      write_tsv(file.path(rawdata, "disagg_ind_grp_hts.txt"), na = "") #document 
       
   #append disaggs for 1 df to merge onto fact view
-    df_disaggs <- bind_rows(df_disaggs, df_disaggs_HTS)
-      rm(df_disaggs_HTS)
+    df_disaggs <- bind_rows(df_disaggs, df_disaggs_hts)
+      rm(df_disaggs_hts)
     
 ## SUBSET DATA OF INTEREST  ---------------------------------------------------------------------------------------  
   
@@ -51,7 +51,8 @@
     
   #limit to indicators with targets for COP18 (no MCAD disaggs)
     df_disaggdistro <- df_disaggdistro %>% 
-      filter(indicator %in% lst_inds, standardizeddisaggregate %in% lst_disaggs,
+      filter(indicator %in% lst_inds, 
+             standardizeddisaggregate %in% c("Total Numerator", "Total Denominator", lst_disaggs),
              ismcad == "N",
              !is.na(fy2017apr), 
              fy2017apr!=0) %>% 
@@ -128,7 +129,23 @@
         group_by(operatingunit, psnuuid, psnu, indicator, grouping, numeratordenom, indicatortype) %>% 
         mutate(grp_denom = sum(fy2017apr)) %>% 
         ungroup
-        
+  #create alternative denominator for indicators that won't sum to 100%, (eg TX_NEW KeyPop - what share is KeyPop Disagg of Total Num)
+    #use max to create a new grp_denom var, assuming num/denom is greater than any disagg or not missing
+    df_disaggdistro <- df_disaggdistro %>% 
+      group_by(psnuuid, indicator, numeratordenom, indicatortype) %>% 
+      mutate(total = max(fy2017apr, na.rm = TRUE)) %>% 
+      ungroup()
+    #define affected variables
+    lst_alt_denom <- c("A_gend_gbv_pep", "A_prep_new_fsw", "A_prep_new_msm", "A_prep_new_tg", 
+                       "A_tx_new_fsw_pos", "A_tx_new_msm_pos", "A_tx_new_prison_pos", 
+                       "A_tx_new_pwid_pos", "A_tx_new_tg_pos", "A_tx_new_bf_pos", 
+                       "A_tx_new_preg_pos", "A_tx_ret_D_bf_pos", "A_tx_ret_D_preg_pos", 
+                       "A_tx_ret_bf_pos", "A_tx_ret_preg_pos", "A_tx_tb_D_sent_pos")
+    #replace grp_denom with total for alternative denoms
+    df_disaggdistro <- df_disaggdistro %>% 
+      mutate(grp_denom2 = ifelse(dt_ind_name %in% lst_alt_denom, total, grp_denom))
+
+    
 ## CALCULATE DISTRIBUTION  ----------------------------------------------------------------------  
 
   #divide indicator totals by denoms to get the distribution
