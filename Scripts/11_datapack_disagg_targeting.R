@@ -3,7 +3,7 @@
 ##   Purpose: generate disagg distribution for targeting
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 26, 2017
-##   Updated: 2/8/18 
+##   Updated: 2/9/18 
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
