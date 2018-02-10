@@ -3,7 +3,7 @@
 ##   Purpose: generate disagg distribution for targeting
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 26, 2017
-##   Updated: 2/9/18 
+##   Updated: 2/10/18 
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -91,6 +91,33 @@
     df_disaggdistro <- df_disaggdistro %>% 
       mutate(dt_ind_name = if_else(is.na(dt_ind_name), "not_used", dt_ind_name))
 
+## CALCULATE GEND_GBV PEP DISTRO ------------------------------------------------------------------------
+  #Create the PEP distro (A_gend_gbv_pep), non standard distro since share of another disagg
+    
+  #PEP distro = share of Sexual Violence --> filter for Sexual Violence and PEP
+    df_pep <- df_disaggdistro %>% 
+      filter(indicator == "GEND_GBV", 
+             standardizeddisaggregate %in% c("PEP", "Age/Sex/ViolenceType"),
+             otherdisaggregate %in% c("Sexual Violence (Post-Rape Care)", NA), 
+             !is.na(fy2017apr))  %>% 
+  #change all names to same for reshape
+      mutate(dt_ind_name = "A_gend_gbv_pep") %>%
+  #aggregate to 1 obseration per psnu x type
+      group_by(operatingunit, psnu, psnuuid, dt_ind_name, indicatortype, standardizeddisaggregate) %>% 
+      summarise_at(vars(fy2017apr), ~ sum(., na.rm = TRUE)) %>% 
+      ungroup() %>% 
+  #reshape wide to create distro calc PEP / Sexual Violence (cap at 100% & remove NAs)
+      spread(standardizeddisaggregate, fy2017apr) %>% 
+      mutate(distro = round(PEP/`Age/Sex/ViolenceType`, 5),
+             distro = ifelse(distro > 1, 1, distro)) %>% 
+      filter(is.finite(distro)) %>% 
+      select(operatingunit, psnu, psnuuid, dt_ind_name, indicatortype, distro)
+  
+  #remove PEP from normal calcuations (will merge df_pep in after other distros are calculated)
+    df_disaggdistro <- df_disaggdistro %>% 
+      filter(dt_ind_name != "A_gend_gbv_pep")
+    
+    
 ## DISAGG GROUPING  ---------------------------------------------------------------------------------------  
         
   #create a disagg group as the denominator for the allocation share
@@ -120,7 +147,7 @@
   
   #aggregate indicators (multiple combos need to sum up (eg <15 = <01,01-09, 10-14) before dividing by denom)
     df_disaggdistro <- df_disaggdistro %>% 
-      select(operatingunit:psnu, indicator, dt_ind_name, grouping, numeratordenom, indicatortype, fy2017apr) %>% 
+      select(operatingunit, psnuuid, psnu, indicator, dt_ind_name, grouping, numeratordenom, indicatortype, fy2017apr) %>% 
       group_by_if(is.character) %>% 
       summarise_at(vars(fy2017apr), funs(sum(.))) %>% 
       ungroup
@@ -130,15 +157,17 @@
         group_by(operatingunit, psnuuid, psnu, indicator, grouping, numeratordenom, indicatortype) %>% 
         mutate(grp_denom = sum(fy2017apr)) %>% 
         ungroup
-    
+
+## CALCULATE ALT DENOMINATORS --------------------------------------------------------------------------------------------------------        
   #create alternative denominator for indicators that won't sum to 100%, (eg TX_NEW KeyPop - what share is KeyPop Disagg of Total Num)
+    
     #use max to create a new grp_denom var, assuming num/denom is greater than any disagg or not missing
     df_disaggdistro <- df_disaggdistro %>% 
       group_by(psnuuid, indicator, numeratordenom, indicatortype) %>% 
       mutate(total = max(fy2017apr, na.rm = TRUE)) %>% 
       ungroup()
     #define affected variables
-    lst_alt_denom <- c("A_gend_gbv_pep", "A_prep_new_fsw", "A_prep_new_msm", "A_prep_new_tg", 
+    lst_alt_denom <- c("A_prep_new_fsw", "A_prep_new_msm", "A_prep_new_tg", 
                        "A_tx_new_fsw_pos", "A_tx_new_msm_pos", "A_tx_new_prison_pos", 
                        "A_tx_new_pwid_pos", "A_tx_new_tg_pos", "A_tx_new_bf_pos", 
                        "A_tx_new_preg_pos", "A_tx_ret_D_bf_pos", "A_tx_ret_D_preg_pos", 
@@ -150,13 +179,17 @@
     rm(lst_alt_denom)
     
 ## CALCULATE DISTRIBUTION  ----------------------------------------------------------------------  
-
+    
   #divide indicator totals by denoms to get the distribution
     df_disaggdistro <- df_disaggdistro %>% 
       mutate(distro = round(fy2017apr/grp_denom, 5))
                
     
 ## CLEAN ----------------------------------------------------------------------------------------
+  
+  #append GEND_GBV back in
+    df_disaggdistro <- bind_rows(df_disaggdistro, df_pep) 
+      rm(df_pep) 
     
   #add in concatenated variable for Excel lookup
     df_disaggdistro <- df_disaggdistro %>% 
