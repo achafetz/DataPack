@@ -1,17 +1,17 @@
-##  Data Pack COP18 
+##  Data Pack COP18
 ##  A.Chafetz, USAID
 ##  Purpose: initialize packages, folder structure, and global file paths
 ##  Adapted from T. Essam, USAID [Stata]
-##  Updated: 1/28/18 
+##  Updated: 2/11/18
 ##  https://github.com/achafetz/DataPack
 
 ## DEPENDENT PACKAGES -------------------------------------------------------------------------
-  #load libraries 
+  #load libraries
     pacman::p_load("tidyverse", "readxl", "RCurl", "rlist")
 
 ## FILE PATHS ---------------------------------------------------------------------------------
   #must be run each time R project is opened
-  #Choose the project path location to where you want the project parent 
+  #Choose the project path location to where you want the project parent
   #folder to go on your machine.
     projectpath <- "~/GitHub"
     setwd(projectpath)
@@ -31,19 +31,16 @@
 
   #additional folders outside of project folder (due to large file size)
     fvdata <- "~/ICPI/Data"
-    dpexcel <- "~/DataPack/DataPulls"
 
 
 ## DATES ---------------------------------------------------------------------------------------
-    
+
   #define date for Fact View Files
-    datestamp <- "20171222_v2_2" 
-    
+    datestamp <- "20171222_v2_2"
+
   #set today's date for saving
     date <-  format(Sys.Date(), format="%d%b%Y")
-    
-    
+
+
 ## CLEAN UP STORED GLOBALS -------------------------------------------------------------------
   rm(projectpath, pfolder, folderlist, f)
-    
-    
