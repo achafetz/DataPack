@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 2/06
+##   Updated: 2/13
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -97,7 +97,7 @@
 
 ## GENERATE VARIABLES/COLUMNS -------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
-  # updated 2/06
+  # updated 2/13
   
     df_indtbl <- df_indtbl %>%
       mutate(
@@ -156,28 +156,28 @@
         hts_tst_pos_malnutrition_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & resultstatus=="Positive" & modality=="Malnutrition" & numeratordenom=="N"), fy2017apr, 0), 
         hts_tst_pos_otherpitc_u15 = ifelse((indicator=="HTS_TST" & standardizeddisaggregate=="Modality/MostCompleteAgeDisagg" & age=="<15" & resultstatus=="Positive" & modality=="OtherPITC" & numeratordenom=="N"), fy2017apr, 0), 
         hts_tst_spd_tot_pos_u15 = 0, 
-        kp_prev_msm_D = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="MSM" & numeratordenom=="D"), fy2017apr, 0), 
-        kp_prev_msm_sw = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="MSM SW" & numeratordenom=="N"), fy2017apr, 0), 
-        kp_prev_msm_sw_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="MSM SW" & numeratordenom=="N"), fy2018_targets, 0), 
-        kp_prev_msm_not_sw = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="MSM not SW" & numeratordenom=="N"), fy2017apr, 0), 
-        kp_prev_msm_not_sw_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="MSM not SW" & numeratordenom=="N"), fy2018_targets, 0), 
-        kp_prev_tg_D = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="TG" & numeratordenom=="D"), fy2017apr, 0), 
-        kp_prev_tg_sw = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="TG SW" & numeratordenom=="N"), fy2017apr, 0), 
-        kp_prev_tg_sw_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="TG SW" & numeratordenom=="N"), fy2018_targets, 0), 
-        kp_prev_tg_not_sw = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="TG not SW" & numeratordenom=="N"), fy2017apr, 0), 
-        kp_prev_tg_not_sw_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="TG not SW" & numeratordenom=="N"), fy2018_targets, 0), 
-        kp_prev_fsw_D = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="FSW" & numeratordenom=="D"), fy2017apr, 0), 
-        kp_prev_fsw = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="FSW" & numeratordenom=="N"), fy2017apr, 0), 
-        kp_prev_fsw_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="FSW" & numeratordenom=="N"), fy2018_targets, 0), 
-        kp_prev_pwid_m_D = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="Male PWID" & numeratordenom=="D"), fy2017apr, 0), 
-        kp_prev_pwid_m = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="Male PWID" & numeratordenom=="N"), fy2017apr, 0), 
-        kp_prev_pwid_m_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="Male PWID" & numeratordenom=="N"), fy2018_targets, 0), 
-        kp_prev_pwid_f_D = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="Female PWID" & numeratordenom=="D"), fy2017apr, 0), 
-        kp_prev_pwid_f = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="Female PWID" & numeratordenom=="N"), fy2017apr, 0), 
-        kp_prev_pwid_f_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="Female PWID" & numeratordenom=="N"), fy2018_targets, 0), 
-        kp_prev_prison_D = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="People in prisons and other enclosed settings" & numeratordenom=="D"), fy2017apr, 0), 
-        kp_prev_prison = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="People in prisons and other enclosed settings" & numeratordenom=="N"), fy2017apr, 0), 
-        kp_prev_prison_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop" & otherdisaggregate=="People in prisons and other enclosed settings" & numeratordenom=="N"), fy2018_targets, 0), 
+        kp_prev_msm_D = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="MSM" & numeratordenom=="D"), fy2017apr, 0), 
+        kp_prev_msm_sw = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="MSM SW" & numeratordenom=="N"), fy2017apr, 0), 
+        kp_prev_msm_sw_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="MSM SW" & numeratordenom=="N"), fy2018_targets, 0), 
+        kp_prev_msm_not_sw = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="MSM not SW" & numeratordenom=="N"), fy2017apr, 0), 
+        kp_prev_msm_not_sw_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="MSM not SW" & numeratordenom=="N"), fy2018_targets, 0), 
+        kp_prev_tg_D = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="TG" & numeratordenom=="D"), fy2017apr, 0), 
+        kp_prev_tg_sw = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="TG SW" & numeratordenom=="N"), fy2017apr, 0), 
+        kp_prev_tg_sw_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="TG SW" & numeratordenom=="N"), fy2018_targets, 0), 
+        kp_prev_tg_not_sw = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="TG not SW" & numeratordenom=="N"), fy2017apr, 0), 
+        kp_prev_tg_not_sw_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="TG not SW" & numeratordenom=="N"), fy2018_targets, 0), 
+        kp_prev_fsw_D = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="FSW" & numeratordenom=="D"), fy2017apr, 0), 
+        kp_prev_fsw = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="FSW" & numeratordenom=="N"), fy2017apr, 0), 
+        kp_prev_fsw_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="FSW" & numeratordenom=="N"), fy2018_targets, 0), 
+        kp_prev_pwid_m_D = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="Male PWID" & numeratordenom=="D"), fy2017apr, 0), 
+        kp_prev_pwid_m = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="Male PWID" & numeratordenom=="N"), fy2017apr, 0), 
+        kp_prev_pwid_m_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="Male PWID" & numeratordenom=="N"), fy2018_targets, 0), 
+        kp_prev_pwid_f_D = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="Female PWID" & numeratordenom=="D"), fy2017apr, 0), 
+        kp_prev_pwid_f = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="Female PWID" & numeratordenom=="N"), fy2017apr, 0), 
+        kp_prev_pwid_f_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="Female PWID" & numeratordenom=="N"), fy2018_targets, 0), 
+        kp_prev_prison_D = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="People in prisons and other enclosed settings" & numeratordenom=="D"), fy2017apr, 0), 
+        kp_prev_prison = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="People in prisons and other enclosed settings" & numeratordenom=="N"), fy2017apr, 0), 
+        kp_prev_prison_T = ifelse((indicator=="KP_PREV" & standardizeddisaggregate=="KeyPop/Status" & otherdisaggregate=="People in prisons and other enclosed settings" & numeratordenom=="N"), fy2018_targets, 0), 
         kp_mat = ifelse((indicator=="KP_MAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
         kp_mat_T = ifelse((indicator=="KP_MAT" & standardizeddisaggregate=="Sex" & numeratordenom=="N"), fy2018_targets, 0), 
         ovc_serv = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
@@ -206,7 +206,7 @@
         plhiv_u15 = ifelse((indicator=="PLHIV" & standardizeddisaggregate=="Age/Sex" & age=="<15"), fy2017apr, 0), 
         plhiv_o15 = ifelse((indicator=="PLHIV" & standardizeddisaggregate=="Age/Sex" & age=="15+"), fy2017apr, 0), 
         pmtct_art = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
-        pmtct_art_already = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
+        pmtct_art_already = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt/HIVStatus" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
         pmtct_art_T = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
         pmtct_eid = ifelse((indicator=="PMTCT_EID" & standardizeddisaggregate=="Age/HIVStatus" & resultstatus %in% c("Positive", "Negative") & numeratordenom=="N"), fy2017apr, 0), 
         pmtct_eid_T = ifelse((indicator=="PMTCT_EID" & standardizeddisaggregate=="Age/HIVStatus" & resultstatus %in% c("Positive", "Negative") & numeratordenom=="N"), fy2018_targets, 0), 
@@ -227,7 +227,7 @@
         prep_new_T = ifelse((indicator=="PrEP_NEW" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
         tb_art_D = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
         tb_art = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
-        tb_art_already = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
+        tb_art_already = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="NewExistingArt/HIVStatus" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
         tb_art_D_T = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2018_targets, 0), 
         tb_art_T = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
         tb_prev_D = ifelse((indicator=="TB_PREV" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
@@ -240,7 +240,7 @@
         tb_stat_pos = ifelse((indicator=="TB_STAT_POS" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
         tb_stat_T = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
         tb_stat_yield = 0, 
-        tb_stat_knownpos = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Age/Sex/KnownNewPosNeg" & resultstatus=="Positive" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"), fy2017apr, 0), 
+        tb_stat_knownpos = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Age Aggregated/Sex/KnownNewPosNeg" & resultstatus=="Positive" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"), fy2017apr, 0), 
         tx_tb_D = ifelse((indicator=="TX_TB" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
         tx_tb_D_T = ifelse((indicator=="TX_TB" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2018_targets, 0), 
         tx_curr = ifelse((indicator=="TX_CURR" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
@@ -263,11 +263,12 @@
         tx_ret_u15 = ifelse((indicator=="TX_RET" & standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex") & age %in% c("<01", "01-09", "10-14") & numeratordenom=="N"), fy2017apr, 0), 
         tx_ret_u15_yield = 0, 
         vmmc_circ = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
-        vmmc_circ_pos = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="HIVStatus" & resultstatus=="Positive" & numeratordenom=="N"), fy2017apr, 0), 
-        vmmc_circ_neg = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="HIVStatus" & resultstatus=="Negative" & numeratordenom=="N"), fy2017apr, 0), 
+        vmmc_circ_pos = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="HIVStatus/Sex" & resultstatus=="Positive" & numeratordenom=="N"), fy2017apr, 0), 
+        vmmc_circ_neg = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="HIVStatus/Sex" & resultstatus=="Negative" & numeratordenom=="N"), fy2017apr, 0), 
         vmmc_circ_T = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
         vmmc_circ_rng_T = ifelse((indicator=="VMMC_CIRC" & standardizeddisaggregate=="Age" & age %in% c("15-19", "20-24", "25-29") & numeratordenom=="N"), fy2018_targets, 0), 
         vmmc_circ_subnat = ifelse((indicator=="VMMC_CIRC_SUBNAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0))
+    
     
 
 ## AGGREGATE TO PSNU LEVEL ----------------------------------------------------------------------------------------

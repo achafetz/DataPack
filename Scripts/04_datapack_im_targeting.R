@@ -3,7 +3,7 @@
 ##   Purpose: generate output for IM targeting in Data Pack
 ##   Adopted from COP17 Stata code
 ##   Date: October 19, 2017
-##   Updated: 2/08
+##   Updated: 2/13
 
 ## DEPENDENCIES
   # run 00_datapack_initialize.R
@@ -60,7 +60,7 @@
 
 ## MECH DISTRIBUTION ---------------------------------------------------------------------------------------
 # output formulas created in Data Pack template (POPsubsetIM sheet)
-# updated 02/05
+# updated 02/13
 
     df_mechdistro <- df_mechdistro %>%
       mutate(
@@ -79,19 +79,19 @@
         pmtct_stat_newneg = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Age/KnownNewResult" & resultstatus=="Negative" & otherdisaggregate=="Newly Identified" & numeratordenom=="N"), fy2017apr, 0), 
         pmtct_stat_known = ifelse((indicator=="PMTCT_STAT" & standardizeddisaggregate=="Age/KnownNewResult" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"), fy2017apr, 0), 
         pmtct_art = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
-        pmtct_art_new = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART New" & numeratordenom=="N"), fy2017apr, 0), 
-        pmtct_art_already = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
+        pmtct_art_new = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt/HIVStatus" & otherdisaggregate=="Life-long ART New" & numeratordenom=="N"), fy2017apr, 0), 
+        pmtct_art_already = ifelse((indicator=="PMTCT_ART" & standardizeddisaggregate=="NewExistingArt/HIVStatus" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
         pmtct_eid = ifelse((indicator=="PMTCT_EID" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
         pmtct_eid_u2mo = ifelse((indicator=="PMTCT_EID" & standardizeddisaggregate=="Age/HIVStatus" & age=="<2 months" & numeratordenom=="N"), fy2017apr, 0), 
         pmtct_eid_o2mo = ifelse((indicator=="PMTCT_EID" & standardizeddisaggregate=="Age/HIVStatus" & age=="[months] 02-12" & numeratordenom=="N"), fy2017apr, 0), 
         tb_stat_D = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
         tb_stat = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
-        tb_stat_newpos = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Age/Sex/KnownNewPosNeg" & resultstatus=="Positive" & otherdisaggregate=="Newly Identified" & numeratordenom=="N"), fy2017apr, 0), 
-        tb_stat_newneg = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Age/Sex/KnownNewPosNeg" & resultstatus=="Negative" & otherdisaggregate=="Newly Identified" & numeratordenom=="N"), fy2017apr, 0), 
-        tb_stat_known = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Age/Sex/KnownNewPosNeg" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"), fy2017apr, 0), 
+        tb_stat_newpos = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Age Aggregated/Sex/KnownNewPosNeg" & resultstatus=="Positive" & otherdisaggregate=="Newly Identified" & numeratordenom=="N"), fy2017apr, 0), 
+        tb_stat_newneg = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Age Aggregated/Sex/KnownNewPosNeg" & resultstatus=="Negative" & otherdisaggregate=="Newly Identified" & numeratordenom=="N"), fy2017apr, 0), 
+        tb_stat_known = ifelse((indicator=="TB_STAT" & standardizeddisaggregate=="Age Aggregated/Sex/KnownNewPosNeg" & otherdisaggregate=="Known at Entry" & numeratordenom=="N"), fy2017apr, 0), 
         tb_art = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
-        tb_art_new = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART New" & numeratordenom=="N"), fy2017apr, 0), 
-        tb_art_already = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="NewExistingArt" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
+        tb_art_new = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="NewExistingArt/HIVStatus" & otherdisaggregate=="Life-long ART New" & numeratordenom=="N"), fy2017apr, 0), 
+        tb_art_already = ifelse((indicator=="TB_ART" & standardizeddisaggregate=="NewExistingArt/HIVStatus" & otherdisaggregate=="Life-long ART Already" & numeratordenom=="N"), fy2017apr, 0), 
         tx_tb_D = ifelse((indicator=="TX_TB" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
         tb_prev_D = ifelse((indicator=="TB_PREV" & standardizeddisaggregate=="Total Denominator" & numeratordenom=="D"), fy2017apr, 0), 
         tb_prev = ifelse((indicator=="TB_PREV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
