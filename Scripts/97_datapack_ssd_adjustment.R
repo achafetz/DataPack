@@ -43,6 +43,9 @@ add_ssd_fv <- function(df, type) {
     }
   #PSNUxIM should convert mech ID to int
     if(type == "PSNUxIM"){
+      df_ssd <- df_ssd %>% 
+        mutate(mechanismid = as.character(mechanismid))
+      
       df <- df %>% 
         #mutate(mechanismid = as.integer(mechanismid))
         mutate(mechanismid = as.character(mechanismid))
