@@ -179,30 +179,30 @@ HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Negative		TBClinic	N	A_hts_
 HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Negative		TBClinic	N	A_hts_tst_tbclinic_2024_m_neg
 HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Negative		TBClinic	N	A_hts_tst_tbclinic_o50_f_neg
 HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Negative		TBClinic	N	A_hts_tst_tbclinic_o50_m_neg
-HTS_TST	Modality/AgeLessThanTen/Result	Male	<01	Positive		VMMC	N	A_hts_tst_vmmc_u1_m_pos
-HTS_TST	Modality/AgeLessThanTen/Result	Male	01-09	Positive		VMMC	N	A_hts_tst_vmmc_0109_m_pos
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Positive		VMMC	N	A_hts_tst_vmmc_1014_m_pos
-HTS_TST	Modality/AgeLessThanTen/Result	Male	<01	Negative		VMMC	N	A_hts_tst_vmmc_u1_m_neg
-HTS_TST	Modality/AgeLessThanTen/Result	Male	01-09	Negative		VMMC	N	A_hts_tst_vmmc_0109_m_neg
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	10-14	Negative		VMMC	N	A_hts_tst_vmmc_1014_m_neg
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Positive		VMMC	N	A_hts_tst_vmmc_1519_m_pos
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Positive		VMMC	N	A_hts_tst_vmmc_2024_m_pos
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Positive		VMMC	N	A_hts_tst_vmmc_o50_m_pos
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	15-19	Negative		VMMC	N	A_hts_tst_vmmc_1519_m_neg
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	20-24	Negative		VMMC	N	A_hts_tst_vmmc_2024_m_neg
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Male	50+	Negative		VMMC	N	A_hts_tst_vmmc_o50_m_neg
-HTS_TST	Modality/AgeLessThanTen/Result	Female	<01	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_u1_f_pos
-HTS_TST	Modality/AgeLessThanTen/Result	Female	01-09	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_0109_f_pos
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_1014_f_pos
-HTS_TST	Modality/AgeLessThanTen/Result	Female	<01	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_u1_f_neg
-HTS_TST	Modality/AgeLessThanTen/Result	Female	01-09	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_0109_f_neg
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	10-14	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_1014_f_neg
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_1519_f_pos
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_2024_f_pos
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_o50_f_pos
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	15-19	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_1519_f_neg
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	20-24	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_2024_f_neg
-HTS_TST	Modality/AgeAboveTen/Sex/Result	Female	50+	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_o50_f_neg
+HTS_TST	VMMC/Age/Result		<01	Positive		VMMC	N	A_hts_tst_vmmc_u1_m_pos
+HTS_TST	VMMC/Age/Result		01-09	Positive		VMMC	N	A_hts_tst_vmmc_0109_m_pos
+HTS_TST	VMMC/Age/Result		10-14	Positive		VMMC	N	A_hts_tst_vmmc_1014_m_pos
+HTS_TST	VMMC/Age/Result		<01	Negative		VMMC	N	A_hts_tst_vmmc_u1_m_neg
+HTS_TST	VMMC/Age/Result		01-09	Negative		VMMC	N	A_hts_tst_vmmc_0109_m_neg
+HTS_TST	VMMC/Age/Result		10-14	Negative		VMMC	N	A_hts_tst_vmmc_1014_m_neg
+HTS_TST	VMMC/Age/Result		15-19	Positive		VMMC	N	A_hts_tst_vmmc_1519_m_pos
+HTS_TST	VMMC/Age/Result		20-24	Positive		VMMC	N	A_hts_tst_vmmc_2024_m_pos
+HTS_TST	VMMC/Age/Result		50+	Positive		VMMC	N	A_hts_tst_vmmc_o50_m_pos
+HTS_TST	VMMC/Age/Result		15-19	Negative		VMMC	N	A_hts_tst_vmmc_1519_m_neg
+HTS_TST	VMMC/Age/Result		20-24	Negative		VMMC	N	A_hts_tst_vmmc_2024_m_neg
+HTS_TST	VMMC/Age/Result		50+	Negative		VMMC	N	A_hts_tst_vmmc_o50_m_neg
+HTS_TST	PMTCT ANC/Age/Result		<01	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_u1_f_pos
+HTS_TST	PMTCT ANC/Age/Result		01-09	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_0109_f_pos
+HTS_TST	PMTCT ANC/Age/Result		10-14	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_1014_f_pos
+HTS_TST	PMTCT ANC/Age/Result		<01	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_u1_f_neg
+HTS_TST	PMTCT ANC/Age/Result		01-09	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_0109_f_neg
+HTS_TST	PMTCT ANC/Age/Result		10-14	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_1014_f_neg
+HTS_TST	PMTCT ANC/Age/Result		15-19	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_1519_f_pos
+HTS_TST	PMTCT ANC/Age/Result		20-24	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_2024_f_pos
+HTS_TST	PMTCT ANC/Age/Result		50+	Positive		PMTCT ANC	N	A_hts_tst_pmtctanc_o50_f_pos
+HTS_TST	PMTCT ANC/Age/Result		15-19	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_1519_f_neg
+HTS_TST	PMTCT ANC/Age/Result		20-24	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_2024_f_neg
+HTS_TST	PMTCT ANC/Age/Result		50+	Negative		PMTCT ANC	N	A_hts_tst_pmtctanc_o50_f_neg
 HTS_TST	KeyPop/Result			Positive	FSW	KeyPop	N	A_hts_tst_keypop_fsw_pos
 HTS_TST	KeyPop/Result			Positive	MSM	KeyPop	N	A_hts_tst_keypop_msm_pos
 HTS_TST	KeyPop/Result			Positive	People in prisons and other enclosed settings	KeyPop	N	A_hts_tst_keypop_prison_pos

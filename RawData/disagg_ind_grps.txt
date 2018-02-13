@@ -143,14 +143,14 @@ TB_ART	AgeAboveTen/Sex	Male	25-49				N	A_tb_art_o15_m_pos
 TB_ART	AgeAboveTen/Sex	Male	50+				N	A_tb_art_o15_m_pos
 TB_ART	NewExistingArt				Life-long ART Already		N	A_tb_art_already
 TB_ART	NewExistingArt				Life-long ART New		N	A_tb_art_new
-TB_PREV	Aggregated Age/Sex	Female	<15				D	A_tb_prev_D_u15_f_pos
-TB_PREV	Aggregated Age/Sex	Male	<15				D	A_tb_prev_D_u15_m_pos
-TB_PREV	Aggregated Age/Sex	Female	15+				D	A_tb_prev_D_o15_f_pos
-TB_PREV	Aggregated Age/Sex	Male	15+				D	A_tb_prev_D_o15_m_pos
-TB_PREV	Aggregated Age/Sex	Female	<15				N	A_tb_prev_u15_f_pos
-TB_PREV	Aggregated Age/Sex	Male	<15				N	A_tb_prev_u15_m_pos
-TB_PREV	Aggregated Age/Sex	Female	15+				N	A_tb_prev_o15_f_pos
-TB_PREV	Aggregated Age/Sex	Male	15+				N	A_tb_prev_o15_m_pos
+TB_PREV	Age Aggregated/Sex	Female	<15				D	A_tb_prev_D_u15_f_pos
+TB_PREV	Age Aggregated/Sex	Male	<15				D	A_tb_prev_D_u15_m_pos
+TB_PREV	Age Aggregated/Sex	Female	15+				D	A_tb_prev_D_o15_f_pos
+TB_PREV	Age Aggregated/Sex	Male	15+				D	A_tb_prev_D_o15_m_pos
+TB_PREV	Age Aggregated/Sex	Female	<15				N	A_tb_prev_u15_f_pos
+TB_PREV	Age Aggregated/Sex	Male	<15				N	A_tb_prev_u15_m_pos
+TB_PREV	Age Aggregated/Sex	Female	15+				N	A_tb_prev_o15_f_pos
+TB_PREV	Age Aggregated/Sex	Male	15+				N	A_tb_prev_o15_m_pos
 TX_CURR	AgeLessThanTen		<01				N	A_tx_curr_u1_unk_pos
 TX_CURR	AgeLessThanTen		01-09				N	A_tx_curr_0109_unk_pos
 TX_CURR	AgeAboveTen/Sex	Female	10-14				N	A_tx_curr_1014_f_pos
@@ -178,21 +178,21 @@ TX_NEW	KeyPop				PWID		N	A_tx_new_pwid_pos
 TX_NEW	KeyPop				TG		N	A_tx_new_tg_pos
 TX_NEW	Preg/Feeding				Breastfeeding		N	A_tx_new_bf_pos
 TX_NEW	Preg/Feeding				Pregnant		N	A_tx_new_preg_pos
-TX_PVLS	Aggregated Age/Sex/Indication	Female	<15		Routine		D	A_tx_pvls_D_u15_f_rtn
-TX_PVLS	Aggregated Age/Sex/Indication	Female	<15		Targeted		D	A_tx_pvls_D_u15_f_targeted
-TX_PVLS	Aggregated Age/Sex/Indication	Female	<15		Undocumented Test Indication		D	A_tx_pvls_D_u15_f_undoctest
-TX_PVLS	Aggregated Age/Sex/Indication	Male	<15		Routine		D	A_tx_pvls_D_u15_m_rtn
-TX_PVLS	Aggregated Age/Sex/Indication	Male	<15		Targeted		D	A_tx_pvls_D_u15_m_targeted
-TX_PVLS	Aggregated Age/Sex/Indication	Male	<15		Undocumented Test Indication		D	A_tx_pvls_D_u15_m_undoctest
-TX_PVLS	Aggregated Age/Sex/Indication	Female	15+		Routine		D	A_tx_pvls_D_o15_f_rtn
-TX_PVLS	Aggregated Age/Sex/Indication	Female	15+		Targeted		D	A_tx_pvls_D_o15_f_targeted
-TX_PVLS	Aggregated Age/Sex/Indication	Female	15+		Undocumented Test Indication		D	A_tx_pvls_D_o15_f_undoctest
-TX_PVLS	Aggregated Age/Sex/Indication	Male	15+		Routine		D	A_tx_pvls_D_o15_m_rtn
-TX_PVLS	Aggregated Age/Sex/Indication	Male	15+		Targeted		D	A_tx_pvls_D_o15_m_targeted
-TX_PVLS	Aggregated Age/Sex/Indication	Male	15+		Undocumented Test Indication		D	A_tx_pvls_D_o15_m_undoctest
-TX_PVLS	RoutineTargeted				Routine		D	A_tx_pvls_D_rtn_pos
-TX_PVLS	RoutineTargeted				Targeted		D	A_tx_pvls_D_targeted_pos
-TX_PVLS	RoutineTargeted				Undocumented Test Indication		D	A_tx_pvls_D_undoctest_pos
+TX_PVLS	Age Aggregated/Sex/Indication/HIVStatus	Female	<15	Positive	Routine		D	A_tx_pvls_D_u15_f_rtn
+TX_PVLS	Age Aggregated/Sex/Indication/HIVStatus	Female	<15	Positive	Targeted		D	A_tx_pvls_D_u15_f_targeted
+TX_PVLS	Age Aggregated/Sex/Indication/HIVStatus	Female	<15	Positive	Undocumented Test Indication		D	A_tx_pvls_D_u15_f_undoctest
+TX_PVLS	Age Aggregated/Sex/Indication/HIVStatus	Male	<15	Positive	Routine		D	A_tx_pvls_D_u15_m_rtn
+TX_PVLS	Age Aggregated/Sex/Indication/HIVStatus	Male	<15	Positive	Targeted		D	A_tx_pvls_D_u15_m_targeted
+TX_PVLS	Age Aggregated/Sex/Indication/HIVStatus	Male	<15	Positive	Undocumented Test Indication		D	A_tx_pvls_D_u15_m_undoctest
+TX_PVLS	Age Aggregated/Sex/Indication/HIVStatus	Female	15+	Positive	Routine		D	A_tx_pvls_D_o15_f_rtn
+TX_PVLS	Age Aggregated/Sex/Indication/HIVStatus	Female	15+	Positive	Targeted		D	A_tx_pvls_D_o15_f_targeted
+TX_PVLS	Age Aggregated/Sex/Indication/HIVStatus	Female	15+	Positive	Undocumented Test Indication		D	A_tx_pvls_D_o15_f_undoctest
+TX_PVLS	Age Aggregated/Sex/Indication/HIVStatus	Male	15+	Positive	Routine		D	A_tx_pvls_D_o15_m_rtn
+TX_PVLS	Age Aggregated/Sex/Indication/HIVStatus	Male	15+	Positive	Targeted		D	A_tx_pvls_D_o15_m_targeted
+TX_PVLS	Age Aggregated/Sex/Indication/HIVStatus	Male	15+	Positive	Undocumented Test Indication		D	A_tx_pvls_D_o15_m_undoctest
+TX_PVLS	RoutineTargeted/HIVStatus			Positive	Routine		D	A_tx_pvls_D_rtn_pos
+TX_PVLS	RoutineTargeted/HIVStatus			Positive	Targeted		D	A_tx_pvls_D_targeted_pos
+TX_PVLS	RoutineTargeted/HIVStatus			Positive	Undocumented Test Indication		D	A_tx_pvls_D_undoctest_pos
 TX_RET	AgeAboveTen/Sex	Female	15-19				D	A_tx_ret_D_o15_f_pos
 TX_RET	AgeAboveTen/Sex	Male	15-19				D	A_tx_ret_D_o15_m_pos
 TX_RET	AgeAboveTen/Sex	Female	20-24				D	A_tx_ret_D_o15_f_pos
@@ -218,9 +218,9 @@ TX_TB	Aggregated Age/Sex	Male	<15				D	A_tx_tb_D_u15_m_pos
 TX_TB	Aggregated Age/Sex	Female	15+				D	A_tx_tb_D_o15_f_pos
 TX_TB	Aggregated Age/Sex	Male	15+				D	A_tx_tb_D_o15_m_pos
 TX_TB	Specimen Sent						D	A_tx_tb_D_sent_pos
-TX_TB	TB Test Type				Other		D	A_tx_tb_D_oth_pos
-TX_TB	TB Test Type				Smear		D	A_tx_tb_D_smear_pos
-TX_TB	TB Test Type				Xpert		D	A_tx_tb_D_xpert_pos
+TX_TB	TB Test Type/HIVStatus			Positive	Other		D	A_tx_tb_D_oth_pos
+TX_TB	TB Test Type/HIVStatus			Positive	Smear		D	A_tx_tb_D_smear_pos
+TX_TB	TB Test Type/HIVStatus			Positive	Xpert		D	A_tx_tb_D_xpert_pos
 VMMC_CIRC	Age		15-19				N	A_vmmc_circ_1519_m
 VMMC_CIRC	Age		20-24				N	A_vmmc_circ_2024_m
 VMMC_CIRC	Age		25-29				N	A_vmmc_circ_2529_m
@@ -228,5 +228,5 @@ VMMC_CIRC	Age		<2 months				N	A_vmmc_circ_u02mo_m
 VMMC_CIRC	Age		02 months - 09 years				N	A_vmmc_circ_02mo9_m
 VMMC_CIRC	Age		10-14				N	A_vmmc_circ_1014_m
 VMMC_CIRC	Age		50+				N	A_vmmc_circ_o50_m
-VMMC_CIRC	Technique				Device based		N	A_vmmc_circ_device_m
-VMMC_CIRC	Technique				Surgical Technique		N	A_vmmc_circ_surg_m
+VMMC_CIRC	Technique/Sex	Male			Device based		N	A_vmmc_circ_device_m
+VMMC_CIRC	Technique/Sex	Male			Surgical Technique		N	A_vmmc_circ_surg_m

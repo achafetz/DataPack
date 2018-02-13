@@ -127,7 +127,7 @@
       filter(!otherdisaggregate %in% c("Unknown Sex", "Known at Entry  Unknown Sex", "Newly Identified  Unknown Sex",
                                       "Undocumented Test Indication Unknown Sex", "Routine Unknown Sex")) %>% #remove any unknown sex from group
       mutate(standardizeddisaggregate = ifelse((standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex")), "Age/Sex", standardizeddisaggregate),
-             standardizeddisaggregate = ifelse((standardizeddisaggregate %in% c("Modality/AgeAboveTen/Sex/Result", "Modality/AgeLessThanTen/Result")), "Age/Sex/Result", standardizeddisaggregate)) %>%  #avoid issues of two groups for <15 (AgeLessThanTen & AgeAboveTen/Sex)
+             standardizeddisaggregate = ifelse((standardizeddisaggregate %in% c("Modality/AgeAboveTen/Sex/Result", "Modality/AgeLessThanTen/Result", "PMTCT ANC/Age/Result", "VMMC/Age/Result")), "Age/Sex/Result", standardizeddisaggregate)) %>%  #avoid issues of two groups for <15 (AgeLessThanTen & AgeAboveTen/Sex)
       mutate(grouping = standardizeddisaggregate,
              grouping = ifelse(indicator == "OVC_SERV" & standardizeddisaggregate == "Age/Sex/Service", paste(standardizeddisaggregate, otherdisaggregate, sep = " - "), grouping),
              grouping = ifelse(indicator == "OVC_SERV" & standardizeddisaggregate == "Age/Sex" & (age %in% c("<01", "01-09", "10-14", "15-17")), paste(standardizeddisaggregate, "<18", sep = " - "), grouping),
