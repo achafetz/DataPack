@@ -257,7 +257,9 @@
              D_kp_mat_pct, D_gend_gbv_pct, D_prep_new_pct
       ) %>% 
       arrange(operatingunit, psnu, mechanismid, indicatortype)
-
+  
+  #review to ensure all variables were actally created
+    #skimr::skim(df_mechdistro)
 
 ## EXPORT -----------------------------------------------------------------------------------------------------  
 

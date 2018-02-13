@@ -2,7 +2,7 @@
 ##   A.Chafetz, USAID
 ##   Purpose: recreate South Sudan dataset to include Q1 and Q2 (missing in DATIm)
 ##   Date: 
-##   Updated: 2/6/18
+##   Updated: 2/13/18
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -38,13 +38,14 @@ add_ssd_fv <- function(df, type) {
       mutate(mechanismid = as.character(mechanismid)) %>% 
       group_by_if(is.character) %>% 
       summarise_if(is.numeric, ~ sum(., na.rm = TRUE)) %>% 
-      ungroup() %>% 
-      mutate(mechanismid = as.integer(mechanismid))
+      ungroup() 
+      # %>% mutate(mechanismid = as.integer(mechanismid))
     }
   #PSNUxIM should convert mech ID to int
     if(type == "PSNUxIM"){
       df <- df %>% 
-        mutate(mechanismid = as.integer(mechanismid))
+        #mutate(mechanismid = as.integer(mechanismid))
+        mutate(mechanismid = as.character(mechanismid))
     }
 
 #remove old data except fy18_targets which are missing from fix
