@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 1/9
+##   Updated: 2/13
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
@@ -19,7 +19,7 @@
       df_keyindtbl <- df_keyindtbl %>%
         filter((indicator %in% c("PLHIV", "HTS_TST", "HTS_TST_POS", "TB_ART", "TX_CURR", "TX_NEW",
                                  "VMMC_CIRC") & standardizeddisaggregate == "Total Numerator") |
-               (indicator=="PMTCT_ART" & standardizeddisaggregate == "NewExistingArt")) %>%
+               (indicator=="PMTCT_ART" & standardizeddisaggregate == "NewExistingArt/HIVStatus")) %>%
         
     #aggregate
         group_by(operatingunit, snulist, psnuuid, priority_snu, indicator) %>%
