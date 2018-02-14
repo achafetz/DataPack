@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 2/13
+##   Updated: 2/14
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -49,22 +49,7 @@
 
 ## AGGREGATE TO PSNU X DISAGGS LEVEL ------------------------------------------------------------------------------
       
-  #OVC Total Numerator Creation
-    df_ovc <- df_indtbl %>% 
-      #total numerator = sum of all program status -> filter
-      filter(indicator=="OVC_SERV" & standardizeddisaggregate == "ProgramStatus") %>% 
-      #group up to OUxIMxType level & summarize (will need to change grouping for different datasets)
-      group_by(operatingunit, snu1, psnu, psnuuid, currentsnuprioritization, typemilitary, indicator, numeratordenom) %>% 
-      summarize_at(vars(fy2017apr), funs(sum(., na.rm = TRUE))) %>% 
-      ungroup() %>% 
-      #add standardized disagg
-      add_column(standardizeddisaggregate = "Total Numerator", .before = "numeratordenom")
-    
-  #add total numerator onto OUxIM
-      df_indtbl <- bind_rows(df_indtbl, df_ovc) 
-      rm(df_ovc)
-
-  #have to aggregate here; otherwise variable generation vector (next section) is too large to run
+   #have to aggregate here; otherwise variable generation vector (next section) is too large to run
     df_indtbl <- df_indtbl %>%
       filter(is.na(typemilitary)) %>% #remove military data (will only use placeholders in the data pack)
       group_by(operatingunit, snu1, psnu, psnuuid, currentsnuprioritization, indicator, standardizeddisaggregate, 

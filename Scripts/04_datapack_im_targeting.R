@@ -3,7 +3,7 @@
 ##   Purpose: generate output for IM targeting in Data Pack
 ##   Adopted from COP17 Stata code
 ##   Date: October 19, 2017
-##   Updated: 2/13
+##   Updated: 2/14
 
 ## DEPENDENCIES
   # run 00_datapack_initialize.R
@@ -31,20 +31,6 @@
 
     rm(cleanup_mechs, cleanup_snus, cluster_snus)
 
-  #OVC Total Numerator Creation
-    df_ovc <- df_mechdistro %>% 
-      #total numerator = sum of all program status -> filter
-      filter(indicator=="OVC_SERV" & standardizeddisaggregate == "ProgramStatus") %>% 
-      #group up to OUxIMxType level & summarize (will need to change grouping for different datasets)
-      group_by(operatingunit, snu1, psnu, psnuuid, mechanismid, currentsnuprioritization, typemilitary, indicator, indicatortype, numeratordenom) %>% 
-      summarize_at(vars(fy2017apr), funs(sum(., na.rm = TRUE))) %>% 
-      ungroup() %>% 
-      #add standardized disagg
-      add_column(standardizeddisaggregate = "Total Numerator", .before = "numeratordenom")
-    
-  #add total numerator onto OUxIM
-    df_mechdistro <- bind_rows(df_mechdistro, df_ovc) 
-    rm(df_ovc)  
 
 ## DEDUPLICATION -------------------------------------------------------------------------------------------
 #create a deduplication mechanism for every SNU
