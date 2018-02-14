@@ -8,7 +8,7 @@ In many countries, it may be important to add new or missing IMs to the data pac
 4.	In the new mechanism row, change the mechanism number and type (DSD or TA)
     *	Columns E and F
     *	Mechanism number is from the **_Mechs List-R_** tab of the **_FAST_**.
-    *	If you are adding both DSD and TA for a mechanism, this needs to be two separate rows.
+    * If you are adding both DSD and TA for a mechanism, this needs to be two separate rows.
 5.	In the new mechanism row, delete all the values in columns G through DO.
     * Do not touch the values in columns DP through HX
     *	You will know you have done this if the values in row 5 are 100%.
@@ -16,7 +16,7 @@ In many countries, it may be important to add new or missing IMs to the data pac
     * Make changes directly in columns DP through HX
     * Make sure your mechanisms add up to 100% (row 5)
 7.	Targets will update automatically
-    *	Columns DP through HX
+    * Columns DP through HX
 9.	Go to “IM Summary” tab
 10.	Copy any row from the list of mechanisms and “Insert Paste Row” (or "Insert Copied Cells")
     *	Do this in the middle of the list of mechanisms, not at the beginning or end.
