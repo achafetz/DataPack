@@ -166,7 +166,7 @@
         kp_mat = ifelse((indicator=="KP_MAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
         kp_mat_T = ifelse((indicator=="KP_MAT" & standardizeddisaggregate=="Sex" & numeratordenom=="N"), fy2018_targets, 0), 
         ovc_serv = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
-        ovc_serv_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="ProgramStatus" & numeratordenom=="N"), fy2018_targets, 0), 
+        ovc_serv_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
         ovc_serv_u18 = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex") & age %in% c("<01", "01-09", "10-14", "15-17") & numeratordenom=="N"), fy2017apr, 0), 
         ovc_serv_u18_T = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate %in% c("AgeLessThanTen", "AgeAboveTen/Sex") & age %in% c("<01", "01-09", "10-14", "15-17") & numeratordenom=="N"), fy2018_targets, 0), 
         ovc_serv_grad = ifelse((indicator=="OVC_SERV" & standardizeddisaggregate=="ProgramStatus" & otherdisaggregate=="Graduated" & numeratordenom=="N"), fy2017apr, 0), 
