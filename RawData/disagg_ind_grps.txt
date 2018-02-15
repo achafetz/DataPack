@@ -117,22 +117,22 @@ PrEP_NEW	Age/Sex	Male	50+				N	A_prep_new_o50_m
 PrEP_NEW	KeyPopAbr				FSW		N	A_prep_new_fsw
 PrEP_NEW	KeyPopAbr				MSM		N	A_prep_new_msm
 PrEP_NEW	KeyPopAbr				TG		N	A_prep_new_tg
-TB_STAT	Aggregated Age/Sex	Female	<15				D	A_tb_stat_D_u15_f
-TB_STAT	Aggregated Age/Sex	Male	<15				D	A_tb_stat_D_u15_m
-TB_STAT	Aggregated Age/Sex	Female	15+				D	A_tb_stat_D_o15_f
-TB_STAT	Aggregated Age/Sex	Male	15+				D	A_tb_stat_D_o15_m
-TB_STAT	Age/Sex/KnownNewPosNeg	Female	<15	Positive	Known at Entry		N	A_tb_stat_u15_f
-TB_STAT	Age/Sex/KnownNewPosNeg	Male	<15	Positive	Known at Entry		N	A_tb_stat_u15_m
-TB_STAT	Age/Sex/KnownNewPosNeg	Female	15+	Positive	Known at Entry		N	A_tb_stat_o15_f
-TB_STAT	Age/Sex/KnownNewPosNeg	Male	15+	Positive	Known at Entry		N	A_tb_stat_o15_m
-TB_STAT	Age/Sex/KnownNewPosNeg	Female	<15	Positive	Newly Identified		N	A_tb_stat_u15_f
-TB_STAT	Age/Sex/KnownNewPosNeg	Male	<15	Positive	Newly Identified		N	A_tb_stat_u15_m
-TB_STAT	Age/Sex/KnownNewPosNeg	Female	15+	Positive	Newly Identified		N	A_tb_stat_o15_f
-TB_STAT	Age/Sex/KnownNewPosNeg	Male	15+	Positive	Newly Identified		N	A_tb_stat_o15_m
-TB_STAT	Age/Sex/KnownNewPosNeg	Female	<15	Negative	Newly Identified		N	A_tb_stat_u15_f
-TB_STAT	Age/Sex/KnownNewPosNeg	Male	<15	Negative	Newly Identified		N	A_tb_stat_u15_m
-TB_STAT	Age/Sex/KnownNewPosNeg	Female	15+	Negative	Newly Identified		N	A_tb_stat_o15_f
-TB_STAT	Age/Sex/KnownNewPosNeg	Male	15+	Negative	Newly Identified		N	A_tb_stat_o15_m
+TB_STAT	Age Aggregated/Sex	Female	<15				D	A_tb_stat_D_u15_f
+TB_STAT	Age Aggregated/Sex	Male	<15				D	A_tb_stat_D_u15_m
+TB_STAT	Age Aggregated/Sex	Female	15+				D	A_tb_stat_D_o15_f
+TB_STAT	Age Aggregated/Sex	Male	15+				D	A_tb_stat_D_o15_m
+TB_STAT	Age Aggregated/Sex/KnownNewPosNeg	Female	<15	Positive	Known at Entry		N	A_tb_stat_u15_f
+TB_STAT	Age Aggregated/Sex/KnownNewPosNeg	Male	<15	Positive	Known at Entry		N	A_tb_stat_u15_m
+TB_STAT	Age Aggregated/Sex/KnownNewPosNeg	Female	15+	Positive	Known at Entry		N	A_tb_stat_o15_f
+TB_STAT	Age Aggregated/Sex/KnownNewPosNeg	Male	15+	Positive	Known at Entry		N	A_tb_stat_o15_m
+TB_STAT	Age Aggregated/Sex/KnownNewPosNeg	Female	<15	Positive	Newly Identified		N	A_tb_stat_u15_f
+TB_STAT	Age Aggregated/Sex/KnownNewPosNeg	Male	<15	Positive	Newly Identified		N	A_tb_stat_u15_m
+TB_STAT	Age Aggregated/Sex/KnownNewPosNeg	Female	15+	Positive	Newly Identified		N	A_tb_stat_o15_f
+TB_STAT	Age Aggregated/Sex/KnownNewPosNeg	Male	15+	Positive	Newly Identified		N	A_tb_stat_o15_m
+TB_STAT	Age Aggregated/Sex/KnownNewPosNeg	Female	<15	Negative	Newly Identified		N	A_tb_stat_u15_f
+TB_STAT	Age Aggregated/Sex/KnownNewPosNeg	Male	<15	Negative	Newly Identified		N	A_tb_stat_u15_m
+TB_STAT	Age Aggregated/Sex/KnownNewPosNeg	Female	15+	Negative	Newly Identified		N	A_tb_stat_o15_f
+TB_STAT	Age Aggregated/Sex/KnownNewPosNeg	Male	15+	Negative	Newly Identified		N	A_tb_stat_o15_m
 TB_ART	AgeAboveTen/Sex	Female	15-19				N	A_tb_art_o15_f_pos
 TB_ART	AgeAboveTen/Sex	Female	20-24				N	A_tb_art_o15_f_pos
 TB_ART	AgeAboveTen/Sex	Female	25-49				N	A_tb_art_o15_f_pos
@@ -141,8 +141,8 @@ TB_ART	AgeAboveTen/Sex	Male	15-19				N	A_tb_art_o15_m_pos
 TB_ART	AgeAboveTen/Sex	Male	20-24				N	A_tb_art_o15_m_pos
 TB_ART	AgeAboveTen/Sex	Male	25-49				N	A_tb_art_o15_m_pos
 TB_ART	AgeAboveTen/Sex	Male	50+				N	A_tb_art_o15_m_pos
-TB_ART	NewExistingArt				Life-long ART Already		N	A_tb_art_already
-TB_ART	NewExistingArt				Life-long ART New		N	A_tb_art_new
+TB_ART	NewExistingArt/HIVStatus			Positive	Life-long ART Already		N	A_tb_art_already
+TB_ART	NewExistingArt/HIVStatus			Positive	Life-long ART New		N	A_tb_art_new
 TB_PREV	Age Aggregated/Sex	Female	<15				D	A_tb_prev_D_u15_f_pos
 TB_PREV	Age Aggregated/Sex	Male	<15				D	A_tb_prev_D_u15_m_pos
 TB_PREV	Age Aggregated/Sex	Female	15+				D	A_tb_prev_D_o15_f_pos
@@ -176,8 +176,8 @@ TX_NEW	KeyPop				MSM		N	A_tx_new_msm_pos
 TX_NEW	KeyPop				People in prisons and other enclosed settings		N	A_tx_new_prison_pos
 TX_NEW	KeyPop				PWID		N	A_tx_new_pwid_pos
 TX_NEW	KeyPop				TG		N	A_tx_new_tg_pos
-TX_NEW	Preg/Feeding				Breastfeeding		N	A_tx_new_bf_pos
-TX_NEW	Preg/Feeding				Pregnant		N	A_tx_new_preg_pos
+TX_NEW	PregnantOrBreastfeeding/HIVStatus			Positive	Breastfeeding		N	A_tx_new_bf_pos
+TX_NEW	PregnantOrBreastfeeding/HIVStatus			Positive	Pregnant		N	A_tx_new_preg_pos
 TX_PVLS	Age Aggregated/Sex/Indication/HIVStatus	Female	<15	Positive	Routine		D	A_tx_pvls_D_u15_f_rtn
 TX_PVLS	Age Aggregated/Sex/Indication/HIVStatus	Female	<15	Positive	Targeted		D	A_tx_pvls_D_u15_f_targeted
 TX_PVLS	Age Aggregated/Sex/Indication/HIVStatus	Female	<15	Positive	Undocumented Test Indication		D	A_tx_pvls_D_u15_f_undoctest
@@ -201,8 +201,8 @@ TX_RET	AgeAboveTen/Sex	Female	25-49				D	A_tx_ret_D_o15_f_pos
 TX_RET	AgeAboveTen/Sex	Male	25-49				D	A_tx_ret_D_o15_m_pos
 TX_RET	AgeAboveTen/Sex	Female	50+				D	A_tx_ret_D_o15_f_pos
 TX_RET	AgeAboveTen/Sex	Male	50+				D	A_tx_ret_D_o15_m_pos
-TX_RET	Preg/Feeding				Breastfeeding		D	A_tx_ret_D_bf_pos
-TX_RET	Preg/Feeding				Pregnant		D	A_tx_ret_D_preg_pos
+TX_RET	PregnantOrBreastfeeding/HIVStatus			Positive	Breastfeeding		D	A_tx_ret_D_bf_pos
+TX_RET	PregnantOrBreastfeeding/HIVStatus			Positive	Pregnant		D	A_tx_ret_D_preg_pos
 TX_RET	AgeAboveTen/Sex	Female	15-19				N	A_tx_ret_o15_f_pos
 TX_RET	AgeAboveTen/Sex	Male	15-19				N	A_tx_ret_o15_m_pos
 TX_RET	AgeAboveTen/Sex	Female	20-24				N	A_tx_ret_o15_f_pos
@@ -211,12 +211,12 @@ TX_RET	AgeAboveTen/Sex	Female	25-49				N	A_tx_ret_o15_f_pos
 TX_RET	AgeAboveTen/Sex	Male	25-49				N	A_tx_ret_o15_m_pos
 TX_RET	AgeAboveTen/Sex	Female	50+				N	A_tx_ret_o15_f_pos
 TX_RET	AgeAboveTen/Sex	Male	50+				N	A_tx_ret_o15_m_pos
-TX_RET	Preg/Feeding				Breastfeeding		N	A_tx_ret_bf_pos
-TX_RET	Preg/Feeding				Pregnant		N	A_tx_ret_preg_pos
-TX_TB	Aggregated Age/Sex	Female	<15				D	A_tx_tb_D_u15_f_pos
-TX_TB	Aggregated Age/Sex	Male	<15				D	A_tx_tb_D_u15_m_pos
-TX_TB	Aggregated Age/Sex	Female	15+				D	A_tx_tb_D_o15_f_pos
-TX_TB	Aggregated Age/Sex	Male	15+				D	A_tx_tb_D_o15_m_pos
+TX_RET	PregnantOrBreastfeeding/HIVStatus			Positive	Breastfeeding		N	A_tx_ret_bf_pos
+TX_RET	PregnantOrBreastfeeding/HIVStatus			Positive	Pregnant		N	A_tx_ret_preg_pos
+TX_TB	Age Aggregated/Sex	Female	<15				D	A_tx_tb_D_u15_f_pos
+TX_TB	Age Aggregated/Sex	Male	<15				D	A_tx_tb_D_u15_m_pos
+TX_TB	Age Aggregated/Sex	Female	15+				D	A_tx_tb_D_o15_f_pos
+TX_TB	Age Aggregated/Sex	Male	15+				D	A_tx_tb_D_o15_m_pos
 TX_TB	Specimen Sent						D	A_tx_tb_D_sent_pos
 TX_TB	TB Test Type/HIVStatus			Positive	Other		D	A_tx_tb_D_oth_pos
 TX_TB	TB Test Type/HIVStatus			Positive	Smear		D	A_tx_tb_D_smear_pos
