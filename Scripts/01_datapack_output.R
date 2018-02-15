@@ -82,7 +82,7 @@
 
 ## GENERATE VARIABLES/COLUMNS -------------------------------------------------------------------------------------
   # output formulas created in Data Pack template (POPsubset sheet)
-  # updated 2/14
+  # updated 2/15
   
     df_indtbl <- df_indtbl %>%
       mutate(

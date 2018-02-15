@@ -46,7 +46,7 @@
 
 ## MECH DISTRIBUTION ---------------------------------------------------------------------------------------
 # output formulas created in Data Pack template (POPsubsetIM sheet)
-# updated 02/13
+# updated 02/15
 
     df_mechdistro <- df_mechdistro %>%
       mutate(
@@ -163,6 +163,7 @@
         kp_mat = ifelse((indicator=="KP_MAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
         gend_gbv = ifelse((indicator=="GEND_GBV" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
         prep_new = ifelse((indicator=="PrEP_NEW" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0))
+    
     
     
     
