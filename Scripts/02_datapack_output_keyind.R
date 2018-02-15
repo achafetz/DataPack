@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 2/13
+##   Updated: 2018.02.13
 
 ## DEPENDENCIES
     # run 00_datapack_initialize.R
