@@ -2,7 +2,7 @@
 ##   A.Chafetz, USAID
 ##   Purpose: output unique mechanism list and PSNU list
 ##   Date: Dec 8, 2017
-##   Updated: 2/7/18
+##   Updated: 2018.02.15
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -13,7 +13,7 @@
 ## SETUP  ----------------------------------------------------------------------------------------------
 
   #import
-    df_mechlist  <- read_rds(file.path(fvdata, paste0("ICPI_FactView_PSNU_IM_", datestamp, ".RDS")))
+    df_mechlist  <- read_rds(Sys.glob(file.path(fvdata, "ICPI_FactView_PSNU_IM*.Rds")))
   
   #add South Sudan's data, missing from Q1+Q2 in regular Q4v2_2 FV
     source(file.path(scripts, "97_datapack_ssd_adjustment.R"))
@@ -51,7 +51,7 @@
 ## PSNU LIST  ----------------------------------------------------------------------------------------------
     
   #import
-    df_psnulist  <- read_rds(file.path(fvdata, paste0("ICPI_FactView_PSNU_", datestamp, ".RDS")))
+    df_psnulist  <- read_rds(Sys.glob(file.path(fvdata, "ICPI_FactView_PSNU_2*.Rds")))
       
   #add South Sudan's data, missing from Q1+Q2 in regular Q4v2_2 FV
       source(file.path(scripts, "97_datapack_ssd_adjustment.R"))

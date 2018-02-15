@@ -3,7 +3,7 @@
 ##   Purpose: generate output for IM targeting in Data Pack
 ##   Adopted from COP17 Stata code
 ##   Date: October 19, 2017
-##   Updated: 2/14
+##   Updated: 2018.02.15
 
 ## DEPENDENCIES
   # run 00_datapack_initialize.R
@@ -14,7 +14,7 @@
 ## SETUP ---------------------------------------------------------------------------------------------------
 
   #import
-    df_mechdistro <- read_rds(file.path(fvdata, paste0("ICPI_FactView_PSNU_IM_", datestamp, ".Rds")))
+    df_mechdistro <- read_rds(Sys.glob(file.path(fvdata, "ICPI_FactView_PSNU_IM*.Rds")))
     
   #add South Sudan's data, missing from Q1+Q2 in regular Q4v2_2 FV
     source(file.path(scripts, "97_datapack_ssd_adjustment.R"))
