@@ -3,7 +3,7 @@
 ##   Aaron Chafetz
 ##   Purpose: remove/combine duplicate SNUs with different UIDs & cluster SNUs
 ##   Date: January 12, 2017
-##   Updated: 2/15/18
+##   Updated: 2018.02.15
 
 
 ##List of PSNUs that have the same name but different UIDs
