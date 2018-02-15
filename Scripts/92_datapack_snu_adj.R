@@ -3,7 +3,7 @@
 ##   Aaron Chafetz
 ##   Purpose: remove/combine duplicate SNUs with different UIDs & cluster SNUs
 ##   Date: January 12, 2017
-##   Updated: 12/4/17
+##   Updated: 2/15/18
 
 
 ##List of PSNUs that have the same name but different UIDs
@@ -99,14 +99,23 @@ cleanup_snus <- function(df) {
             psnu = ifelse(psnuuid == "R2NsUDhdF8x", "Saint-Raphaël", psnu),
             psnu = ifelse(psnuuid == "mLFKTGjlEg1", "Chardonniàres", psnu),
             psnu = ifelse((psnuuid %in% c("ONUWhpgEbVk", "RVzTHBO9fgR")), "Vallières", psnu)
-    ) 
+    ) %>% 
+    
+    #replace the 2 _unallocated cities in Mozambique with the PSNUs they fall within
+    #C.Hill (2/15/2018)
+        mutate(psnu = ifelse(psnuuid == "uMXJsbSbXBS", "Xai-Xai", psnu),
+               psnuuid = ifelse(psnuuid == "uMXJsbSbXBS", "kKXWgaF11TT", psnuuid),
+               currentsnuprioritization = ifelse(psnuuid == "uMXJsbSbXBS", "1 - Scale-Up: Saturation", currentsnuprioritization),
+               psnu = ifelse(psnuuid == "nOE2NPIf8vq", "Nampula", psnu),
+               psnuuid = ifelse(psnuuid == "nOE2NPIf8vq", "jwLNNIw1MjY", psnuuid),
+               currentsnuprioritization = ifelse(psnuuid == "nOE2NPIf8vq", "2 - Scale-Up: Aggressive", currentsnuprioritization))
   
     #fix issue of snus having mutliple prioritizations over time --> use FY17Q4 value, otherwise take NA
     #create prioritization list if it doesn't exist already
     if (!file.exists(file.path(rawdata, "COP18prioritizations.csv"))) {
-      df_priority <- df %>% 
+      df_priority <- read_rds(Sys.glob(file.path(fvdata, "ICPI_FactView_PSNU_2*.Rds"))) %>% 
         #remove missing values (only keeping what is available in Q4)
-        filter(!is.na(fy2017q4), !is.na(psnuuid), !is.na(currentsnuprioritization)) %>%
+        filter(!is.na(fy2017q4), fy2017q4!= 0, !is.na(psnuuid), !is.na(currentsnuprioritization)) %>%
         #keep unique values of psnus and their prioritization
         distinct(psnuuid, currentsnuprioritization) %>% 
         #save to raw data for efficiency going forward
@@ -114,7 +123,6 @@ cleanup_snus <- function(df) {
     } else {
       df_priority <- read_csv(file.path(rawdata, "COP18prioritizations.csv"))  
     }
-    
     #remove problematic prioritization
     df <- df %>% 
       select(-currentsnuprioritization)
