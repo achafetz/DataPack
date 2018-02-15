@@ -3,7 +3,7 @@
 ##   Purpose: generate output for Excel based Data Pack at SNU level
 ##   Adopted from COP17 Stata code
 ##   Date: Oct 8, 2017
-##   Updated: 2018.02.14
+##   Updated: 2018.02.15
 
 ## DEPENDENCIES
 # run 00_datapack_initialize.R
@@ -234,7 +234,7 @@
         tx_curr_u15_T = ifelse((indicator=="TX_CURR" & standardizeddisaggregate=="MostCompleteAgeDisagg" & age=="<15" & numeratordenom=="N"), fy2018_targets, 0), 
         tx_curr_o15_T = ifelse((indicator=="TX_CURR" & standardizeddisaggregate=="MostCompleteAgeDisagg" & age=="15+" & numeratordenom=="N"), fy2018_targets, 0), 
         tx_curr_subnat = ifelse((indicator=="TX_CURR_SUBNAT" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
-        tx_curr_subnat_u15 = ifelse((indicator=="TX_CURR_SUBNAT" & standardizeddisaggregate=="Age/Sex" & age=="<15" & numeratordenom=="N"), fy2017apr, 0), 
+        tx_curr_subnat_u15 = ifelse((indicator=="TX_CURR_SUBNAT" & standardizeddisaggregate=="Age Aggregated/Sex" & age=="<15" & numeratordenom=="N"), fy2017apr, 0), 
         tx_new = ifelse((indicator=="TX_NEW" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2017apr, 0), 
         tx_new_T = ifelse((indicator=="TX_NEW" & standardizeddisaggregate=="Total Numerator" & numeratordenom=="N"), fy2018_targets, 0), 
         tx_new_u15 = ifelse((indicator=="TX_NEW" & standardizeddisaggregate=="MostCompleteAgeDisagg" & age=="<15" & numeratordenom=="N"), fy2017apr, 0), 
