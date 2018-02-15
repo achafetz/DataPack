@@ -2,7 +2,7 @@
 ##  A.Chafetz, USAID
 ##  Purpose: initialize packages, folder structure, and global file paths
 ##  Adapted from T. Essam, USAID [Stata]
-##  Updated: 2/12/18
+##  Updated: 2018.02.15
 ##  https://github.com/achafetz/DataPack
 
 ## DEPENDENT PACKAGES -------------------------------------------------------------------------
@@ -31,15 +31,6 @@
 
   #additional folders outside of project folder (due to large file size)
     fvdata <- "~/ICPI/Data"
-
-
-## DATES ---------------------------------------------------------------------------------------
-
-  #define date for Fact View Files
-    datestamp <- "20180209_v3_2"
-
-  #set today's date for saving
-    date <-  format(Sys.Date(), format="%d%b%Y")
 
 
 ## CLEAN UP STORED GLOBALS -------------------------------------------------------------------
