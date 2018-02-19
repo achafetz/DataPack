@@ -657,15 +657,17 @@ Sub sparkTrends()
         Next
     'add in formula to lookup prioritization
         Range(Cells(7, 4), Cells(LastRow, 4)).Select
-        Selection.FormulaR1C1 = "=IFERROR(INDEX(priority_snu,MATCH(snu_trend,snulist,0)),"""")"
+        Selection.FormulaR1C1 = "=IFERROR(INDEX(M_priority_snu,MATCH(snu_trend,Msnulist,0)),""NOT DEFINED"")"
     'add lookup formula for 2019 target
         For i = 10 To LastColumn
             IND = Cells(2, i).Value
             Range(Cells(7, i), Cells(LastRow, i)).Select
-            If IND = "hts_need" Or IND = "hts_pos" Then
+            If IND = "hts_need" Then
                 Selection.Formula = "=IFERROR(INDEX(hts_need,MATCH(snu_trend,snu_hts,0))+INDEX(hts_tst_pmtctanc_fy19,MATCH(snu_trend,snu,0))+INDEX(hts_tst_tbclinic_fy19,MATCH(snu_trend,snu,0))+INDEX(hts_tst_vmmc_fy19,MATCH(snu_trend,snu,0)),"""")"
+            ElseIf IND = "hts_pos" Then
+                Selection.Formula = "=IFERROR(INDEX(hts_pos,MATCH(snu_trend,snu_hts,0))+INDEX(hts_tst_pos_vmmc_fy19,MATCH(snu_trend,snu,0))+INDEX(tb_stat_newpos_fy19,MATCH(snu_trend,snu,0))+INDEX(pmtct_stat_newpos_fy19,MATCH(snu_trend,snu,0)),"""")"
             Else
-                Selection.Formula = "IFERROR(INDEX(hts_pos,MATCH(snu_trend,snu_hts,0))+INDEX(hts_tst_pos_vmmc_fy19,MATCH(snu_trend,snu,0))+INDEX(tb_stat_newpos_fy19,MATCH(snu_trend,snu,0))+INDEX(pmtct_stat_newpos_fy19,MATCH(snu_trend,snu,0)),"""")"
+                Selection.FormulaR1C1 = "=IFERROR(INDEX(" & IND & ", MATCH(snu_trend,snu,0)),"""")"
             End If
             i = i + 6
         Next i
@@ -952,7 +954,7 @@ Sub imTargeting()
         Selection.NumberFormat = "#,##0;-#,##0;;"
         'add in formula to lookup prioritization
         Range(Cells(7, 4), Cells(LastRow, 4)).Select
-        Selection.FormulaR1C1 = "=IFERROR(INDEX(priority_snu,MATCH(Dsnulist,snulist,0)),""NOT DEFINED"")"
+        Selection.FormulaR1C1 = "=IFERROR(INDEX(M_priority_snu,MATCH(Dsnulist,Msnulist,0)),""NOT DEFINED"")"
         'named range
         Range(Cells(4, 3), Cells(LastRow, LastColumn)).Select
         Application.DisplayAlerts = False

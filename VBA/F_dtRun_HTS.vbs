@@ -231,9 +231,9 @@ Sub distroFormulas()
             If sht <> "KeyPop" Then
                 Sheets(sht).Activate
                 colIND = WorksheetFunction.Match("DP TARGETS", ActiveWorkbook.Sheets(sht).Range("1:1"), 0)
-                Cells(7, colIND + 2).FormulaR1C1 = "=RC[-2] - RC[-1]"
-                If sht <> "VMMC" And sht <> "TBClinic" And sht <> "PMTCTANC" Then
-                    Cells(7, colIND + 4).FormulaR1C1 = "=RC[-2] - RC[-1]"
+                Cells(7, colIND + 2).FormulaR1C1 = "=IFERROR(RC[-2] - RC[-1],0)"
+                If sht <> "VMMC" And sht <> "TBClinic" And sht <> "PMTCTANC" And sht <> "PediatricServices" And sht <> "Malnutrition" Then
+                    Cells(7, colIND + 5).FormulaR1C1 = "=IFERROR(RC[-2] - RC[-1], 0)"
                 End If
             End If
         Next sht

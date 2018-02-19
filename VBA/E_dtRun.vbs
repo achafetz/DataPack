@@ -278,7 +278,7 @@ Sub distroFormulas()
 
             Sheets(sht).Activate
             colIND = WorksheetFunction.Match(IND, ActiveWorkbook.Sheets(sht).Range("6:6"), 0)
-            Cells(7, colIND).FormulaR1C1 = "=RC[-2] - RC[-1]"
+            Cells(7, colIND).FormulaR1C1 = "=IFERROR(RC[-2] - RC[-1], 0)"
 
         Next IND
 

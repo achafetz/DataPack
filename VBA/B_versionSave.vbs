@@ -6,7 +6,7 @@ tab (eg Updated: December 22, 2015). Run this sub via the "SAVE" button _
 on the POPref tab in the template.
 
     Dim templ_fldr As String
-    
+
     Application.ScreenUpdating = False
 
     'folder path for saving
